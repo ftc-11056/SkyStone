@@ -406,8 +406,7 @@ public class ConceptVuforiaNavigationWebcam extends LinearOpMode {
                     lastLocation = robotLocationTransform;
                 }
             }
-            /**
-             * Provide feedback as to where the robot was last located (if we know).
+            /**he robot was last located (if we know).
              */
             if (lastLocation != null) {
                 //  RobotLog.vv(TAG, "robot=%s", format(lastLocation));
@@ -416,6 +415,7 @@ public class ConceptVuforiaNavigationWebcam extends LinearOpMode {
                 telemetry.addData("Pos", "Unknown");
             }
             telemetry.update();
+//             * Provide feedback as to where t
         }
     }
 
