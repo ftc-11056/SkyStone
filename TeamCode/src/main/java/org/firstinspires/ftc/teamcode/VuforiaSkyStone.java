@@ -84,7 +84,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 
 @TeleOp(name = "SKYSTONE Vuforia Nav", group = "Concept")
-public class VuforiaSkyStoneTest extends LinearOpMode {
+public class VuforiaSkyStone extends LinearOpMode {
 
     // IMPORTANT:  For Phone Camera, set 1) the camera source and 2) the orientation, based on how your phone is mounted:
     // 1) Camera Source.  Valid choices are:  BACK (behind screen) or FRONT (selfie side)
@@ -143,14 +143,14 @@ public class VuforiaSkyStoneTest extends LinearOpMode {
         Center
     }
 
-    public ImagePos getImageLocation(double yPos) {
-        if (yPos >3.5)
-            return ImagePos.Right;
+          public ImagePos getImageLocation(double yPos) {
+            if (yPos >3.5)
+                return ImagePos.Right;
 
-        else if (yPos > -3.5 && yPos < 3.5)
-            return ImagePos.Center;
-        else
-        return ImagePos.Left;
+            else if (yPos > -3.5 && yPos < 3.5)
+                return ImagePos.Center;
+            else
+                return ImagePos.Left;
 
     }
 
