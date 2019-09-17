@@ -78,8 +78,8 @@ public class Autotest extends OpMode{
         double Ki = 0;
         double Kd = 0;
 
-        MyPathBuilder = new PathBuilder(MaxVelocity, MaxAcceleration, Kc);
-        MyPurePursuitGUI = new PurePursuitGUI(StartRobotPosition, startRobotDirection, targetDirection, lookAheadDistance, turnSpeed, Kv, Ka, Kp, Ki, Kd, MyOdometry);
+ //       MyPathBuilder = new PathBuilder(MaxVelocity, MaxAcceleration, Kc);
+ //       MyPurePursuitGUI = new PurePursuitGUI(StartRobotPosition, startRobotDirection, targetDirection, lookAheadDistance, turnSpeed, Kv, Ka, Kp, Ki, Kd, MyOdometry);
 
     }
 
