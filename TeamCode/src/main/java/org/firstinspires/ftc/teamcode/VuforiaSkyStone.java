@@ -144,10 +144,10 @@ public class VuforiaSkyStone extends LinearOpMode {
     }
 
           public ImagePos getImageLocation(double yPos) {
-            if (yPos >3.5)
+            if (yPos >=2)
                 return ImagePos.Right;
 
-            else if (yPos > -3.5 && yPos < 3.5)
+            else if (yPos > -2 && yPos < 2)
                 return ImagePos.Center;
             else
                 return ImagePos.Left;
