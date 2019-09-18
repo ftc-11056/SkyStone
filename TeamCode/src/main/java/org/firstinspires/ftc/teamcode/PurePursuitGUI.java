@@ -4,22 +4,15 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class PurePursuitGUI {
-
-    //fields:
-
-    private PathFollowerMecanum MyPathFollower;
-    private Odometry MyOdometry;
+public class PurePursuitGUI extends PathFollowerMecanum{
 
 
     //constants of PathFollower:
-    private final double MaxAcceleration = 0;
 
     //constractors:
 
-    public PurePursuitGUI(OurPoint RobotPosition, double robotDirection, double targetDirection, double lookAheadDistance, double turnSpeed, double Kv, double Ka, double Kp, double Ki, double Kd, Odometry MyOdometry){
-        this.MyOdometry = MyOdometry;
-
+    public PurePursuitGUI(OurPoint RobotPosition, double robotDirection, double targetDirection, double lookAheadDistance, double turnSpeed, double MaxAcceleration, double Kv, double Ka, double Kp, double Ki, double Kd, Odometry MyOdometry){
+        super(RobotPosition, robotDirection, null , lookAheadDistance, targetDirection, MaxAcceleration, turnSpeed,Kv, Ka, Kp, Ki, Kd);;
         Object[][] wayPoint = null;
         String csvAdress = "C:\\ybot\\Program2020\\sky-stone";
         try {
@@ -43,11 +36,10 @@ public class PurePursuitGUI {
         catch (IOException e) {
 
         }
-        MyPathFollower = new PathFollowerMecanum(RobotPosition, robotDirection, wayPoint , lookAheadDistance, targetDirection, MaxAcceleration, turnSpeed,Kv, Ka, Kp, Ki, Kd);
+        setWayPoint(wayPoint);
 
     }
 
-    //Methodes:
 
 
 

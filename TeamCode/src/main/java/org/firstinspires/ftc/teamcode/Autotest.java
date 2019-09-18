@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -36,33 +37,34 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @Autonomous(name="PurePursuit", group="Auto")
 @Disabled
 public class Autotest extends OpMode{
 
     /* Declare OpMode members. */
-    HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
     private ElapsedTime     runtime = new ElapsedTime();
     private PathBuilder MyPathBuilder;
     private PurePursuitGUI MyPurePursuitGUI;
     private Odometry MyOdometry;
+    private DriveTrain MyDriveTrain = new DriveTrain();
+    private BNO055IMU imu = MyDriveTrain.getImu() ;
+    private Orientation angles;
+
 
     /*
      * Code to run ONCE when the driver hits INIT
      */
     @Override
     public void init() {
-
-    }
-
-    /*
-     * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
-     */
-    @Override
-    public void init_loop() {
+        MyDriveTrain.init(hardwareMap);
         OurPoint StartRobotPosition = new OurPoint(0,0);
         double startRobotDirection = 0;
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);;
         MyOdometry = new Odometry(StartRobotPosition, startRobotDirection);
 
 
@@ -77,9 +79,19 @@ public class Autotest extends OpMode{
         double Kp = 0;
         double Ki = 0;
         double Kd = 0;
+        telemetry.addLine("init1");
+        MyPathBuilder = new PathBuilder(MaxVelocity, MaxAcceleration, Kc);
+        telemetry.addLine("init2");
+        MyPurePursuitGUI = new PurePursuitGUI(StartRobotPosition, startRobotDirection, targetDirection, lookAheadDistance, turnSpeed, MaxAcceleration, Kv, Ka, Kp, Ki, Kd, MyOdometry);
+        telemetry.addLine("init3");
 
- //       MyPathBuilder = new PathBuilder(MaxVelocity, MaxAcceleration, Kc);
- //       MyPurePursuitGUI = new PurePursuitGUI(StartRobotPosition, startRobotDirection, targetDirection, lookAheadDistance, turnSpeed, Kv, Ka, Kp, Ki, Kd, MyOdometry);
+    }
+
+    /*
+     * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
+     */
+    @Override
+    public void init_loop() {
 
     }
 
@@ -96,7 +108,13 @@ public class Autotest extends OpMode{
      */
     @Override
     public void loop() {
-
+        double currentTime = runtime.seconds();
+        double odometryRight = MyDriveTrain.RF.getCurrentPosition();
+        double odometryLeft = MyDriveTrain.LF.getCurrentPosition();
+        double odometryHorizental = MyDriveTrain.RB.getCurrentPosition();
+        double direction = MyDriveTrain.imu.getAngularOrientation();
+        MyOdometry.setAll(odometryRight, odometryLeft, odometryHorizental, direction, currentTime);
+        MyPurePursuitGUI.UpdatePowerByRobotPosition(runtime.seconds(), MyOdometry.getPosition(), MyOdometry.getDirection(), MyOdometry.getVelocityX(), MyOdometry.getVelocityY());
 
     }
 

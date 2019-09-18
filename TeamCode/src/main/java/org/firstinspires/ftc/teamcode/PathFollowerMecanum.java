@@ -76,6 +76,10 @@ public class PathFollowerMecanum {
 
     //methodes:
 
+    public void setWayPoint(Object[][] wayPoint){
+        this.wayPoint = wayPoint;
+    }
+
     private int findClosetPointIndex(){
         double minDistance = Double.MAX_VALUE;
         int closetPointIndex = lustClosetPointIndex;
@@ -216,5 +220,15 @@ public class PathFollowerMecanum {
         Ypower = FeedForwardY + FeedBackY;
     }
 
+    public double getXpower() {
+        return Xpower;
+    }
 
+    public double getYpower() {
+        return Ypower;
+    }
+
+    public double getCpower() {
+        return Cpower;
+    }
 }
