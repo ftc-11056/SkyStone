@@ -29,31 +29,20 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-
-@Autonomous(name="PurePursuit", group="Auto")
 @Disabled
-public class Autotest extends OpMode{
+@Autonomous(name="PurePursuit", group="Auto")
+public class Autotest extends Robot{
 
     /* Declare OpMode members. */
-    private ElapsedTime     runtime = new ElapsedTime();
+    private ElapsedTime runtime = new ElapsedTime();
     private PathBuilder MyPathBuilder;
     private PurePursuitGUI MyPurePursuitGUI;
     private Odometry MyOdometry;
-    private DriveTrain MyDriveTrain = new DriveTrain();
-    private BNO055IMU imu = MyDriveTrain.getImu() ;
-    private Orientation angles;
 
 
     /*
@@ -61,10 +50,9 @@ public class Autotest extends OpMode{
      */
     @Override
     public void init() {
-        MyDriveTrain.init(hardwareMap);
+        super.init();
         OurPoint StartRobotPosition = new OurPoint(0,0);
         double startRobotDirection = 0;
-        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);;
         MyOdometry = new Odometry(StartRobotPosition, startRobotDirection);
 
 
@@ -109,10 +97,11 @@ public class Autotest extends OpMode{
     @Override
     public void loop() {
         double currentTime = runtime.seconds();
-        double odometryRight = MyDriveTrain.RF.getCurrentPosition();
-        double odometryLeft = MyDriveTrain.LF.getCurrentPosition();
-        double odometryHorizental = MyDriveTrain.RB.getCurrentPosition();
-        double direction = MyDriveTrain.imu.getAngularOrientation();
+        double odometryRight = MyDriveTrain.RightForward.getCurrentPosition();
+        double odometryLeft = MyDriveTrain.LeftForward.getCurrentPosition();
+        double odometryHorizental = MyDriveTrain.RightBack.getCurrentPosition();
+        angles = IMU.getAngularOrientation();
+        double direction = angles.firstAngle;
         MyOdometry.setAll(odometryRight, odometryLeft, odometryHorizental, direction, currentTime);
         MyPurePursuitGUI.UpdatePowerByRobotPosition(runtime.seconds(), MyOdometry.getPosition(), MyOdometry.getDirection(), MyOdometry.getVelocityX(), MyOdometry.getVelocityY());
 
