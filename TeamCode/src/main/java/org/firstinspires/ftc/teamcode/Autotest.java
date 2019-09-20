@@ -67,12 +67,8 @@ public class Autotest extends Robot{
         double Kp = 0;
         double Ki = 0;
         double Kd = 0;
-        telemetry.addLine("init1");
         MyPathBuilder = new PathBuilder(MaxVelocity, MaxAcceleration, Kc);
-        telemetry.addLine("init2");
         MyPurePursuitGUI = new PurePursuitGUI(StartRobotPosition, startRobotDirection, targetDirection, lookAheadDistance, turnSpeed, MaxAcceleration, Kv, Ka, Kp, Ki, Kd, MyOdometry);
-        telemetry.addLine("init3");
-
     }
 
     /*
@@ -104,7 +100,7 @@ public class Autotest extends Robot{
         double direction = angles.firstAngle;
         MyOdometry.setAll(odometryRight, odometryLeft, odometryHorizental, direction, currentTime);
         MyPurePursuitGUI.UpdatePowerByRobotPosition(runtime.seconds(), MyOdometry.getPosition(), MyOdometry.getDirection(), MyOdometry.getVelocityX(), MyOdometry.getVelocityY());
-
+        MyPurePursuitGUI.updateGraghics();
     }
 
     /*

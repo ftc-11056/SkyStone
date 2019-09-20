@@ -18,10 +18,6 @@ public class OrbitOpMode extends LinearOpMode {
     public static double ORBITAL_RADIUS = 50;
     public static double SIDE_LENGTH = 10;
 
-    public static double AMPLITUDE = 10;
-    public static double PHASE = 90;
-    public static double FREQUENCY = 0.5;
-
     private static void rotatePoints(double[] xPoints, double[] yPoints, double angle) {
         for (int i = 0; i < xPoints.length; i++) {
             double x = xPoints[i];
@@ -34,7 +30,6 @@ public class OrbitOpMode extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         FtcDashboard dashboard = FtcDashboard.getInstance();
-        telemetry = dashboard.getTelemetry();
 
         waitForStart();
 
@@ -53,18 +48,7 @@ public class OrbitOpMode extends LinearOpMode {
             for (int i = 0; i < 4; i++) {
                 bxPoints[i] += bx;
                 byPoints[i] += by;
-                telemetry.addData("bx", bxPoints[i]);
-                telemetry.addData("by", byPoints[i]);
-                telemetry.update();
-
-
             }
-            telemetry.addData("x", AMPLITUDE * Math.sin(
-                    2 * Math.PI * FREQUENCY * getRuntime() + Math.toRadians(PHASE)
-            ));
-
-
-
 
             TelemetryPacket packet = new TelemetryPacket();
             packet.fieldOverlay()
@@ -74,8 +58,6 @@ public class OrbitOpMode extends LinearOpMode {
                     .setFill("black")
                     .fillPolygon(bxPoints, byPoints);
             dashboard.sendTelemetryPacket(packet);
-
-
         }
     }
 }

@@ -1,18 +1,29 @@
 package org.firstinspires.ftc.teamcode;
-import java.io.File;
-import java.io.FileReader;
+
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class PurePursuitGUI extends PathFollowerMecanum{
 
 
-    //constants of PathFollower:
+    //Fields:
+    private FtcDashboard dashboard;
 
-    //constractors:
+
+    //constructors:
 
     public PurePursuitGUI(OurPoint RobotPosition, double robotDirection, double targetDirection, double lookAheadDistance, double turnSpeed, double MaxAcceleration, double Kv, double Ka, double Kp, double Ki, double Kd, Odometry MyOdometry){
         super(RobotPosition, robotDirection, null , lookAheadDistance, targetDirection, MaxAcceleration, turnSpeed,Kv, Ka, Kp, Ki, Kd);;
+        readWayPointFromCSV();
+        dashboard = FtcDashboard.getInstance();
+    }
+
+    //methodes:
+
+    private void readWayPointFromCSV(){
         Object[][] wayPoint = null;
         String csvAdress = "C:\\ybot\\Program2020\\sky-stone";
         try {
@@ -37,11 +48,15 @@ public class PurePursuitGUI extends PathFollowerMecanum{
 
         }
         setWayPoint(wayPoint);
-
     }
 
 
-
+    public void updateGraghics(){
+        TelemetryPacket packet = new TelemetryPacket();
+        packet.put("x", targetVelocity);
+        packet.put("x", measuredVelocity);
+        dashboard.sendTelemetryPacket(packet);
+    }
 
 
 

@@ -16,6 +16,8 @@ public class PathFollowerMecanum {
     private double lustTimeRateLimiter;
     private double targetDirection;
     private final double turnSpeed;
+    protected double targetVelocity;
+    protected double measuredVelocity;
 
     private double Xvelocity;
     private double Yvelocity;
@@ -53,6 +55,8 @@ public class PathFollowerMecanum {
         this.lustOutputRateLimiter = 0;
         lustTimeRateLimiter = 0;
         this.targetDirection = Math.toRadians(targetDirection);
+        targetVelocity = 0;
+        measuredVelocity = 0;
         Xvelocity = 0;
         Yvelocity = 0;
         lastXtargetVelocity = 0;
@@ -158,7 +162,7 @@ public class PathFollowerMecanum {
         OurPoint LookaheadPoint = findLookaheadPoint();
         double Xdistance = calculateHorizontalDistance(LookaheadPoint);
         double LookaheadPointAngleAccordingRobotLine = Math.acos(Xdistance / lookAheadDistance);
-        double targetVelocity = (Double)wayPoint[closetPointIndex][1];
+        targetVelocity = (Double)wayPoint[closetPointIndex][1];
         targetVelocity = rateLimiter(targetVelocity, time);
         Xvelocity = targetVelocity * Math.cos(LookaheadPointAngleAccordingRobotLine) * XdecreaseConstant;
         Yvelocity = targetVelocity * Math.sin(LookaheadPointAngleAccordingRobotLine);
@@ -211,13 +215,15 @@ public class PathFollowerMecanum {
 
     public void UpdatePowerByRobotPosition(double time, OurPoint RobotPosition, double robotDirection, double measuredVelocityX, double measuredVelocityY){
         UpdateVelocitiesByRobotPosition(time, RobotPosition, robotDirection);
-        double FeedForwardX = Kv*Xvelocity + Ka*lastXtargetVelocity;
-        double FeedForwardY = Kv*Yvelocity + Ka*lastYtargetVelocity;
+        measuredVelocity = Math.sqrt(MyMath.square(measuredVelocityX)+MyMath.square(measuredVelocityY));
+        double FeedForwardX = Kv*Xvelocity + Ka*XtargetAcceleration;
+        double FeedForwardY = Kv*Yvelocity + Ka*YtargetAcceleration;
         double FeedForwardC = Cvelocity * turnSpeed;
         double FeedBackX = PID(measuredVelocityX, "X");
         double FeedBackY = PID(measuredVelocityY, "Y");
         Xpower = FeedForwardX + FeedBackX;
         Ypower = FeedForwardY + FeedBackY;
+        Cpower = FeedForwardC;
     }
 
     public double getXpower() {
