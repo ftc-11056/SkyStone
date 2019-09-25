@@ -5,18 +5,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.Range;
-
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-import java.util.*;
+import java.util.Arrays;
 
 /**
  * This OpMode uses the common Pushbot hardware class to define the devices on the robot.
@@ -31,7 +27,7 @@ import java.util.*;
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-
+@Disabled
 @TeleOp(name="estFieldOrientedMecanumDrive", group="teamcode")
 public class estFieldOrientedMecanumDrive extends LinearOpMode {
     BNO055IMU imu;
@@ -132,10 +128,10 @@ public class estFieldOrientedMecanumDrive extends LinearOpMode {
         }
     }
     public void arcade(double y, double x, double c, DcMotor leftFront, DcMotor rightFront, DcMotor leftBack, DcMotor rightBack) {
-        double leftFrontVal = y + x + c;
-        double rightFrontVal = y - x - c;
-        double leftBackVal = y - x + c;
-        double rightBackVal = y + x - c;
+        double leftFrontVal = -y + x + c;
+        double rightFrontVal = -y - x - c;
+        double leftBackVal = -y - x + c;
+        double rightBackVal = -y + x - c;
 
         //Move range to between 0 and +1, if not already
         double[] wheelPowers = {rightFrontVal, leftFrontVal, leftBackVal, rightBackVal};
@@ -161,4 +157,5 @@ public class estFieldOrientedMecanumDrive extends LinearOpMode {
     }
 
 }
+
 

@@ -1,8 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -28,6 +25,11 @@ public class PathBuilder {
 
         PathGenerator MyPathGenerator = new PathGenerator(Path, maxSpace, weightData, weightSmooth, tolerance, MaxVelocity, Kc, MaxAcceleration);
         Object[][] wayPoint = MyPathGenerator.getWayPoint();
+        writeWayPoint(wayPoint);
+
+    }
+
+    private void writeWayPoint(Object[][] wayPoint){
         File csvFile = new File("wayPoint.csv");
         try {
             FileWriter writer = new FileWriter(csvFile);
@@ -72,7 +74,6 @@ public class PathBuilder {
         }
 
         System.out.println("Build Path");
-
     }
 
 

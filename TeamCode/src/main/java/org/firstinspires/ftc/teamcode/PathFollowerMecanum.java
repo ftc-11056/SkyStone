@@ -6,11 +6,11 @@ public class PathFollowerMecanum {
 
     //fields:
 
-    private OurPoint RobotPosition;
+    protected OurPoint RobotPosition;
     private double robotDirection;
-    private Object[][] wayPoint;
+    protected Object[][] wayPoint;
     private int lustClosetPointIndex;
-    private final double lookAheadDistance;
+    protected final double lookAheadDistance;
     private double MaxAcceleration;
     private double lustOutputRateLimiter;
     private double lustTimeRateLimiter;
@@ -19,9 +19,9 @@ public class PathFollowerMecanum {
     protected double targetVelocity;
     protected double measuredVelocity;
 
-    private double Xvelocity;
-    private double Yvelocity;
-    private double Cvelocity;
+    protected double Xvelocity;
+    protected double Yvelocity;
+    protected double Cvelocity;
 
     private double lastXtargetVelocity;
     private double lastYtargetVelocity;

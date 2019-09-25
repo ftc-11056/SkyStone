@@ -1,14 +1,19 @@
 package org.firstinspires.ftc.teamcode;
 
-
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-public class Robot extends OpMode {
+public class Robot extends LinearOpMode {
+
+    protected ElapsedTime runtime = new ElapsedTime();
 
     /* Drive Train Motor */
     private DcMotor LB = null;
@@ -23,17 +28,25 @@ public class Robot extends OpMode {
 
     /*Mechanisms*/
     protected DriveTrain MyDriveTrain = null;
+    protected Odometry MyOdometry = null;
 
 
 
     @Override
-    public void init() {
+    public void runOpMode() throws InterruptedException {
+
+        runtime.reset();
 
         // Define and Initialize Motors Of Drive Train
         LB  = hardwareMap.get(DcMotor.class, "LB");
         LF  = hardwareMap.get(DcMotor.class, "LF");
         RF  = hardwareMap.get(DcMotor.class, "RF");
         RB  = hardwareMap.get(DcMotor.class, "RB");
+
+        LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         LF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         LB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
@@ -54,7 +67,7 @@ public class Robot extends OpMode {
         /*Define and Initialize Of IMU*/
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        parameters.angleUnit           = BNO055IMU.AngleUnit.RADIANS;
         parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
         parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
         parameters.loggingEnabled      = true;
@@ -63,8 +76,11 @@ public class Robot extends OpMode {
         IMU = hardwareMap.get(BNO055IMU.class, "imu");
         IMU.initialize(parameters);
         // make sure the imu gyro is calibrated before continuing.
-
-        angles = IMU.getAngularOrientation();
+        while (!isStarted() && !isStopRequested() && !IMU.isGyroCalibrated()) {
+            sleep(50);
+            idle();
+        }
+        angles = IMU.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
 
         // Define and initialize ALL installed servos.
 
@@ -72,8 +88,5 @@ public class Robot extends OpMode {
         MyDriveTrain = new DriveTrain(LB,LF, RF, RB);
     }
 
-    @Override
-    public void loop() {
 
-    }
 }

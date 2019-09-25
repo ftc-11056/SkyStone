@@ -2,8 +2,9 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -14,7 +15,8 @@ import java.lang.reflect.Modifier;
 /*
  * Test the dashboard gamepad integration.
  */
-@Autonomous
+@Disabled
+@TeleOp
 public class GamepadTestOpMode extends LinearOpMode {
 
     private static void logGamepad(Telemetry telemetry, Gamepad gamepad, String prefix) {

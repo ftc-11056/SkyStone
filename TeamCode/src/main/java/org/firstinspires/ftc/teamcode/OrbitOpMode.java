@@ -51,13 +51,31 @@ public class OrbitOpMode extends LinearOpMode {
             }
 
             TelemetryPacket packet = new TelemetryPacket();
+            packet.put("TargetVel", 10 * Math.sin(2 * Math.PI * 0.5 * getRuntime() + Math.toRadians(90)));
+            packet.put("x", bxPoints[0]);
+            packet.put("y", byPoints[0]);
+            double[] x = {0.2*100/2.54,0.2*100/2.54,1.2*100/2.54};
+            double[] y = {0.2*100/2.54,1.2*100/2.54,1.2*100/2.54};
+            turnCoordinateSystem(x,y);
             packet.fieldOverlay()
                     .setStrokeWidth(1)
                     .setStroke("goldenrod")
-                    .strokeCircle(0, 0, ORBITAL_RADIUS)
+                    .strokePolyline(x,y)
                     .setFill("black")
                     .fillPolygon(bxPoints, byPoints);
             dashboard.sendTelemetryPacket(packet);
         }
+
+    }
+
+    private void turnCoordinateSystem(double[] x, double[] y){
+        double cosA = Math.cos(Math.toRadians(-90));
+        double sinA = Math.sin(Math.toRadians(-90));
+        for(int i = 0; i < x.length; i++){
+            double tempx = x[i];
+            x[i] = x[i]*cosA - y[i]*sinA;
+            y[i]= tempx*sinA + y[i]*cosA;
+        }
+
     }
 }
