@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -20,7 +21,8 @@ public class Robot extends LinearOpMode {
     private DcMotor  LF = null;
     private DcMotor  RF = null;
     private DcMotor  RB = null;
-
+    public Servo Arm = null;
+    public Servo Intake = null;
     /*IMU Fileds*/
     protected BNO055IMU IMU = null;
     protected Orientation angles = null;
@@ -30,7 +32,7 @@ public class Robot extends LinearOpMode {
     protected DriveTrain MyDriveTrain = null;
     protected Odometry MyOdometry = null;
 
-
+    public double servoPosition = 0.005;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -42,14 +44,17 @@ public class Robot extends LinearOpMode {
         LF  = hardwareMap.get(DcMotor.class, "LF");
         RF  = hardwareMap.get(DcMotor.class, "RF");
         RB  = hardwareMap.get(DcMotor.class, "RB");
+        Arm  = hardwareMap.get(Servo.class, "Arm");
+        Intake  = hardwareMap.get(Servo.class, "Intake");
+
 
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        LF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
-        LB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        RF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        RB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
         // Set all motors to zero power
         LF.setPower(0);
@@ -59,11 +64,11 @@ public class Robot extends LinearOpMode {
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
-        LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+       /* LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
+*/
         /*Define and Initialize Of IMU*/
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();

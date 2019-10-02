@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.util.Arrays;
 
-public class DriveTrain {
+public class DriveTrain extends Robot {
 
     /* Fileds */
 
@@ -20,7 +20,6 @@ public class DriveTrain {
     static final double DRIVE_GEAR_REDUCTION = 19.5;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_CM = 10.16;     // For figuring circumference
     static final double COUNTS_PER_CM = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_CM * 3.1415926);
-
 
     public String Mode = "Oriented";
 
@@ -77,14 +76,10 @@ public class DriveTrain {
 
     public void encoderDrive(double speed, double LeftFrontCM,double LeftBackCM, double RightFrontCM,double RightBackCM) {
         runtime.reset();
-        int newLeftFrontTarget;
-        int newLeftBackTarget;
-        int newRightFrontTarget;
-        int newRightBackTarget;
-        newLeftFrontTarget = 0;
-        newLeftBackTarget = 0;
-        newRightFrontTarget = 0;
-        newRightBackTarget = 0;
+        int newLeftFrontTarget = 0;
+        int newLeftBackTarget = 0;
+        int newRightFrontTarget = 0;
+        int newRightBackTarget = 0;
 
         // Ensure that the opmode is still active
 
@@ -97,7 +92,7 @@ public class DriveTrain {
         newLeftFrontTarget = LeftFront.getCurrentPosition() + (int) (LeftFrontCM * COUNTS_PER_CM);
         newLeftBackTarget = LeftBack.getCurrentPosition() + (int) (LeftBackCM * COUNTS_PER_CM);
         newRightFrontTarget = RightFront.getCurrentPosition() + (int) (RightFrontCM * COUNTS_PER_CM);
-        newRightBackTarget = RightFront.getCurrentPosition() + (int) (RightBackCM * COUNTS_PER_CM);
+        newRightBackTarget = RightBack.getCurrentPosition() + (int) (RightBackCM * COUNTS_PER_CM);
 
         LeftFront.setTargetPosition(newLeftFrontTarget);
         LeftBack.setTargetPosition(newLeftBackTarget);
@@ -135,6 +130,15 @@ public class DriveTrain {
 
 
         //  sleep(250);   // optional pause after each move
+    }
+
+    public void startAndResetEncoders () {
+
+        LeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LeftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
     }
 }
 
