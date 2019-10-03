@@ -6,7 +6,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
-@TeleOp(name="TeleOpTest", group="teamcode")
+@TeleOp(name = "TeleOpTest", group = "teamcode")
 public class TeleOpTest extends Robot {
 
 
@@ -36,12 +36,9 @@ public class TeleOpTest extends Robot {
 
             if (gamepad1.left_bumper /*&& Arm.getPosition() > 0.75*/) {
                 Arm.setPosition(Arm.getPosition() - servoPosition);
-            }
-              else if (gamepad1.right_bumper /*&& Arm.getPosition() < 1*/) {
+            } else if (gamepad1.right_bumper /*&& Arm.getPosition() < 1*/) {
                 Arm.setPosition(Arm.getPosition() + servoPosition);
-            }
-
-            else{
+            } else {
                 Arm.setPosition(Arm.getPosition());
             }
             telemetry.addData("Arm Position", Arm.getPosition());
@@ -50,37 +47,36 @@ public class TeleOpTest extends Robot {
             if (gamepad1.a) {
                 Output.setPosition(1);
 
-            }
-            else if (gamepad1.y) {
+            } else if (gamepad1.y) {
                 Output.setPosition(0);
             }
 
             if (gamepad1.dpad_up) {
 
-               LinearMotor.setPower(0.5);
-            }
-
-                else if(gamepad1.dpad_down){
+                LinearMotor.setPower(0.5);
+            } else if (gamepad1.dpad_down) {
                 LinearMotor.setPower(-0.5);
-            }
-                else{
+            } else {
                 LinearMotor.setPower(0);
             }
-                if (gamepad1.dpad_right) {
-                    MyIntake.maxIntake();
-                }
+            if (gamepad1.dpad_right) {
+                MyIntake.maxIntake();
+            } else if (gamepad1.dpad_left) {
+                MyIntake.maxOuttake();
+            } else {
+                MyIntake.move(0, 0);
+            }
 
-                    else if (gamepad1.dpad_left) {
-                    MyIntake.maxOuttake();
-                }
-                    else {
-                    MyIntake.move(0,0);
-                }
-                }
 
+
+            }
 
         }
     }
+
+
+
+
 
 
 
