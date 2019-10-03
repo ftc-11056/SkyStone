@@ -4,7 +4,6 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -19,7 +18,7 @@ public class Robot extends LinearOpMode {
 
     /* Drive Train Motor */
     public DcMotor LB = null;
-    private DcMotor  LF = null;
+    public DcMotor  LF = null;
     public DcMotor  RF = null;
     public DcMotor  RB = null;
 
@@ -38,6 +37,7 @@ public class Robot extends LinearOpMode {
     /*Mechanisms*/
     protected DriveTrain MyDriveTrain = null;
     protected Odometry MyOdometry = null;
+    protected IntakeTrain MyIntake = null;
 
     public double servoPosition = 0.005;
 
@@ -105,6 +105,7 @@ public class Robot extends LinearOpMode {
 
         // Define Mechanisms:
         MyDriveTrain = new DriveTrain(LB,LF, RF, RB);
+        MyIntake = new IntakeTrain(IntakeL, IntakeR);
     }
 
 

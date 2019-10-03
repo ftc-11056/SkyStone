@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -68,24 +67,19 @@ public class TeleOpTest extends Robot {
                 LinearMotor.setPower(0);
             }
                 if (gamepad1.dpad_right) {
-                    IntakeL.setPower(1);
-                    IntakeR.setPower(1);
+                    MyIntake.maxIntake();
                 }
 
                     else if (gamepad1.dpad_left) {
-                    IntakeL.setPower(-1);
-                    IntakeR.setPower(-1);
+                    MyIntake.maxOuttake();
                 }
                     else {
-                        IntakeL.setPower(0);
-                        IntakeR.setPower(0);
+                    MyIntake.move(0,0);
                 }
                 }
-
 
 
         }
-
     }
 
 
