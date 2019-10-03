@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -17,12 +18,18 @@ public class Robot extends LinearOpMode {
     protected ElapsedTime runtime = new ElapsedTime();
 
     /* Drive Train Motor */
-    private DcMotor LB = null;
+    public DcMotor LB = null;
     private DcMotor  LF = null;
-    private DcMotor  RF = null;
-    private DcMotor  RB = null;
+    public DcMotor  RF = null;
+    public DcMotor  RB = null;
+
+    /*Systems Motor and Servo*/
+    public DcMotor LinearMotor = null;
+    public DcMotor IntakeL = null;
+    public DcMotor IntakeR = null;
     public Servo Arm = null;
-    public Servo Intake = null;
+    public Servo Output = null;
+
     /*IMU Fileds*/
     protected BNO055IMU IMU = null;
     protected Orientation angles = null;
@@ -44,8 +51,13 @@ public class Robot extends LinearOpMode {
         LF  = hardwareMap.get(DcMotor.class, "LF");
         RF  = hardwareMap.get(DcMotor.class, "RF");
         RB  = hardwareMap.get(DcMotor.class, "RB");
+        // Define and Initialize Systems Motors and Servo
+        LinearMotor = hardwareMap.get(DcMotor.class,"LinearMotor");
         Arm  = hardwareMap.get(Servo.class, "Arm");
-        Intake  = hardwareMap.get(Servo.class, "Intake");
+        Output  = hardwareMap.get(Servo.class, "OutPut");
+        IntakeL = hardwareMap.get(DcMotor.class,"IntakeL");
+        IntakeR = hardwareMap.get(DcMotor.class,"IntakeR");
+
 
 
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -55,22 +67,24 @@ public class Robot extends LinearOpMode {
 
         RF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         RB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        IntakeL.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE the intake System
+
 
         // Set all motors to zero power
         LF.setPower(0);
         LB.setPower(0);
         RB.setPower(0);
         RF.setPower(0);
+      //  linear_motor.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
        /* LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-*/
-        /*Define and Initialize Of IMU*/
+        RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);*/
 
+        /*Define and Initialize Of IMU*/
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.RADIANS;
         parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;

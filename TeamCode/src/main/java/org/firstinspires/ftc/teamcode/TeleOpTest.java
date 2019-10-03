@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -23,7 +24,7 @@ public class TeleOpTest extends Robot {
 
 
             if (gamepad1.x) MyDriveTrain.setMode("arcade");
-            else if (gamepad1.a) MyDriveTrain.setMode("Oriented");
+            else if (gamepad1.b) MyDriveTrain.setMode("Oriented");
 
             telemetry.addData("Mode: ", MyDriveTrain.Mode);
             telemetry.update();
@@ -48,19 +49,46 @@ public class TeleOpTest extends Robot {
             telemetry.update();
 
             if (gamepad1.a) {
-                Intake.setPosition(1);
+                Output.setPosition(1);
 
             }
             else if (gamepad1.y) {
-                Intake.setPosition(0);
+                Output.setPosition(0);
             }
+
+            if (gamepad1.dpad_up) {
+
+               LinearMotor.setPower(0.5);
+            }
+
+                else if(gamepad1.dpad_down){
+                LinearMotor.setPower(-0.5);
+            }
+                else{
+                LinearMotor.setPower(0);
+            }
+                if (gamepad1.dpad_right) {
+                    IntakeL.setPower(1);
+                    IntakeR.setPower(1);
+                }
+
+                    else if (gamepad1.dpad_left) {
+                    IntakeL.setPower(-1);
+                    IntakeR.setPower(-1);
+                }
+                    else {
+                        IntakeL.setPower(0);
+                        IntakeR.setPower(0);
+                }
+                }
 
 
 
         }
 
     }
-}
+
+
 
 
 
