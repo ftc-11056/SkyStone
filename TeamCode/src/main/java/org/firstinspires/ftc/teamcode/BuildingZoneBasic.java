@@ -23,10 +23,23 @@ public class BuildingZoneBasic extends Robot{
 
         waitForStart();
 
-        MyDriveTrain.encoderDrive(0.1,50,50,50,50);
+        MyDriveTrain.encoderDrive(0.1,30,30,50,100);
+
+        telemetry.addData("LeftFront Encoders", MyDriveTrain.LeftFront.getCurrentPosition());
+        telemetry.addData("LeftBack Encoders", MyDriveTrain.LeftBack.getCurrentPosition());
+        telemetry.addData("RightFront Encoders", MyDriveTrain.RightFront.getCurrentPosition());
+        telemetry.addData("RightBack Encoders", MyDriveTrain.RightBack.getCurrentPosition());
+        telemetry.addLine();
+        telemetry.addData("LeftFront Power", MyDriveTrain.LeftFront.getPower());
+        telemetry.addData("LeftBack Power", MyDriveTrain.LeftBack.getPower());
+        telemetry.addData("RightFront Power", MyDriveTrain.RightFront.getPower());
+        telemetry.addData("RightBack Power", MyDriveTrain.RightBack.getPower());
+        telemetry.update();
+
+        sleep(110563211);
 
         }
-        }
+    }
 
 
 
