@@ -23,7 +23,9 @@ public class BuildingZoneBasic extends Robot{
 
         waitForStart();
 
-        MyDriveTrain.encoderDrive(0.1,50,50,50,50);
+        MyDriveTrain.encoderDrive(0.1,-100,-100,-100,-100);/* go to the front */
+
+
 
         }
         }
