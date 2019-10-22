@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -28,7 +29,8 @@ public class Robot extends LinearOpMode {
     public DcMotor  RB = null;
 
     /*Systems Motor and Servo*/
-    public DcMotor LinearMotor = null;
+    public DcMotor leftLinearMotor = null;
+    public DcMotor rightLinearMotor = null;
     public DcMotor IntakeL = null;
     public DcMotor IntakeR = null;
     public Servo Arm = null;
@@ -40,12 +42,17 @@ public class Robot extends LinearOpMode {
     protected BNO055IMU IMU = null;
     protected Orientation angles = null;
 
+    //digitalChannels
+    public DigitalChannel downMagnetElevator = null;
+    public DigitalChannel upMagnetElevator = null;
+
 
     /*Mechanisms*/
     protected DriveTrain MyDriveTrain = null;
     protected Odometry MyOdometry = null;
     protected IntakeTrain MyIntake = null;
-    protected VuforiaStone MyVuforiaStone=null;
+    protected VuforiaStone MyVuforiaStone = null;
+    protected elevator MyElevator = null;
 
     public double servoPosition = 0.005;
     protected VuforiaLocalizer vuforia;
@@ -73,7 +80,8 @@ public class Robot extends LinearOpMode {
         RF  = hardwareMap.get(DcMotor.class, "RF");
         RB  = hardwareMap.get(DcMotor.class, "RB");
         // Define and Initialize Systems Motors and Servo
-        LinearMotor = hardwareMap.get(DcMotor.class,"LinearMotor");
+        leftLinearMotor = hardwareMap.get(DcMotor.class,"leftLinearMotor");
+        rightLinearMotor = hardwareMap.get(DcMotor.class,"rightLinearMotor");
        // Arm  = hardwareMap.get(Servo.class, "Arm");
        // Output  = hardwareMap.get(Servo.class, "OutPut");
         IntakeL = hardwareMap.get(DcMotor.class,"IntakeL");
@@ -82,8 +90,8 @@ public class Robot extends LinearOpMode {
       //  LeftServo  = hardwareMap.get(Servo.class, "LeftServo");
       //  RightServo  = hardwareMap.get(Servo.class, "RightServo");
 
-
-
+        upMagnetElevator = hardwareMap.get(DigitalChannel.class,"upMagnetELevator");
+        downMagnetElevator = hardwareMap.get(DigitalChannel.class,"downMagnetELevator");
 
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -93,6 +101,7 @@ public class Robot extends LinearOpMode {
         RF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         RB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         IntakeL.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE the intake System
+//        leftLinearMotor.setDirection(DcMotor.Direction.REVERSE);//set to rverse the elevator system
 
 
         // Set all motors to zero power
@@ -147,6 +156,7 @@ public class Robot extends LinearOpMode {
         MyDriveTrain = new DriveTrain(LB,LF, RF, RB, IMU);
         MyIntake = new IntakeTrain(IntakeL, IntakeR);
         MyVuforiaStone=new VuforiaStone( webcamName,parametersVu, targetsSkyStone, vuforia,lastLocation);
+        MyElevator = new elevator(leftLinearMotor, rightLinearMotor);
     }
 
 
