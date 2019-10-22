@@ -28,4 +28,9 @@ public class IntakeTrain extends Robot {
         IntakeL.setPower(-1);
         IntakeR.setPower(-1);
     }
+    public void ShutDown(){
+        IntakeL.setPower(0);
+        IntakeR.setPower(0);
+
+    }
 }

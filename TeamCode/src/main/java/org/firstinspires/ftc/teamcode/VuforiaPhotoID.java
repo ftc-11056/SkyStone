@@ -115,13 +115,15 @@ public class VuforiaPhotoID extends Robot {
         Center
     }
 
-    public void getImageLocation(double yPos) {
+    public ImagePos getImageLocation(double yPos) {
         if (yPos >2)
-            LocationY = "Right";
-        else if (yPos > -2 && yPos < 2)
-            LocationY = "Center";
+            return ImagePos.Right;
+        sleep(500);
+        if (yPos > -2 && yPos < 2)
+            return ImagePos.Center;
         else
-            LocationY = "Left";
+            return ImagePos.Left;
+
     }
 
     @Override
@@ -256,8 +258,6 @@ public class VuforiaPhotoID extends Robot {
 
 
                 translitionY = translation.get(1) / mmPerInch;
-
-
             } else {
                 telemetry.addData("Visible Target", "none");
             }
@@ -266,6 +266,7 @@ public class VuforiaPhotoID extends Robot {
 
         // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
+
     }
 }
 

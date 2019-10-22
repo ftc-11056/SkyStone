@@ -7,10 +7,15 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 public class Robot extends LinearOpMode {
 
@@ -28,7 +33,8 @@ public class Robot extends LinearOpMode {
     public DcMotor IntakeR = null;
     public Servo Arm = null;
     public Servo Output = null;
-
+    public Servo LeftServo = null;
+    public Servo RightServo = null;
 
     /*IMU Fileds*/
     protected BNO055IMU IMU = null;
@@ -39,8 +45,22 @@ public class Robot extends LinearOpMode {
     protected DriveTrain MyDriveTrain = null;
     protected Odometry MyOdometry = null;
     protected IntakeTrain MyIntake = null;
+    protected VuforiaStone MyVuforiaStone=null;
 
     public double servoPosition = 0.005;
+    protected VuforiaLocalizer vuforia;
+    protected OpenGLMatrix lastLocation = null;
+    private static final float mmPerInch = 25.4f;
+    public float Mikum=0;
+    public int vuforiastop = 0;
+
+    protected static final String VUFORIA_KEY =
+            "AShqm3D/////AAABmT32+8BbZEYfoY+L8BbhMAiFCWBAqEs1AghjDq2xOQw/uhnPZ4EVDEHOdbIxubuyTgO1mP2yAPzwlRyTTuBrTFIyVAUHjY0+j32GLbh0oLrKqnfyPtagrvZFS/YuAMhDNX25Uc1zXlD6iXX3pDoKBFuQLQ8zD/NvH5Ib2MTlMQq2srJpav6FRHGf0zU5OnEn1g+n2D5G3Uw7h19CyWFI/rQdUJ6kP2m9yMD8tAZDZiKhE0woZ/MgdGU5FgI6faiYCefYpLqrnW6ytWLenftxcKpccUHur1cWSjRxboVyPbVtgueWC7ytf0FrgyAvRo9uxGRXN6tYrjK1EZIPdssJ5PHxzWUd706EQvXIQwxd4Ndx";    // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
+    protected VuforiaLocalizer.Parameters parametersVu;
+    protected VuforiaTrackables targetsSkyStone;
+    WebcamName webcamName = null;
+
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -54,10 +74,14 @@ public class Robot extends LinearOpMode {
         RB  = hardwareMap.get(DcMotor.class, "RB");
         // Define and Initialize Systems Motors and Servo
         LinearMotor = hardwareMap.get(DcMotor.class,"LinearMotor");
-        Arm  = hardwareMap.get(Servo.class, "Arm");
-        Output  = hardwareMap.get(Servo.class, "OutPut");
+       // Arm  = hardwareMap.get(Servo.class, "Arm");
+       // Output  = hardwareMap.get(Servo.class, "OutPut");
         IntakeL = hardwareMap.get(DcMotor.class,"IntakeL");
         IntakeR = hardwareMap.get(DcMotor.class,"IntakeR");
+
+      //  LeftServo  = hardwareMap.get(Servo.class, "LeftServo");
+      //  RightServo  = hardwareMap.get(Servo.class, "RightServo");
+
 
 
 
@@ -77,6 +101,21 @@ public class Robot extends LinearOpMode {
         RB.setPower(0);
         RF.setPower(0);
       //  linear_motor.setPower(0);
+
+        webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parametersVu = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+
+        //VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+
+        parametersVu.vuforiaLicenseKey = VUFORIA_KEY;
+        parametersVu.cameraName = webcamName;
+
+        //  Instantiate the Vuforia engine
+        vuforia = ClassFactory.getInstance().createVuforia(parametersVu);
+        //VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
+
+
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -105,8 +144,9 @@ public class Robot extends LinearOpMode {
         // Define and initialize ALL installed servos.
 
         // Define Mechanisms:
-        MyDriveTrain = new DriveTrain(LB,LF, RF, RB);
+        MyDriveTrain = new DriveTrain(LB,LF, RF, RB, IMU);
         MyIntake = new IntakeTrain(IntakeL, IntakeR);
+        MyVuforiaStone=new VuforiaStone( webcamName,parametersVu, targetsSkyStone, vuforia,lastLocation);
     }
 
 
