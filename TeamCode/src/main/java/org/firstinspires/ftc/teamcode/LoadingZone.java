@@ -65,7 +65,7 @@ public class LoadingZone extends Robot {
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.5,-35,35,35,-35);
             sleep(500);
-            MyDriveTrain.encoderDrive(0.5,-70,-70,-70,-70);
+            MyDriveTrain.encoderDrive(0.5,-80,-80,-80,-80);
             sleep(500);
         }
 
