@@ -17,9 +17,6 @@ public class LoadingZone extends Robot {
         super.runOpMode();
         //  LeftServo.setPosition(0.4);
         //   RightServo.setPosition(0.5);
-//        while (Mikum == 0 \ vuforiastop == 0)
-//            Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
-
 
         waitForStart();
 
@@ -29,7 +26,8 @@ public class LoadingZone extends Robot {
         telemetry.update();
 
         MyDriveTrain.encoderDrive(0.5,30,-30,-30,30);
-        vuforiastop = 1;
+
+        Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
 
         if (Mikum>2) {
             telemetry.addLine("you're on the right");

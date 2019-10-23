@@ -9,6 +9,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 @TeleOp(name = "TeleOpTest", group = "teamcode")
 public class TeleOpTest extends Robot {
 
+    private int grandFlag = 0;
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -66,6 +68,7 @@ public class TeleOpTest extends Robot {
 //////////////////////////////////////////////////////////////////////////////////////////////
             if (gamepad1.dpad_up){
                 double flag = 0;
+                grandFlag = 1;
                 //סוגר על הקובייה
                 if (flag == 0){
                     Output.setPosition(0.75);
@@ -73,7 +76,7 @@ public class TeleOpTest extends Robot {
                 //משנה את הזמן
                 if (Output.getPosition() == 0.75) flag =1;
                 //מרים את המעלית
-                if (upMagnetElevator.getState() == true && flag == 1){
+                if (MyElevator.stateUpMagnet() && flag == 1){
                     MyElevator.setPower(1,1);
                     flag = 2;
                 }
@@ -84,6 +87,7 @@ public class TeleOpTest extends Robot {
                 if (flag == 2){
                     Arm.setPosition(0.75);
                 }
+
             }
 
             if (gamepad1.dpad_down) {
@@ -96,7 +100,7 @@ public class TeleOpTest extends Robot {
                 //משנה את הסמן
                 if (Arm.getPosition() == 1 && Output.getPosition() == 1) flag =1;
                 //מוריד את המעלית עד למעלה
-                if (flag == 1 && downMagnetElevator.getState() == true){
+                if (flag == 1 && MyElevator.stateDownMagnet()){
                     MyElevator.setPower(-0.5,-0.5);
                 }
                 if (downMagnetElevator.getState() == true) flag = 2;

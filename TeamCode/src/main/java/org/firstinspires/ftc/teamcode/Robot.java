@@ -156,7 +156,7 @@ public class Robot extends LinearOpMode {
         MyDriveTrain = new DriveTrain(LB,LF, RF, RB, IMU);
         MyIntake = new IntakeTrain(IntakeL, IntakeR);
         MyVuforiaStone=new VuforiaStone( webcamName,parametersVu, targetsSkyStone, vuforia,lastLocation);
-        MyElevator = new elevator(leftLinearMotor, rightLinearMotor);
+        MyElevator = new elevator(leftLinearMotor, rightLinearMotor, upMagnetElevator, downMagnetElevator);
     }
 
 
