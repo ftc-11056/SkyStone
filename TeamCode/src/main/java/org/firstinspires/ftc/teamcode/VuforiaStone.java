@@ -250,7 +250,7 @@ public  class VuforiaStone extends Robot{
 
             targetsSkyStone.activate();
             runtime.reset();
-            while (!isStopRequested() && runtime.seconds() < 5) {
+            while (!isStopRequested() && runtime.seconds() < 15) {
 
 
                 // check all the trackable targets to see which one (if any) is visible.

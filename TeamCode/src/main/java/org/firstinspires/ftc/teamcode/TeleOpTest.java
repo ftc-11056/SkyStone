@@ -105,6 +105,12 @@ public class TeleOpTest extends Robot {
                 }
                 if (downMagnetElevator.getState() == true) flag = 2;
             }
+            if(gamepad1.left_trigger>0){
+                Output.setPosition(1);
+
+
+
+            }
             /*if (gamepad1.right_trigger > 0) {
                 LeftServo.setPosition(0.75);
                 RightServo.setPosition(0.25);
