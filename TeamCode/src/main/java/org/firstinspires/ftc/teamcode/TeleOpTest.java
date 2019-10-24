@@ -11,6 +11,12 @@ public class TeleOpTest extends Robot {
 
     private int grandFlag = 0;
 
+    private boolean upStep1 = true;
+    private boolean upStep2;
+    private boolean upStep3;
+
+    private int num = 0;
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -67,37 +73,43 @@ public class TeleOpTest extends Robot {
             }
 //////////////////////////////////////////////////////////////////////////////////////////////
             if (gamepad1.dpad_up){
-                double flag = 0;
                 grandFlag = 1;
                 //סוגר על הקובייה
-                if (flag == 0){
+                if (upStep1 == true){
                     Output.setPosition(0.75);
                 }
-                //משנה את הזמן
-                if (Output.getPosition() == 0.75) flag =1;
-                //מרים את המעלית
-                if (MyElevator.stateUpMagnet() && flag == 1){
-                    MyElevator.setPower(1,1);
-                    flag = 2;
+                //משנה את הסמן
+                if (upStep1 == true) {
+                    upStep2 = false;
                 }
-                else {
-                    MyElevator.setPower(0,0);
+                //מרים את המעלית
+                else if (upStep2 == false){
+                    MyElevator.setPower(1 , 1);
+                }
+                if (upStep2 == false){
+                    upStep3 = false;
                 }
                 //מסובב את הזרוע ב180 מעלות
-                if (flag == 2){
+                else if (upStep3 == false){
                     Arm.setPosition(0.75);
                 }
-                telemetry.addLine("its working UP");
-                telemetry.update();
 
+                /*else {
+                    MyElevator.setPower(0, 0);
+                }*/
+                telemetry.addData("upStep1" , upStep1);
+                telemetry.addData("upStep2" , upStep2);
+                telemetry.addData("upStep3" , upStep3);
+                telemetry.addData("Output" , Output.getPosition());
+                telemetry.update();
             }
 
             if (gamepad1.dpad_down) {
                 double flag = 0;
                 //מסובב בחזרה את הזרוע
                 if (flag == 0){
-                    Arm.setPosition(1);
-                    Output.setPosition(1);
+                    Arm.setPosition(0);
+                    Output.setPosition(0);
                 }
                 //משנה את הסמן
                 if (Arm.getPosition() == 1 && Output.getPosition() == 1) flag =1;
@@ -116,11 +128,10 @@ public class TeleOpTest extends Robot {
                 LeftServo.setPosition(0.4);
                 RightServo.setPosition(0.5);
             }*/
-
-
+            }
         }
     }
-}
+
 
 
 

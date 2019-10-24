@@ -28,6 +28,11 @@ public class elevator  {
     public boolean stateDownMagnet(){
         return downMagnet.getState();
     }
+    public Boolean isBusy (){
+        if (leftEle.isBusy() && rightEle.isBusy())
+            return true;
+        else return false;
+    }
 
 }
 
