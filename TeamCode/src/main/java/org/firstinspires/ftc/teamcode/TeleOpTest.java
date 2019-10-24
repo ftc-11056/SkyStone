@@ -87,6 +87,8 @@ public class TeleOpTest extends Robot {
                 if (flag == 2){
                     Arm.setPosition(0.75);
                 }
+                telemetry.addLine("its working UP");
+                telemetry.update();
 
             }
 
@@ -104,6 +106,8 @@ public class TeleOpTest extends Robot {
                     MyElevator.setPower(-0.5,-0.5);
                 }
                 if (downMagnetElevator.getState() == true) flag = 2;
+                telemetry.addLine("its working DOWN");
+                telemetry.update();
             }
             /*if (gamepad1.right_trigger > 0) {
                 LeftServo.setPosition(0.75);
@@ -112,6 +116,7 @@ public class TeleOpTest extends Robot {
                 LeftServo.setPosition(0.4);
                 RightServo.setPosition(0.5);
             }*/
+
 
         }
     }
