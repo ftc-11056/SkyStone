@@ -19,12 +19,12 @@ public class IntakeTrain extends Robot {
         IntakeR.setPower(IR);
     }
 
-    public void maxIntake(){
+    public void maxOuttake(){
         IntakeL.setPower(1);
         IntakeR.setPower(1);
     }
 
-    public void maxOuttake(){
+    public void maxIntake(){
         IntakeL.setPower(-1);
         IntakeR.setPower(-1);
     }
