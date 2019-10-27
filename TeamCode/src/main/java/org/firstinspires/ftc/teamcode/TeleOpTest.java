@@ -57,7 +57,8 @@ public class TeleOpTest extends Robot {
             }*/
 
             if (gamepad1.dpad_left) {
-                MyElevator.setPower(1, 1);
+                MyElevator.ElevateWithEncoder(80);
+                //MyElevator.setPower(1, 1);
             } else if (gamepad1.dpad_right) {
                 MyElevator.setPower(-1, -1);
             } else {
