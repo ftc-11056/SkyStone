@@ -103,9 +103,9 @@ public class LoadingZone extends Robot {
         if (Mikum>2) {
 //            telemetry.addLine("you're on the right");
 //            telemetry.update();
-            MyDriveTrain.encoderDrive(0.4,-43,-43,-43,-43);
+            MyDriveTrain.encoderDrive(0.4,-53,-53,-53,-53);
             sleep(500);
-            MyDriveTrain.encoderDrive(0.4,-23,23,23,-23);
+            MyDriveTrain.encoderDrive(0.4,-30,30,30,-30);
             sleep(500);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.4,-15,-15,-15,-15);
@@ -133,6 +133,8 @@ public class LoadingZone extends Robot {
         MyIntake.maxOuttake();
         sleep(1000);
         MyIntake.ShutDown();
+        MyDriveTrain.encoderDrive(0.4,10,-10,-10,10);
+
 
 
 

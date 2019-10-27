@@ -162,5 +162,31 @@ public class Robot extends LinearOpMode {
         MyElevator = new elevator(leftLinearMotor, rightLinearMotor, upMagnetElevator, downMagnetElevator);
     }
 
+    //methodes:
 
+    public void autoOpenWitheStone(boolean reason){
+        boolean upStep [] = null;
+        upStep[1] = true;
+
+        if (reason) {
+            if (upStep[1] == true){
+                Output.setPosition(0.75);
+                upStep[2] = true;
+            }
+            if (upStep[2] == true && Output.getPosition() > 0.6){
+                MyElevator.setPower(1,1);
+                upStep[3] = true;
+                upStep[2] = false;
+            }
+            if (upStep[3] = true && upMagnetElevator.getState() == false){
+                MyElevator.setPower(0,0);
+                Arm.setPosition(0.104020);
+                upStep[4] = true;
+                upStep[3] = false;
+            }
+            if (upStep[4] == true && Arm.getPosition() > 0.09){
+                MyElevator.setPower(1,1);
+            }
+        }
+    }
 }

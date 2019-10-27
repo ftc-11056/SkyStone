@@ -26,15 +26,15 @@ public class elevator  {
         rightEle.setPower(rightPower);
     }
 
-    public void ElevateWithEncoder(int pos){
+    public void ElevateWithEncoder(int pos, double power){
         leftEle.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightEle.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftEle.setTargetPosition(pos);
         rightEle.setTargetPosition(pos);
         leftEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        leftEle.setPower(1);
-        leftEle.setPower(1);
+        leftEle.setPower(power);
+        leftEle.setPower(power);
 
     }
 
@@ -49,6 +49,7 @@ public class elevator  {
             return true;
         else return false;
     }
+
 
 }
 

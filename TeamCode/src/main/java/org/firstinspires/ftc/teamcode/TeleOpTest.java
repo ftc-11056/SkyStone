@@ -14,6 +14,7 @@ public class TeleOpTest extends Robot {
     private boolean upStep1 = true;
     private boolean upStep2;
     private boolean upStep3;
+    private boolean upStep4;
 
     private int num = 0;
 
@@ -57,13 +58,17 @@ public class TeleOpTest extends Robot {
             }*/
 
             if (gamepad1.dpad_left) {
-                MyElevator.ElevateWithEncoder(80);
-                //MyElevator.setPower(1, 1);
+                MyElevator.ElevateWithEncoder(40, 0.6);
             } else if (gamepad1.dpad_right) {
                 MyElevator.setPower(-1, -1);
             } else {
                 MyElevator.setPower(0, 0);
             }
+
+            telemetry.addData("leftEncodersLinear", leftLinearMotor.getCurrentPosition());
+            telemetry.update();
+
+
 
             if (gamepad1.right_bumper) {
                 MyIntake.maxIntake();
@@ -73,6 +78,7 @@ public class TeleOpTest extends Robot {
                 MyIntake.move(0, 0);
             }
 //////////////////////////////////////////////////////////////////////////////////////////////
+            //dont press on thes points/*
             if (gamepad1.dpad_up){
                 grandFlag = 1;
                 //סוגר על הקובייה
@@ -105,7 +111,7 @@ public class TeleOpTest extends Robot {
                 telemetry.update();
             }
 
-            if (gamepad1.dpad_down) {
+            /*if (gamepad1.dpad_down) {
                 double flag = 0;
                 //מסובב בחזרה את הזרוע
                 if (flag == 0){
@@ -121,12 +127,11 @@ public class TeleOpTest extends Robot {
                 if (downMagnetElevator.getState() == true) flag = 2;
                 telemetry.addLine("its working DOWN");
                 telemetry.update();
-            }
+            }*/
+//////////////////////////////////////////////////////////////////////////////////////////////
+
             if(gamepad1.left_trigger>0){
                 Output.setPosition(1);
-
-
-
             }
             /*if (gamepad1.right_trigger > 0) {
                 LeftServo.setPosition(0.75);
