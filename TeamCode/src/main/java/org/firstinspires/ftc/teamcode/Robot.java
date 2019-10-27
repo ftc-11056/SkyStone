@@ -82,8 +82,8 @@ public class Robot extends LinearOpMode {
         // Define and Initialize Systems Motors and Servo
         leftLinearMotor = hardwareMap.get(DcMotor.class,"leftLinearMotor");
         rightLinearMotor = hardwareMap.get(DcMotor.class,"rightLinearMotor");
-       // Arm  = hardwareMap.get(Servo.class, "Arm");
-       // Output  = hardwareMap.get(Servo.class, "OutPut");
+        Arm  = hardwareMap.get(Servo.class, "Arm");
+        Output  = hardwareMap.get(Servo.class, "OutPut");
         IntakeL = hardwareMap.get(DcMotor.class,"IntakeL");
         IntakeR = hardwareMap.get(DcMotor.class,"IntakeR");
 
@@ -97,6 +97,9 @@ public class Robot extends LinearOpMode {
         RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        IntakeL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        IntakeR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         RF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         RB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors

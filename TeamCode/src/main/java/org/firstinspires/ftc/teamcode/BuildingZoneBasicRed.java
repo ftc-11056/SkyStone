@@ -37,25 +37,33 @@ public class BuildingZoneBasicRed extends Robot {
         if (Mikum>2) {
             telemetry.addLine("you're on the right");
             telemetry.update();
+            MyDriveTrain.Rotate(50,0.8,5);
+            MyDriveTrain.encoderDrive(0.5,-25,-25,-25,-25);
+            MyDriveTrain.encoderDrive(0.8,25,-25,-25,25);
+
         }
         else if (Mikum<-2) {
             telemetry.addLine("you're on the left");
             telemetry.update();
+            MyDriveTrain.Rotate(50,0.8,5);
+            MyDriveTrain.encoderDrive(0.5,-10,-10,-10,-10);
+            MyDriveTrain.encoderDrive(0.8,25,-25,-25,25);
         }
         else {
             telemetry.addLine("You are on the center!");
             telemetry.update();
-            MyDriveTrain.encoderDrive(0.5,30,30,30,30);
+            MyDriveTrain.Rotate(50,0.8,5);
+            MyDriveTrain.encoderDrive(0.5,-30,-30,-30,-30);
             sleep(500);
-            MyDriveTrain.encoderDrive(0.5,50,-50,-50,50);
+            MyDriveTrain.encoderDrive(0.5,-50,50,50,-50);
             sleep(500);
             MyIntake.maxIntake();
-            MyDriveTrain.encoderDrive(0.5,-20,-20,-20,-20);
+            MyDriveTrain.encoderDrive(0.5,20,20,20,20);
             sleep(500);
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.5,-35,35,35,-35);
+            MyDriveTrain.encoderDrive(0.5,35,-35,-35,35);
             sleep(500);
-            MyDriveTrain.encoderDrive(0.5,-70,-70,-70,-70);
+            MyDriveTrain.encoderDrive(0.5,70,70,70,70);
             sleep(500);
         }
 
