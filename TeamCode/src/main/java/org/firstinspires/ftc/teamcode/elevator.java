@@ -11,7 +11,6 @@ public class elevator  {
     private DigitalChannel downMagnet = null;
 
 
-
     public elevator (DcMotor leftEle, DcMotor rightEle, DigitalChannel upMagnet, DigitalChannel downMagnet){
         this.leftEle = leftEle;
         this.rightEle = rightEle;
@@ -21,6 +20,8 @@ public class elevator  {
     }
 
     public void setPower(double leftPower, double rightPower){
+        leftEle.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightEle.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftEle.setPower(leftPower);
         rightEle.setPower(rightPower);
@@ -34,7 +35,7 @@ public class elevator  {
         leftEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftEle.setPower(power);
-        leftEle.setPower(power);
+        rightEle.setPower(power);
 
     }
 

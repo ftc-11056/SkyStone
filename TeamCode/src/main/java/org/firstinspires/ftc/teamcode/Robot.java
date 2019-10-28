@@ -101,10 +101,16 @@ public class Robot extends LinearOpMode {
         IntakeL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         IntakeR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        leftLinearMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightLinearMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         RF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         RB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         IntakeL.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE the intake System
 //        leftLinearMotor.setDirection(DcMotor.Direction.REVERSE);//set to rverse the elevator system
+
+        leftLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
         // Set all motors to zero power
@@ -133,8 +139,9 @@ public class Robot extends LinearOpMode {
         // May want to use RUN_USING_ENCODERS if encoders are installed.
        /* LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);*/
+        RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);/*
+
+        RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         /*Define and Initialize Of IMU*/
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -165,7 +172,8 @@ public class Robot extends LinearOpMode {
     //methodes:
 
     public void autoOpenWitheStone(boolean reason){
-        boolean upStep [] = null;
+        boolean [] upStep;
+        upStep = new boolean[5];
         upStep[1] = true;
 
         if (reason) {

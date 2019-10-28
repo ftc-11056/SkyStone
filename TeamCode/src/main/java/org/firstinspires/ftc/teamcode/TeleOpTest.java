@@ -42,32 +42,41 @@ public class TeleOpTest extends Robot {
                 MyDriveTrain.arcade(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
             }
 
-            /*if (gamepad1.left_bumper) {
+            if (gamepad1.x) {
                 Arm.setPosition(0);
-            } else if (gamepad1.right_bumper) {
+            } else if (gamepad1.b) {
                 Arm.setPosition(1);
             }
             telemetry.addData("Arm Position", Arm.getPosition());
-            telemetry.update();*/
+            telemetry.update();
 
-           /* if (gamepad1.a) {
+            if (gamepad1.a) {
                 Output.setPosition(1);
-
             } else if (gamepad1.y) {
                 Output.setPosition(0);
-            }*/
+            }
 
-            if (gamepad1.dpad_left) {
-                MyElevator.ElevateWithEncoder(40, 0.6);
-            } else if (gamepad1.dpad_right) {
+           /* if (gamepad1.right_trigger > 0) {
+                MyElevator.setPower(1,1);
+            } else if (gamepad1.left_trigger > 0) {
                 MyElevator.setPower(-1, -1);
             } else {
                 MyElevator.setPower(0, 0);
+            }*/
+
+            if (gamepad1.dpad_up){
+                MyElevator.ElevateWithEncoder(50, 1);
+            }
+            else if (gamepad1.dpad_down){
+                MyElevator.ElevateWithEncoder(-50, -1);
+            }
+            else {
+                MyElevator.ElevateWithEncoder(0, 0);
             }
 
             telemetry.addData("leftEncodersLinear", leftLinearMotor.getCurrentPosition());
+            telemetry.addData("rightEncodersLinear", rightLinearMotor.getCurrentPosition());
             telemetry.update();
-
 
 
             if (gamepad1.right_bumper) {
@@ -75,11 +84,11 @@ public class TeleOpTest extends Robot {
             } else if (gamepad1.left_bumper) {
                 MyIntake.maxOuttake();
             } else {
-                MyIntake.move(0, 0);
+                MyIntake.ShutDown();
             }
-//////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
             //dont press on thes points/*
-            if (gamepad1.dpad_up){
+           /* if (gamepad1.dpad_up){
                 grandFlag = 1;
                 //סוגר על הקובייה
                 if (upStep1 == true){
@@ -101,15 +110,12 @@ public class TeleOpTest extends Robot {
                     Arm.setPosition(0.75);
                 }
 
-                /*else {
-                    MyElevator.setPower(0, 0);
-                }*/
                 telemetry.addData("upStep1" , upStep1);
                 telemetry.addData("upStep2" , upStep2);
                 telemetry.addData("upStep3" , upStep3);
                 telemetry.addData("Output" , Output.getPosition());
                 telemetry.update();
-            }
+            }*/
 
             /*if (gamepad1.dpad_down) {
                 double flag = 0;
@@ -128,11 +134,10 @@ public class TeleOpTest extends Robot {
                 telemetry.addLine("its working DOWN");
                 telemetry.update();
             }*/
-//////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 
-            if(gamepad1.left_trigger>0){
-                Output.setPosition(1);
-            }
+            autoOpenWitheStone(gamepad1.dpad_left);
+
             /*if (gamepad1.right_trigger > 0) {
                 LeftServo.setPosition(0.75);
                 RightServo.setPosition(0.25);
