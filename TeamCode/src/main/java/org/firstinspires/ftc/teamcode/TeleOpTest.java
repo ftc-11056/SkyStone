@@ -23,6 +23,7 @@ public class TeleOpTest extends Robot {
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
 
+
         waitForStart();
 
         while (opModeIsActive()) {
@@ -56,23 +57,29 @@ public class TeleOpTest extends Robot {
                 Output.setPosition(0);
             }
 
-           /* if (gamepad1.right_trigger > 0) {
-                MyElevator.setPower(1,1);
-            } else if (gamepad1.left_trigger > 0) {
+         /*   if (gamepad1.right_trigger > 0) {
+                MyElevator.dontMoveElevator(0.5,0.02);
+            }*/
+            /*else if (gamepad1.left_trigger > 0) {
                 MyElevator.setPower(-1, -1);
             } else {
                 MyElevator.setPower(0, 0);
             }*/
 
             if (gamepad1.dpad_up){
-                MyElevator.ElevateWithEncoder(50, 1);
+                MyElevator.ElevateWithEncoder(50,1);
             }
             else if (gamepad1.dpad_down){
-                MyElevator.ElevateWithEncoder(-50, -1);
+                MyElevator.ElevateWithEncoder(-50,1);
             }
-            else {
-                MyElevator.ElevateWithEncoder(0, 0);
+            else{
+                MyElevator.dontMoveElevator(1,0.5,leftLinearMotor.getCurrentPosition(),rightLinearMotor.getCurrentPosition());
+//                leftLinearMotor.setPower(0);
+//               rightLinearMotor.setPower(0);
             }
+
+
+
 
             telemetry.addData("leftEncodersLinear", leftLinearMotor.getCurrentPosition());
             telemetry.addData("rightEncodersLinear", rightLinearMotor.getCurrentPosition());
@@ -136,7 +143,7 @@ public class TeleOpTest extends Robot {
             }*/
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-            autoOpenWitheStone(gamepad1.dpad_left);
+//            autoOpenWitheStone(gamepad1.dpad_left);
 
             /*if (gamepad1.right_trigger > 0) {
                 LeftServo.setPosition(0.75);

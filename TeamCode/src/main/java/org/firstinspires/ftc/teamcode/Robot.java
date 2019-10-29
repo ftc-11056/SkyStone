@@ -66,6 +66,7 @@ public class Robot extends LinearOpMode {
     protected VuforiaLocalizer.Parameters parametersVu;
     protected VuforiaTrackables targetsSkyStone;
     WebcamName webcamName = null;
+    protected int fixedPosition = 0;
 
 
 
@@ -166,7 +167,7 @@ public class Robot extends LinearOpMode {
         MyDriveTrain = new DriveTrain(LB,LF, RF, RB, IMU);
         MyIntake = new IntakeTrain(IntakeL, IntakeR);
         MyVuforiaStone=new VuforiaStone( webcamName,parametersVu, targetsSkyStone, vuforia,lastLocation);
-        MyElevator = new elevator(leftLinearMotor, rightLinearMotor, upMagnetElevator, downMagnetElevator);
+        MyElevator = new elevator(leftLinearMotor, rightLinearMotor, upMagnetElevator, downMagnetElevator, fixedPosition);
     }
 
     //methodes:
@@ -182,18 +183,18 @@ public class Robot extends LinearOpMode {
                 upStep[2] = true;
             }
             if (upStep[2] == true && Output.getPosition() > 0.6){
-                MyElevator.setPower(1,1);
+                MyElevator.moveElevator(1,1);
                 upStep[3] = true;
                 upStep[2] = false;
             }
             if (upStep[3] = true && upMagnetElevator.getState() == false){
-                MyElevator.setPower(0,0);
+                MyElevator.moveElevator(0,0);
                 Arm.setPosition(0.104020);
                 upStep[4] = true;
                 upStep[3] = false;
             }
             if (upStep[4] == true && Arm.getPosition() > 0.09){
-                MyElevator.setPower(1,1);
+                MyElevator.moveElevator(1,1);
             }
         }
     }

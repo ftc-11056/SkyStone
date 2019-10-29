@@ -112,7 +112,6 @@ public class DriveTrain {
 
         // Ensure that the opmode is still active
 
-
         LeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
