@@ -24,10 +24,12 @@ public class TeleOpTest extends Robot {
     @Override
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
+        runtime.reset();
 
 
         waitForStart();
         while (opModeIsActive()) {
+            double time=runtime.seconds();
 
             angles = IMU.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
             double heading = angles.firstAngle;
@@ -68,11 +70,11 @@ public class TeleOpTest extends Robot {
             }*/
 
             if (gamepad1.dpad_up){
-                MyElevator.ElevateWithEncoder(50,1);
+                MyElevator.ElevateWithEncoder(-50,0.2);
                 stayingPosition = leftLinearMotor.getCurrentPosition();
             }
             else if (gamepad1.dpad_down){
-                MyElevator.ElevateWithEncoder(-50,1);
+                MyElevator.ElevateWithEncoder(50,0.2);
                 stayingPosition = leftLinearMotor.getCurrentPosition();
             }
             else{
@@ -96,6 +98,17 @@ public class TeleOpTest extends Robot {
                 MyIntake.maxOuttake();
             } else {
                 MyIntake.ShutDown();
+            }
+
+            if (gamepad2.x){
+
+                Output.setPosition(0.75);
+                if(-time+runtime.seconds()>2) {
+                    MyElevator.ElevateWithEncoder(300, 1);
+                    if (rightLinearMotor.getCurrentPosition()>300|| leftLinearMotor.getCurrentPosition()>300)
+                        MyElevator.dontMoveElevator(1,300);
+                        Arm.setPosition(0.75);
+                }
             }
 /////////////////////////////////////////////////////////////////////////////////////////////
             //dont press on thes points/*

@@ -177,7 +177,9 @@ public class Robot extends LinearOpMode {
         upStep = new boolean[5];
         upStep[1] = true;
 
-        if (reason) {
+
+
+  /*      if (reason) {
             if (upStep[1] == true){
                 Output.setPosition(0.75);
                 upStep[2] = true;
@@ -196,6 +198,6 @@ public class Robot extends LinearOpMode {
             if (upStep[4] == true && Arm.getPosition() > 0.09){
                 MyElevator.moveElevator(1,1);
             }
-        }
+        }*/
     }
 }
