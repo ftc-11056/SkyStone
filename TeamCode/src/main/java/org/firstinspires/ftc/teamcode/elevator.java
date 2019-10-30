@@ -41,13 +41,13 @@ public class elevator  {
         rightEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftEle.setPower(Math.abs(power));
         rightEle.setPower(Math.abs(power));
-        fixedPosition = leftEle.getCurrentPosition();
+//        fixedPosition = leftEle.getCurrentPosition();
     }
 
-    public void dontMoveElevator (double power, double PN,int leftCurrent, int rightCurrent){
+    public void dontMoveElevator (double power, int stayingPosition/*,double PN,int leftCurrent, int rightCurrent*/){
         double error = fixedPosition - leftEle.getCurrentPosition();
-        leftEle.setTargetPosition(leftCurrent);
-        rightEle.setTargetPosition(rightCurrent);
+        leftEle.setTargetPosition(stayingPosition);
+        rightEle.setTargetPosition(stayingPosition);
         leftEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftEle.setPower(power /*+ error * PN*/);

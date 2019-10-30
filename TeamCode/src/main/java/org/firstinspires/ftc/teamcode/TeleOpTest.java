@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -17,6 +18,7 @@ public class TeleOpTest extends Robot {
     private boolean upStep4;
 
     private int num = 0;
+    private int stayingPosition = 0;
 
 
     @Override
@@ -25,7 +27,6 @@ public class TeleOpTest extends Robot {
 
 
         waitForStart();
-
         while (opModeIsActive()) {
 
             angles = IMU.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
@@ -68,23 +69,26 @@ public class TeleOpTest extends Robot {
 
             if (gamepad1.dpad_up){
                 MyElevator.ElevateWithEncoder(50,1);
+                stayingPosition = leftLinearMotor.getCurrentPosition();
             }
             else if (gamepad1.dpad_down){
                 MyElevator.ElevateWithEncoder(-50,1);
+                stayingPosition = leftLinearMotor.getCurrentPosition();
             }
             else{
-                MyElevator.dontMoveElevator(1,0.5,leftLinearMotor.getCurrentPosition(),rightLinearMotor.getCurrentPosition());
-//                leftLinearMotor.setPower(0);
-//               rightLinearMotor.setPower(0);
+                leftLinearMotor.setTargetPosition(stayingPosition);
+                rightLinearMotor.setTargetPosition(stayingPosition);
+                leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                rightLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                leftLinearMotor.setPower(1);
+                rightLinearMotor.setPower(1);
             }
-
-
-
+            stayingPosition = stayingPosition;
 
             telemetry.addData("leftEncodersLinear", leftLinearMotor.getCurrentPosition());
             telemetry.addData("rightEncodersLinear", rightLinearMotor.getCurrentPosition());
+            telemetry.addData("stayingPosition:", stayingPosition);
             telemetry.update();
-
 
             if (gamepad1.right_bumper) {
                 MyIntake.maxIntake();
