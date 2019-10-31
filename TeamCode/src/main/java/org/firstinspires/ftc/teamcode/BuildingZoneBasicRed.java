@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 
 @Autonomous(name = "BuildingZoneBasicRed", group = "teamcode")
-public class BuildingZoneBasicRed extends Robot {
+public class BuildingZoneBasicRed extends basicAuto {
 
     /* Declare OpMode members. */
 
