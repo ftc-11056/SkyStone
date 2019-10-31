@@ -20,7 +20,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 
 
-public  class VuforiaStone extends Robot{
+public  class VuforiaStone extends basicAuto{
 
     /**
      *

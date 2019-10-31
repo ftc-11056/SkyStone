@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 
 @Autonomous(name = "LoadingZone", group = "teamcode")
-public class LoadingZone extends Robot {
+public class LoadingZone extends basicAuto {
 
     /* Declare OpMode members. */
 
