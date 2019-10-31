@@ -25,8 +25,6 @@ public class basicAuto extends Robot {
     @Override
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
-        MyVuforiaStone = new VuforiaStone( webcamName,parametersVu, targetsSkyStone, vuforia,lastLocation);
-
         webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parametersVu = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
@@ -39,5 +37,6 @@ public class basicAuto extends Robot {
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parametersVu);
         //VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
+        MyVuforiaStone = new VuforiaStone( webcamName,parametersVu, targetsSkyStone, vuforia,lastLocation);
     }
 }

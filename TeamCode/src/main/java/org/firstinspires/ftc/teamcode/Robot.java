@@ -46,6 +46,7 @@ public class Robot extends LinearOpMode {
     public DigitalChannel downMagnetElevator = null;
     public DigitalChannel upMagnetElevator = null;
 
+
     /*Mechanisms*/
     protected DriveTrain MyDriveTrain = null;
     protected Odometry MyOdometry = null;

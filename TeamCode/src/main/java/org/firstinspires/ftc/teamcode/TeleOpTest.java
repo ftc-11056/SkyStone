@@ -8,7 +8,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
 @TeleOp(name = "TeleOpTest", group = "teamcode")
-public class TeleOpTest extends Robot {
+public class TeleOpTest extends basicTeleop {
 
     private int grandFlag = 0;
 
