@@ -46,29 +46,14 @@ public class Robot extends LinearOpMode {
     public DigitalChannel downMagnetElevator = null;
     public DigitalChannel upMagnetElevator = null;
 
-
     /*Mechanisms*/
     protected DriveTrain MyDriveTrain = null;
     protected Odometry MyOdometry = null;
     protected IntakeTrain MyIntake = null;
-    protected VuforiaStone MyVuforiaStone = null;
     protected elevator MyElevator = null;
 
     public double servoPosition = 0.005;
-    protected VuforiaLocalizer vuforia;
-    protected OpenGLMatrix lastLocation = null;
-    private static final float mmPerInch = 25.4f;
-    public float Mikum=0;
-    public int vuforiastop = 0;
-
-    protected static final String VUFORIA_KEY =
-            "AShqm3D/////AAABmT32+8BbZEYfoY+L8BbhMAiFCWBAqEs1AghjDq2xOQw/uhnPZ4EVDEHOdbIxubuyTgO1mP2yAPzwlRyTTuBrTFIyVAUHjY0+j32GLbh0oLrKqnfyPtagrvZFS/YuAMhDNX25Uc1zXlD6iXX3pDoKBFuQLQ8zD/NvH5Ib2MTlMQq2srJpav6FRHGf0zU5OnEn1g+n2D5G3Uw7h19CyWFI/rQdUJ6kP2m9yMD8tAZDZiKhE0woZ/MgdGU5FgI6faiYCefYpLqrnW6ytWLenftxcKpccUHur1cWSjRxboVyPbVtgueWC7ytf0FrgyAvRo9uxGRXN6tYrjK1EZIPdssJ5PHxzWUd706EQvXIQwxd4Ndx";    // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
-    protected VuforiaLocalizer.Parameters parametersVu;
-    protected VuforiaTrackables targetsSkyStone;
-    WebcamName webcamName = null;
     protected int fixedPosition = 0;
-
-
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -121,21 +106,6 @@ public class Robot extends LinearOpMode {
         RF.setPower(0);
       //  linear_motor.setPower(0);
 
-        webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters parametersVu = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-
-        //VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
-
-        parametersVu.vuforiaLicenseKey = VUFORIA_KEY;
-        parametersVu.cameraName = webcamName;
-
-        //  Instantiate the Vuforia engine
-        vuforia = ClassFactory.getInstance().createVuforia(parametersVu);
-        //VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
-
-
-
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
        /* LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -166,38 +136,6 @@ public class Robot extends LinearOpMode {
         // Define Mechanisms:
         MyDriveTrain = new DriveTrain(LB,LF, RF, RB, IMU);
         MyIntake = new IntakeTrain(IntakeL, IntakeR);
-        MyVuforiaStone=new VuforiaStone( webcamName,parametersVu, targetsSkyStone, vuforia,lastLocation);
         MyElevator = new elevator(leftLinearMotor, rightLinearMotor, upMagnetElevator, downMagnetElevator, fixedPosition);
-    }
-
-    //methodes:
-
-    public void autoOpenWitheStone(boolean reason){
-        boolean [] upStep;
-        upStep = new boolean[5];
-        upStep[1] = true;
-
-
-
-  /*      if (reason) {
-            if (upStep[1] == true){
-                Output.setPosition(0.75);
-                upStep[2] = true;
-            }
-            if (upStep[2] == true && Output.getPosition() > 0.6){
-                MyElevator.moveElevator(1,1);
-                upStep[3] = true;
-                upStep[2] = false;
-            }
-            if (upStep[3] = true && upMagnetElevator.getState() == false){
-                MyElevator.moveElevator(0,0);
-                Arm.setPosition(0.104020);
-                upStep[4] = true;
-                upStep[3] = false;
-            }
-            if (upStep[4] == true && Arm.getPosition() > 0.09){
-                MyElevator.moveElevator(1,1);
-            }
-        }*/
     }
 }
