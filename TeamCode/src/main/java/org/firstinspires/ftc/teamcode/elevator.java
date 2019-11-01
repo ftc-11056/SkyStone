@@ -31,16 +31,40 @@ public class elevator  {
         rightEle.setPower(rightPower);
     }
 
-    public void ElevateWithEncoder(int pos, double power){
-
-        int newLeftTargetPositin = leftEle.getCurrentPosition() + pos;
-        int newrightTargetPositin = rightEle.getCurrentPosition() + pos;
-        leftEle.setTargetPosition(newLeftTargetPositin);
-        rightEle.setTargetPosition(newrightTargetPositin);
+    public void ElevateWithEncoder(int pos, double power, double kp){
+        //int newLeftTargetPositin = leftEle.getCurrentPosition() + pos;
+        //int newrightTargetPositin = rightEle.getCurrentPosition() + pos;
+        leftEle.setTargetPosition(pos);
+        rightEle.setTargetPosition(pos);
         leftEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftEle.setPower(power*(pos-leftEle.getCurrentPosition())*kp);
+        rightEle.setPower(power*(pos-rightEle.getCurrentPosition())*kp);
+
+//        fixedPosition = leftEle.getCurrentPosition();
+    }
+
+    public void ElevateWithEncoderNew(){
+        double power = 0;
+        int newLeftTargetPositin = leftEle.getCurrentPosition() + 25;
+        int newrightTargetPositin = rightEle.getCurrentPosition() + 25;
+        leftEle.setTargetPosition(newLeftTargetPositin);
+        rightEle.setTargetPosition(newrightTargetPositin);
+
+        if((leftEle.getCurrentPosition()<100 && rightEle.getCurrentPosition()<100)||
+                (leftEle.getCurrentPosition()>450 && rightEle.getCurrentPosition()>450))
+            power = 0.1;
+        else if(leftEle.getCurrentPosition()>550 && rightEle.getCurrentPosition()>550) power = 0;
+        else power = 1;
+
         leftEle.setPower(Math.abs(power));
         rightEle.setPower(Math.abs(power));
+
+        leftEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+
 //        fixedPosition = leftEle.getCurrentPosition();
     }
 

@@ -8,7 +8,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
 @TeleOp(name = "TeleOpTest", group = "teamcode")
-public class TeleOpTest extends basicTeleop {
+public class TeleOpTest extends Robot {
 
     private int grandFlag = 0;
 
@@ -69,12 +69,18 @@ public class TeleOpTest extends basicTeleop {
                 MyElevator.setPower(0, 0);
             }*/
 
-            if (gamepad1.dpad_up){
-                MyElevator.ElevateWithEncoder(-50,0.2);
+//            if (gamepad1.dpad_up /*&& upMagnetElevator.getState() == false*/){
+////                MyElevator.ElevateWithEncoder(-50,0.2);
+////                stayingPosition = leftLinearMotor.getCurrentPosition();
+////            }
+            if (gamepad1.dpad_up /*&& upMagnetElevator.getState() == false*/){
+                double kp = 1/ (-1000-leftLinearMotor.getCurrentPosition());
+                MyElevator.ElevateWithEncoder(-1000,1, kp);
                 stayingPosition = leftLinearMotor.getCurrentPosition();
             }
-            else if (gamepad1.dpad_down){
-                MyElevator.ElevateWithEncoder(50,0.2);
+            else if (gamepad1.dpad_down /*&& downMagnetElevator.getState() == false*/){
+                double kp = 1/ (-50-leftLinearMotor.getCurrentPosition());
+                MyElevator.ElevateWithEncoder(-50,1, kp);
                 stayingPosition = leftLinearMotor.getCurrentPosition();
             }
             else{
@@ -104,7 +110,7 @@ public class TeleOpTest extends basicTeleop {
 
                 Output.setPosition(0.75);
                 if(-time+runtime.seconds()>2) {
-                    MyElevator.ElevateWithEncoder(300, 1);
+                    //MyElevator.ElevateWithEncoder(300, 1);
                     if (rightLinearMotor.getCurrentPosition()>300|| leftLinearMotor.getCurrentPosition()>300)
                         MyElevator.dontMoveElevator(1,300);
                         Arm.setPosition(0.75);
@@ -162,13 +168,13 @@ public class TeleOpTest extends basicTeleop {
 
 //            autoOpenWitheStone(gamepad1.dpad_left);
 
-            /*if (gamepad1.right_trigger > 0) {
-                LeftServo.setPosition(0.75);
+            if (gamepad1.right_trigger > 0) {
+                LeftServo.setPosition(0);
                 RightServo.setPosition(0.25);
             } else if (gamepad1.left_trigger > 0) {
-                LeftServo.setPosition(0.4);
-                RightServo.setPosition(0.5);
-            }*/
+                LeftServo.setPosition(0.6);
+                RightServo.setPosition(0.9);
+            }
             }
         }
     }

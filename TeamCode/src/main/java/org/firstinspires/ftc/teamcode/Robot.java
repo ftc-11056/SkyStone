@@ -74,8 +74,8 @@ public class Robot extends LinearOpMode {
         IntakeL = hardwareMap.get(DcMotor.class,"IntakeL");
         IntakeR = hardwareMap.get(DcMotor.class,"IntakeR");
 
-      //  LeftServo  = hardwareMap.get(Servo.class, "LeftServo");
-      //  RightServo  = hardwareMap.get(Servo.class, "RightServo");
+        LeftServo  = hardwareMap.get(Servo.class, "LeftServo");
+        RightServo  = hardwareMap.get(Servo.class, "RightServo");
 
         upMagnetElevator = hardwareMap.get(DigitalChannel.class,"upMagnetELevator");
         downMagnetElevator = hardwareMap.get(DigitalChannel.class,"downMagnetELevator");
