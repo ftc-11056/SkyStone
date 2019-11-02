@@ -8,15 +8,10 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 public class Robot extends LinearOpMode {
 
@@ -94,10 +89,16 @@ public class Robot extends LinearOpMode {
         RF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         RB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         IntakeL.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE the intake System
-//        leftLinearMotor.setDirection(DcMotor.Direction.REVERSE);//set to rverse the elevator system
+
+
 
         leftLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        LF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
         // Set all motors to zero power
@@ -106,6 +107,9 @@ public class Robot extends LinearOpMode {
         RB.setPower(0);
         RF.setPower(0);
       //  linear_motor.setPower(0);
+
+        Output.setPosition(0.5);
+        Arm.setPosition(0.5);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.

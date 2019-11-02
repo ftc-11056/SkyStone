@@ -109,7 +109,7 @@ public class DriveTrain {
         int newLeftBackTarget = 0;
         int newRightFrontTarget = 0;
         int newRightBackTarget = 0;
-        double Pnumber = 0.019;
+        double Pnumber = 1;
         // Ensure that the opmode is still active
 
         LeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -134,12 +134,12 @@ public class DriveTrain {
         RightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         // reset the timeout time and start motion.
-        LeftFront.setPower(power * (LeftFront.getCurrentPosition()-newLeftFrontTarget) * Pnumber);
-        LeftBack.setPower( power * (LeftBack.getCurrentPosition()-newLeftBackTarget) * Pnumber);
-        RightFront.setPower( power * (RightFront.getCurrentPosition()-newRightFrontTarget) * Pnumber);
-        RightBack.setPower( power * (RightBack.getCurrentPosition()-newRightBackTarget) * Pnumber);
+        LeftFront.setPower(/*speed * (Math.abs(LeftFront.getCurrentPosition()) -Math.abs( newLeftFrontTarget)) * Pnumber*/Math.abs(speed));
+        LeftBack.setPower(/*speed * (Math.abs(LeftBack.getCurrentPosition()) - Math.abs(newLeftBackTarget)) * Pnumber*/Math.abs(speed));
+        RightFront.setPower(/*speed * (Math.abs(RightFront.getCurrentPosition()) -Math.abs(newRightFrontTarget) ) * Pnumber*/Math.abs(speed));
+        RightBack.setPower(/*speed * (Math.abs(RightBack.getCurrentPosition()) - Math.abs(newRightBackTarget)) * Pnumber*/Math.abs(speed));
 
-        while ((LeftFront.isBusy() && LeftBack.isBusy() && RightFront.isBusy()) && RightBack.isBusy() && runtime.seconds() < Math.abs(LeftFrontCM / 35)) {
+        while ((LeftFront.isBusy() && LeftBack.isBusy() && RightFront.isBusy()) && RightBack.isBusy() /*&& runtime.seconds() < Math.abs(LeftFrontCM / 35)*/) {
 
         }
 
@@ -157,63 +157,6 @@ public class DriveTrain {
 
 
         //  sleep(250);   // optional pause after each move
-    }
-
-    public void encoderDriveInLoop (double speed, double LeftFrontCM, double LeftBackCM, double RightFrontCM, double RightBackCM) {
-        runtime.reset();
-        int newLeftFrontTarget = 0;
-        int newLeftBackTarget = 0;
-        int newRightFrontTarget = 0;
-        int newRightBackTarget = 0;
-
-        // Ensure that the opmode is still active
-
-
-        LeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        LeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        RightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        RightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        // Determine new target position, and pass to motor controller
-        newLeftFrontTarget = LeftFront.getCurrentPosition() + (int) (LeftFrontCM * COUNTS_PER_CM);
-        newLeftBackTarget = LeftBack.getCurrentPosition() + (int) (LeftBackCM * COUNTS_PER_CM);
-        newRightFrontTarget = RightFront.getCurrentPosition() + (int) (RightFrontCM * COUNTS_PER_CM);
-        newRightBackTarget = RightBack.getCurrentPosition() + (int) (RightBackCM * COUNTS_PER_CM);
-
-        LeftFront.setTargetPosition(newLeftFrontTarget);
-        LeftBack.setTargetPosition(newLeftBackTarget);
-        RightFront.setTargetPosition(newRightFrontTarget);
-        RightBack.setTargetPosition(newRightBackTarget);
-
-        // Turn On RUN_TO_POSITION
-        LeftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        LeftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        RightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        RightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        // reset the timeout time and start motion.
-        /*runtime.reset();*/
-        LeftFront.setPower(Math.abs(speed));
-        LeftBack.setPower(Math.abs(speed));
-        RightFront.setPower(Math.abs(speed));
-        RightBack.setPower(Math.abs(speed));
-
-        // Turn off RUN_TO_POSITION
-        LeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        LeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        RightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        RightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-
-        //  sleep(250);   // optional pause after each move
-    }
-
-    public void startAndResetEncoders() {
-
-        LeftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        RightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        LeftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        RightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
     }
 
 

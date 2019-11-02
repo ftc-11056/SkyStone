@@ -1,11 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+
 
 @TeleOp(name = "TeleOpTest", group = "teamcode")
 public class TeleOpTest extends Robot {
@@ -19,6 +19,9 @@ public class TeleOpTest extends Robot {
 
     private int num = 0;
     private int stayingPosition = 0;
+    private double time = 0;
+    int degel = 0;
+    int flag=0;
 
 
     @Override
@@ -29,7 +32,6 @@ public class TeleOpTest extends Robot {
 
         waitForStart();
         while (opModeIsActive()) {
-            double time=runtime.seconds();
 
             angles = IMU.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
             double heading = angles.firstAngle;
@@ -60,6 +62,14 @@ public class TeleOpTest extends Robot {
                 Output.setPosition(0);
             }
 
+            if (gamepad1.right_bumper) {
+                MyIntake.maxIntake();
+            } else if (gamepad1.left_bumper) {
+                MyIntake.maxOuttake();
+            } else {
+                MyIntake.ShutDown();
+            }
+
          /*   if (gamepad1.right_trigger > 0) {
                 MyElevator.dontMoveElevator(0.5,0.02);
             }*/
@@ -73,24 +83,24 @@ public class TeleOpTest extends Robot {
 ////                MyElevator.ElevateWithEncoder(-50,0.2);
 ////                stayingPosition = leftLinearMotor.getCurrentPosition();
 ////            }
-            if (gamepad1.dpad_up /*&& upMagnetElevator.getState() == false*/){
-                double kp = 1/ (-1000-leftLinearMotor.getCurrentPosition());
-                MyElevator.ElevateWithEncoder(-1000,1, kp);
-                stayingPosition = leftLinearMotor.getCurrentPosition();
-            }
-            else if (gamepad1.dpad_down /*&& downMagnetElevator.getState() == false*/){
-                double kp = 1/ (-50-leftLinearMotor.getCurrentPosition());
-                MyElevator.ElevateWithEncoder(-50,1, kp);
-                stayingPosition = leftLinearMotor.getCurrentPosition();
-            }
-            else{
-                leftLinearMotor.setTargetPosition(stayingPosition);
-                rightLinearMotor.setTargetPosition(stayingPosition);
-                leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                rightLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                leftLinearMotor.setPower(1);
-                rightLinearMotor.setPower(1);
-            }
+            double kp = 1 / 400;
+
+//            if (gamepad1.dpad_up && leftLinearMotor.getCurrentPosition() > -420 /*&& upMagnetElevator.getState() == false*/) {
+//                MyElevator.ElevateWithEncoder(-400, 1, 0.5);
+//                stayingPosition = leftLinearMotor.getCurrentPosition();
+//            } else if (gamepad1.dpad_down && leftLinearMotor.getCurrentPosition() < -50/*&& downMagnetElevator.getState() == false*/) {
+//                 double kp = 1/ (-50-leftLinearMotor.getCurrentPosition());
+//                MyElevator.ElevateWithEncoder(-50, 0.4, 0.002);
+//                stayingPosition = leftLinearMotor.getCurrentPosition();
+//            } else if(!gamepad2.x || flag != 1){
+//                leftLinearMotor.setTargetPosition(stayingPosition);
+//                rightLinearMotor.setTargetPosition(stayingPosition);
+//                leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                rightLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                leftLinearMotor.setPower(1);
+//                rightLinearMotor.setPower(1);
+//            }*/
+
             stayingPosition = stayingPosition;
 
             telemetry.addData("leftEncodersLinear", leftLinearMotor.getCurrentPosition());
@@ -98,24 +108,34 @@ public class TeleOpTest extends Robot {
             telemetry.addData("stayingPosition:", stayingPosition);
             telemetry.update();
 
-            if (gamepad1.right_bumper) {
-                MyIntake.maxIntake();
-            } else if (gamepad1.left_bumper) {
-                MyIntake.maxOuttake();
-            } else {
-                MyIntake.ShutDown();
-            }
-
-            if (gamepad2.x){
+            if (gamepad2.x) {
+                degel = 1;
+                if (degel == 1) {
+                    time = runtime.seconds();
+                }
 
                 Output.setPosition(0.75);
-                if(-time+runtime.seconds()>2) {
-                    //MyElevator.ElevateWithEncoder(300, 1);
-                    if (rightLinearMotor.getCurrentPosition()>300|| leftLinearMotor.getCurrentPosition()>300)
-                        MyElevator.dontMoveElevator(1,300);
-                        Arm.setPosition(0.75);
-                }
+                telemetry.addData("time is:", time);
+                //sleep(2000);
+                telemetry.update();
             }
+
+            if (degel == 1)
+                if ((-time + runtime.seconds()) > 2) {
+                    flag=1;
+                   MyElevator.ElevateWithEncoder( -1000, 1, 0.5);
+                    /*if (rightLinearMotor.getCurrentPosition()>300 || leftLinearMotor.getCurrentPosition()>300)
+                        MyElevator.dontMoveElevator(1,300);*/
+                    stayingPosition = leftLinearMotor.getCurrentPosition();
+                    telemetry.addLine("Here");
+                    telemetry.update();
+                }
+            if (leftLinearMotor.getCurrentPosition() < -980 || rightLinearMotor.getCurrentPosition() < -980 && degel == 1){
+                flag = 0;
+                Arm.setPosition(0.75);
+                degel = 0;
+            }
+
 /////////////////////////////////////////////////////////////////////////////////////////////
             //dont press on thes points/*
            /* if (gamepad1.dpad_up){
@@ -175,9 +195,9 @@ public class TeleOpTest extends Robot {
                 LeftServo.setPosition(0.6);
                 RightServo.setPosition(0.9);
             }
-            }
         }
     }
+}
 
 
 
