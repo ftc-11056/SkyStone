@@ -138,7 +138,7 @@ public class Robot extends LinearOpMode {
 
         // Define and initialize ALL installed servos.
 
-        // Define Mechanisms:
+        // Define Mechanisms:.
         MyDriveTrain = new DriveTrain(LB,LF, RF, RB, IMU);
         MyIntake = new IntakeTrain(IntakeL, IntakeR);
         MyElevator = new elevator(leftLinearMotor, rightLinearMotor, upMagnetElevator, downMagnetElevator, fixedPosition);

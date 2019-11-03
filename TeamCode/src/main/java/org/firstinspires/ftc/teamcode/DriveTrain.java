@@ -24,10 +24,10 @@ public class DriveTrain {
     public DcMotor RightBack = null;
 
 
-    static final double COUNTS_PER_MOTOR_REV = 28;    // eg: ANDYMARK Motor Encoder
+    /*static final double COUNTS_PER_MOTOR_REV = 28;    // eg: ANDYMARK Motor Encoder
     static final double DRIVE_GEAR_REDUCTION = 19.5;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_CM = 10.16;     // For figuring circumference
-    static final double COUNTS_PER_CM = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_CM * 3.1415926);
+    static final double COUNTS_PER_CM = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_CM * 3.1415926); */
 
 
     Orientation lastAngles = new Orientation();
@@ -103,19 +103,27 @@ public class DriveTrain {
     }
 
 
-    public void encoderDrive(double speed, double LeftFrontCM, double LeftBackCM, double RightFrontCM, double RightBackCM) {
+    public void encoderDrive(double speed, double LeftFrontCM, double LeftBackCM, double RightFrontCM, double RightBackCM , int State) {
         runtime.reset();
         int newLeftFrontTarget = 0;
         int newLeftBackTarget = 0;
         int newRightFrontTarget = 0;
         int newRightBackTarget = 0;
         double Pnumber = 1;
+        int COUNTS_PER_CM = 0;
+
+
         // Ensure that the opmode is still active
 
         LeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        if (State == 1) COUNTS_PER_CM =  16 ; /* 1 for Strafe*/
+        else COUNTS_PER_CM = 13 ; /* for Strate */
+
+
         // Determine new target position, and pass to motor controller
         newLeftFrontTarget = LeftFront.getCurrentPosition() + (int) (LeftFrontCM * COUNTS_PER_CM);
         newLeftBackTarget = LeftBack.getCurrentPosition() + (int) (LeftBackCM * COUNTS_PER_CM);

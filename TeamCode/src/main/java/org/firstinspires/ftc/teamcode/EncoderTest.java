@@ -13,8 +13,14 @@ public class EncoderTest extends Robot {
         //   RightServo.setPosition(0.5);
 
         waitForStart();
-        MyDriveTrain.encoderDrive(1,-120,-120,-120,-120);
-        sleep(10000);
+        runtime.reset();
+
+        MyDriveTrain.encoderDrive(1,-70,70,70,-70,2);
+        while (!isStopRequested()) {
+            telemetry.addData("LFencoder",LF.getCurrentPosition());
+            telemetry.update();
+        }
+
     }
     }
 

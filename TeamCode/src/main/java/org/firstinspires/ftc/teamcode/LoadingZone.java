@@ -30,7 +30,7 @@ public class LoadingZone extends basicAuto {
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
-        MyDriveTrain.encoderDrive(0.4,-30,30,30,-30);
+        MyDriveTrain.encoderDrive(0.7,-30,30,30,-30 ,1);
         Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
 
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -41,19 +41,19 @@ public class LoadingZone extends basicAuto {
         if (Mikum>2) {
             telemetry.addLine("you're on the right");
             telemetry.update();
-            MyDriveTrain.encoderDrive(0.7,38,38,38,38);
+            MyDriveTrain.encoderDrive(0.7,38,38,38,38,2);
             sleep(500);
-            MyDriveTrain.encoderDrive(0.6,24,24,-24,-24);
+            MyDriveTrain.encoderDrive(0.6,24,24,-24,-24,2);
             sleep(500);
             MyIntake.maxIntake();
-            MyDriveTrain.encoderDrive(0.7,-40,-40,-40,-40);
+            MyDriveTrain.encoderDrive(0.7,-40,-40,-40,-40,2);
             sleep(500);
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.7,37,37,37,37);
+            MyDriveTrain.encoderDrive(0.7,37,37,37,37,2);
             sleep(500);
-            MyDriveTrain.encoderDrive(0.6,-26,-26,26,26);
+            MyDriveTrain.encoderDrive(0.6,-26,-26,26,26,2);
             sleep(500);
-            MyDriveTrain.encoderDrive(0.7,38,38,38,38);
+            MyDriveTrain.encoderDrive(0.7,38,38,38,38,2);
             sleep(500);
 
 
@@ -61,59 +61,59 @@ public class LoadingZone extends basicAuto {
         else if (Mikum<-2) {
             telemetry.addLine("you're on the left");
             telemetry.update();
-            MyDriveTrain.encoderDrive(0.7,23,23,23,23);
+            MyDriveTrain.encoderDrive(0.7,23,23,23,23,2);
             sleep(500);
-            MyDriveTrain.encoderDrive(0.7,-45,45,45,-45);
+            MyDriveTrain.encoderDrive(0.7,-45,45,45,-45,1);
             sleep(500);
             MyIntake.maxIntake();
-            MyDriveTrain.encoderDrive(0.7,-25,-25,-25,-25);
+            MyDriveTrain.encoderDrive(0.7,-25,-25,-25,-25,2);
             sleep(500);
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.7,42,-42,-42,42);
+            MyDriveTrain.encoderDrive(0.7,42,-42,-42,42,1);
             sleep(500);
-            MyDriveTrain.encoderDrive(0.7,50,50,50,50);
+            MyDriveTrain.encoderDrive(0.7,50,50,50,50,2);
             sleep(500);
 
         }
         else {
             telemetry.addLine("You are on the center!");
             telemetry.update();
-            MyDriveTrain.encoderDrive(0.7,28,28,28,28);
+            MyDriveTrain.encoderDrive(0.7,28,28,28,28,2);
             sleep(500);
-            MyDriveTrain.encoderDrive(0.7,-45,45,45,-45);
+            MyDriveTrain.encoderDrive(0.7,-45,45,45,-45,1);
             sleep(500);
             MyIntake.maxIntake();
-            MyDriveTrain.encoderDrive(0.7,-25,-25,-25,-25);
+            MyDriveTrain.encoderDrive(0.7,-25,-25,-25,-25,2);
             sleep(500);
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.7,40,-40,-40,40);
+            MyDriveTrain.encoderDrive(0.7,40,-40,-40,40,1);
             sleep(500);
-            MyDriveTrain.encoderDrive(0.7,50,50,50,50);
+            MyDriveTrain.encoderDrive(0.7,50,50,50,50,2);
             sleep(500);
         }
 
-        MyDriveTrain.encoderDrive(0.6,35,35,-35,-35);
+        MyDriveTrain.encoderDrive(0.6,35,35,-35,-35,2);
         sleep(500);
         MyIntake.maxOuttake();
         sleep(1000);
         MyIntake.ShutDown();
-        MyDriveTrain.encoderDrive(0.6,-34,-34,34,34);
+        MyDriveTrain.encoderDrive(0.6,-34,-34,34,34,2);
         sleep(500);
 
         if (Mikum>2) {
 //            telemetry.addLine("you're on the right");
 //            telemetry.update();
-            MyDriveTrain.encoderDrive(0.7,-63,-63,-63,-63);
+            MyDriveTrain.encoderDrive(0.7,-63,-63,-63,-63,2);
             sleep(500);
-            MyDriveTrain.encoderDrive(0.7,-40,40,40,-40);
+            MyDriveTrain.encoderDrive(0.7,-40,40,40,-40,1);
             sleep(500);
             MyIntake.maxIntake();
-            MyDriveTrain.encoderDrive(0.7,-25,-25,-25,-25);
+            MyDriveTrain.encoderDrive(0.7,-25,-25,-25,-25,2);
             sleep(500);
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.7,40,-40,-40,40);
+            MyDriveTrain.encoderDrive(0.7,40,-40,-40,40,1);
             sleep(500);
-            MyDriveTrain.encoderDrive(0.7,50,50,50,50);
+            MyDriveTrain.encoderDrive(0.7,50,50,50,50,2);
             sleep(500);
         }
         else if (Mikum<-2) {
@@ -128,12 +128,12 @@ public class LoadingZone extends basicAuto {
 
         }
 
-        MyDriveTrain.encoderDrive(0.6,35,35,-35,-35);
+        MyDriveTrain.encoderDrive(0.6,35,35,-35,-35,2);
         sleep(500);
         MyIntake.maxOuttake();
         sleep(1000);
         MyIntake.ShutDown();
-        MyDriveTrain.encoderDrive(0.7,20,-20,-20,20);
+        MyDriveTrain.encoderDrive(0.7,20,-20,-20,20,1);
 
 
 

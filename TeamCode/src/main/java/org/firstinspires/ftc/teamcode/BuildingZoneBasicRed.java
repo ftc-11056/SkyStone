@@ -22,7 +22,7 @@ public class BuildingZoneBasicRed extends basicAuto {
 //
 
         waitForStart();
-        MyDriveTrain.encoderDrive(0.5,30,-30,-30,30);
+        MyDriveTrain.encoderDrive(0.5,30,-30,-30,30,1);
         sleep(1000);
 
         Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
@@ -38,32 +38,32 @@ public class BuildingZoneBasicRed extends basicAuto {
             telemetry.addLine("you're on the right");
             telemetry.update();
             MyDriveTrain.Rotate(50,0.8,5);
-            MyDriveTrain.encoderDrive(0.5,-25,-25,-25,-25);
-            MyDriveTrain.encoderDrive(0.8,25,-25,-25,25);
+            MyDriveTrain.encoderDrive(0.5,-25,-25,-25,-25,2);
+            MyDriveTrain.encoderDrive(0.8,25,-25,-25,25,1);
 
         }
         else if (Mikum<-2) {
             telemetry.addLine("you're on the left");
             telemetry.update();
             MyDriveTrain.Rotate(50,0.8,5);
-            MyDriveTrain.encoderDrive(0.5,-10,-10,-10,-10);
-            MyDriveTrain.encoderDrive(0.8,25,-25,-25,25);
+            MyDriveTrain.encoderDrive(0.5,-10,-10,-10,-10,2);
+            MyDriveTrain.encoderDrive(0.8,25,-25,-25,25,1);
         }
         else {
             telemetry.addLine("You are on the center!");
             telemetry.update();
             MyDriveTrain.Rotate(50,0.8,5);
-            MyDriveTrain.encoderDrive(0.5,-30,-30,-30,-30);
+            MyDriveTrain.encoderDrive(0.5,-30,-30,-30,-30,2);
             sleep(500);
-            MyDriveTrain.encoderDrive(0.5,-50,50,50,-50);
+            MyDriveTrain.encoderDrive(0.5,-50,50,50,-50,1);
             sleep(500);
             MyIntake.maxIntake();
-            MyDriveTrain.encoderDrive(0.5,20,20,20,20);
+            MyDriveTrain.encoderDrive(0.5,20,20,20,20,2);
             sleep(500);
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.5,35,-35,-35,35);
+            MyDriveTrain.encoderDrive(0.5,35,-35,-35,35,1);
             sleep(500);
-            MyDriveTrain.encoderDrive(0.5,70,70,70,70);
+            MyDriveTrain.encoderDrive(0.5,70,70,70,70,2);
             sleep(500);
         }
 

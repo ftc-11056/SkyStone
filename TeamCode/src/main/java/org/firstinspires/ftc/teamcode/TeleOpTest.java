@@ -48,6 +48,13 @@ public class TeleOpTest extends Robot {
                 MyDriveTrain.arcade(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
             }
 
+            if (gamepad1.dpad_right) {
+               LF.setPower(0.3);
+               LB.setPower(0.3);
+               RF.setPower(0.3);
+               RB.setPower(0.3);
+            }
+
             if (gamepad1.x) {
                 Arm.setPosition(0);
             } else if (gamepad1.b) {
