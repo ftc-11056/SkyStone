@@ -5,6 +5,7 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -41,6 +42,8 @@ public class Robot extends LinearOpMode {
     public DigitalChannel downMagnetElevator = null;
     public DigitalChannel upMagnetElevator = null;
 
+    /*Analog Sensor*/
+    protected DistanceSensor cubeIn;
 
     /*Mechanisms*/
     protected DriveTrain MyDriveTrain = null;
@@ -75,6 +78,8 @@ public class Robot extends LinearOpMode {
         upMagnetElevator = hardwareMap.get(DigitalChannel.class,"upMagnetELevator");
         downMagnetElevator = hardwareMap.get(DigitalChannel.class,"downMagnetELevator");
 
+        cubeIn = hardwareMap.get(DistanceSensor.class, "cubeIn");
+
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -89,7 +94,6 @@ public class Robot extends LinearOpMode {
         RF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         RB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         IntakeL.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE the intake System
-
 
 
         leftLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

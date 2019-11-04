@@ -54,7 +54,7 @@ public class DriveTrain {
         IMU = imu;
     }
 
-    public void setPower (int LB, int RB, int LF, int RF){
+    public void SetPower (double LB, double RB, double LF, double RF){
         LeftFront.setPower(LF);
         LeftBack.setPower(LB);
         RightFront.setPower(RF);
@@ -80,6 +80,7 @@ public class DriveTrain {
             leftBackVal /= wheelPowers[3];
             rightBackVal /= wheelPowers[3];
         }
+//        SetPower(leftBackVal,rightBackVal,leftFrontVal,rightFrontVal);
         LeftFront.setPower(leftFrontVal);
         RightFront.setPower(rightFrontVal);
         RightBack.setPower(rightBackVal);

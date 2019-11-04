@@ -146,6 +146,7 @@ public class SensorREVColorDistance extends LinearOpMode {
 
             telemetry.update();
         }
+        sensorDistance.getDistance(DistanceUnit.MM);
 
         // Set the panel back to the default color
         relativeLayout.post(new Runnable() {
