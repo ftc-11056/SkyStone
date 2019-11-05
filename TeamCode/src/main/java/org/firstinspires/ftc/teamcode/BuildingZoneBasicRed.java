@@ -15,66 +15,21 @@ public class BuildingZoneBasicRed extends basicAuto {
     @Override
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
-      //  LeftServo.setPosition(0.4);
-     //   RightServo.setPosition(0.5);
-//        while (!isStarted())
-//        Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
-//
+        LeftServo.setPosition(0);
+        RightServo.setPosition(0.25);
 
         waitForStart();
-        MyDriveTrain.encoderDrive(0.5,30,-30,-30,30,1);
-        sleep(1000);
-
-        Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
-
-        //angles = IMU.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
+        MyDriveTrain.encoderDrive(0.5,-100,-100,-100,-100,2);
+        LeftServo.setPosition(0.6);
+        RightServo.setPosition(0.9);
+        MyDriveTrain.encoderDrive(0.5,90,90,90,90,2);
+        LeftServo.setPosition(0);
+        RightServo.setPosition(0.25);
+        MyDriveTrain.encoderDrive(0.5,-70,70,70,-70,1);
         telemetry.addData("Angles:", MyDriveTrain.getAngle());
         telemetry.update();
-        telemetry.addData("Mikum:", Mikum);
-        sleep(2000);
-        telemetry.update();
 
-        if (Mikum>2) {
-            telemetry.addLine("you're on the right");
-            telemetry.update();
-            MyDriveTrain.Rotate(50,0.8,5);
-            MyDriveTrain.encoderDrive(0.5,-25,-25,-25,-25,2);
-            MyDriveTrain.encoderDrive(0.8,25,-25,-25,25,1);
 
-        }
-        else if (Mikum<-2) {
-            telemetry.addLine("you're on the left");
-            telemetry.update();
-            MyDriveTrain.Rotate(50,0.8,5);
-            MyDriveTrain.encoderDrive(0.5,-10,-10,-10,-10,2);
-            MyDriveTrain.encoderDrive(0.8,25,-25,-25,25,1);
-        }
-        else {
-            telemetry.addLine("You are on the center!");
-            telemetry.update();
-            MyDriveTrain.Rotate(50,0.8,5);
-            MyDriveTrain.encoderDrive(0.5,-30,-30,-30,-30,2);
-            sleep(500);
-            MyDriveTrain.encoderDrive(0.5,-50,50,50,-50,1);
-            sleep(500);
-            MyIntake.maxIntake();
-            MyDriveTrain.encoderDrive(0.5,20,20,20,20,2);
-            sleep(500);
-            MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.5,35,-35,-35,35,1);
-            sleep(500);
-            MyDriveTrain.encoderDrive(0.5,70,70,70,70,2);
-            sleep(500);
-        }
-
-      /*  MyDriveTrain.encoderDrive(0.3, 25, 25, 25, 25);
-        sleep(500);
-        LeftServo.setPosition(0.75);
-        RightServo.setPosition(0.25);
-        sleep(1000);
-        MyDriveTrain.encoderDrive(0.3, -25, -25, -25, -25);
-        MyDriveTrain.encoderDrive(0.3, -40, 40, 40, -40);
-*/
     }
 
 }
