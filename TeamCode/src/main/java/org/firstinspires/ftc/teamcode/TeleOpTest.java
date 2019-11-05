@@ -11,19 +11,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 @TeleOp(name = "TeleOpTest", group = "teamcode")
 public class TeleOpTest extends Robot {
 
-    private int grandFlag = 0;
-
-    private boolean upStep1 = true;
-    private boolean upStep2;
-    private boolean upStep3;
-    private boolean upStep4;
-
-    private int num = 0;
     private int stayingPosition = 0;
     private int encodersStay;
     private double time = 0;
-    int degel = 0;
-    int flag = 0;
+    private boolean upDegel = false;
+    private boolean downDegel = false;
+    private boolean flag = false;
 
 
     @Override
@@ -38,10 +31,6 @@ public class TeleOpTest extends Robot {
 
         waitForStart();
         while (opModeIsActive()) {
-
-//            telemetry.addData("distance", cubeIn.getDistance(DistanceUnit.MM));
-//            telemetry.update();
-
 //[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[GAMEPAD 11111111111]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
 
             angles = IMU.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
@@ -59,14 +48,11 @@ public class TeleOpTest extends Robot {
                 MyDriveTrain.arcade(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
             }
 
-            /*if (gamepad1.x) {
-                LF.setPower(1);
+            if(gamepad1.right_trigger>0){
                 LB.setPower(1);
-                RF.setPower(1);
-                RB.setPower(1);
-            }*/
-
-//[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[GAMEPAD 222222222222222]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+                LF.setPower(1);
+            }
+//[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[GAMEPAD 222222222222222]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]`
 
 //            Servos:
 
@@ -82,9 +68,9 @@ public class TeleOpTest extends Robot {
                 Output.setPosition(0);
             }
 
-            if (gamepad1.right_bumper) {
+            if (gamepad2.right_trigger > 0) {
                 MyIntake.maxIntake();
-            } else if (gamepad1.left_bumper) {
+            } else if (gamepad2.left_trigger > 0) {
                 MyIntake.maxOuttake();
             } else {
                 MyIntake.ShutDown();
@@ -92,81 +78,97 @@ public class TeleOpTest extends Robot {
 
 //            Elevator:
             //            Auto Button:*
-             /*if (gamepad2.y){
-                degel = 1;
-                flag = 1;
-                if (degel == 1) {
+            if (gamepad2.y) {
+                upDegel = true;
+                flag = true;
+                if (upDegel == true) {
                     time = runtime.seconds();
                 }
                 Output.setPosition(0.75);
                 telemetry.addData("time is:", time);
                 //sleep(2000);
                 telemetry.update();
-            }
-            else if (degel == 1)
+            } else if (upDegel == true)
                 if ((-time + runtime.seconds()) > 2) {
-                    MyElevator.ElevateWithEncoder(-400, 1, 0.5);
+                    MyElevator.ElevateWithEncoder(-400, 0.3, 0.5);
                     /*if (rightLinearMotor.getCurrentPosition()>300 || leftLinearMotor.getCurrentPosition()>300)
                         MyElevator.dontMoveElevator(1,300);*/
-/*                    stayingPosition = leftLinearMotor.getCurrentPosition();
+                    stayingPosition = leftLinearMotor.getCurrentPosition();
                     telemetry.addLine("Here");
                     telemetry.update();
-                    if (leftLinearMotor.getCurrentPosition() < -980 || rightLinearMotor.getCurrentPosition() < -980) {
+                    if (leftLinearMotor.getCurrentPosition() < -380 || rightLinearMotor.getCurrentPosition() < -380) {
                         Arm.setPosition(0.75);
                     }
                 }
-            else if (leftLinearMotor.getCurrentPosition() < -980 || rightLinearMotor.getCurrentPosition() < -980) {
-                degel = 0;
-                flag = 0;
-            }/*if (gamepad2.a) {
-                degel = 2;
-//                flag = 1;
-                if (degel == 2) {
+            if (leftLinearMotor.getCurrentPosition() < -380 || rightLinearMotor.getCurrentPosition() < -380) {
+                upDegel = false;
+                flag = false;
+            }
+
+            if (gamepad2.a) {
+                downDegel = true;
+                flag = true;
+                if (downDegel == true) {
                     time = runtime.seconds();
                 }
-                Arm.setPosition(0.2);
+                Arm.setPosition(0.25);
                 telemetry.addData("time is:", time);
+                //sleep(2000);
                 telemetry.update();
-            }
-            if (degel == 2)
+            } else if (downDegel == true)
                 if ((-time + runtime.seconds()) > 2) {
-                    MyElevator.ElevateWithEncoder(-200, 0.4, 0.002);
+                    MyElevator.ElevateWithEncoder(-50, 0.3, 0.002);
+                    /*if (rightLinearMotor.getCurrentPosition()>300 || leftLinearMotor.getCurrentPosition()>300)
+                        MyElevator.dontMoveElevator(1,300);*/
                     stayingPosition = leftLinearMotor.getCurrentPosition();
-                    Output.setPosition(0);
                     telemetry.addLine("Here");
                     telemetry.update();
+                    if (leftLinearMotor.getCurrentPosition() > -60 || rightLinearMotor.getCurrentPosition() > -60) {
+                        Output.setPosition(0.25);
+                    }
                 }
-            if (leftLinearMotor.getCurrentPosition()> -200){
-                degel = 0;
-                flag = 0;
-            }else*/ if (gamepad1.dpad_up && leftLinearMotor.getCurrentPosition() > -420 /*&& upMagnetElevator.getState() == false*/) {
-                MyElevator.ElevateWithEncoder(-400, 1, 0.5);
-                stayingPosition = leftLinearMotor.getCurrentPosition();
-            } else if (gamepad1.dpad_down && leftLinearMotor.getCurrentPosition() < -50/*&& downMagnetElevator.getState() == false*/) {
-                MyElevator.ElevateWithEncoder(-50, 0.4, 0.002);
-                stayingPosition = leftLinearMotor.getCurrentPosition();
+            if (leftLinearMotor.getCurrentPosition() > -60 || rightLinearMotor.getCurrentPosition() > -60) {
+                downDegel = false;
+                flag = false;
             }
-                else {
+
+            if (gamepad2.right_bumper && leftLinearMotor.getCurrentPosition() > -380 /*&& upMagnetElevator.getState() == false*/) {
+                MyElevator.ElevateWithEncoder(-400, 0.3, 0.5);
+                stayingPosition = leftLinearMotor.getCurrentPosition();
+            } else if (gamepad2.left_bumper && leftLinearMotor.getCurrentPosition() < -50/*&& downMagnetElevator.getState() == false*/) {
+                MyElevator.ElevateWithEncoder(-50, 0.3, 0.002);
+                stayingPosition = leftLinearMotor.getCurrentPosition();
+            } /*else if (flag == false) {
                 leftLinearMotor.setTargetPosition(encodersStay);
                 rightLinearMotor.setTargetPosition(encodersStay);
                 leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 rightLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 leftLinearMotor.setPower(1);
                 rightLinearMotor.setPower(1);
-            }
+            }*/
 
             encodersStay = stayingPosition;
 
-            if (gamepad2.right_trigger > 0) {
+            if (gamepad2.x) {
                 LeftServo.setPosition(0);
                 RightServo.setPosition(0.25);
-            } else if (gamepad2.left_trigger > 0) {
+            } else if (gamepad2.b) {
                 LeftServo.setPosition(0.6);
                 RightServo.setPosition(0.9);
             }
+
+            telemetry.addData("stay values", stayingPosition);
+            telemetry.addData("motor encoders", leftLinearMotor.getCurrentPosition());
+            telemetry.addData("down Degel", downDegel);
+            telemetry.addData("up Degel", upDegel);
+            telemetry.addData("flag", flag);
+            telemetry.update();
+
         }
     }
 }
+
+
 
 
 

@@ -104,7 +104,6 @@ public class Robot extends LinearOpMode {
         LB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         RB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-
         // Set all motors to zero power
         LF.setPower(0);
         LB.setPower(0);
@@ -112,15 +111,11 @@ public class Robot extends LinearOpMode {
         RF.setPower(0);
       //  linear_motor.setPower(0);
 
-        Output.setPosition(0.5);
-//        Arm.setPosition(0.5);
-
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
        /* LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);/*
-
         RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         /*Define and Initialize Of IMU*/
