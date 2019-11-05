@@ -121,8 +121,8 @@ public class DriveTrain {
         RightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        if (State == 1) COUNTS_PER_CM =  16 ; /* 1 for Strafe*/
-        else COUNTS_PER_CM = 13 ; /* for Strate */
+        if (State == 1) COUNTS_PER_CM =  20 ; /* 1 for Strafe*/
+        else COUNTS_PER_CM = 17 ; /* for Strate */
 
 
         // Determine new target position, and pass to motor controller

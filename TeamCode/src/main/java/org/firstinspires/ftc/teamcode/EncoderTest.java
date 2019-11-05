@@ -15,7 +15,7 @@ public class EncoderTest extends Robot {
         waitForStart();
         runtime.reset();
 
-        MyDriveTrain.encoderDrive(1,-70,70,70,-70,2);
+                MyDriveTrain.encoderDrive(1,-120,120,120,-120,1);
         while (!isStopRequested()) {
             telemetry.addData("LFencoder",LF.getCurrentPosition());
             telemetry.update();
