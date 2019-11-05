@@ -157,6 +157,7 @@ public class TeleOpTest extends Robot {
                 RightServo.setPosition(0.9);
             }
 
+
             telemetry.addData("stay values", stayingPosition);
             telemetry.addData("motor encoders", leftLinearMotor.getCurrentPosition());
             telemetry.addData("down Degel", downDegel);

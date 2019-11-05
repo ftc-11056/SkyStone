@@ -96,6 +96,7 @@ public class Robot extends LinearOpMode {
         IntakeL.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE the intake System
 
 
+
         leftLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
