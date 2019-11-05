@@ -17,6 +17,9 @@ public class TeleOpTest extends Robot {
     private boolean upDegel = false;
     private boolean downDegel = false;
     private boolean flag = false;
+    private boolean bumpersDondMove = false;
+    private boolean YDondMove = false;
+    private boolean ADondMove = false;
 
 
     @Override
@@ -48,7 +51,7 @@ public class TeleOpTest extends Robot {
                 MyDriveTrain.arcade(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
             }
 
-            if(gamepad1.right_trigger>0){
+            if (gamepad1.right_trigger > 0) {
                 LB.setPower(1);
                 LF.setPower(1);
             }
@@ -79,6 +82,7 @@ public class TeleOpTest extends Robot {
 //            Elevator:
             //            Auto Button:*
             if (gamepad2.y) {
+                YDondMove = false;
                 upDegel = true;
                 flag = true;
                 if (upDegel == true) {
@@ -100,12 +104,10 @@ public class TeleOpTest extends Robot {
                         Arm.setPosition(0.75);
                     }
                 }
-            if (leftLinearMotor.getCurrentPosition() < -380 || rightLinearMotor.getCurrentPosition() < -380) {
-                upDegel = false;
-                flag = false;
-            }
+            else YDondMove = true;
 
             if (gamepad2.a) {
+                ADondMove = false;
                 downDegel = true;
                 flag = true;
                 if (downDegel == true) {
@@ -127,6 +129,12 @@ public class TeleOpTest extends Robot {
                         Output.setPosition(0.25);
                     }
                 }
+            else ADondMove = true;
+
+            if (leftLinearMotor.getCurrentPosition() < -380 || rightLinearMotor.getCurrentPosition() < -380) {
+                upDegel = false;
+                flag = false;
+            }
             if (leftLinearMotor.getCurrentPosition() > -60 || rightLinearMotor.getCurrentPosition() > -60) {
                 downDegel = false;
                 flag = false;
@@ -135,17 +143,21 @@ public class TeleOpTest extends Robot {
             if (gamepad2.right_bumper && leftLinearMotor.getCurrentPosition() > -380 /*&& upMagnetElevator.getState() == false*/) {
                 MyElevator.ElevateWithEncoder(-400, 0.3, 0.5);
                 stayingPosition = leftLinearMotor.getCurrentPosition();
+                bumpersDondMove = false;
             } else if (gamepad2.left_bumper && leftLinearMotor.getCurrentPosition() < -50/*&& downMagnetElevator.getState() == false*/) {
                 MyElevator.ElevateWithEncoder(-50, 0.3, 0.002);
                 stayingPosition = leftLinearMotor.getCurrentPosition();
-            } /*else if (flag == false) {
+                bumpersDondMove = false;
+            } else bumpersDondMove = true;
+
+            if (YDondMove == true && ADondMove == true && bumpersDondMove == true) {
                 leftLinearMotor.setTargetPosition(encodersStay);
                 rightLinearMotor.setTargetPosition(encodersStay);
                 leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 rightLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                leftLinearMotor.setPower(1);
-                rightLinearMotor.setPower(1);
-            }*/
+                leftLinearMotor.setPower(0.4);
+                rightLinearMotor.setPower(0.4);
+            }
 
             encodersStay = stayingPosition;
 
