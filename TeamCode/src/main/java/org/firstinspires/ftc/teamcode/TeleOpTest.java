@@ -52,7 +52,7 @@ public class TeleOpTest extends Robot {
             }
 
             if (gamepad1.right_trigger > 0) {
-                LB.setPower(1);
+                RB.setPower(1);
                 LF.setPower(1);
             }
 //[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[GAMEPAD 222222222222222]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]`
@@ -60,6 +60,8 @@ public class TeleOpTest extends Robot {
 //            Servos:
 
             if (gamepad2.dpad_left) {
+                LF.setPower(1);
+
                 Arm.setPosition(0.15);
             } else if (gamepad2.dpad_right) {
                 Arm.setPosition(1);
