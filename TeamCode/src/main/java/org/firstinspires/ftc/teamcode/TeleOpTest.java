@@ -27,10 +27,15 @@ public class TeleOpTest extends Robot {
         super.runOpMode();
         runtime.reset();
 
-        LB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        RB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        LF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        RF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        LB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        RB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        LF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        RF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         waitForStart();
         while (opModeIsActive()) {
@@ -52,16 +57,20 @@ public class TeleOpTest extends Robot {
             }
 
             if (gamepad1.right_trigger > 0) {
-                RB.setPower(1);
-                LF.setPower(1);
+                MyDriveTrain.arcade(1,0,0);
+                telemetry.addLine("dond yonaaaaaaaaaaaaaa levana");
+                telemetry.update();
+            }
+            if(gamepad1.left_bumper){
+                LB.setPower(1);
+                telemetry.addLine("pressed");
+                telemetry.update();
             }
 //[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[GAMEPAD 222222222222222]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]`
 
 //            Servos:
 
             if (gamepad2.dpad_left) {
-                LF.setPower(1);
-
                 Arm.setPosition(0.15);
             } else if (gamepad2.dpad_right) {
                 Arm.setPosition(1);

@@ -114,10 +114,10 @@ public class Robot extends LinearOpMode {
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
-       /* LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);/*
-        RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//        RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         /*Define and Initialize Of IMU*/
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
