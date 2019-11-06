@@ -59,16 +59,16 @@ public class TeleOpTest extends Robot {
 
 //            Servos:
 
-            if (gamepad2.dpad_up) {
-                Arm.setPosition(0);
-            } else if (gamepad2.dpad_down) {
+            if (gamepad2.dpad_left) {
+                Arm.setPosition(0.15);
+            } else if (gamepad2.dpad_right) {
                 Arm.setPosition(1);
             }
 
-            if (gamepad2.dpad_right) {
-                Output.setPosition(1);
-            } else if (gamepad2.dpad_left) {
-                Output.setPosition(0);
+            if (gamepad2.dpad_up) {
+                Output.setPosition(0.4);
+            } else if (gamepad2.dpad_down) {
+                Output.setPosition(0.94);
             }
 
             if (gamepad2.right_trigger > 0) {
@@ -104,7 +104,6 @@ public class TeleOpTest extends Robot {
                         Arm.setPosition(0.75);
                     }
                 }
-            else YDondMove = true;
 
             if (gamepad2.a) {
                 ADondMove = false;
@@ -129,19 +128,20 @@ public class TeleOpTest extends Robot {
                         Output.setPosition(0.25);
                     }
                 }
-            else ADondMove = true;
 
             if (leftLinearMotor.getCurrentPosition() < -380 || rightLinearMotor.getCurrentPosition() < -380) {
                 upDegel = false;
                 flag = false;
+                YDondMove = true;
             }
             if (leftLinearMotor.getCurrentPosition() > -60 || rightLinearMotor.getCurrentPosition() > -60) {
                 downDegel = false;
                 flag = false;
+                ADondMove = true;
             }
 
             if (gamepad2.right_bumper && leftLinearMotor.getCurrentPosition() > -380 /*&& upMagnetElevator.getState() == false*/) {
-                MyElevator.ElevateWithEncoder(-400, 0.3, 0.5);
+                MyElevator.ElevateWithEncoder(-400, 0.5, 0.5);
                 stayingPosition = leftLinearMotor.getCurrentPosition();
                 bumpersDondMove = false;
             } else if (gamepad2.left_bumper && leftLinearMotor.getCurrentPosition() < -50/*&& downMagnetElevator.getState() == false*/) {
