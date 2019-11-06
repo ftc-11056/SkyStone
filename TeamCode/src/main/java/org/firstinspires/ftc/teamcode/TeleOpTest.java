@@ -17,9 +17,9 @@ public class TeleOpTest extends Robot {
     private boolean upDegel = false;
     private boolean downDegel = false;
     private boolean flag = false;
-    private boolean bumpersDondMove = false;
-    private boolean YDondMove = false;
-    private boolean ADondMove = false;
+    private boolean bumpersDondMove = true;
+    private boolean YDondMove = true;
+    private boolean ADondMove = true;
 
 
     @Override
