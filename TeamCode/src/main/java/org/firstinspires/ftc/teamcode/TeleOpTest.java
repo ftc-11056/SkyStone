@@ -68,18 +68,19 @@ public class TeleOpTest extends Robot {
             }
 //[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[GAMEPAD 222222222222222]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]`
 
+//            TODO: chek the numders of the servos, p of elevator
 //            Servos:
 
             if (gamepad2.dpad_left) {
-                Arm.setPosition(0.15);
+                Arm.setPosition(0.135);
             } else if (gamepad2.dpad_right) {
                 Arm.setPosition(1);
             }
 
             if (gamepad2.dpad_up) {
-                Output.setPosition(0.4);
+                Output.setPosition(0.6);
             } else if (gamepad2.dpad_down) {
-                Output.setPosition(0.94);
+                Output.setPosition(1);
             }
 
             if (gamepad2.right_trigger > 0) {
@@ -99,7 +100,7 @@ public class TeleOpTest extends Robot {
                 if (upDegel == true) {
                     time = runtime.seconds();
                 }
-                Output.setPosition(0.75);
+                Output.setPosition(1);
                 telemetry.addData("time is:", time);
                 //sleep(2000);
                 telemetry.update();
@@ -112,7 +113,7 @@ public class TeleOpTest extends Robot {
                     telemetry.addLine("Here");
                     telemetry.update();
                     if (leftLinearMotor.getCurrentPosition() < -380 || rightLinearMotor.getCurrentPosition() < -380) {
-                        Arm.setPosition(0.75);
+                        Arm.setPosition(1);
                     }
                 }
 
@@ -123,21 +124,19 @@ public class TeleOpTest extends Robot {
                 if (downDegel == true) {
                     time = runtime.seconds();
                 }
-                Arm.setPosition(0.25);
+                Arm.setPosition(0.135);
                 telemetry.addData("time is:", time);
                 //sleep(2000);
                 telemetry.update();
             } else if (downDegel == true)
                 if ((-time + runtime.seconds()) > 2) {
-                    MyElevator.ElevateWithEncoder(-50, 0.3, 0.002);
+                    MyElevator.ElevateWithEncoder(10, 0.4, 0.007);
                     /*if (rightLinearMotor.getCurrentPosition()>300 || leftLinearMotor.getCurrentPosition()>300)
                         MyElevator.dontMoveElevator(1,300);*/
                     stayingPosition = leftLinearMotor.getCurrentPosition();
+                    Output.setPosition(0.6);
                     telemetry.addLine("Here");
                     telemetry.update();
-                    if (leftLinearMotor.getCurrentPosition() > -60 || rightLinearMotor.getCurrentPosition() > -60) {
-                        Output.setPosition(0.25);
-                    }
                 }
 
             if (leftLinearMotor.getCurrentPosition() < -380 || rightLinearMotor.getCurrentPosition() < -380) {
@@ -145,18 +144,18 @@ public class TeleOpTest extends Robot {
                 flag = false;
                 YDondMove = true;
             }
-            if (leftLinearMotor.getCurrentPosition() > -60 || rightLinearMotor.getCurrentPosition() > -60) {
+            if (leftLinearMotor.getCurrentPosition() > 10 || rightLinearMotor.getCurrentPosition() >  10) {
                 downDegel = false;
                 flag = false;
                 ADondMove = true;
             }
 
             if (gamepad2.right_bumper && leftLinearMotor.getCurrentPosition() > -380 /*&& upMagnetElevator.getState() == false*/) {
-                MyElevator.ElevateWithEncoder(-400, 0.5, 0.5);
+                MyElevator.ElevateWithEncoder(-400, 0.35, 0.5);
                 stayingPosition = leftLinearMotor.getCurrentPosition();
                 bumpersDondMove = false;
-            } else if (gamepad2.left_bumper && leftLinearMotor.getCurrentPosition() < -50/*&& downMagnetElevator.getState() == false*/) {
-                MyElevator.ElevateWithEncoder(-50, 0.3, 0.002);
+            } else if (gamepad2.left_bumper && leftLinearMotor.getCurrentPosition() < 10/*&& downMagnetElevator.getState() == false*/) {
+                MyElevator.ElevateWithEncoder(10, 0.4, 0.03);
                 stayingPosition = leftLinearMotor.getCurrentPosition();
                 bumpersDondMove = false;
             } else bumpersDondMove = true;
