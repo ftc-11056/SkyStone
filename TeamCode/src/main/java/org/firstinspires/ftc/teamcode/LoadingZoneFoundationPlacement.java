@@ -108,94 +108,17 @@ public class LoadingZoneFoundationPlacement extends basicAuto {
 //            sleep(500);
         }
 
-        MyDriveTrain.encoderDrive(0.8,60,60,-60,-60,2);
-//        sleep(500);
-        MyIntake.maxOuttake();
-        sleep(1000);
-        MyIntake.ShutDown();
-        MyDriveTrain.encoderDrive(0.8,-55,-55,55,55,2);
-//        sleep(500);
+//    The system catches the Skystone
 
-        if (Mikum>2) {
-//            telemetry.addLine("you're on the right");
-//            telemetry.update();
-            MyDriveTrain.encoderDrive(1,-117,-117,-117,-117,2);
-//            sleep(500);
-            MyDriveTrain.encoderDrive(1,-65,65,65,-65,1);
-            sleep(500);
-            MyIntake.maxIntake();
-            MyDriveTrain.encoderDrive(1,-25,-25,-25,-25,2);
-            sleep(500);
-            if (cubeIn.getDistance(DistanceUnit.MM)>60){
-                MyDriveTrain.encoderDrive(1,-20,-20,-20,-20,2);
-                telemetry.addData("CubeDistans:",cubeIn.getDistance(DistanceUnit.MM));
-                telemetry.update();
-            }
-//            sleep(500);
-            MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(1,60,-60,-60,60,1);
-//            sleep(500);
-            MyDriveTrain.encoderDrive(1,150,150,150,150,2);
-//            sleep(500);
-        }
-        else if (Mikum<-2) {
-//            telemetry.addLine("you're on the left");
-//            telemetry.update();
-            MyDriveTrain.encoderDrive(1,-140,-140,-140,-140,2);
-//            sleep(500);
-            MyDriveTrain.encoderDrive(0.8,-70,70,70,-70,1);
-//            sleep(500);
-            MyIntake.maxIntake();
-            MyDriveTrain.encoderDrive(1,-25,-25,-25,-25,2);
-            sleep(500);
-            if (cubeIn.getDistance(DistanceUnit.MM)>60){
-                MyDriveTrain.encoderDrive(0.7,-20,-20,-20,-20,2);
-                telemetry.addData("CubeDistans:",cubeIn.getDistance(DistanceUnit.MM));
-                telemetry.update();
-            }
-//            sleep(500);
-            MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.8,60,-60,-60,60,1);
-//            sleep(500);
-            MyDriveTrain.encoderDrive(1,180,180,180,180,2);
-//            sleep(500);
-
-
-        }
-        else {
-//            telemetry.addLine("You are on the center!");
-//            telemetry.update();
-            MyDriveTrain.encoderDrive(1,-140,-140,-140,-140,2);
-//            sleep(500);
-            MyDriveTrain.encoderDrive(0.8,-70,70,70,-70,1);
-//            sleep(500);
-            MyIntake.maxIntake();
-            MyDriveTrain.encoderDrive(1,-25,-25,-25,-25,2);
-            sleep(500);
-            if (cubeIn.getDistance(DistanceUnit.MM)>60){
-                MyDriveTrain.encoderDrive(0.7,-20,-20,-20,-20,2);
-                telemetry.addData("CubeDistans:",cubeIn.getDistance(DistanceUnit.MM));
-                telemetry.update();
-            }
-//            sleep(500);
-            MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.8,60,-60,-60,60,1);
-//            sleep(500);
-            MyDriveTrain.encoderDrive(1,180,180,180,180,2);
-//            sleep(500);
-
-        }
-
-        MyDriveTrain.encoderDrive(0.8,60,60,-60,-60,2);
-//        sleep(500);
-        MyIntake.maxOuttake();
-        sleep(1000);
-        MyIntake.ShutDown();
-        MyDriveTrain.encoderDrive(1,10,10,10,10,1);
-        MyDriveTrain.encoderDrive(1,40,-40,-40,40,1);
-
-
-
+            MyDriveTrain.encoderDrive(1,100,100,100,100,2);
+            MyDriveTrain.encoderDrive(0.8,-60,-60,60,60,2);
+            MyDriveTrain.encoderDrive(1,50,50,50,50,2);
+            LeftServo.setPosition(0);
+            RightServo.setPosition(0.25);
+            sleep(1000);
+//    The system moves the Skystone to the Foundation
+            MyDriveTrain.encoderDrive(1,-90,-90,-90,-90,2);
+            MyDriveTrain.encoderDrive(0.8,-100,100,100,-100 ,1);
 
     }
 

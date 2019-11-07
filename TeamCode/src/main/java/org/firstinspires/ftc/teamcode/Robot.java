@@ -112,6 +112,9 @@ public class Robot extends LinearOpMode {
         RF.setPower(0);
       //  linear_motor.setPower(0);
 
+        LeftServo.setPosition(0.6);
+        RightServo.setPosition(0.9);
+
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
 //        LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
