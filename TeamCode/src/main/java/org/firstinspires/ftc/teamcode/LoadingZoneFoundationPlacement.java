@@ -74,7 +74,7 @@ public class LoadingZoneFoundationPlacement extends basicAuto {
                 telemetry.update();
             }
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.8, 65, -65, -65, 65, 1);
+            MyDriveTrain.encoderDrive(0.8, 60, -60, -60, 60, 1);
             MyDriveTrain.encoderDrive(1, 120, 120, 120, 120, 2);
 
 
@@ -93,7 +93,7 @@ public class LoadingZoneFoundationPlacement extends basicAuto {
                 telemetry.update();
             }
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.8, 65, -65, -65, 65, 1);
+            MyDriveTrain.encoderDrive(0.8, 60, -60, -60, 60, 1);
             MyDriveTrain.encoderDrive(1, 120, 120, 120, 120, 2);
         }
 
@@ -101,7 +101,7 @@ public class LoadingZoneFoundationPlacement extends basicAuto {
 
         MyDriveTrain.encoderDrive(1, 80, 80, 80, 80, 2);
         MyDriveTrain.encoderDrive(0.8, -60, -60, 60, 60, 2);
-        MyDriveTrain.encoderDrive(0.5, 30, 30, 30, 30, 2);
+        MyDriveTrain.encoderDrive(0.4, 35, 35, 35, 35, 2);
         sleep(1000);
         LeftServo.setPosition(0);
         RightServo.setPosition(0.25);
