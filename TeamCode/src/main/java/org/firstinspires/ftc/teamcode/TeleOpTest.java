@@ -56,17 +56,8 @@ public class TeleOpTest extends Robot {
                 MyDriveTrain.arcade(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
             }
 
-            if (gamepad1.right_trigger > 0) {
-                MyDriveTrain.arcade(1,0,0);
-                telemetry.addLine("dond yonaaaaaaaaaaaaaa levana");
-                telemetry.update();
-            }
-            if(gamepad1.left_bumper){
-                LB.setPower(1);
-                telemetry.addLine("pressed");
-                telemetry.update();
-            }
-//[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[GAMEPAD 222222222222222]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]`
+//[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[GAMEPAD 222222222222222]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+
 
 //            TODO: chek the numders of the servos, p of elevator
 //            Servos:
@@ -89,6 +80,14 @@ public class TeleOpTest extends Robot {
                 MyIntake.maxOuttake();
             } else {
                 MyIntake.ShutDown();
+            }
+
+            if (gamepad2.x) {
+                LeftServo.setPosition(0);
+                RightServo.setPosition(0.25);
+            } else if (gamepad2.b) {
+                LeftServo.setPosition(0.6);
+                RightServo.setPosition(0.9);
             }
 
 //            Elevator:
@@ -170,15 +169,6 @@ public class TeleOpTest extends Robot {
             }
 
             encodersStay = stayingPosition;
-
-            if (gamepad2.x) {
-                LeftServo.setPosition(0);
-                RightServo.setPosition(0.25);
-            } else if (gamepad2.b) {
-                LeftServo.setPosition(0.6);
-                RightServo.setPosition(0.9);
-            }
-
 
             telemetry.addData("stay values", stayingPosition);
             telemetry.addData("motor encoders", leftLinearMotor.getCurrentPosition());
