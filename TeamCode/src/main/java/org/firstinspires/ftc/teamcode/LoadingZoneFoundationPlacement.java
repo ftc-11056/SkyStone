@@ -106,12 +106,12 @@ public class LoadingZoneFoundationPlacement extends basicAuto {
         LeftServo.setPosition(0);
         RightServo.setPosition(0.25);
         sleep(1000);
-//    The system moves the Skystone to the Foundation
-        MyDriveTrain.encoderDrive(1, -100, -100, -100, -100, 2);
+        MyDriveTrain.encoderDrive(0.5,-128,-128,-134,-134,2);
+        MyDriveTrain.encoderDrive(0.5,110,110,-110,-110,2);
+        sleep(2000);
         LeftServo.setPosition(0.6);
         RightServo.setPosition(0.9);
-        sleep(1000);
-        MyDriveTrain.encoderDrive(0.8, -120, 120, 120, -120, 1);
+        MyDriveTrain.encoderDrive(0.5,-75,-75, -75,-75,1);
 
     }
 

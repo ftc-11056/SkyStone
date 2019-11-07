@@ -15,17 +15,18 @@ public class BuildingZoneBasicRed extends basicAuto {
     @Override
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
+        waitForStart();
+        MyDriveTrain.encoderDrive(0.5,75,75,75,75,2);
+        sleep(1000);
         LeftServo.setPosition(0);
         RightServo.setPosition(0.25);
-
-        waitForStart();
-        MyDriveTrain.encoderDrive(0.5,-100,-100,-100,-100,2);
+        sleep(1000);
+        MyDriveTrain.encoderDrive(0.5,-128,-128,-134,-134,2);
+        MyDriveTrain.encoderDrive(0.5,110,110,-110,-110,2);
+        sleep(2000);
         LeftServo.setPosition(0.6);
         RightServo.setPosition(0.9);
-        MyDriveTrain.encoderDrive(0.5,90,90,90,90,2);
-        LeftServo.setPosition(0);
-        RightServo.setPosition(0.25);
-        MyDriveTrain.encoderDrive(0.5,-70,70,70,-70,1);
+        MyDriveTrain.encoderDrive(0.5,-75,-75, -75,-75,1);
         telemetry.addData("Angles:", MyDriveTrain.getAngle());
         telemetry.update();
 

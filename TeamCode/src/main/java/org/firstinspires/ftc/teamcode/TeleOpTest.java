@@ -143,7 +143,7 @@ public class TeleOpTest extends Robot {
                 flag = false;
                 YDondMove = true;
             }
-            if (leftLinearMotor.getCurrentPosition() > 10 || rightLinearMotor.getCurrentPosition() >  10) {
+            if (leftLinearMotor.getCurrentPosition() > 0 || rightLinearMotor.getCurrentPosition() >  0 && downMagnetElevator.getState() == false) {
                 downDegel = false;
                 flag = false;
                 ADondMove = true;
@@ -153,8 +153,8 @@ public class TeleOpTest extends Robot {
                 MyElevator.ElevateWithEncoder(-400, 0.35, 0.5);
                 stayingPosition = leftLinearMotor.getCurrentPosition();
                 bumpersDondMove = false;
-            } else if (gamepad2.left_bumper && leftLinearMotor.getCurrentPosition() < 10/*&& downMagnetElevator.getState() == false*/) {
-                MyElevator.ElevateWithEncoder(10, 0.4, 0.03);
+            } else if (gamepad2.left_bumper && leftLinearMotor.getCurrentPosition() < 0 && downMagnetElevator.getState() == true) {
+                MyElevator.ElevateWithEncoder(0, 0.4, 0.03);
                 stayingPosition = leftLinearMotor.getCurrentPosition();
                 bumpersDondMove = false;
             } else bumpersDondMove = true;
