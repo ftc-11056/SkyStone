@@ -30,7 +30,7 @@ public class DriveTrain {
     static final double COUNTS_PER_CM = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_CM * 3.1415926); */
 
 
-    Orientation lastAngles = new Orientation();
+    public double lastAngles = 0;
     Orientation angle = new Orientation();
     double globalAngle = 0, power = .30, correction;
 
@@ -39,7 +39,7 @@ public class DriveTrain {
     public String Mode = "Oriented";
 
     public String telemetry[];
-
+    public double Angle = 0;
     private ElapsedTime runtime = new ElapsedTime();
     private HardwareMap hardwareMap;
     private VuforiaLocalizer vuforia;
@@ -170,7 +170,7 @@ public class DriveTrain {
 
 
     private void resetAngle() {
-        lastAngles = IMU.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        angle = IMU.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
         globalAngle = 0;
     }
@@ -182,9 +182,9 @@ public class DriveTrain {
         // returned as 0 to +180 or 0 to -180 rolling back to -179 or +179 when rotation passes
         // 180 degrees. We detect this transition and track the total cumulative angle of rotation.
 
-        Orientation angles = IMU.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-
-        double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
+        angle = IMU.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
+        double angle = this.angle.firstAngle;
+        double deltaAngle = Math.toDegrees(angle - lastAngles);
 
         if (deltaAngle < -180)
             deltaAngle += 360;
@@ -193,7 +193,7 @@ public class DriveTrain {
 
         globalAngle += deltaAngle;
 
-        lastAngles = angles;
+        lastAngles = angle;
 
         return globalAngle;
     }
@@ -202,31 +202,35 @@ public class DriveTrain {
     public void Rotate(int degrees, double power, double timeoutR) {
         runtime.reset();
 
-        double PNumber = 0.019;
-        double INumber = 0.001;
+        double PNumber = 1;
+        double INumber = 0;
         double SumErrors = 0;
         double oldSumErors = 0;
+        double NewAngleTarget = 0;
 
 //        degrees =  degrees-LastDegrees;
-        resetAngle();
+//        resetAngle();
         // restart imu movement tracking.
 
+//        NewAngleTarget = getAngle() + degrees;
 
+        Angle = getAngle();
         if (getAngle() < degrees) {
             while (getAngle() < degrees && runtime.seconds() < timeoutR) {
-                SumErrors = SumErrors + (getAngle() - degrees);
-                LeftFront.setPower(power * (((getAngle() - degrees) * PNumber) + SumErrors * INumber));
-                LeftBack.setPower(power * (((getAngle() - degrees) * PNumber) + SumErrors * INumber));
-                RightFront.setPower(-power * (((getAngle() - degrees) * PNumber) + SumErrors * INumber));
-                RightBack.setPower(-power * (((getAngle() - degrees) * PNumber) + SumErrors * INumber));
+//                SumErrors = SumErrors + (getAngle() + degrees);
+                LeftFront.setPower(-power /* * (((getAngle() + degrees) * PNumber) + SumErrors * INumber)*/);
+                LeftBack.setPower(-power /* * (((getAngle() + degrees) * PNumber) + SumErrors * INumber)*/);
+                RightFront.setPower(power /* * (((getAngle() + degrees) * PNumber) + SumErrors * INumber)*/);
+                RightBack.setPower(power /* * (((getAngle() + degrees) * PNumber) + SumErrors * INumber)*/);
+
 
             }
         } else if (getAngle() > degrees) {
             while (getAngle() > degrees && runtime.seconds() < timeoutR) {
-                LeftFront.setPower(-power * (((getAngle() - degrees) * PNumber) + SumErrors * INumber));
-                LeftBack.setPower(-power * (((getAngle() - degrees) * PNumber) + SumErrors * INumber));
-                RightFront.setPower(power * (((getAngle() - degrees) * PNumber) + SumErrors * INumber));
-                RightBack.setPower(power * (((getAngle() - degrees) * PNumber) + SumErrors * INumber));
+                LeftFront.setPower(power /* * (((getAngle() - degrees) * PNumber) + SumErrors * INumber)*/);
+                LeftBack.setPower(power /* * (((getAngle() - degrees) * PNumber) + SumErrors * INumber)*/);
+                RightFront.setPower(-power /* * (((getAngle() - degrees) * PNumber) + SumErrors * INumber)*/);
+                RightBack.setPower(-power /* * (((getAngle() - degrees) * PNumber) + SumErrors * INumber)*/);
 
             }
         } else return;
