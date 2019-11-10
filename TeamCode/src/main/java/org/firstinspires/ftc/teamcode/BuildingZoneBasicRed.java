@@ -26,7 +26,8 @@ public class BuildingZoneBasicRed extends basicAuto {
         sleep(2000);
         LeftServo.setPosition(0.6);
         RightServo.setPosition(0.9);
-        MyDriveTrain.encoderDrive(0.5,-75,-75, -75,-75,1);
+        MyDriveTrain.encoderDrive(0.5,-75,-75,
+                -75,-75,1);
         telemetry.addData("Angles:", MyDriveTrain.getAngle());
         telemetry.update();
 
