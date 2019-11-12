@@ -8,8 +8,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
 
-@TeleOp(name = "TeleOpTest", group = "teamcode")
-public class TeleOpTest extends Robot {
+@TeleOp(name = "currentTeleOpTest", group = "teamcode")
+public class currentTeleOp extends Robot {
 
     private int stayingPosition = 0;
     private int encodersStay;
@@ -22,8 +22,8 @@ public class TeleOpTest extends Robot {
     private boolean YDondMove = true;
     private boolean ADondMove = true;
     private boolean underMagnet = false;
-    private boolean levels = true;
-    private boolean level1 = false;
+//    private boolean levels = true;
+//    private boolean level1 = false;
 
 
     @Override
@@ -174,13 +174,19 @@ public class TeleOpTest extends Robot {
             }
 
 //            TODO: Levels:
-            if (gamepad2.x)level1 = true;
+/*            if (gamepad2.x){
+                level1 = true;
+                levels = false;
+            }
             if (level1 == true){
                 MyElevator.ElevateWithEncoder(20, 0.15, 0.01);
                 stayingPosition = leftLinearMotor.getCurrentPosition();
             }
-            if (leftLinearMotor.getCurrentPosition() < 24)  level1 = false;
-
+            if (leftLinearMotor.getCurrentPosition() < 24) {
+                level1 = false;
+                levels = true;
+            }
+*/
 //            TODO: stop commands:
             if (downMagnetElevator.getState() == false){
                 underMagnet = true;
@@ -188,7 +194,7 @@ public class TeleOpTest extends Robot {
                 rightLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             }
 
-            if (YDondMove == true && ADondMove == true && bumpersDondMove == true && underMagnet == false && level1 == false/*&& MyElevator.move == true*/) {
+            if (YDondMove == true && ADondMove == true && bumpersDondMove == true && underMagnet == false /*&& levels == true/*&& MyElevator.move == true*/) {
                 leftLinearMotor.setTargetPosition(encodersStay);
                 rightLinearMotor.setTargetPosition(encodersStay);
                 leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);

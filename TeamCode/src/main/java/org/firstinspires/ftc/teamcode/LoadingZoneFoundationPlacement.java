@@ -102,7 +102,7 @@ public class LoadingZoneFoundationPlacement extends basicAuto {
         MyDriveTrain.encoderDrive(1, 75, 75, 75, 75, 2);
         MyDriveTrain.Rotate(90,0.1,10);
         sleep(500);
-        MyDriveTrain.encoderDrive(0.2,60,60,60,60,2);
+        MyDriveTrain.encoderDrive(0.2,50,50,50,50,2);
         sleep(1000);
         LeftServo.setPosition(0);
         RightServo.setPosition(0.25);
