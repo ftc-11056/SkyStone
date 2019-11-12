@@ -76,7 +76,7 @@ public class LoadingZoneFoundationPlacement extends basicAuto {
             }
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.8, 70, -70, -70, 70, 1);
-            MyDriveTrain.encoderDrive(1, 135, 135, 135, 135, 2);
+            MyDriveTrain.encoderDrive(1, 140, 140, 140, 140, 2);
 
 
         } else {
@@ -98,21 +98,30 @@ public class LoadingZoneFoundationPlacement extends basicAuto {
             MyDriveTrain.encoderDrive(1, 120, 120, 120, 120, 2);
         }
 
-        Output.setPosition(0.6);
-        MyDriveTrain.encoderDrive(1, 75, 75, 75, 75, 2);
+//        Output.setPosition(0.25);
+        MyDriveTrain.encoderDrive(1, 65, 65, 65, 65, 2);
+        MyDriveTrain.encoderDrive(0.5,65,-65,-65,65,2);
+        MyDriveTrain.encoderDrive(0.5,-25,25,25,-25,2);
         MyDriveTrain.Rotate(90,0.1,10);
         sleep(500);
-        MyDriveTrain.encoderDrive(0.2,50,50,50,50,2);
+        MyDriveTrain.encoderDrive(0.2,65,65,65,65,2);
         sleep(1000);
-        LeftServo.setPosition(0);
-        RightServo.setPosition(0.25);
+//        MyElevator.ElevateWithEncoder(-350, 0.3, 0.5);
+//        Arm.setPosition(1);
+//        sleep(1000);
+//        MyElevator.ElevateWithEncoder(8, 0.4, 0.007);
+//        sleep(1000);
+//        Output.setPosition(1);
+        sleep(10000);
+//        LeftServo.setPosition(0);
+//        RightServo.setPosition(0.25);
         sleep(1000);
         MyDriveTrain.encoderDrive(1,-128,-128,-138,-138,2);
         MyDriveTrain.encoderDrive(1,110,110,-110,-110,2);
-//        MyElevator.ElevateWithEncoder(-400, 0.3, 0.5);
-//        Arm.setPosition(1);
+        MyElevator.ElevateWithEncoder(-350, 0.3, 0.5);
+        Arm.setPosition(1);
         sleep(1000);
-//        MyElevator.ElevateWithEncoder(10, 0.4, 0.007);
+        MyElevator.ElevateWithEncoder(10, 0.4, 0.007);
         Output.setPosition(1);
         sleep(1000);
         LeftServo.setPosition(0.6);
