@@ -39,6 +39,7 @@ public class LoadingZoneFoundationPlacement extends basicAuto {
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+
         if (Mikum > 2) {
             telemetry.addLine("you're on the right");
             telemetry.update();
@@ -56,8 +57,8 @@ public class LoadingZoneFoundationPlacement extends basicAuto {
             sleep(500);
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(1, 60, 60, 60, 60, 2);
-            MyDriveTrain.encoderDrive(1, -37, -37, 37, 37, 2);
-            MyDriveTrain.encoderDrive(1, 70, 70, 70, 70, 2);
+            MyDriveTrain.encoderDrive(1, -40, -40, 40, 40, 2);
+            MyDriveTrain.encoderDrive(1, 80, 80, 80, 80, 2);
 
 
         } else if (Mikum < -2) {
@@ -67,12 +68,12 @@ public class LoadingZoneFoundationPlacement extends basicAuto {
             MyDriveTrain.encoderDrive(0.8, -88, 88, 88, -88, 1);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(1, -25, -25, -25, -25, 2);
-            /*if (cubeIn.getDistance(DistanceUnit.MM) > 60) {
+            if (cubeIn.getDistance(DistanceUnit.MM) > 60) {
                 sleep(500);
                 MyDriveTrain.encoderDrive(0.7, -20, -20, -20, -20, 2);
                 telemetry.addData("CubeDistans:", cubeIn.getDistance(DistanceUnit.MM));
                 telemetry.update();
-            }*/
+            }
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.8, 70, -70, -70, 70, 1);
             MyDriveTrain.encoderDrive(1, 135, 135, 135, 135, 2);
@@ -86,22 +87,22 @@ public class LoadingZoneFoundationPlacement extends basicAuto {
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(1, -25, -25, -25, -25, 2);
             sleep(500);
-            /*if (cubeIn.getDistance(DistanceUnit.MM) > 60) {
+            if (cubeIn.getDistance(DistanceUnit.MM) > 60) {
                 sleep(500);
                 MyDriveTrain.encoderDrive(0.7, -20, -20, -20, -20, 2);
                 telemetry.addData("CubeDistans:", cubeIn.getDistance(DistanceUnit.MM));
                 telemetry.update();
-            }*/
+            }
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.8, 70, -70, -70, 70, 1);
             MyDriveTrain.encoderDrive(1, 120, 120, 120, 120, 2);
         }
 
-        Output.setPosition(1);
-        MyDriveTrain.encoderDrive(1, 70, 70, 70, 70, 2);
-        MyDriveTrain.Rotate(90,0.3,10);
+        Output.setPosition(0.6);
+        MyDriveTrain.encoderDrive(1, 75, 75, 75, 75, 2);
+        MyDriveTrain.Rotate(90,0.1,10);
         sleep(500);
-        MyDriveTrain.encoderDrive(0.3,75,75,75,75,2);
+        MyDriveTrain.encoderDrive(0.2,60,60,60,60,2);
         sleep(1000);
         LeftServo.setPosition(0);
         RightServo.setPosition(0.25);
@@ -112,10 +113,11 @@ public class LoadingZoneFoundationPlacement extends basicAuto {
 //        Arm.setPosition(1);
         sleep(1000);
 //        MyElevator.ElevateWithEncoder(10, 0.4, 0.007);
-        Output.setPosition(0.6);
+        Output.setPosition(1);
         sleep(1000);
         LeftServo.setPosition(0.6);
         RightServo.setPosition(0.9);
+        MyDriveTrain.Rotate(0,0.4,10);
         sleep(1000);
         MyDriveTrain.encoderDrive(0.5,-75,-75, -75,-75,1);
 

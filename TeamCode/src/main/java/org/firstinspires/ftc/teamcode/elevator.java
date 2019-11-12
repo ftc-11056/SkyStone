@@ -10,6 +10,7 @@ public class elevator  {
     private DigitalChannel upMagnet = null;
     private DigitalChannel downMagnet = null;
     public int fixedPosition = 0;
+    public boolean move = false;
 
 
     public elevator (DcMotor leftEle, DcMotor rightEle, DigitalChannel upMagnet, DigitalChannel downMagnet, int fixedPosition){
@@ -40,6 +41,7 @@ public class elevator  {
         rightEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftEle.setPower(power*(pos-leftEle.getCurrentPosition())*kp);
         rightEle.setPower(power*(pos-rightEle.getCurrentPosition())*kp);
+        move = false;
 
 //        fixedPosition = leftEle.getCurrentPosition();
     }
