@@ -44,7 +44,7 @@ public class LoadingZoneFoundationPlacement extends basicAuto {
             telemetry.addLine("you're on the right");
             telemetry.update();
             MyDriveTrain.encoderDrive(1, 85, 85, 85, 85, 2);
-            MyDriveTrain.encoderDrive(1, 34, 34, -34, -34, 2);
+            MyDriveTrain.Rotate(-40,0.2,10);
             sleep(500);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.7, -80, -80, -80, -80, 2);
@@ -57,7 +57,8 @@ public class LoadingZoneFoundationPlacement extends basicAuto {
             sleep(500);
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(1, 60, 60, 60, 60, 2);
-            MyDriveTrain.encoderDrive(1, -40, -40, 40, 40, 2);
+            MyDriveTrain.Rotate(0,0.1,10);
+
             MyDriveTrain.encoderDrive(1, 80, 80, 80, 80, 2);
 
 
@@ -98,38 +99,29 @@ public class LoadingZoneFoundationPlacement extends basicAuto {
             MyDriveTrain.encoderDrive(1, 120, 120, 120, 120, 2);
         }
 
-//        Output.setPosition(0.25);
+        Output.setPosition(0.25);
         MyDriveTrain.encoderDrive(1, 65, 65, 65, 65, 2);
         MyDriveTrain.encoderDrive(0.5,65,-65,-65,65,2);
         MyDriveTrain.encoderDrive(0.5,-25,25,25,-25,2);
         MyDriveTrain.Rotate(90,0.1,10);
         sleep(500);
         MyDriveTrain.encoderDrive(0.2,65,65,65,65,2);
-        sleep(1000);
-//        MyElevator.ElevateWithEncoder(-350, 0.3, 0.5);
-//        Arm.setPosition(1);
-//        sleep(1000);
-//        MyElevator.ElevateWithEncoder(8, 0.4, 0.007);
-//        sleep(1000);
-//        Output.setPosition(1);
-        sleep(10000);
-//        LeftServo.setPosition(0);
-//        RightServo.setPosition(0.25);
+        LeftServo.setPosition(0.05);
+        RightServo.setPosition(0.05);
         sleep(1000);
         MyDriveTrain.encoderDrive(1,-128,-128,-138,-138,2);
         MyDriveTrain.encoderDrive(1,110,110,-110,-110,2);
-        MyElevator.ElevateWithEncoder(-350, 0.3, 0.5);
-        Arm.setPosition(1);
-        sleep(1000);
-        MyElevator.ElevateWithEncoder(10, 0.4, 0.007);
-        Output.setPosition(1);
-        sleep(1000);
-        LeftServo.setPosition(0.6);
-        RightServo.setPosition(0.9);
+//        MyElevator.ElevateWithEncoder(-350, 0.3, 0.5);
+//        Arm.setPosition(1);
+//        sleep(1000);
+//        MyElevator.ElevateWithEncoder(10, 0.4, 0.007);
+//        Output.setPosition(1);
+//        sleep(1000);
+        LeftServo.setPosition(0.55);
+        RightServo.setPosition(0.6);
         MyDriveTrain.Rotate(0,0.4,10);
         sleep(1000);
         MyDriveTrain.encoderDrive(0.5,-75,-75, -75,-75,1);
-
     }
 
 }

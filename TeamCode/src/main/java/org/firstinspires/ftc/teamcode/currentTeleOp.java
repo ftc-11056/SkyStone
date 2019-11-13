@@ -87,11 +87,11 @@ public class currentTeleOp extends Robot {
             }
 
             if (gamepad1.x) {
-                LeftServo.setPosition(0);
-                RightServo.setPosition(0.25);
+                LeftServo.setPosition(0.05);
+                RightServo.setPosition(0.05);
             } else if (gamepad1.b) {
-                LeftServo.setPosition(0.6);
-                RightServo.setPosition(0.9);
+                LeftServo.setPosition(0.55);
+                RightServo.setPosition(0.6);
             }
 
 //          TODO:  Elevator:
