@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 
-@Autonomous(name = "LoadingZone", group = "teamcode")
-public class LoadingZone extends basicAuto {
+@Autonomous(name = "TwoCube", group = "teamcode")
+public class TwoCube extends basicAuto {
 
     /* Declare OpMode members. */
 

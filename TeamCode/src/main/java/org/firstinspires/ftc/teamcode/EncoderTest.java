@@ -2,8 +2,10 @@ package org.firstinspires.ftc.teamcode;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 @Autonomous(name = "EncoderTest", group = "teamcode")
+@Disabled
 
 public class EncoderTest extends Robot {
 

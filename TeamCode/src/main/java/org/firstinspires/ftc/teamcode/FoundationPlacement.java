@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 
-@Autonomous(name = "BuildingZoneBasicRed", group = "teamcode")
-public class BuildingZoneBasicRed extends basicAuto {
+@Autonomous(name = "FoundationPlacement", group = "teamcode")
+public class FoundationPlacement extends basicAuto {
 
     /* Declare OpMode members. */
 

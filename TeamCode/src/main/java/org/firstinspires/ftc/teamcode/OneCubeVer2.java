@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 
-@Autonomous(name = "LoadingZoneFoundationPlacement", group = "teamcode")
-public class LoadingZoneFoundationPlacement extends basicAuto {
+@Autonomous(name = "OneCubeVer2", group = "teamcode")
+public class OneCubeVer2 extends basicAuto {
 
     /* Declare OpMode members. */
 
@@ -43,47 +43,47 @@ public class LoadingZoneFoundationPlacement extends basicAuto {
         if (Mikum > 2) {
             telemetry.addLine("you're on the right");
             telemetry.update();
-            MyDriveTrain.encoderDrive(1, 85, 85, 85, 85, 2);
-            MyDriveTrain.Rotate(-40,0.2,10);
-            sleep(500);
+            MyDriveTrain.encoderDrive(0.8, -88, 88, 88, -88, 1);
             MyIntake.maxIntake();
-            MyDriveTrain.encoderDrive(0.7, -80, -80, -80, -80, 2);
-            if (cubeIn.getDistance(DistanceUnit.MM) > 60) {
+            MyDriveTrain.encoderDrive(0.8, -25, -25, -25, -25, 2);
+            if (cubeIn.getDistance(DistanceUnit.MM) > 70) {
                 sleep(500);
                 MyDriveTrain.encoderDrive(0.7, -20, -20, -20, -20, 2);
+                MyDriveTrain.encoderDrive(0.7, 20, 20, 20, 20, 2);
                 telemetry.addData("CubeDistans:", cubeIn.getDistance(DistanceUnit.MM));
                 telemetry.update();
             }
-            sleep(500);
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(1, 60, 60, 60, 60, 2);
-            MyDriveTrain.Rotate(0,0.1,10);
+            MyDriveTrain.encoderDrive(0.8, 70, -70, -70, 70, 1);
+            MyDriveTrain.encoderDrive(0.8, 100, 100, 100, 100, 2);
+            MyDriveTrain.Rotate(0,0.2,10);
+        }
 
-            MyDriveTrain.encoderDrive(1, 80, 80, 80, 80, 2);
-
-
-        } else if (Mikum < -2) {
+         else if (Mikum < -2) {
             telemetry.addLine("you're on the left");
             telemetry.update();
-            MyDriveTrain.encoderDrive(1, 30, 30, 30, 30, 2);
+            MyDriveTrain.encoderDrive(0.8, 28, 28, 28, 28, 2);
             MyDriveTrain.encoderDrive(0.8, -88, 88, 88, -88, 1);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(1, -25, -25, -25, -25, 2);
             if (cubeIn.getDistance(DistanceUnit.MM) > 60) {
                 sleep(500);
                 MyDriveTrain.encoderDrive(0.7, -20, -20, -20, -20, 2);
+                MyDriveTrain.encoderDrive(0.7, 20, 20, 20, 20, 2);
                 telemetry.addData("CubeDistans:", cubeIn.getDistance(DistanceUnit.MM));
                 telemetry.update();
             }
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.8, 70, -70, -70, 70, 1);
-            MyDriveTrain.encoderDrive(1, 140, 140, 140, 140, 2);
+            MyDriveTrain.encoderDrive(1, 85, 85, 85, 85, 2);
+            MyDriveTrain.Rotate(0,0.2,10);
+
 
 
         } else {
             telemetry.addLine("You are on the center!");
             telemetry.update();
-            MyDriveTrain.encoderDrive(1, 43, 43, 43, 43, 2);
+            MyDriveTrain.encoderDrive(1, 42, 42, 42, 42, 2);
             MyDriveTrain.encoderDrive(0.8, -88, 88, 88, -88, 1);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(1, -25, -25, -25, -25, 2);
@@ -91,26 +91,33 @@ public class LoadingZoneFoundationPlacement extends basicAuto {
             if (cubeIn.getDistance(DistanceUnit.MM) > 60) {
                 sleep(500);
                 MyDriveTrain.encoderDrive(0.7, -20, -20, -20, -20, 2);
+                MyDriveTrain.encoderDrive(0.7, 20, 20, 20, 20, 2);
                 telemetry.addData("CubeDistans:", cubeIn.getDistance(DistanceUnit.MM));
                 telemetry.update();
             }
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.8, 70, -70, -70, 70, 1);
-            MyDriveTrain.encoderDrive(1, 120, 120, 120, 120, 2);
+            MyDriveTrain.Rotate(0,0.1,10);
+            MyDriveTrain.encoderDrive(1, 80, 80, 80, 80, 2);
+            MyDriveTrain.Rotate(0,0.2,10);
         }
 
         Output.setPosition(0.25);
-        MyDriveTrain.encoderDrive(1, 65, 65, 65, 65, 2);
-        MyDriveTrain.encoderDrive(0.5,65,-65,-65,65,2);
+        MyDriveTrain.encoderDrive(1, 125, 125, 125, 125, 2);
+        MyDriveTrain.encoderDrive(0.3,70,-70,-70,70,2);
         MyDriveTrain.encoderDrive(0.5,-25,25,25,-25,2);
         MyDriveTrain.Rotate(90,0.1,10);
         sleep(500);
-        MyDriveTrain.encoderDrive(0.2,65,65,65,65,2);
+        MyDriveTrain.encoderDrive(0.2,60,60,60,60,2);
+        MyDriveTrain.Rotate(90,0.1,10);
+        LeftServo.setPosition(0.15);
+        RightServo.setPosition(0.15);
+        MyDriveTrain.encoderDrive(0.1,10,10,10,10,2);
         LeftServo.setPosition(0.05);
         RightServo.setPosition(0.05);
         sleep(1000);
-        MyDriveTrain.encoderDrive(1,-128,-128,-138,-138,2);
-        MyDriveTrain.encoderDrive(1,110,110,-110,-110,2);
+        MyDriveTrain.encoderDrive(1,-100,-100,-130,-130,2);
+        MyDriveTrain.Rotate(-0,1,10);
 //        MyElevator.ElevateWithEncoder(-350, 0.3, 0.5);
 //        Arm.setPosition(1);
 //        sleep(1000);
