@@ -121,7 +121,6 @@ public class currentTeleOp extends Robot {
                         Arm.setPosition(1);
                     }
                 }
-
 //          TODO: AA Auto Button:
             if (gamepad2.a) {
                 ADondMove = false;
@@ -159,19 +158,26 @@ public class currentTeleOp extends Robot {
             }
 
 //            TODO: normal moving
-            if (gamepad2.right_bumper && leftLinearMotor.getCurrentPosition() > -380 /*&& upMagnetElevator.getState() == false*/) {
-                MyElevator.ElevateWithEncoder(-400, 0.23, 0.5);
-                stayingPosition = leftLinearMotor.getCurrentPosition();
-                bumpersDondMove = false;
-                underMagnet = false;
-            } else if (gamepad2.left_bumper && downMagnetElevator.getState() == true) {
-                MyElevator.ElevateWithEncoder(0, 0.15, 0.01);
-                stayingPosition = leftLinearMotor.getCurrentPosition();
-                bumpersDondMove = false;
-            } else {
-                bumpersDondMove = true;
-                MyElevator.move = true;
-            }
+                if (gamepad2.right_bumper && leftLinearMotor.getCurrentPosition() > -380 /*&& upMagnetElevator.getState() == false*/) {
+                    MyElevator.ElevateWithEncoder(-400, 0.23, 0.5);
+                    stayingPosition = leftLinearMotor.getCurrentPosition();
+                    bumpersDondMove = false;
+                    underMagnet = false;
+                } else if (gamepad2.left_bumper && downMagnetElevator.getState() == true) {
+                    MyElevator.ElevateWithEncoder(0, 0.15, 0.01);
+                    stayingPosition = leftLinearMotor.getCurrentPosition();
+                    bumpersDondMove = false;
+                } else if (downMagnetElevator.getState() == true && upDegel == false && downDegel == false){
+                    leftLinearMotor.setTargetPosition(encodersStay);
+                    rightLinearMotor.setTargetPosition(encodersStay);
+                    leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    rightLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    leftLinearMotor.setPower(0.4);
+                    rightLinearMotor.setPower(0.4);
+                }else if (upDegel == false && downDegel == false){
+                    leftLinearMotor.setPower(0);
+                    rightLinearMotor.setPower(0);
+                }
 
 //            TODO: Levels:
 /*            if (gamepad2.x){
@@ -188,14 +194,14 @@ public class currentTeleOp extends Robot {
             }
 */
 //            TODO: stop commands:
-            if (downMagnetElevator.getState() == false){
+    /*        if (downMagnetElevator.getState() == false){
                 underMagnet = true;
                 leftLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 rightLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            }
+            }*/
 
-            if (YDondMove == true && ADondMove == true && bumpersDondMove == true && underMagnet == false /*&& levels == true/*&& MyElevator.move == true*/) {
-                leftLinearMotor.setTargetPosition(encodersStay);
+          //  if (YDondMove == true && ADondMove == true && bumpersDondMove == true && underMagnet == false /*&& levels == true/*&& MyElevator.move == true*/) {
+            /*    leftLinearMotor.setTargetPosition(encodersStay);
                 rightLinearMotor.setTargetPosition(encodersStay);
                 leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 rightLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -207,7 +213,7 @@ public class currentTeleOp extends Robot {
                 rightLinearMotor.setPower(0);
                 telemetry.addLine("its working");
             }
-
+*/
             encodersStay = stayingPosition;
 
 //            TODO: telemetryes
