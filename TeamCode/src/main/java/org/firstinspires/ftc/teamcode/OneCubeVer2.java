@@ -33,6 +33,8 @@ public class OneCubeVer2 extends basicAuto {
 
         MyDriveTrain.encoderDrive(0.8, -30, 30, 30, -30, 1);
         Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
+        MyDriveTrain.Rotate(0,0.1,10);
+
 
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -56,7 +58,6 @@ public class OneCubeVer2 extends basicAuto {
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.8, 70, -70, -70, 70, 1);
             MyDriveTrain.encoderDrive(0.8, 100, 100, 100, 100, 2);
-            MyDriveTrain.Rotate(0,0.2,10);
         }
 
          else if (Mikum < -2) {
@@ -76,14 +77,13 @@ public class OneCubeVer2 extends basicAuto {
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.8, 70, -70, -70, 70, 1);
             MyDriveTrain.encoderDrive(1, 85, 85, 85, 85, 2);
-            MyDriveTrain.Rotate(0,0.2,10);
 
 
 
         } else {
             telemetry.addLine("You are on the center!");
             telemetry.update();
-            MyDriveTrain.encoderDrive(1, 42, 42, 42, 42, 2);
+            MyDriveTrain.encoderDrive(1, 41, 41, 41, 41, 2);
             MyDriveTrain.encoderDrive(0.8, -88, 88, 88, -88, 1);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(1, -25, -25, -25, -25, 2);
@@ -99,10 +99,14 @@ public class OneCubeVer2 extends basicAuto {
             MyDriveTrain.encoderDrive(0.8, 70, -70, -70, 70, 1);
             MyDriveTrain.Rotate(0,0.1,10);
             MyDriveTrain.encoderDrive(1, 80, 80, 80, 80, 2);
-            MyDriveTrain.Rotate(0,0.2,10);
+
         }
 
-        Output.setPosition(0.25);
+        MyDriveTrain.Rotate(0,0.2,10);
+        MyIntake.maxIntake();
+        sleep(500);
+        MyIntake.ShutDown();
+        Output.setPosition(0);
         MyDriveTrain.encoderDrive(1, 125, 125, 125, 125, 2);
         MyDriveTrain.encoderDrive(0.3,70,-70,-70,70,2);
         MyDriveTrain.encoderDrive(0.5,-25,25,25,-25,2);
@@ -113,17 +117,18 @@ public class OneCubeVer2 extends basicAuto {
         LeftServo.setPosition(0.15);
         RightServo.setPosition(0.15);
         MyDriveTrain.encoderDrive(0.1,10,10,10,10,2);
-        LeftServo.setPosition(0.05);
+        LeftServo.setPosition(0.01);
         RightServo.setPosition(0.05);
-        sleep(1000);
-        MyDriveTrain.encoderDrive(1,-100,-100,-130,-130,2);
+        sleep(500);
+        MyDriveTrain.encoderDrive(1,-90,-90,-90,-90,2);
         MyDriveTrain.Rotate(-0,1,10);
-//        MyElevator.ElevateWithEncoder(-350, 0.3, 0.5);
-//        Arm.setPosition(1);
-//        sleep(1000);
-//        MyElevator.ElevateWithEncoder(10, 0.4, 0.007);
-//        Output.setPosition(1);
-//        sleep(1000);
+        MyDriveTrain.encoderDrive(1,90,90,90,90,2);
+        MyElevator.ElevateWithEncoder(-350, 0.3, 0.5);
+        Arm.setPosition(1);
+        sleep(1000);
+        MyElevator.ElevateWithEncoder(10, 0.3, 0.007);
+        Output.setPosition(1);
+        sleep(1000);
         LeftServo.setPosition(0.55);
         RightServo.setPosition(0.6);
         MyDriveTrain.Rotate(0,0.4,10);
