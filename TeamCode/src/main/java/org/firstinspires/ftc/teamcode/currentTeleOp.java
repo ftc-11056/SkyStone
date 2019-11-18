@@ -23,8 +23,11 @@ public class currentTeleOp extends Robot {
     private boolean YDondMove = true;
     private boolean ADondMove = true;
     private boolean underMagnet = false;
+    private boolean Abutton = false;
 //    private boolean levels = true;
 //    private boolean level1 = false;
+    private int anotherDownVar = 0;
+
 
 
     @Override
@@ -110,7 +113,7 @@ public class currentTeleOp extends Robot {
                 telemetry.addData("time is:", time);
                 //sleep(2000);
                 telemetry.update();
-            } else if (upDegel == true)
+            } else if (upDegel == true && downDegel != 1)
                 if ((-time + runtime.seconds()) > 2) {
                     MyElevator.ElevateWithEncoder(-400, 0.3, 0.5);
                     /*if (rightLinearMotor.getCurrentPosition()>300 || leftLinearMotor.getCurrentPosition()>300)
@@ -152,81 +155,49 @@ public class currentTeleOp extends Robot {
                     telemetry.update();
                 }
             }*/
-
             if (gamepad2.a) {
+                Abutton = true;
                 ADondMove = false;
-                downDegel = 1;
                 flag = true;
-                if (downDegel == 1) {
-                    time = runtime.seconds();
-                }
-                Arm.setPosition(0.135);
-                telemetry.addData("time is:", time);
-                //sleep(2000);
-                telemetry.update();
-            }  if (downDegel == 1)
-                if ((-time + runtime.seconds()) > 2) {
-                    MyElevator.ElevateWithEncoder(-10, 0.15, 0.01);
-                    /*if (rightLinearMotor.getCurrentPosition()>300 || leftLinearMotor.getCurrentPosition()>300)
-                        MyElevator.dontMoveElevator(1,300);*/
+                downDegel = 1;
+            }
+            if (Abutton == true) {
+                if (downDegel == 1 && anotherDownVar == 0) {
+                    MyElevator.ElevateWithEncoder(-300, 0.3, 0.5);
                     stayingPosition = leftLinearMotor.getCurrentPosition();
-                    Output.setPosition(0.65);
+                }
+                stayingPosition = leftLinearMotor.getCurrentPosition();
+
+                if (rightLinearMotor.getCurrentPosition() < -150 || leftLinearMotor.getCurrentPosition() < -150) {
+                    Arm.setPosition(0.135);
 
                 }
-//            if (gamepad2.a) {
-//                ADondMove = false;
-//                downDegel = 1;
-//                flag = true;
-//                underMagnet = false;
-//                if (downDegel == 1) {
-//                    time = runtime.seconds();
-//                }
-//                Output.setPosition(0.65);
-//                telemetry.addData("time is:", time);
-//                sleep(2000);
-//                telemetry.update();
-//            } else if (upDegel == true)
-//                if ((-time + runtime.seconds()) > 2) {
-//                    MyElevator.ElevateWithEncoder(-400, 0.3, 0.5);
-//                    /*if (rightLinearMotor.getCurrentPosition()>300 || leftLinearMotor.getCurrentPosition()>300)
-//                        MyElevator.dontMoveElevator(1,300);*/
-//                    stayingPosition = leftLinearMotor.getCurrentPosition();
-//                    telemetry.addLine("Here");
-//                    telemetry.update();
-//                    if (leftLinearMotor.getCurrentPosition() < -380 || rightLinearMotor.getCurrentPosition() < -380) {
-//                        Arm.setPosition(1);
+                if (rightLinearMotor.getCurrentPosition() < -280 || leftLinearMotor.getCurrentPosition() < -280) {
+                    Arm.setPosition(0.135);
+                    MyElevator.ElevateWithEncoder(0, 0.1, 0.01);
+                    stayingPosition = leftLinearMotor.getCurrentPosition();
+                    downDegel = 2;
+                    telemetry.addData("time is:", time);
+                    telemetry.update();
+                    anotherDownVar = 1;
+                }
+                if (rightLinearMotor.getCurrentPosition() > -270 || leftLinearMotor.getCurrentPosition() > -270 || downDegel == 2) {
+                    time = runtime.seconds();
+                    telemetry.addData("MENAHEMISNTGUILTY:", time);
+                    telemetry.update();
+                }
+//                if (downDegel == 2) {
+//                    if ((-time + runtime.seconds()) > 2) {
+//                        telemetry.addData("MENAHEMISNTGUILTY:", time);
+//                        telemetry.update();
+//                        MyElevator.ElevateWithEncoder(-10, 0.15, 0.01);
+//                        stayingPosition = leftLinearMotor.getCurrentPosition();
+//                        Output.setPosition(0.65);
 //                    }
 //                }
+            }
 
-//            if (gamepad2.a) {
-//                ADondMove = false;
-//                telemetry.addData("time is:", time);
-//                sleep(2000);
-//                telemetry.update();
-//                downDegel = 1;
-//            } else if (downDegel == 1) {
-//                MyElevator.ElevateWithEncoder(270, 0.2, 0.5);
-//                stayingPosition = leftLinearMotor.getCurrentPosition();
-//            }else if (leftLinearMotor.getCurrentPosition() > 250)
-//
-//            }else if (leftLinearMotor.getCurrentPosition() > 250){
-//                downDegel = true;
-//                flag = true;
-//                if (downDegel == true) {
-//                    time = runtime.seconds();
-//                }
-//                Arm.setPosition(0.135);
-//            }
-//            else if (downDegel == true)
-//                if ((-time + runtime.seconds()) > 2) {
-//                    MyElevator.ElevateWithEncoder(10, 0.15, 0.01);
-//                    /*if (rightLinearMotor.getCurrentPosition()>300 || leftLinearMotor.getCurrentPosition()>300)
-//                        MyElevator.dontMoveElevator(1,300);*/
-//                    stayingPosition = leftLinearMotor.getCurrentPosition();
-//                    Output.setPosition(0.65);
-//                    telemetry.addLine("Here");
-//                    telemetry.update();
-//        }
+
 
             if (leftLinearMotor.getCurrentPosition() < -380 || rightLinearMotor.getCurrentPosition() < -380) {
                 upDegel = false;
@@ -234,14 +205,15 @@ public class currentTeleOp extends Robot {
                 YDondMove = true;
                 MyElevator.move = true;
             }
-        if (gamepad2.left_bumper || gamepad2.right_bumper || leftLinearMotor.getCurrentPosition() > -20 || rightLinearMotor.getCurrentPosition() > -20
-                || downMagnetElevator.getState() == false) {
-            downDegel = 0;
-            downDegelToServo = 0;
-            flag = false;
-            ADondMove = true;
-            MyElevator.move = true;
-        }
+            if (gamepad2.left_bumper || gamepad2.right_bumper || leftLinearMotor.getCurrentPosition() > -0 || rightLinearMotor.getCurrentPosition() > -0
+                    || downMagnetElevator.getState() == false) {
+                downDegel = 0;
+                downDegelToServo = 0;
+                flag = false;
+                ADondMove = true;
+                MyElevator.move = true;
+                Abutton = false;
+            }
 
 //            TODO: normal moving
             if (gamepad2.right_bumper && leftLinearMotor.getCurrentPosition() > -380 /*&& upMagnetElevator.getState() == false*/) {
@@ -253,14 +225,14 @@ public class currentTeleOp extends Robot {
                 MyElevator.ElevateWithEncoder(0, 0.15, 0.01);
                 stayingPosition = leftLinearMotor.getCurrentPosition();
                 bumpersDondMove = false;
-            } else if (downMagnetElevator.getState() == true && upDegel == false && downDegel == 0 && downDegelToServo == 0) {
+            } else if (downMagnetElevator.getState() == true && upDegel == false && downDegel == 0 && downDegelToServo == 0 && ADondMove && !gamepad2.a) {
                 leftLinearMotor.setTargetPosition(encodersStay);
                 rightLinearMotor.setTargetPosition(encodersStay);
                 leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 rightLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 leftLinearMotor.setPower(0.4);
                 rightLinearMotor.setPower(0.4);
-            } else if (upDegel == false && downDegel == 0) {
+            } else if (upDegel == false && downDegel == 0 && downDegelToServo == 0 && ADondMove && !gamepad2.a) {
                 leftLinearMotor.setPower(0);
                 rightLinearMotor.setPower(0);
             }
