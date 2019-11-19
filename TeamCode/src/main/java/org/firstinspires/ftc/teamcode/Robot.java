@@ -115,7 +115,7 @@ public class Robot extends LinearOpMode {
         LeftServo.setPosition(0.55);
         RightServo.setPosition(0.6);
         Output.setPosition(1);
-        Arm.setPosition(0.135);
+//        Arm.setPosition(0.135);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
