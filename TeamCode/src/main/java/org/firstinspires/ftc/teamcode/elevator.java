@@ -9,9 +9,6 @@ public class elevator  {
     private DcMotor rightEle = null;
     private DigitalChannel upMagnet = null;
     private DigitalChannel downMagnet = null;
-    public int fixedPosition = 0;
-    public boolean move = false;
-
 
     public elevator (DcMotor leftEle, DcMotor rightEle, DigitalChannel upMagnet, DigitalChannel downMagnet, int fixedPosition){
         this.leftEle = leftEle;
@@ -33,17 +30,12 @@ public class elevator  {
     }
 
     public void ElevateWithEncoder(int pos, double power, double kp){
-      //  int newLeftTargetPosition = leftEle.getCurrentPosition() + pos;
-        //int newRightTargetPosition = rightEle.getCurrentPosition() + pos;
         leftEle.setTargetPosition(pos);
         rightEle.setTargetPosition(pos);
         leftEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftEle.setPower(power*(pos-leftEle.getCurrentPosition())*kp);
         rightEle.setPower(power*(pos-rightEle.getCurrentPosition())*kp);
-        move = false;
-
-//        fixedPosition = leftEle.getCurrentPosition();
     }
 
     public void ElevateWithEncoderNew(){
@@ -71,7 +63,7 @@ public class elevator  {
     }
 
     public void dontMoveElevator (double power, int stayingPosition/*,double PN,int leftCurrent, int rightCurrent*/){
-        double error = fixedPosition - leftEle.getCurrentPosition();
+//        double error = fixedPosition - leftEle.getCurrentPosition();
         leftEle.setTargetPosition(stayingPosition);
         rightEle.setTargetPosition(stayingPosition);
         leftEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);

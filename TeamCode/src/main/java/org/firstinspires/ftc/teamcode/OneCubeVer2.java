@@ -32,8 +32,8 @@ public class OneCubeVer2 extends basicAuto {
         RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         MyDriveTrain.encoderDrive(0.8, -30, 30, 30, -30, 1);
-        Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
         MyDriveTrain.Rotate(0,0.1,10);
+        Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
 
 
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -48,15 +48,15 @@ public class OneCubeVer2 extends basicAuto {
             MyDriveTrain.encoderDrive(0.8, -88, 88, 88, -88, 1);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.8, -25, -25, -25, -25, 2);
+            sleep(500);
             if (cubeIn.getDistance(DistanceUnit.MM) > 70) {
-                sleep(500);
                 MyDriveTrain.encoderDrive(0.7, -20, -20, -20, -20, 2);
                 MyDriveTrain.encoderDrive(0.7, 20, 20, 20, 20, 2);
                 telemetry.addData("CubeDistans:", cubeIn.getDistance(DistanceUnit.MM));
                 telemetry.update();
             }
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.8, 70, -70, -70, 70, 1);
+            MyDriveTrain.encoderDrive(0.8, 105, -105, -105, 105, 1);
             MyDriveTrain.encoderDrive(0.8, 100, 100, 100, 100, 2);
         }
 
@@ -67,6 +67,7 @@ public class OneCubeVer2 extends basicAuto {
             MyDriveTrain.encoderDrive(0.8, -88, 88, 88, -88, 1);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(1, -25, -25, -25, -25, 2);
+            sleep(500);
             if (cubeIn.getDistance(DistanceUnit.MM) > 60) {
                 sleep(500);
                 MyDriveTrain.encoderDrive(0.7, -20, -20, -20, -20, 2);
@@ -75,7 +76,7 @@ public class OneCubeVer2 extends basicAuto {
                 telemetry.update();
             }
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.8, 70, -70, -70, 70, 1);
+            MyDriveTrain.encoderDrive(0.8, 105, -105, -105, 105, 1);
             MyDriveTrain.encoderDrive(1, 85, 85, 85, 85, 2);
 
 
@@ -89,14 +90,13 @@ public class OneCubeVer2 extends basicAuto {
             MyDriveTrain.encoderDrive(1, -25, -25, -25, -25, 2);
             sleep(500);
             if (cubeIn.getDistance(DistanceUnit.MM) > 60) {
-                sleep(500);
                 MyDriveTrain.encoderDrive(0.7, -20, -20, -20, -20, 2);
                 MyDriveTrain.encoderDrive(0.7, 20, 20, 20, 20, 2);
                 telemetry.addData("CubeDistans:", cubeIn.getDistance(DistanceUnit.MM));
                 telemetry.update();
             }
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.8, 70, -70, -70, 70, 1);
+            MyDriveTrain.encoderDrive(0.8, 105, -105, -105, 105, 1);
             MyDriveTrain.Rotate(0,0.1,10);
             MyDriveTrain.encoderDrive(1, 80, 80, 80, 80, 2);
 
@@ -108,7 +108,7 @@ public class OneCubeVer2 extends basicAuto {
         MyIntake.ShutDown();
         Output.setPosition(0);
         MyDriveTrain.encoderDrive(1, 125, 125, 125, 125, 2);
-        MyDriveTrain.encoderDrive(0.3,70,-70,-70,70,2);
+        MyDriveTrain.encoderDrive(0.3,30,-30,-30,30,2);
         MyDriveTrain.encoderDrive(0.5,-25,25,25,-25,2);
         MyDriveTrain.Rotate(90,0.1,10);
         sleep(500);
@@ -126,13 +126,13 @@ public class OneCubeVer2 extends basicAuto {
         MyElevator.ElevateWithEncoder(-350, 0.3, 0.5);
         Arm.setPosition(1);
         sleep(1000);
-        MyElevator.ElevateWithEncoder(10, 0.3, 0.007);
+        MyElevator.ElevateWithEncoder(0, 0.1, 0.001);
         Output.setPosition(1);
         sleep(1000);
         LeftServo.setPosition(0.55);
         RightServo.setPosition(0.6);
         MyDriveTrain.Rotate(0,0.4,10);
-        sleep(1000);
+        MyDriveTrain.encoderDrive(0.3,20,-20,-20,20,2);
         MyDriveTrain.encoderDrive(0.5,-75,-75, -75,-75,1);
     }
 
