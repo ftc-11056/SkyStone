@@ -110,8 +110,8 @@ public class OneCube extends basicAuto {
         LeftServo.setPosition(0.05);
         RightServo.setPosition(0.05);
         sleep(1000);
-        MyDriveTrain.encoderDrive(1,-128,-128,-138,-138,2);
         MyDriveTrain.encoderDrive(1,110,110,-110,-110,2);
+        MyDriveTrain.encoderDrive(1,-128,-128,-138,-138,2);
 //        MyElevator.ElevateWithEncoder(-350, 0.3, 0.5);
 //        Arm.setPosition(1);
 //        sleep(1000);
