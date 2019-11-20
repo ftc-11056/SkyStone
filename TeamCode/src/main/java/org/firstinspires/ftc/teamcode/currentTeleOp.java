@@ -85,7 +85,7 @@ public class currentTeleOp extends Robot {
                 MyIntake.maxIntake();
             } else if (gamepad2.left_trigger > 0) {
                 MyIntake.maxOuttake();
-            } else {
+            } else  {
                 MyIntake.ShutDown();
             }
 
