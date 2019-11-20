@@ -132,7 +132,7 @@ public class OneCubeVer2 extends basicAuto {
         LeftServo.setPosition(0.55);
         RightServo.setPosition(0.6);
         MyDriveTrain.Rotate(0,0.4,10);
-        MyDriveTrain.encoderDrive(0.3,20,-20,-20,20,2);
+        MyDriveTrain.encoderDrive(0.3,25,-25,-25,25,2);
         MyDriveTrain.encoderDrive(0.5,-75,-75, -75,-75,1);
     }
 
