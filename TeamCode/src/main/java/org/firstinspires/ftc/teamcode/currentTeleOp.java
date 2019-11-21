@@ -87,10 +87,10 @@ public class currentTeleOp extends Robot {
                 MyIntake.ShutDown();
             }
 
-            if (gamepad1.x) {
+            if (gamepad1.a) {
                 LeftServo.setPosition(0.05);
                 RightServo.setPosition(0.55);
-            } else if (gamepad1.b) {
+            } else if (gamepad1.y) {
                 LeftServo.setPosition(0.55);
                 RightServo.setPosition(1);
             }

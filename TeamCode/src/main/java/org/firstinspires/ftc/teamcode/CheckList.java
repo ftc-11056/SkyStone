@@ -66,7 +66,27 @@ public class CheckList extends Robot {
         }
         RB.setPower(0);
 
+        MyDriveTrain.Rotate(90,0.5,10);
+
+        MyIntake.maxIntake();
+        MyElevator.ElevateWithEncoder(-350, 0.3, 0.5);
+        MyIntake.ShutDown();
+        Arm.setPosition(1);
         sleep(1000);
+        MyElevator.ElevateWithEncoder(0, 0.1, 0.003);
+
+        LeftServo.setPosition(0.01);
+        RightServo.setPosition(0.55);
+        sleep(1000);
+        LeftServo.setPosition(0.55);
+        RightServo.setPosition(1);
+        sleep(1000);
+
+        Output.setPosition(0);
+        sleep(1000);
+        Output.setPosition(1);
+        sleep(1000);
+
 
 
 
