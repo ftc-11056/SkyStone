@@ -18,8 +18,9 @@ public class currentTeleOp extends Robot {
     private int stayErrors = 0;
     private int stayCounter = 0;
 
-    private double stayPN = 0.01;
-    private double stayDN = 0;
+    private double stayPN = 0.001;
+    private double stayDN = 0.00001;
+    private double power = 0;
 
 //    up values:
     private boolean upDegel = false;
@@ -56,9 +57,6 @@ public class currentTeleOp extends Robot {
             if (gamepad1.x) MyDriveTrain.setMode("arcade");
             else if (gamepad1.b) MyDriveTrain.setMode("Oriented");
 
-            telemetry.addData("Mode: ", MyDriveTrain.Mode);
-            telemetry.update();
-
             if (MyDriveTrain.getMode().equals("Oriented")) {
                 MyDriveTrain.fieldOriented(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, heading);
             } else {
@@ -91,10 +89,10 @@ public class currentTeleOp extends Robot {
 
             if (gamepad1.x) {
                 LeftServo.setPosition(0.05);
-                RightServo.setPosition(0.05);
+                RightServo.setPosition(0.55);
             } else if (gamepad1.b) {
                 LeftServo.setPosition(0.55);
-                RightServo.setPosition(0.6);
+                RightServo.setPosition(1);
             }
 
 //          TODO:  Elevator:
@@ -110,7 +108,6 @@ public class currentTeleOp extends Robot {
                 }
                 Output.setPosition(0.2);
                 telemetry.addData("time is:", time);
-                //sleep(2000);
                 telemetry.update();
             } else if (upDegel == true && downDegel != 1)
                 if ((-time + runtime.seconds()) > 2) {
@@ -180,12 +177,14 @@ public class currentTeleOp extends Robot {
 //            TODO: stop commands
             else if (downMagnetElevator.getState() == true && upDegel == false && downDegel == 0 && downDegelToServo == 0 && ADondMove && !gamepad2.a) {
                 stayErrors = leftLinearMotor.getCurrentPosition() - stayingPosition;
+//                stayCounter = stayCounter + leftLinearMotor.getCurrentPosition(+ );
+                power = 1 * stayErrors * stayPN /*+ stayCounter * stayDN*/;
                 leftLinearMotor.setTargetPosition(encodersStay);
                 rightLinearMotor.setTargetPosition(encodersStay);
                 leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 rightLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                leftLinearMotor.setPower(0.4 * (encodersStay - stayErrors) * stayPN);
-                rightLinearMotor.setPower(0.4);
+                leftLinearMotor.setPower(power);
+                rightLinearMotor.setPower(power);
             } else if (upDegel == false && downDegel == 0 && downDegelToServo == 0 && ADondMove && !gamepad2.a) {
                 leftLinearMotor.setPower(0);
                 rightLinearMotor.setPower(0);
@@ -200,6 +199,8 @@ public class currentTeleOp extends Robot {
             telemetry.addData("Value under Magnet", underMagnet);
             telemetry.addData("down sensor Magnet", downMagnetElevator.getState());
             telemetry.addData("downDegel", downDegel);
+            telemetry.addData("Mode: ", MyDriveTrain.Mode);
+            telemetry.addData("stay D n: ", stayDN);
             telemetry.update();
 
         }

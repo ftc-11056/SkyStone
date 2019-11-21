@@ -113,7 +113,7 @@ public class Robot extends LinearOpMode {
       //  linear_motor.setPower(0);
 
         LeftServo.setPosition(0.55);
-        RightServo.setPosition(0.6);
+        RightServo.setPosition(1);
         Output.setPosition(1);
 //        Arm.setPosition(0.135);
 

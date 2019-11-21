@@ -45,7 +45,7 @@ public class OneCubeVer2 extends basicAuto {
         if (Mikum > 2) {
             telemetry.addLine("you're on the right");
             telemetry.update();
-            MyDriveTrain.encoderDrive(0.8, -88, 88, 88, -88, 1);
+            MyDriveTrain.encoderDrive(0.8, -84, 84, 84, -84, 1);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.8, -25, -25, -25, -25, 2);
             sleep(500);
@@ -56,7 +56,7 @@ public class OneCubeVer2 extends basicAuto {
                 telemetry.update();
             }
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.8, 105, -105, -105, 105, 1);
+            MyDriveTrain.encoderDrive(0.8, 90, -90, -90, 90, 1);
             MyDriveTrain.encoderDrive(0.8, 100, 100, 100, 100, 2);
         }
 
@@ -76,7 +76,7 @@ public class OneCubeVer2 extends basicAuto {
                 telemetry.update();
             }
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.8, 105, -105, -105, 105, 1);
+            MyDriveTrain.encoderDrive(0.8, 90, -90, -90, 90, 1);
             MyDriveTrain.encoderDrive(1, 85, 85, 85, 85, 2);
 
 
@@ -96,7 +96,7 @@ public class OneCubeVer2 extends basicAuto {
                 telemetry.update();
             }
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.8, 105, -105, -105, 105, 1);
+            MyDriveTrain.encoderDrive(0.8, 90, -90, -90, 90, 1);
             MyDriveTrain.Rotate(0,0.1,10);
             MyDriveTrain.encoderDrive(1, 80, 80, 80, 80, 2);
 
@@ -118,7 +118,7 @@ public class OneCubeVer2 extends basicAuto {
         RightServo.setPosition(0.15);
         MyDriveTrain.encoderDrive(0.1,10,10,10,10,2);
         LeftServo.setPosition(0.01);
-        RightServo.setPosition(0.05);
+        RightServo.setPosition(0.55);
         sleep(500);
         MyDriveTrain.encoderDrive(1,-90,-90,-90,-90,2);
         MyDriveTrain.Rotate(-0,1,10);
@@ -130,7 +130,7 @@ public class OneCubeVer2 extends basicAuto {
         Output.setPosition(1);
         sleep(1000);
         LeftServo.setPosition(0.55);
-        RightServo.setPosition(0.6);
+        RightServo.setPosition(1);
         MyDriveTrain.Rotate(0,0.4,10);
         MyDriveTrain.encoderDrive(0.3,25,-25,-25,25,2);
         MyDriveTrain.encoderDrive(0.5,-75,-75, -75,-75,1);
