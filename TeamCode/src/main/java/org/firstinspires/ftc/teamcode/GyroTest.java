@@ -2,10 +2,11 @@ package org.firstinspires.ftc.teamcode;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Autonomous(name = "GyroTest", group = "teamcode")
-
+@Disabled
 public class GyroTest extends Robot {
 
     public void runOpMode() throws InterruptedException {

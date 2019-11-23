@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 
-@Autonomous(name = "TwoCube", group = "teamcode")
-public class TwoCube extends basicAuto {
+@Autonomous(name = "TwoCubeBlue", group = "teamcode")
+public class TwoCubeBlue extends basicAuto {
 
     /* Declare OpMode members. */
 
@@ -33,6 +33,7 @@ public class TwoCube extends basicAuto {
 
         MyDriveTrain.encoderDrive(0.8,-30,30,30,-30 ,1);
         Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
+        MyDriveTrain.Rotate(180,0.1,10);
 
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

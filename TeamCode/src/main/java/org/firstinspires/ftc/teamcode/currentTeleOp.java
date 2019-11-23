@@ -73,9 +73,9 @@ public class currentTeleOp extends Robot {
             }
 
             if (gamepad2.dpad_up) {
-                Output.setPosition(0.65);
+                Output.setPosition(0.5);
             } else if (gamepad2.dpad_down) {
-                Output.setPosition(0.2);
+                Output.setPosition(0);
             }
 
 //            TODO: Intake Train
@@ -106,7 +106,7 @@ public class currentTeleOp extends Robot {
                 if (upDegel == true) {
                     time = runtime.seconds();
                 }
-                Output.setPosition(0.2);
+                Output.setPosition(0);
                 telemetry.addData("time is:", time);
                 telemetry.update();
             } else if (upDegel == true && downDegel != 1)
@@ -138,7 +138,7 @@ public class currentTeleOp extends Robot {
 
                 }
                 if (rightLinearMotor.getCurrentPosition() < -450 || leftLinearMotor.getCurrentPosition() < -450) {
-                    Output.setPosition(0.65);
+                    Output.setPosition(0.55);
                     MyElevator.ElevateWithEncoder(0, 0.1, 0.01);
                     stayingPosition = leftLinearMotor.getCurrentPosition();
                     downDegel = 2;

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -9,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
 
 @Autonomous(name="Autotest", group="teamcode")
+@Disabled
 public class Autotest extends Robot{
 
     /* Declare OpMode members. */

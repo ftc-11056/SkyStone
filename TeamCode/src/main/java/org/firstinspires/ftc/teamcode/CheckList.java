@@ -18,12 +18,6 @@ public class CheckList extends Robot {
         waitForStart();
         runtime.reset();
 
-            /*    MyDriveTrain.encoderDrive(1,-120,120,120,-120,1);
-        while (!isStopRequested()) {
-            telemetry.addData("LFencoder",LF.getCurrentPosition());
-            telemetry.update();
-        }*/
-
         LF.setTargetPosition(400);
         LF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         LF.setPower(1);
