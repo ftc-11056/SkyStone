@@ -108,7 +108,7 @@ public class OneCubeBlue extends basicAuto {
         MyIntake.maxIntake();
         sleep(500);
         MyIntake.ShutDown();
-        Output.setPosition(0);
+        Output.setPosition(OutputDown);
         MyDriveTrain.encoderDrive(1, 115, 115, 115, 115, 2);
         MyDriveTrain.Rotate(90,0.1,10);
         sleep(500);
@@ -117,8 +117,8 @@ public class OneCubeBlue extends basicAuto {
         LeftServo.setPosition(0.15);
         RightServo.setPosition(0.7);
         MyDriveTrain.encoderDrive(0.1,10,10,10,10,2);
-        LeftServo.setPosition(0.01);
-        RightServo.setPosition(0.55);
+        LeftServo.setPosition(LeftServoDown);
+        RightServo.setPosition(RightServoDown);
         sleep(500);
         MyDriveTrain.encoderDrive(1,-90,-90,-90,-90,2);
         MyDriveTrain.Rotate(-0,0.5,10);
@@ -127,14 +127,14 @@ public class OneCubeBlue extends basicAuto {
         Arm.setPosition(1);
         sleep(1000);
         MyElevator.ElevateWithEncoder(0, 0.5, 0.003);
-        Output.setPosition(0.5);
+        Output.setPosition(OutputUp);
         sleep(1000);
         MyElevator.ElevateWithEncoder(-350, 0.3, 0.5);
         Arm.setPosition(0.135);
         sleep(1000);
         MyElevator.ElevateWithEncoder(0, 0.5, 0.003);
-        LeftServo.setPosition(0.55);
-        RightServo.setPosition(1);
+        LeftServo.setPosition(LeftServoUp);
+        RightServo.setPosition(RightServoUp);
         MyDriveTrain.Rotate(0,0.4,10);
         MyDriveTrain.encoderDrive(0.3,-30,30,30,-30,2);
         MyDriveTrain.encoderDrive(0.5,-75,-75, -75,-75,1);

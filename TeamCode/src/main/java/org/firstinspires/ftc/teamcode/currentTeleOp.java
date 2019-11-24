@@ -73,9 +73,9 @@ public class currentTeleOp extends Robot {
             }
 
             if (gamepad2.dpad_up) {
-                Output.setPosition(0.5);
+                Output.setPosition(OutputUp);
             } else if (gamepad2.dpad_down) {
-                Output.setPosition(0);
+                Output.setPosition(OutputDown);
             }
 
 //            TODO: Intake Train
@@ -88,11 +88,11 @@ public class currentTeleOp extends Robot {
             }
 
             if (gamepad1.a) {
-                LeftServo.setPosition(0.05);
-                RightServo.setPosition(0.55);
+                LeftServo.setPosition(LeftServoDown);
+                RightServo.setPosition(RightServoDown);
             } else if (gamepad1.y) {
-                LeftServo.setPosition(0.55);
-                RightServo.setPosition(1);
+                LeftServo.setPosition(LeftServoUp);
+                RightServo.setPosition(RightServoUp);
             }
 
 //          TODO:  Elevator:
@@ -106,7 +106,7 @@ public class currentTeleOp extends Robot {
                 if (upDegel == true) {
                     time = runtime.seconds();
                 }
-                Output.setPosition(0);
+                Output.setPosition(OutputDown);
                 telemetry.addData("time is:", time);
                 telemetry.update();
             } else if (upDegel == true && downDegel != 1)
@@ -115,7 +115,7 @@ public class currentTeleOp extends Robot {
                     stayingPosition = leftLinearMotor.getCurrentPosition();
                     telemetry.addLine("Here");
                     telemetry.update();
-                    if (leftLinearMotor.getCurrentPosition() < -380 || rightLinearMotor.getCurrentPosition() < -380) {
+                    if (leftLinearMotor.getCurrentPosition() < -350 || rightLinearMotor.getCurrentPosition() < -350) {
                         Arm.setPosition(1);
                     }
                 }
@@ -139,7 +139,7 @@ public class currentTeleOp extends Robot {
                 }
                 if (rightLinearMotor.getCurrentPosition() < -450 || leftLinearMotor.getCurrentPosition() < -450) {
                     Output.setPosition(0.55);
-                    MyElevator.ElevateWithEncoder(0, 0.1, 0.01);
+                    MyElevator.ElevateWithEncoder(0, 0.1, 0.007);
                     stayingPosition = leftLinearMotor.getCurrentPosition();
                     downDegel = 2;
                     telemetry.addData("time is:", time);
@@ -170,7 +170,7 @@ public class currentTeleOp extends Robot {
                 bumpersDondMove = false;
                 underMagnet = false;
             } else if (gamepad2.left_bumper && downMagnetElevator.getState() == true) {
-                MyElevator.ElevateWithEncoder(0, 0.15, 0.01);
+                MyElevator.ElevateWithEncoder(0, 0.15, 0.007);
                 stayingPosition = leftLinearMotor.getCurrentPosition();
                 bumpersDondMove = false;
             }

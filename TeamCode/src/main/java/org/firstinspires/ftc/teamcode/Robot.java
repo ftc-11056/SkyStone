@@ -54,6 +54,16 @@ public class Robot extends LinearOpMode {
     public double servoPosition = 0.005;
     protected int fixedPosition = 0;
 
+    public double OutputDown = 0.03;
+    public double OutputUp = 0.5;
+
+    public double LeftServoDown = 0.25;
+    public double RightServoDown = 0.55;
+    public double LeftServoUp = 0.8;
+    public double RightServoUp = 1;
+
+
+
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -112,9 +122,9 @@ public class Robot extends LinearOpMode {
         RF.setPower(0);
       //  linear_motor.setPower(0);
 
-        LeftServo.setPosition(0.55);
-        RightServo.setPosition(1);
-        Output.setPosition(0.5);
+        LeftServo.setPosition(LeftServoUp);
+        RightServo.setPosition(RightServoUp);
+        Output.setPosition(OutputUp);
 //        Arm.setPosition(0.135);
 
         // Set all motors to run without encoders.
