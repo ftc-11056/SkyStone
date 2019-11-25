@@ -46,6 +46,11 @@ public class currentTeleOp extends Robot {
         RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        telemetry.addData("pass Word" , passWord);
+        telemetry.update();
+
+        sleep(11056);
+
         waitForStart();
         while (opModeIsActive()) {
 //TODO[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[GAMEPAD 11111111111]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
@@ -110,7 +115,7 @@ public class currentTeleOp extends Robot {
                 telemetry.addData("time is:", time);
                 telemetry.update();
             } else if (upDegel == true && downDegel != 1)
-                if ((-time + runtime.seconds()) > 2) {
+                if ((-time + runtime.seconds()) > 1.3) {
                     MyElevator.ElevateWithEncoder(-400, 0.3, 0.5);
                     stayingPosition = leftLinearMotor.getCurrentPosition();
                     telemetry.addLine("Here");
@@ -149,13 +154,15 @@ public class currentTeleOp extends Robot {
             }else anotherDownVar = 0;
 
 //            TODO: reset auto Buttons:
-            if (leftLinearMotor.getCurrentPosition() < -380 || rightLinearMotor.getCurrentPosition() < -380) {
+            if (leftLinearMotor.getCurrentPosition() < -380 || rightLinearMotor.getCurrentPosition() < -380
+                    || gamepad2.right_bumper || gamepad2.left_bumper) {
                 upDegel = false;
                 flag = false;
                 YDondMove = true;
             }
-            if (gamepad2.left_bumper || gamepad2.right_bumper || leftLinearMotor.getCurrentPosition() > -0 || rightLinearMotor.getCurrentPosition() > -0
-                    || downMagnetElevator.getState() == false) {
+            if (gamepad2.left_bumper || gamepad2.right_bumper || leftLinearMotor.getCurrentPosition() > -0 ||
+                    rightLinearMotor.getCurrentPosition() > -0 || downMagnetElevator.getState() == false ||
+                    gamepad2.right_bumper || gamepad2.left_bumper) {
                 downDegel = 0;
                 downDegelToServo = 0;
                 flag = false;

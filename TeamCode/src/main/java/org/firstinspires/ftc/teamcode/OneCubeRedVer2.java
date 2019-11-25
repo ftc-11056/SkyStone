@@ -21,6 +21,9 @@ public class OneCubeRedVer2 extends basicAuto {
         //  LeftServo.setPosition(0.4);
         //   RightServo.setPosition(0.5);
 
+        passWord = "pass";
+
+
         waitForStart();
         telemetry.addData("Angles", MyDriveTrain.getAngle());
         telemetry.update();

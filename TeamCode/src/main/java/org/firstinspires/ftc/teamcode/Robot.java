@@ -62,6 +62,8 @@ public class Robot extends LinearOpMode {
     public double LeftServoUp = 0.8;
     public double RightServoUp = 1;
 
+    public String passWord = "dont pass";
+
 
 
     @Override
