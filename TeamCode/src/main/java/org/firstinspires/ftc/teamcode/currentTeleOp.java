@@ -46,11 +46,6 @@ public class currentTeleOp extends Robot {
         RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        telemetry.addData("pass Word" , passWord);
-        telemetry.update();
-
-        sleep(11056);
-
         waitForStart();
         while (opModeIsActive()) {
 //TODO[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[GAMEPAD 11111111111]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
@@ -115,7 +110,7 @@ public class currentTeleOp extends Robot {
                 telemetry.addData("time is:", time);
                 telemetry.update();
             } else if (upDegel == true && downDegel != 1)
-                if ((-time + runtime.seconds()) > 1.3) {
+                if ((-time + runtime.seconds()) > 0.7) {
                     MyElevator.ElevateWithEncoder(-400, 0.3, 0.5);
                     stayingPosition = leftLinearMotor.getCurrentPosition();
                     telemetry.addLine("Here");
@@ -144,7 +139,7 @@ public class currentTeleOp extends Robot {
                 }
                 if (rightLinearMotor.getCurrentPosition() < -450 || leftLinearMotor.getCurrentPosition() < -450) {
                     Output.setPosition(0.55);
-                    MyElevator.ElevateWithEncoder(0, 0.1, 0.007);
+                    MyElevator.ElevateWithEncoder(0, 0.1, 0.0099);
                     stayingPosition = leftLinearMotor.getCurrentPosition();
                     downDegel = 2;
                     telemetry.addData("time is:", time);
@@ -177,7 +172,7 @@ public class currentTeleOp extends Robot {
                 bumpersDondMove = false;
                 underMagnet = false;
             } else if (gamepad2.left_bumper && downMagnetElevator.getState() == true) {
-                MyElevator.ElevateWithEncoder(0, 0.15, 0.007);
+                MyElevator.ElevateWithEncoder(0, 0.15, 0.0099);
                 stayingPosition = leftLinearMotor.getCurrentPosition();
                 bumpersDondMove = false;
             }

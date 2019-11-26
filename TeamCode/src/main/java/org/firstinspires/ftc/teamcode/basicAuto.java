@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
@@ -13,7 +16,7 @@ public class basicAuto extends Robot {
     protected VuforiaLocalizer vuforia;
     protected OpenGLMatrix lastLocation = null;
     private static final float mmPerInch = 25.4f;
-    public float Mikum=0;
+    public float Mikum = 0;
     public int vuforiastop = 0;
 
     protected static final String VUFORIA_KEY =
@@ -25,6 +28,8 @@ public class basicAuto extends Robot {
     @Override
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
+
+//        TODO: Webcam
         webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parametersVu = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
@@ -38,5 +43,21 @@ public class basicAuto extends Robot {
         vuforia = ClassFactory.getInstance().createVuforia(parametersVu);
         //VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
         MyVuforiaStone = new VuforiaStone( webcamName,parametersVu, targetsSkyStone, vuforia,lastLocation);
+
+//        TODO: IMU
+
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit           = BNO055IMU.AngleUnit.RADIANS;
+        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
+        parameters.loggingEnabled      = true;
+        parameters.loggingTag          = "IMU";
+        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+        IMU.initialize(parameters);
+        // make sure the imu gyro is calibrated before continuing.
+        while (!isStarted() && !isStopRequested() && !IMU.isGyroCalibrated()) {
+            sleep(50);
+            idle();
+        }
     }
 }

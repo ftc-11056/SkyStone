@@ -244,6 +244,53 @@ public class DriveTrain {
 
         // reset -angle tracking on new heading
     }
+    public void RotateP(int degrees, double power, double timeoutR,double KP) {
+        runtime.reset();
+
+        double PNumber = 0.0108;
+        double INumber = 0;
+        double SumErrors = 0;
+        double oldSumErors = 0;
+        double NewAngleTarget = 0;
+
+//        degrees =  degrees-LastDegrees;
+//        resetAngle();
+        // restart imu movement tracking.
+
+//        NewAngleTarget = getAngle() + degrees;
+
+        Angle = getAngle();
+        if (getAngle() < degrees) {
+            while (getAngle() < degrees && runtime.seconds() < timeoutR) {
+//                SumErrors = SumErrors + (getAngle() + degrees);
+                double error = degrees-getAngle();
+                LeftFront.setPower(-power  * error * KP);
+                LeftBack.setPower(-power  * error * KP);
+                RightFront.setPower(power  * error * KP);
+                RightBack.setPower(power  * error * KP);
+
+
+            }
+        } else if (getAngle() > degrees) {
+            while (getAngle() > degrees && runtime.seconds() < timeoutR) {
+                double error = getAngle()-degrees;
+                LeftFront.setPower(power  * error * KP);
+                LeftBack.setPower(power * error * KP);
+                RightFront.setPower(-power * error * KP);
+                RightBack.setPower(-power  * error * KP);
+
+            }
+        } else return;
+        // turn the motors off.
+        LeftFront.setPower(0);
+        LeftBack.setPower(0);
+        RightFront.setPower(0);
+        RightBack.setPower(0);
+
+//        LastDegrees = degrees;
+
+        // reset -angle tracking on new heading
+    }
 }
 
 

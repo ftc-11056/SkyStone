@@ -34,7 +34,7 @@ public class OneCubeRed extends basicAuto {
         MyDriveTrain.encoderDrive(0.8, -30, 30, 30, -30, 1);
         MyDriveTrain.Rotate(0,0.1,10);
         Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
-//        Mikum = -3;
+//        Mikum = 3;
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -44,6 +44,7 @@ public class OneCubeRed extends basicAuto {
         if (Mikum > 2) {
             telemetry.addLine("you're on the right");
             telemetry.update();
+            MyDriveTrain.encoderDrive(0.8, 13, 13, 13, 13, 1);
             MyDriveTrain.encoderDrive(0.8, -84, 84, 84, -84, 1);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.8, -25, -25, -25, -25, 2);
@@ -136,7 +137,7 @@ public class OneCubeRed extends basicAuto {
         RightServo.setPosition(RightServoUp);
         MyDriveTrain.Rotate(0,0.4,10);
         MyDriveTrain.encoderDrive(0.3,-30,30,30,-30,2);
-        MyDriveTrain.encoderDrive(0.5,-75,-75, -75,-75,1);
+//        MyDriveTrain.encoderDrive(0.5,-75,-75, -75,-75,1);
     }
 
 }

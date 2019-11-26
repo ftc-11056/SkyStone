@@ -137,21 +137,7 @@ public class Robot extends LinearOpMode {
 //        RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         /*Define and Initialize Of IMU*/
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit           = BNO055IMU.AngleUnit.RADIANS;
-        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
-        parameters.loggingEnabled      = true;
-        parameters.loggingTag          = "IMU";
-        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
         IMU = hardwareMap.get(BNO055IMU.class, "imu");
-        IMU.initialize(parameters);
-        // make sure the imu gyro is calibrated before continuing.
-        while (!isStarted() && !isStopRequested() && !IMU.isGyroCalibrated()) {
-            sleep(50);
-            idle();
-        }
-        angles = IMU.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
 
         // Define and initialize ALL installed servos.
 
