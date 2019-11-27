@@ -38,6 +38,8 @@ public class currentTeleOp extends Robot {
     private boolean Abutton = false;
     private int anotherDownVar = 0;
 
+    private int fixAuto = 0;
+
     @Override
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
@@ -60,9 +62,27 @@ public class currentTeleOp extends Robot {
             else if (gamepad1.b) MyDriveTrain.setMode("Oriented");
 
             if (MyDriveTrain.getMode().equals("Oriented")) {
-                MyDriveTrain.fieldOriented(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, heading - 90);
+                MyDriveTrain.fieldOriented(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, heading + -360);
             } else {
                 MyDriveTrain.arcade(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+            }
+
+            if (gamepad1.dpad_left){
+                fixAuto = 90;
+            }else if (gamepad1.dpad_right){
+                fixAuto = 180;
+            }else if (gamepad1.x){
+                fixAuto = 270;
+            }else if (gamepad1.b){
+                fixAuto = 360;
+            }else if (gamepad1.left_trigger > 0){
+                fixAuto = -90;
+            }else if (gamepad1.right_bumper){
+                fixAuto = -180;
+            }else if (gamepad1.left_bumper){
+                fixAuto = -270;
+            }else if (gamepad1.right_trigger > 0){
+                fixAuto = -360;
             }
 
             if (gamepad1.dpad_up){
