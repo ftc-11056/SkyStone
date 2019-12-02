@@ -147,13 +147,13 @@ public class currentTeleOp extends Robot {
 //          TODO: AA Auto Button:
             if (gamepad2.a) {
                 Output.setPosition(OutputUp);
-                MyElevator.ElevateWithEncoder(-500, 4, 0.7);
+                MyElevator.ElevateWithEncoder(-570, 1, 0.7);
                 ADondMove = false;
                 downDegel = 1;
                 flag = true;
                 time = runtime.seconds();
             }
-            if (leftLinearMotor.getCurrentPosition() < -430) {
+            if (leftLinearMotor.getCurrentPosition() < -430 && downDegel == 1) {
                 Arm.setPosition(ArmClose);
                 telemetry.addData("time is:", time);
                 telemetry.update();
@@ -218,7 +218,7 @@ public class currentTeleOp extends Robot {
             bumpersDondMove = false;
             underMagnet = false;
         } else if (gamepad2.left_bumper && downMagnetElevator.getState() == true) {
-            MyElevator.ElevateWithEncoder(20, 0.2, 0.0099);
+            MyElevator.ElevateWithEncoder(20, 0.1, 0.0088);
             stayingPosition = leftLinearMotor.getCurrentPosition();
             bumpersDondMove = false;
         }

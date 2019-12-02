@@ -35,7 +35,7 @@ public class OneCubeBlue extends basicAuto {
         MyDriveTrain.Rotate(-0,0.1,10);
         Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
         MyDriveTrain.RotateP(-180,1,10,0.0108);
-//        Mikum = -3;
+        Mikum = -3;
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -126,7 +126,7 @@ public class OneCubeBlue extends basicAuto {
         MyDriveTrain.encoderDrive(1,-90,-90,-90,-90,2);
         MyDriveTrain.Rotate(-180,0.5,10);
         MyDriveTrain.encoderDrive(1,110,110,110,110,2);
-        /*MyElevator.ElevateWithEncoder(-350, 0.2, 0.5);
+        MyElevator.ElevateWithEncoder(-350, 0.2, 0.5);
         Arm.setPosition(1);
         sleep(1000);
         MyElevator.ElevateWithEncoder(0, 0.5, 0.003);
@@ -135,7 +135,7 @@ public class OneCubeBlue extends basicAuto {
         MyElevator.ElevateWithEncoder(-350, 0.3, 0.5);
         Arm.setPosition(0.135);
         sleep(1000);
-        MyElevator.ElevateWithEncoder(0, 0.5, 0.003);*/
+        MyElevator.ElevateWithEncoder(0, 0.5, 0.003);
         LeftServo.setPosition(LeftServoUp);
         RightServo.setPosition(RightServoUp);
         MyDriveTrain.Rotate(-180,0.4,10);
