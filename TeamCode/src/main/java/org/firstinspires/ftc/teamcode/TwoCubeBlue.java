@@ -33,7 +33,7 @@ public class TwoCubeBlue extends basicAuto {
 
         MyDriveTrain.encoderDrive(0.8,-30,30,30,-30 ,1);
         Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
-        MyDriveTrain.Rotate(180,0.1,10);
+        MyDriveTrain.RotateP(180,0.1,10,0.0108);
 
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -132,12 +132,11 @@ public class TwoCubeBlue extends basicAuto {
                 telemetry.addData("CubeDistans:",cubeIn.getDistance(DistanceUnit.MM));
                 telemetry.update();
             }
-//            sleep(500);
+
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(1,60,-60,-60,60,1);
-//            sleep(500);
-            MyDriveTrain.encoderDrive(1,150,150,150,150,2);
-//            sleep(500);
+            MyDriveTrain.encoderDrive(0.8,60,-60,-60,60,1);
+            MyDriveTrain.encoderDrive(1,180,180,180,180,2);
+
         }
         else if (Mikum<-2) {
 //            telemetry.addLine("you're on the left");
@@ -154,12 +153,11 @@ public class TwoCubeBlue extends basicAuto {
                 telemetry.addData("CubeDistans:",cubeIn.getDistance(DistanceUnit.MM));
                 telemetry.update();
             }
-//            sleep(500);
+
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.8,60,-60,-60,60,1);
-//            sleep(500);
             MyDriveTrain.encoderDrive(1,180,180,180,180,2);
-//            sleep(500);
+
 
 
         }
@@ -187,16 +185,11 @@ public class TwoCubeBlue extends basicAuto {
 
         }
 
-        MyDriveTrain.encoderDrive(0.8,60,60,-60,-60,2);
-//        sleep(500);
+        MyDriveTrain.RotateP(90,1,10,0.0108);
         MyIntake.maxOuttake();
         sleep(1000);
         MyIntake.ShutDown();
-        MyDriveTrain.encoderDrive(1,10,10,10,10,1);
-        MyDriveTrain.encoderDrive(1,40,-40,-40,40,1);
-
-
-
+        ParkingMot.setPosition(ParkingMotOut);
 
     }
 

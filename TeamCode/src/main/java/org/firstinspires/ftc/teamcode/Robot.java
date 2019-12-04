@@ -33,6 +33,8 @@ public class Robot extends LinearOpMode {
     public Servo Output = null;
     public Servo LeftServo = null;
     public Servo RightServo = null;
+    public Servo ParkingMot = null;
+    public Servo Capstone = null;
 
     /*IMU Fileds*/
     protected BNO055IMU IMU = null;
@@ -56,6 +58,13 @@ public class Robot extends LinearOpMode {
 
     public double OutputDown = 0.5;
     public double OutputUp = 0.8;
+
+    public double CapstoneUp = 0.71;
+    public double CapstoneDown = 0;
+
+
+    public double ParkingMotIn = 1;
+    public double ParkingMotOut = 0.35;
 
     public double LeftServoDown = 0.25;
     public double RightServoDown = 0.1;
@@ -84,9 +93,15 @@ public class Robot extends LinearOpMode {
         leftLinearMotor = hardwareMap.get(DcMotor.class,"leftLinearMotor");
         rightLinearMotor = hardwareMap.get(DcMotor.class,"rightLinearMotor");
         Arm  = hardwareMap.get(Servo.class, "Arm");
+
         Output  = hardwareMap.get(Servo.class, "OutPut");
+
         IntakeL = hardwareMap.get(DcMotor.class,"IntakeL");
         IntakeR = hardwareMap.get(DcMotor.class,"IntakeR");
+
+        ParkingMot = hardwareMap.get(Servo.class,"ParkingMot");
+
+        Capstone = hardwareMap.get(Servo.class,"Capstone");
 
         LeftServo  = hardwareMap.get(Servo.class, "LeftServo");
         RightServo  = hardwareMap.get(Servo.class, "RightServo");

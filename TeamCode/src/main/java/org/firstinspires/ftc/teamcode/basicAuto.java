@@ -44,6 +44,9 @@ public class basicAuto extends Robot {
         //VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
         MyVuforiaStone = new VuforiaStone( webcamName,parametersVu, targetsSkyStone, vuforia,lastLocation);
 
+        Arm.setPosition(ArmClose);
+        ParkingMot.setPosition(ParkingMotIn);
+
 //        TODO: IMU
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();

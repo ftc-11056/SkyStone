@@ -134,7 +134,8 @@ public class OneCubeBlueVer2 extends basicAuto {
         RightServo.setPosition(RightServoUp);
         MyDriveTrain.Rotate(0,0.4,10);
         MyDriveTrain.encoderDrive(0.3,25,-25,-25,25,2);
-        MyDriveTrain.encoderDrive(0.5,-75,-75, -75,-75,1);
+        MyDriveTrain.encoderDrive(0.5,-40,-40, -40,-40,1);
+        ParkingMot.setPosition(ParkingMotOut);
     }
 
 }

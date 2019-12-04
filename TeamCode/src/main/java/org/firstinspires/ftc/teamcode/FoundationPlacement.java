@@ -26,9 +26,8 @@ public class FoundationPlacement extends basicAuto {
         sleep(2000);
         LeftServo.setPosition(0.6);
         RightServo.setPosition(0.9);
-        MyDriveTrain.encoderDrive(0.5,-75,-75, -75,-75,1);
-        telemetry.addData("Angles:", MyDriveTrain.getAngle());
-        telemetry.update();
+        MyDriveTrain.encoderDrive(0.5,-40,-40, -40,-40,1);
+        ParkingMot.setPosition(ParkingMotOut);
 
 
     }

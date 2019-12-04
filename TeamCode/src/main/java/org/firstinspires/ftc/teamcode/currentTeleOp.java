@@ -97,9 +97,20 @@ public class currentTeleOp extends Robot {
             } else if (gamepad2.dpad_down) {
                 Output.setPosition(OutputDown);
             }
-            if (gamepad2.x) {
-                Output.setPosition(0.15);
 
+            if (gamepad2.x) {
+                Capstone.setPosition(CapstoneDown);
+            }
+            else if (gamepad2.b){
+                Capstone.setPosition(CapstoneUp);
+
+            }
+
+            if (gamepad1.left_bumper) {
+                ParkingMot.setPosition(ParkingMotIn);
+            }
+            else if (gamepad1.right_bumper) {
+                ParkingMot.setPosition(ParkingMotOut);
             }
 
 
