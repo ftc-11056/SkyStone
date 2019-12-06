@@ -56,15 +56,15 @@ public class Robot extends LinearOpMode {
     public double servoPosition = 0.005;
     protected int fixedPosition = 0;
 
-    public double OutputDown = 0.5;
+    public double OutputDown = 0.4;
     public double OutputUp = 0.8;
 
-    public double CapstoneUp = 0.71;
+    public double CapstoneUp = 0.6;
     public double CapstoneDown = 0;
 
 
-    public double ParkingMotIn = 1;
-    public double ParkingMotOut = 0.35;
+    public double ParkingMotIn = 0.7;
+    public double ParkingMotOut = 0;
 
     public double LeftServoDown = 0.25;
     public double RightServoDown = 0.1;
@@ -74,6 +74,7 @@ public class Robot extends LinearOpMode {
     public double ArmClose = 0.135;
     public double ArmOpen = 1;
 
+    public double cubeNotInMM = 150;
 
     public String passWord = "dont pass";
 

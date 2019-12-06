@@ -45,7 +45,7 @@ public class basicAuto extends Robot {
         MyVuforiaStone = new VuforiaStone( webcamName,parametersVu, targetsSkyStone, vuforia,lastLocation);
 
         Arm.setPosition(ArmClose);
-        ParkingMot.setPosition(ParkingMotIn);
+        ParkingMot.setPosition(ParkingMotOut);
 
 //        TODO: IMU
 
