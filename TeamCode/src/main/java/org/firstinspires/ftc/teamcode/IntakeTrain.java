@@ -1,12 +1,18 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class IntakeTrain extends Robot {
 
 //    DCmotors:
     public DcMotor IntakeL = null;
     public DcMotor IntakeR = null;
+
+    public double cubeNotInMM = 150;
+
 
     public IntakeTrain(DcMotor IntakeL, DcMotor IntakeR){
         this.IntakeL = IntakeL;
@@ -33,4 +39,6 @@ public class IntakeTrain extends Robot {
         IntakeR.setPower(0);
 
     }
+
+
 }

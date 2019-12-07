@@ -38,6 +38,7 @@ public class elevator  {
         rightEle.setPower(power*(pos-rightEle.getCurrentPosition())*kp);
     }
 
+
     public void ElevateWithEncoderNew(){
         double power = 0;
         int newLeftTargetPositin = leftEle.getCurrentPosition() + 25;

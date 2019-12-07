@@ -250,7 +250,7 @@ public  class VuforiaStone extends basicAuto{
 
             targetsSkyStone.activate();
             runtime.reset();
-            while (!isStopRequested() && runtime.seconds() < 3.5) {
+            while (!isStopRequested() && runtime.seconds() < 2) {
 
 
                 // check all the trackable targets to see which one (if any) is visible.

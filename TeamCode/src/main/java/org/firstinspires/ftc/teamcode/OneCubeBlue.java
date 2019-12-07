@@ -51,12 +51,8 @@ public class OneCubeBlue extends basicAuto {
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.8, -25, -25, -25, -25, 2);
             sleep(500);
-//            if (cubeIn.getDistance(DistanceUnit.MM) > 70) {
-//                MyDriveTrain.encoderDrive(0.5, -20, -20, -20, -20, 2);
-//                MyDriveTrain.encoderDrive(0.7, 20, 20, 20, 20, 2);
-//                telemetry.addData("CubeDistance:", cubeIn.getDistance(DistanceUnit.MM));
-//                telemetry.update();
-//            }
+            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
+
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.9, -52, 52, 52, -52, 1);
             MyDriveTrain.Rotate(-180,0.1,10);
@@ -72,13 +68,8 @@ public class OneCubeBlue extends basicAuto {
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.8, -25, -25, -25, -25, 2);
             sleep(500);
-//            if (cubeIn.getDistance(DistanceUnit.MM) > 70) {
-//                sleep(500);
-//                MyDriveTrain.encoderDrive(0.5, -20, -20, -20, -20, 2);
-//                MyDriveTrain.encoderDrive(0.7, 20, 20, 20, 20, 2);
-//                telemetry.addData("CubeDistance:", cubeIn.getDistance(DistanceUnit.MM));
-//                telemetry.update();
-//            }
+            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
+
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.5, -52, 52, 52, -52, 1);
             MyDriveTrain.Rotate(-180,0.1,10);
@@ -95,12 +86,8 @@ public class OneCubeBlue extends basicAuto {
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.8, -25, -25, -25, -25, 2);
             sleep(500);
-//            if (cubeIn.getDistance(DistanceUnit.MM) > 70) {
-//                MyDriveTrain.encoderDrive(0.7, -20, -20, -20, -20, 2);
-//                MyDriveTrain.encoderDrive(0.5, 20, 20, 20, 20, 2);
-//                telemetry.addData("CubeDistance:", cubeIn.getDistance(DistanceUnit.MM));
-//                telemetry.update();
-//            }
+            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
+
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.5, -52, 52, 52, -52, 1);
             MyDriveTrain.Rotate(-180,0.1,10);
@@ -126,24 +113,26 @@ public class OneCubeBlue extends basicAuto {
         MyDriveTrain.encoderDrive(1,-100,-100,-100,-100,2);
         MyDriveTrain.Rotate(-180,0.5,10);
         MyDriveTrain.encoderDrive(1,40,40,40,40,2);
-        MyElevator.ElevateWithEncoder(-500, 0.8, 0.5);
+
+        MyElevator.ElevateWithEncoder(-450, 0.8, 0.5);
         sleep(500);
         Arm.setPosition(1);
         sleep(700);
-        MyElevator.ElevateWithEncoder(0, 0.3, 0.033);
+        MyElevator.ElevateWithEncoder(0, 0.3, 0.0035);
         sleep(700);
         Output.setPosition(OutputUp);
         sleep(500);
         MyElevator.ElevateWithEncoder(-500, 0.3, 0.5);
         Arm.setPosition(0.135);
-        sleep(700);
+        sleep(1000);
         MyElevator.ElevateWithEncoder(0, 0.5, 0.003);
+
         LeftServo.setPosition(LeftServoUp);
         RightServo.setPosition(RightServoUp);
         MyDriveTrain.Rotate(-180,0.4,10);
         MyDriveTrain.encoderDrive(0.3,30,-30,-30,30,2);
         ParkingMot.setPosition(ParkingMotOut);
         sleep(500);
-        MyDriveTrain.encoderDrive(0.5,-43,-43, -43,-43,1);    }
+        MyDriveTrain.encoderDrive(0.5,-43,-43, -43,-43,1);   }
 
 }
