@@ -37,8 +37,9 @@ public class TwoCubeBlue extends basicAuto {
         Output.setPosition(OutputDown);
         Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
         MyDriveTrain.RotateP(-180,1,10,0.0108);
+        MyDriveTrain.Rotate(-180,1,10);
 
-        Mikum = 3;
+//        Mikum = -3;
 
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -48,75 +49,80 @@ public class TwoCubeBlue extends basicAuto {
         if (Mikum > 2) {
             telemetry.addLine("you're on the right");
             telemetry.update();
-            MyDriveTrain.encoderDrive(0.8, -35, 35, 35, -35, 1);
+            MyDriveTrain.encoderDrive(0.8, 35, -35, -35, 35, 1);
+            MyDriveTrain.Rotate(-180, 0.1, 10);
             MyDriveTrain.encoderDrive(1, 70, 70, 70, 70, 2);
-            MyDriveTrain.RotateP(-35, 0.7, 10, 0.0108);
+            MyDriveTrain.RotateP(-135, 0.7, 10, 0.0208);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.2, -60, -60, -60, -60, 2);
             sleep(500);
             MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(1, 50, 50, 50, 50, 2);
-            MyDriveTrain.Rotate(0, 0.1, 10);
-            MyDriveTrain.encoderDrive(1, 80, 80, 80, 80, 2);
+            MyDriveTrain.encoderDrive(1, 55, 55, 55, 55, 2);
+            MyDriveTrain.Rotate(-180, 0.1, 10);
+            MyDriveTrain.encoderDrive(1, 70, 70, 70, 70, 2);
 
 
         } else if (Mikum < -2) {
             telemetry.addLine("you're on the left");
             telemetry.update();
-            MyDriveTrain.encoderDrive(0.8, 18, 18, 18, 18, 2);
-            MyDriveTrain.encoderDrive(0.8, -86, 86, 86, -86, 1);
+            MyDriveTrain.encoderDrive(0.8, 37, 37, 37, 37, 2);
+            MyDriveTrain.encoderDrive(0.3, 68, -68, -68, 68, 1);
+            MyDriveTrain.Rotate(-180,0.1,10);
             MyIntake.maxIntake();
-            MyDriveTrain.encoderDrive(0.2, -25, -25, -25, -25, 2);
+            MyDriveTrain.encoderDrive(0.8, -25, -25, -25, -25, 2);
             sleep(500);
             MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.2, 10, 10, 10, 10, 2);
-            MyDriveTrain.encoderDrive(0.8, 55, -55, -55, 55, 1);
-            MyDriveTrain.Rotate(0, 0.1, 10);
-            MyDriveTrain.encoderDrive(0.7, 65, 65, 65, 65, 2);
-            MyDriveTrain.Rotate(0, 0.1, 10);
-            MyDriveTrain.encoderDrive(0.7, 65, 65, 65, 65, 2);
-            MyDriveTrain.Rotate(0, 0.1, 10);
+            MyDriveTrain.encoderDrive(0.8, 10, 10, 10, 10, 2);
+            MyDriveTrain.encoderDrive(0.5, -50, 50, 50, -50, 1);
+            MyDriveTrain.Rotate(-180,0.1,10);
+            MyDriveTrain.encoderDrive(1, 70, 70, 70, 70, 2);
+            MyDriveTrain.Rotate(-180, 0.1, 10);
+            MyDriveTrain.encoderDrive(1, 60, 60, 60, 60, 2);
+
 
 
         } else {
             telemetry.addLine("You are on the center!");
             telemetry.update();
-            MyDriveTrain.encoderDrive(1, 30, 30, 30, 30, 2);
-            MyDriveTrain.encoderDrive(0.8, -84, 84, 84, -84, 1);
+            MyDriveTrain.encoderDrive(0.8, 53, 53, 53, 53, 2);
+            MyDriveTrain.encoderDrive(0.3, 67, -67, -67, 67, 1);
+            MyDriveTrain.Rotate(-180,0.1,10);
             MyIntake.maxIntake();
-            MyDriveTrain.encoderDrive(0.2, -25, -25, -25, -25, 2);
-            sleep(500);
+            MyDriveTrain.encoderDrive(0.8, -25, -25, -25, -25, 2);
+            sleep(500) ;
             MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.2, 10, 10, 10, 10, 2);
-            MyDriveTrain.encoderDrive(0.8, 50, -50, -50, 50, 1);
-            MyDriveTrain.Rotate(0, 0.1, 10);
-            MyDriveTrain.encoderDrive(1, 120, 120, 120, 120, 2);
+            MyDriveTrain.encoderDrive(0.5, -52, 52, 52, -52, 1);
+            MyDriveTrain.Rotate(-180,0.1,10);
+            MyDriveTrain.encoderDrive(1, 60, 50, 50, 50, 2);
+            MyDriveTrain.Rotate(-180,0.1,10);
+            MyDriveTrain.encoderDrive(1, 50, 50, 50, 50, 2);
 
         }
 
         MyDriveTrain.RotateP(-90, 1, 10, 0.0208);
         MyIntake.maxOuttake();
-        sleep(800);
+        sleep(500);
         MyIntake.ShutDown();
-        MyDriveTrain.RotateP(0, 0.8, 10, 0.0108);
-        MyDriveTrain.Rotate(0, 0.1, 10);
+        MyDriveTrain.RotateP(-180, 0.8, 10, 0.0108);
+        MyDriveTrain.Rotate(-180, 0.1, 10);
 
 
 
         if (Mikum > 2) {
 //            telemetry.addLine("you're on the right");
 //            telemetry.update();
-            MyDriveTrain.encoderDrive(1, -73, -73, -73, -73, 2);
-            MyDriveTrain.Rotate(0, 0.1, 10);
-            MyDriveTrain.encoderDrive(1, -78, -78, -78, -78, 2);
-            MyDriveTrain.Rotate(0, 0.1, 10);
-            MyDriveTrain.encoderDrive(1, -60, 60, 60, -60, 1);
+            MyDriveTrain.encoderDrive(1, -60, -60, -60, -60, 2);
+            MyDriveTrain.Rotate(-180, 0.1, 10);
+            MyDriveTrain.encoderDrive(1, -55, -55, -55, -55, 2);
+            MyDriveTrain.Rotate(-180, 0.1, 10);
+            MyDriveTrain.encoderDrive(1, 55, -55, -55, 55, 1);
             sleep(500);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(1, -25, -25, -25, -25, 2);
@@ -124,21 +130,21 @@ public class TwoCubeBlue extends basicAuto {
             MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.8, 45, -45, -45, 45, 1);
-            MyDriveTrain.Rotate(0, 0.1, 10);
+            MyDriveTrain.encoderDrive(0.8, -50, 50, 50, -50, 1);
+            MyDriveTrain.Rotate(-180, 0.1, 10);
             MyDriveTrain.encoderDrive(1, 90, 90, 90, 90, 2);
-            MyDriveTrain.Rotate(0, 0.1, 10);
-            MyDriveTrain.encoderDrive(1, 80, 80, 80, 80, 2);
+            MyDriveTrain.Rotate(-180, 0.1, 10);
+            MyDriveTrain.encoderDrive(1, 60, 60, 60, 60, 2);
 
         } else if (Mikum < -2) {
 //            telemetry.addLine("you're on the left");
 //            telemetry.update();
-            MyDriveTrain.encoderDrive(0.7, -82, -82, -82, -82, 2);
-            MyDriveTrain.Rotate(0, 0.1, 10);
-            MyDriveTrain.encoderDrive(0.7, -82, -82, -82, -82, 2);
-            MyDriveTrain.Rotate(0, 0.1, 10);
-            MyDriveTrain.encoderDrive(0.7, -57, 57, 57, -57, 1);
-            MyDriveTrain.Rotate(0, 0.1, 10);
+            MyDriveTrain.encoderDrive(0.7, -80, -80, -80, -80, 2);
+            MyDriveTrain.Rotate(-180, 0.1, 10);
+            MyDriveTrain.encoderDrive(0.7, -70, -70, -70, -70, 2);
+            MyDriveTrain.Rotate(-180, 0.1, 10);
+            MyDriveTrain.encoderDrive(0.7, 53, -53, -53,53,71);
+            MyDriveTrain.Rotate(-180, 0.1, 10);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.2, -25, -25, -25, -25, 2);
             sleep(500);
@@ -147,49 +153,47 @@ public class TwoCubeBlue extends basicAuto {
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.3, 10, 10, 10, 10, 2);
 
-            MyDriveTrain.encoderDrive(0.8, 55, -55, -55, 55, 1);
-            MyDriveTrain.Rotate(0, 0.1, 10);
-
-            MyDriveTrain.encoderDrive(0.7, 100, 100, 100, 100, 2);
-            MyDriveTrain.Rotate(0, 0.1, 10);
-            MyDriveTrain.encoderDrive(0.7, 100, 100, 100, 100, 2);
+            MyDriveTrain.encoderDrive(0.8, -55, 55, 55, -55, 1);
+            MyDriveTrain.Rotate(-180, 0.1, 10);
+            MyDriveTrain.encoderDrive(0.7, 90, 90, 90, 90, 2);
+            MyDriveTrain.Rotate(-180, 0.1, 10);
+            MyDriveTrain.encoderDrive(0.7, 90, 90, 90, 90, 2);
 
 
 
         } else {
 //            telemetry.addLine("You are on the center!");
 //            telemetry.update();
-            MyDriveTrain.encoderDrive(0.7, -77, -77, -77, -77, 2);
-            MyDriveTrain.Rotate(0, 0.1, 10);
-            MyDriveTrain.encoderDrive(0.7, -77, -77, -77, -77, 2);
-            MyDriveTrain.Rotate(0, 0.1, 10);
-            MyDriveTrain.encoderDrive(0.6, -55, 55, 55, -55, 1);
-            MyDriveTrain.Rotate(0, 0.1, 10);
+            MyDriveTrain.encoderDrive(0.7, -63, -63, -63, -63, 2);
+            MyDriveTrain.Rotate(-180, 0.1, 10);
+            MyDriveTrain.encoderDrive(0.7, -60, -60, -60, -60, 2);
+            MyDriveTrain.Rotate(-180, 0.1, 10);
+            MyDriveTrain.encoderDrive(0.6, 45, -45, -45, 45, 1);
+            MyDriveTrain.Rotate(-180, 0.1, 10);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.3, -28, -28, -28, -28, 2);
             sleep(500);
             MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.8, 50, -50, -50, 50, 1);
-            MyDriveTrain.Rotate(0, 0.1, 10);
-
+            MyDriveTrain.encoderDrive(0.8, -60, 60, 60, -60, 1);
+            MyDriveTrain.Rotate(-180, 0.1, 10);
             MyDriveTrain.encoderDrive(0.7, 90, 90, 90, 90, 2);
-            MyDriveTrain.Rotate(0, 0.1, 10);
-            MyDriveTrain.encoderDrive(0.7, 90, 90, 90, 90, 2);
+            MyDriveTrain.Rotate(-180, 0.1, 10);
+            MyDriveTrain.encoderDrive(0.7, 80, 80, 80, 80, 2);
 
 
 
         }
 
-        MyDriveTrain.RotateP(-270,1,10,0.0108);
+        MyDriveTrain.RotateP(-90,1,10,0.0108);
         MyIntake.maxOuttake();
         ParkingMot.setPosition(ParkingMotIn);
         sleep(1000);
         MyIntake.ShutDown();
         MyDriveTrain.RotateP(-180, 1, 1.5, 0.0108);
 
-        MyDriveTrain.encoderDrive(1, -40, -40, -40, -40, 2);
+        MyDriveTrain.encoderDrive(1, -20, -20, -20, -20, 2);
 
     }
 

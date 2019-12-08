@@ -32,7 +32,10 @@ public class OneCubeBlue extends basicAuto {
         RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         MyDriveTrain.encoderDrive(0.8, -30, 30, 30, -30, 1);
-        MyDriveTrain.Rotate(-0,0.1,10);
+        MyDriveTrain.Rotate(0,0.1,10);
+        telemetry.addData("angles", MyDriveTrain.getAngle());
+        telemetry.update();
+        sleep(2000);
         Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
         MyDriveTrain.RotateP(-180,1,10,0.0108);
         Mikum = 3;
@@ -46,7 +49,7 @@ public class OneCubeBlue extends basicAuto {
             telemetry.addLine("you're on the right");
             telemetry.update();
             MyDriveTrain.encoderDrive(0.8, 13, 13, 13, 13, 1);
-            MyDriveTrain.encoderDrive(0.3, 73, -73, -73, 73, 1);
+            MyDriveTrain.encoderDrive(0.3, 63, -63, -63, 63, 1);
            // MyDriveTrain.Rotate(-180,0.1,10);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.8, -25, -25, -25, -25, 2);
@@ -85,7 +88,7 @@ public class OneCubeBlue extends basicAuto {
             MyDriveTrain.Rotate(-180,0.1,10);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.8, -25, -25, -25, -25, 2);
-            sleep(500);
+            sleep(500) ;
             MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();

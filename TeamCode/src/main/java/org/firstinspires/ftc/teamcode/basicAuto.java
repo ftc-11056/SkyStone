@@ -62,5 +62,7 @@ public class basicAuto extends Robot {
             sleep(50);
             idle();
         }
+        telemetry.addLine("IMU_IS_READY");
+        telemetry.update();
     }
 }
