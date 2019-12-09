@@ -36,7 +36,7 @@ public class TwoCubeRed extends basicAuto {
         MyDriveTrain.Rotate(0, 0.1, 10);
         Output.setPosition(OutputDown);
         Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
-        Mikum = 3;
+//        Mikum = 3;
 
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -47,7 +47,7 @@ public class TwoCubeRed extends basicAuto {
             telemetry.addLine("you're on the right");
             telemetry.update();
             MyDriveTrain.encoderDrive(0.8, -35, 35, 35, -35, 1);
-            MyDriveTrain.encoderDrive(1, 70, 70, 70, 70, 2);
+            MyDriveTrain.encoderDrive(1, 67, 67, 67, 67, 2);
             MyDriveTrain.RotateP(-35, 0.7, 10, 0.0108);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.2, -60, -60, -60, -60, 2);
@@ -161,7 +161,7 @@ public class TwoCubeRed extends basicAuto {
             MyDriveTrain.Rotate(0, 0.1, 10);
             MyDriveTrain.encoderDrive(0.7, -77, -77, -77, -77, 2);
             MyDriveTrain.Rotate(0, 0.1, 10);
-            MyDriveTrain.encoderDrive(0.6, -55, 55, 55, -55, 1);
+            MyDriveTrain.encoderDrive(0.6, -50, 50, 50, -50, 1);
             MyDriveTrain.Rotate(0, 0.1, 10);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.3, -28, -28, -28, -28, 2);
@@ -169,12 +169,12 @@ public class TwoCubeRed extends basicAuto {
             MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.8, 50, -50, -50, 50, 1);
+            MyDriveTrain.encoderDrive(0.8, 40, -40, -40, 40, 1);
             MyDriveTrain.Rotate(0, 0.1, 10);
 
-            MyDriveTrain.encoderDrive(0.7, 90, 90, 90, 90, 2);
+            MyDriveTrain.encoderDrive(0.7, 75, 75, 75, 75, 2);
             MyDriveTrain.Rotate(0, 0.1, 10);
-            MyDriveTrain.encoderDrive(0.7, 90, 90, 90, 90, 2);
+            MyDriveTrain.encoderDrive(0.7, 70, 70, 70 , 70, 2);
 
 
 

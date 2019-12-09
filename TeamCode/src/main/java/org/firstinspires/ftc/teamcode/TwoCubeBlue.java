@@ -37,7 +37,7 @@ public class TwoCubeBlue extends basicAuto {
         Output.setPosition(OutputDown);
         Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
         MyDriveTrain.RotateP(-180,1,10,0.0108);
-        MyDriveTrain.Rotate(-180,1,10);
+        MyDriveTrain.Rotate(-180,0.1,10);
 
 //        Mikum = -3;
 

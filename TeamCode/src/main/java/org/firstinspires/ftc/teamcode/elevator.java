@@ -39,6 +39,15 @@ public class elevator  {
     }
 
 
+    public void WithoutPElevateWithEncoder(int pos, double power){
+        leftEle.setTargetPosition(pos);
+        rightEle.setTargetPosition(pos);
+        leftEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftEle.setPower(power);
+        rightEle.setPower(power);
+    }
+
     public void ElevateWithEncoderNew(){
         double power = 0;
         int newLeftTargetPositin = leftEle.getCurrentPosition() + 25;

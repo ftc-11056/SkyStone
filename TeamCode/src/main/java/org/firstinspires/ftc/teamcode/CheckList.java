@@ -1,19 +1,23 @@
 package org.firstinspires.ftc.teamcode;
 
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+
 @Autonomous(name = "CheckList", group = "teamcode")
-
-
 public class CheckList extends basicAuto {
 
+    /* Declare OpMode members. */
+
+
+    /*
+     * Code to run ONCE when the driver hits INIT
+     */
+    @Override
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
-        //  LeftServo.setPosition(0.4);
-        //   RightServo.setPosition(0.5);
+//  LeftServo.setPosition(0.4);
+//   RightServo.setPosition(0.5);
 
         waitForStart();
         runtime.reset();
@@ -59,6 +63,9 @@ public class CheckList extends basicAuto {
             telemetry.update();
         }
         RB.setPower(0);
+        telemetry.addData("Angles", MyDriveTrain.getAngle());
+        sleep(1500);
+        telemetry.update();
 
         MyDriveTrain.Rotate(90,1,10);
 
@@ -70,21 +77,24 @@ public class CheckList extends basicAuto {
         sleep(1000);
         MyElevator.ElevateWithEncoder(0, 0.1, 0.003);
 
-        LeftServo.setPosition(0.01);
-        RightServo.setPosition(0.55);
+        LeftServo.setPosition(LeftServoDown);
+        RightServo.setPosition(RightServoDown);
         sleep(1000);
-        LeftServo.setPosition(0.55);
-        RightServo.setPosition(1);
-        sleep(1000);
-
-        Output.setPosition(0);
-        sleep(1000);
-        Output.setPosition(1);
+        LeftServo.setPosition(LeftServoUp);
+        RightServo.setPosition(RightServoUp);
         sleep(1000);
 
+        Output.setPosition(OutputDown);
+        sleep(1000);
+        Output.setPosition(OutputUp);
+        sleep(1000);
 
+        ParkingMot.setPosition(ParkingMotIn);
+        sleep(1000);
+        ParkingMot.setPosition(ParkingMotOut);
+        sleep(1000);
 
 
     }
-    }
 
+}
