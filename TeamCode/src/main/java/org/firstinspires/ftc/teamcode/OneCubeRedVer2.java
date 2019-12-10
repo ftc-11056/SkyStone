@@ -8,7 +8,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 
 @Autonomous(name = "OneCubeRedVer2", group = "teamcode")
-@Disabled
+
 public class OneCubeRedVer2 extends basicAuto {
 
     /* Declare OpMode members. */

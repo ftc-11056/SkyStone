@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
@@ -78,7 +79,8 @@ public class Robot extends LinearOpMode {
 
     public String passWord = "dont pass";
 
-
+    RevBlinkinLedDriver blinkinLedDriver;
+    RevBlinkinLedDriver.BlinkinPattern pattern;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -111,6 +113,8 @@ public class Robot extends LinearOpMode {
         downMagnetElevator = hardwareMap.get(DigitalChannel.class,"downMagnetELevator");
 
         cubeIn = hardwareMap.get(DistanceSensor.class, "cubeIn");
+
+        blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
 
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

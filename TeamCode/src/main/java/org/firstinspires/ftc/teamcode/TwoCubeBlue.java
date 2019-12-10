@@ -46,7 +46,8 @@ public class TwoCubeBlue extends basicAuto {
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        if (Mikum > 2) {
+        if (Mikum < -2
+        ) {
             telemetry.addLine("you're on the right");
             telemetry.update();
             MyDriveTrain.encoderDrive(0.8, 35, -35, -35, 35, 1);
@@ -64,11 +65,11 @@ public class TwoCubeBlue extends basicAuto {
             MyDriveTrain.encoderDrive(1, 70, 70, 70, 70, 2);
 
 
-        } else if (Mikum < -2) {
+        } else if (Mikum > 2) {
             telemetry.addLine("you're on the left");
             telemetry.update();
             MyDriveTrain.encoderDrive(0.8, 37, 37, 37, 37, 2);
-            MyDriveTrain.encoderDrive(0.3, 68, -68, -68, 68, 1);
+            MyDriveTrain.encoderDrive(0.3, 70, -70, -70, 70, 1);
             MyDriveTrain.Rotate(-180,0.1,10);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.8, -25, -25, -25, -25, 2);
@@ -88,8 +89,8 @@ public class TwoCubeBlue extends basicAuto {
         } else {
             telemetry.addLine("You are on the center!");
             telemetry.update();
-            MyDriveTrain.encoderDrive(0.8, 53, 53, 53, 53, 2);
-            MyDriveTrain.encoderDrive(0.3, 67, -67, -67, 67, 1);
+            MyDriveTrain.encoderDrive(0.8, 50, 50, 50, 50, 2);
+            MyDriveTrain.encoderDrive(0.3, 70, -70, -70, 70, 1);
             MyDriveTrain.Rotate(-180,0.1,10);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.8, -25, -25, -25, -25, 2);
@@ -98,7 +99,7 @@ public class TwoCubeBlue extends basicAuto {
 
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.2, 10, 10, 10, 10, 2);
-            MyDriveTrain.encoderDrive(0.5, -52, 52, 52, -52, 1);
+            MyDriveTrain.encoderDrive(0.5, -50, 50, 50, -50, 1);
             MyDriveTrain.Rotate(-180,0.1,10);
             MyDriveTrain.encoderDrive(1, 60, 50, 50, 50, 2);
             MyDriveTrain.Rotate(-180,0.1,10);
@@ -168,7 +169,7 @@ public class TwoCubeBlue extends basicAuto {
             MyDriveTrain.Rotate(-180, 0.1, 10);
             MyDriveTrain.encoderDrive(0.7, -60, -60, -60, -60, 2);
             MyDriveTrain.Rotate(-180, 0.1, 10);
-            MyDriveTrain.encoderDrive(0.6, 45, -45, -45, 45, 1);
+            MyDriveTrain.encoderDrive(0.6, 40, -40, -40, 40, 1);
             MyDriveTrain.Rotate(-180, 0.1, 10);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.3, -28, -28, -28, -28, 2);

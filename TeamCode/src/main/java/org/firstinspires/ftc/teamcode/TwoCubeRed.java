@@ -49,6 +49,7 @@ public class TwoCubeRed extends basicAuto {
             MyDriveTrain.encoderDrive(0.8, -35, 35, 35, -35, 1);
             MyDriveTrain.encoderDrive(1, 67, 67, 67, 67, 2);
             MyDriveTrain.RotateP(-35, 0.7, 10, 0.0108);
+            MyDriveTrain.encoderDrive(0.8, 5, -5, -5, 5, 1);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.2, -60, -60, -60, -60, 2);
             sleep(500);
@@ -56,8 +57,9 @@ public class TwoCubeRed extends basicAuto {
 
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(1, 50, 50, 50, 50, 2);
+            MyDriveTrain.encoderDrive(0.8, -5, 5, 5, -5, 1);
             MyDriveTrain.Rotate(0, 0.1, 10);
-            MyDriveTrain.encoderDrive(1, 80, 80, 80, 80, 2);
+            MyDriveTrain.encoderDrive(1, 65, 65, 65, 65, 2);
 
 
         } else if (Mikum < -2) {
@@ -110,7 +112,7 @@ public class TwoCubeRed extends basicAuto {
         if (Mikum > 2) {
 //            telemetry.addLine("you're on the right");
 //            telemetry.update();
-            MyDriveTrain.encoderDrive(1, -73, -73, -73, -73, 2);
+            MyDriveTrain.encoderDrive(1, -70, -70, -70, -70, 2);
             MyDriveTrain.Rotate(0, 0.1, 10);
             MyDriveTrain.encoderDrive(1, -78, -78, -78, -78, 2);
             MyDriveTrain.Rotate(0, 0.1, 10);
@@ -174,7 +176,7 @@ public class TwoCubeRed extends basicAuto {
 
             MyDriveTrain.encoderDrive(0.7, 75, 75, 75, 75, 2);
             MyDriveTrain.Rotate(0, 0.1, 10);
-            MyDriveTrain.encoderDrive(0.7, 70, 70, 70 , 70, 2);
+            MyDriveTrain.encoderDrive(0.7, 75, 75, 75 , 75, 2);
 
 
 
@@ -185,8 +187,8 @@ public class TwoCubeRed extends basicAuto {
         ParkingMot.setPosition(ParkingMotIn);
         sleep(1000);
         MyIntake.ShutDown();
+        MyDriveTrain.encoderDrive(1, -15, 15, 15, -15, 2);
         MyDriveTrain.RotateP(0, 1, 1.5, 0.0108);
-
         MyDriveTrain.encoderDrive(1, -40, -40, -40, -40, 2);
 
     }

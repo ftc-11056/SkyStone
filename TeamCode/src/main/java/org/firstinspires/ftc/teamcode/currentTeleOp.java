@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -14,6 +15,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 public class currentTeleOp extends Robot {
 
 //    TODO: values
+    private double ledTime = 0;
+    private boolean ledColor = true;
+
     private int stayingPosition = 0;
     private int encodersStay;
     private double time = 0;
@@ -52,6 +56,9 @@ public class currentTeleOp extends Robot {
         LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
+        blinkinLedDriver.setPattern(pattern);
 
         waitForStart();
         while (opModeIsActive()) {
@@ -117,6 +124,12 @@ public class currentTeleOp extends Robot {
                 ParkingMot.setPosition(ParkingMotOut);
             }
 
+            if (gamepad2.left_stick_y > 0.7){
+                ParkingMot.setPosition(ParkingMotOut);
+            }else if (gamepad2.left_stick_y < -0.7){
+                ParkingMot.setPosition(ParkingMotIn);
+            }
+
 
 //            TODO: Intake Train
             if (gamepad2.right_trigger > 0) {
@@ -180,34 +193,6 @@ public class currentTeleOp extends Robot {
                 telemetry.addLine("Here");
                 telemetry.update();
             }
-
-            /*if (gamepad2.a) {
-                Abutton = true;
-                ADondMove = false;
-                flag = true;
-                downDegel = 1;
-            }
-            if (Abutton == true) {
-                if (downDegel == 1 && anotherDownVar == 0) {
-                    MyElevator.ElevateWithEncoder(-480, 0.3, 0.7);
-                    stayingPosition = leftLinearMotor.getCurrentPosition();
-                }
-                stayingPosition = leftLinearMotor.getCurrentPosition();
-
-                if (rightLinearMotor.getCurrentPosition() < -380 || leftLinearMotor.getCurrentPosition() < -380) {
-                    Arm.setPosition(0.135);
-
-                }
-                if (rightLinearMotor.getCurrentPosition() < -450 || leftLinearMotor.getCurrentPosition() < -450) {
-                    Output.setPosition(OutputUp);
-                    MyElevator.ElevateWithEncoder(20, 1.7, 0.0099);
-                    stayingPosition = leftLinearMotor.getCurrentPosition();
-                    downDegel = 2;
-                    telemetry.addData("time is:", time);
-                    telemetry.update();
-                    anotherDownVar = 1;
-                }
-            }else anotherDownVar = 0;*/
 
 //            TODO: reset auto Buttons:
         if (leftLinearMotor.getCurrentPosition() < -380 || rightLinearMotor.getCurrentPosition() < -380

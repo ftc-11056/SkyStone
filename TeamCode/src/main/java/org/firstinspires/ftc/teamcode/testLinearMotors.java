@@ -36,6 +36,8 @@ public class testLinearMotors extends Robot {
                 leftLinearMotor.setPower(-1);
                 rightLinearMotor.setPower(-1);
             }
+
+            }
+
         }
     }
-}

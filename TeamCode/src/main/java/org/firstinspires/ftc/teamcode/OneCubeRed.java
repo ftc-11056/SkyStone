@@ -59,7 +59,7 @@ public class OneCubeRed extends basicAuto {
         else if (Mikum < -2) {
             telemetry.addLine("you're on the left");
             telemetry.update();
-            MyDriveTrain.encoderDrive(0.8, 25, 25, 25, 25, 2);
+            MyDriveTrain.encoderDrive(0.8, 15, 15, 15, 15, 2);
             MyDriveTrain.encoderDrive(0.8, -86, 86, 86, -86, 1);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.8, -25, -25, -25, -25, 2);
@@ -67,7 +67,7 @@ public class OneCubeRed extends basicAuto {
             MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.8, 45, -45, -45, 45, 1);
+            MyDriveTrain.encoderDrive(0.8, 50, -50, -50, 50, 1);
             MyDriveTrain.Rotate(0,0.1,10);
             MyDriveTrain.encoderDrive(1, 85, 85, 85, 85, 2);
 
@@ -77,7 +77,7 @@ public class OneCubeRed extends basicAuto {
             telemetry.addLine("You are on the center!");
             telemetry.update();
             MyDriveTrain.encoderDrive(0.8, 30, 30, 30, 30, 2);
-            MyDriveTrain.encoderDrive(0.5, -84, 84, 84, -84, 1);
+            MyDriveTrain.encoderDrive(0.5, -82, 82, 82, -82, 1);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.8, -25, -25, -25, -25, 2);
             sleep(500);
@@ -95,10 +95,12 @@ public class OneCubeRed extends basicAuto {
         sleep(500);
         MyIntake.ShutDown();
         Output.setPosition(OutputDown);
-        MyDriveTrain.encoderDrive(1, 115, 115, 115, 115, 2);
+        MyDriveTrain.encoderDrive(1, 130, 130, 130, 130, 2);
+        MyDriveTrain.encoderDrive(0.8, -5, 5, 5, -5, 1);
+
         MyDriveTrain.RotateP(90,1,10,0.0108);
         sleep(500);
-        MyDriveTrain.encoderDrive(0.2,30,30,30,30,2);
+        MyDriveTrain.encoderDrive(0.2,23,23,2,23,2);
         MyDriveTrain.Rotate(90,0.1,10);
         LeftServo.setPosition(0.15);
         RightServo.setPosition(0.2);
@@ -113,7 +115,7 @@ public class OneCubeRed extends basicAuto {
         MyElevator.ElevateWithEncoder(-450, 0.8, 0.5);
         sleep(500);
         Arm.setPosition(1);
-        sleep(700);
+        sleep(1500);
         MyElevator.ElevateWithEncoder(0, 0.3, 0.0035);
         sleep(700);
         Output.setPosition(OutputUp);
@@ -127,8 +129,9 @@ public class OneCubeRed extends basicAuto {
         RightServo.setPosition(RightServoUp);
         MyDriveTrain.Rotate(0,0.4,10);
         MyDriveTrain.encoderDrive(0.3,-30,30,30,-30,2);
-        ParkingMot.setPosition(ParkingMotOut);
+        ParkingMot.setPosition(ParkingMotIn);
         sleep(500);
+        MyDriveTrain.encoderDrive(0.8, -5, 5, 5, -5, 1);
         MyDriveTrain.encoderDrive(0.5,-43,-43, -43,-43,1);
     }
 

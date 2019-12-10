@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -46,6 +47,8 @@ public class basicAuto extends Robot {
 
         Arm.setPosition(ArmClose);
         ParkingMot.setPosition(ParkingMotOut);
+        pattern = RevBlinkinLedDriver.BlinkinPattern.WHITE;
+        blinkinLedDriver.setPattern(pattern);
 
 //        TODO: IMU
 
