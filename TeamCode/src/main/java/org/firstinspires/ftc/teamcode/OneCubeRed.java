@@ -100,7 +100,7 @@ public class OneCubeRed extends basicAuto {
 
         MyDriveTrain.RotateP(90,1,10,0.0108);
         sleep(500);
-        MyDriveTrain.encoderDrive(0.2,23,23,2,23,2);
+        MyDriveTrain.encoderDrive(0.2,29,29,29,29,2);
         MyDriveTrain.Rotate(90,0.1,10);
         LeftServo.setPosition(0.15);
         RightServo.setPosition(0.2);

@@ -85,7 +85,7 @@ public class TwoCubeRed extends basicAuto {
         } else {
             telemetry.addLine("You are on the center!");
             telemetry.update();
-            MyDriveTrain.encoderDrive(1, 30, 30, 30, 30, 2);
+            MyDriveTrain.encoderDrive(1, 34, 34, 34, 34, 2);
             MyDriveTrain.encoderDrive(0.8, -84, 84, 84, -84, 1);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.2, -25, -25, -25, -25, 2);
@@ -114,7 +114,7 @@ public class TwoCubeRed extends basicAuto {
 //            telemetry.update();
             MyDriveTrain.encoderDrive(1, -70, -70, -70, -70, 2);
             MyDriveTrain.Rotate(0, 0.1, 10);
-            MyDriveTrain.encoderDrive(1, -78, -78, -78, -78, 2);
+            MyDriveTrain.encoderDrive(1, -73, -73, -73, -73, 2);
             MyDriveTrain.Rotate(0, 0.1, 10);
             MyDriveTrain.encoderDrive(1, -60, 60, 60, -60, 1);
             sleep(500);
@@ -150,18 +150,18 @@ public class TwoCubeRed extends basicAuto {
             MyDriveTrain.encoderDrive(0.8, 55, -55, -55, 55, 1);
             MyDriveTrain.Rotate(0, 0.1, 10);
 
-            MyDriveTrain.encoderDrive(0.7, 100, 100, 100, 100, 2);
+            MyDriveTrain.encoderDrive(0.7, 90, 90, 90, 90, 2);
             MyDriveTrain.Rotate(0, 0.1, 10);
-            MyDriveTrain.encoderDrive(0.7, 100, 100, 100, 100, 2);
+            MyDriveTrain.encoderDrive(0.7, 90, 90, 90, 90, 2);
 
 
 
         } else {
 //            telemetry.addLine("You are on the center!");
 //            telemetry.update();
-            MyDriveTrain.encoderDrive(0.7, -77, -77, -77, -77, 2);
+            MyDriveTrain.encoderDrive(0.7, -82, -82, -82, -82, 2);
             MyDriveTrain.Rotate(0, 0.1, 10);
-            MyDriveTrain.encoderDrive(0.7, -77, -77, -77, -77, 2);
+            MyDriveTrain.encoderDrive(0.7, -82, -82, -82, -82, 2);
             MyDriveTrain.Rotate(0, 0.1, 10);
             MyDriveTrain.encoderDrive(0.6, -50, 50, 50, -50, 1);
             MyDriveTrain.Rotate(0, 0.1, 10);
@@ -171,7 +171,7 @@ public class TwoCubeRed extends basicAuto {
             MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.8, 40, -40, -40, 40, 1);
+            MyDriveTrain.encoderDrive(0.8, 50, -50, -50, 50, 1);
             MyDriveTrain.Rotate(0, 0.1, 10);
 
             MyDriveTrain.encoderDrive(0.7, 75, 75, 75, 75, 2);

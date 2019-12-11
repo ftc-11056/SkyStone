@@ -57,7 +57,7 @@ public class OneCubeBlue extends basicAuto {
             MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.9, -52, 52, 52, -52, 1);
+            MyDriveTrain.encoderDrive(0.9, -50, 50, 50, -50, 1);
             MyDriveTrain.Rotate(-180,0.1,10);
             MyDriveTrain.encoderDrive(0.8, 100, 100, 100, 100, 2);
         }
@@ -66,7 +66,7 @@ public class OneCubeBlue extends basicAuto {
             telemetry.addLine("you're on the left");
             telemetry.update();
             MyDriveTrain.encoderDrive(0.8, 40, 40, 40, 40, 2);
-            MyDriveTrain.encoderDrive(0.3, 71, -71, -71, 71, 1);
+            MyDriveTrain.encoderDrive(0.3, 70, -70, -70, 70, 1);
             MyDriveTrain.Rotate(-180,0.1,10);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.8, -25, -25, -25, -25, 2);
@@ -74,7 +74,7 @@ public class OneCubeBlue extends basicAuto {
             MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.5, -52, 52, 52, -52, 1);
+            MyDriveTrain.encoderDrive(0.5, -50, 50, 50, -50, 1);
             MyDriveTrain.Rotate(-180,0.1,10);
             MyDriveTrain.encoderDrive(1, 85, 85, 85, 85, 2);
 
@@ -84,7 +84,7 @@ public class OneCubeBlue extends basicAuto {
             telemetry.addLine("You are on the center!");
             telemetry.update();
             MyDriveTrain.encoderDrive(0.8, 50, 50, 50, 50, 2);
-            MyDriveTrain.encoderDrive(0.3, 73, -73, -73, 73, 1);
+            MyDriveTrain.encoderDrive(0.3, 75, -75, -75, 75, 1);
             MyDriveTrain.Rotate(-180,0.1,10);
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.8, -25, -25, -25, -25, 2);
@@ -92,7 +92,7 @@ public class OneCubeBlue extends basicAuto {
             MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();
-            MyDriveTrain.encoderDrive(0.5, -52, 52, 52, -52, 1);
+            MyDriveTrain.encoderDrive(0.5, -50, 50, 50, -50, 1);
             MyDriveTrain.Rotate(-180,0.1,10);
             MyDriveTrain.encoderDrive(1, 70, 70, 70, 70, 2);
 
@@ -105,7 +105,7 @@ public class OneCubeBlue extends basicAuto {
         Output.setPosition(OutputDown);
         MyDriveTrain.encoderDrive(0.8, 110, 110, 110, 110, 2);
         MyDriveTrain.RotateP(-270,1,10,0.0108);
-        MyDriveTrain.encoderDrive(0.2,20,20,20,20,2);
+        MyDriveTrain.encoderDrive(0.2,29,29,29,29,2);
         MyDriveTrain.Rotate(-270,0.1,10);
         LeftServo.setPosition(0.15);
         RightServo.setPosition(0.2);
@@ -113,7 +113,7 @@ public class OneCubeBlue extends basicAuto {
         LeftServo.setPosition(LeftServoDown);
         RightServo.setPosition(RightServoDown);
         sleep(500);
-        MyDriveTrain.encoderDrive(1,-100,-100,-100,-100,2);
+        MyDriveTrain.encoderDrive(1,-110,-110,-110,-110,2);
         MyDriveTrain.Rotate(-180,0.5,10);
         MyDriveTrain.encoderDrive(1,30,30,30,30,2);
 
