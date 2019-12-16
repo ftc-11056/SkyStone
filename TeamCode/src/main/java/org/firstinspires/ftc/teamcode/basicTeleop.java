@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import org.firstinspires.ftc.teamcode.Robot;
+
 public class basicTeleop extends Robot {
 
     @Override

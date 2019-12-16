@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -10,10 +9,11 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.teamcode.Systems.DriveTrain;
+import org.firstinspires.ftc.teamcode.Systems.IntakeTrain;
+import org.firstinspires.ftc.teamcode.Systems.Odometry;
+import org.firstinspires.ftc.teamcode.Systems.elevator;
 
 public class Robot extends LinearOpMode {
 
@@ -79,8 +79,8 @@ public class Robot extends LinearOpMode {
 
     public String passWord = "dont pass";
 
-    RevBlinkinLedDriver blinkinLedDriver;
-    RevBlinkinLedDriver.BlinkinPattern pattern;
+    public RevBlinkinLedDriver blinkinLedDriver;
+    public RevBlinkinLedDriver.BlinkinPattern pattern;
 
     @Override
     public void runOpMode() throws InterruptedException {

@@ -166,7 +166,8 @@ public class PushbotAutoDriveByGyro_Linear extends LinearOpMode {
     */
     public void gyroDrive ( double speed,
                             double distance,
-                            double angle) {
+                            double angle
+    ) {
 
         int     newLeftTarget;
         int     newRightTarget;
