@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.teamcode.Robot;
 
 
-@TeleOp(name = "ijo", group = "ij")
+@TeleOp(name = "למה אתם רוצים לנהוג? הכנסו כדי לגלות את התשובה. משמעות החיים בתוכנה השנייה", group = "ij")
 public class currentTeleOp extends Robot {
 
 //    TODO: values
