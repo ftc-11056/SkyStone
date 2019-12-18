@@ -23,8 +23,8 @@ public class SkystoneDetector extends DogeCVDetector {
     public DogeCV.AreaScoringMethod areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Setting to decide to use MaxAreaScorer or PerfectAreaScorer
 //TODO: change filters
     //Create the default filters and scorers
-    public DogeCVColorFilter blackFilter = new GrayscaleFilter(0, 70);
-    public DogeCVColorFilter yellowFilter = new LeviColorFilter(LeviColorFilter.ColorPreset.YELLOW, 70); //Default Yellow blackFilter
+    public DogeCVColorFilter blackFilter = new GrayscaleFilter(0, 40);
+    public DogeCVColorFilter yellowFilter = new LeviColorFilter(LeviColorFilter.ColorPreset.YELLOW, 0); //was 70Default Yellow blackFilter
 
     public RatioScorer ratioScorer = new RatioScorer(1.25, 3); // Used to find the short face of the stone
     public MaxAreaScorer maxAreaScorer = new MaxAreaScorer( 0.01);                    // Used to find largest objects
