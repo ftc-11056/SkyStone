@@ -4,12 +4,13 @@ package org.firstinspires.ftc.teamcode.doge_cv;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraName;
-import org.openftc.easyopencv.OpenCvCamera;
-import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.teamcode.PhotoID.VuforiaStone;
 import org.openftc.easyopencv.OpenCvWebcam;
-
-import java.util.Locale;
 
 /*
  * Thanks to EasyOpenCV for the great API (and most of the example)
@@ -17,14 +18,22 @@ import java.util.Locale;
  * Original Work Copright(c) 2019 OpenFTC Team
  * Derived Work Copyright(c) 2019 DogeDevs
  */
-@TeleOp(name = "Skystone Detector OpMode", group="DogeCV")
+@TeleOp(name = "WebcamRealSkystoneDeTeCtOr", group="DogeCV")
 
 public class WebcamRealSkystoneDeTeCtOr extends LinearOpMode {
-    private OpenCvCamera phoneCam;
+    protected VuforiaStone MyVuforiaStone = null;
 
-    private OpenCvWebcam webcam;
+    protected VuforiaLocalizer vuforia;
+    protected OpenGLMatrix lastLocation = null;
+    private static final float mmPerInch = 25.4f;
+    public float Mikum = 0;
+    public int vuforiastop = 0;
 
-    private SkystoneDetector skyStoneDetector;
+    protected static final String VUFORIA_KEY =
+            "AShqm3D/////AAABmT32+8BbZEYfoY+L8BbhMAiFCWBAqEs1AghjDq2xOQw/uhnPZ4EVDEHOdbIxubuyTgO1mP2yAPzwlRyTTuBrTFIyVAUHjY0+j32GLbh0oLrKqnfyPtagrvZFS/YuAMhDNX25Uc1zXlD6iXX3pDoKBFuQLQ8zD/NvH5Ib2MTlMQq2srJpav6FRHGf0zU5OnEn1g+n2D5G3Uw7h19CyWFI/rQdUJ6kP2m9yMD8tAZDZiKhE0woZ/MgdGU5FgI6faiYCefYpLqrnW6ytWLenftxcKpccUHur1cWSjRxboVyPbVtgueWC7ytf0FrgyAvRo9uxGRXN6tYrjK1EZIPdssJ5PHxzWUd706EQvXIQwxd4Ndx";    // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
+    protected VuforiaLocalizer.Parameters parametersVu;
+    protected VuforiaTrackables targetsSkyStone;
+    SuperWebcamName superWebcamName = null;
 
     @Override
     public void runOpMode() {
@@ -36,26 +45,30 @@ public class WebcamRealSkystoneDeTeCtOr extends LinearOpMode {
          * the RC phone). If no camera monitor is desired, use the alternate
          * single-parameter constructor instead (commented out below)
          */
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        webcam = new OpenCvWebcam((CameraName) webcam,3);
 
-        webcam = hardwareMap.get(OpenCvWebcam.class, "Webcam 1");
+        superWebcamName = new SuperWebcamName(hardwareMap.get(OpenCvWebcam.class, "Webcam 1"),
+                                                hardwareMap.get(WebcamName.class, "Webcam 1"));
 
-        // OR...  Do Not Activate the Camera Monitor View
-        //phoneCam = new OpenCvInternalCamera(OpenCvInternalCamera.CameraDirection.BACK);
+                int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parametersVu = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
-        /*
-         * Open the connection to the camera device
-         */
+        //VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+
+        parametersVu.vuforiaLicenseKey = VUFORIA_KEY;
+        parametersVu.cameraName = superWebcamName.webcamName;
+
+        //  Instantiate the Vuforia engine
+        vuforia = ClassFactory.getInstance().createVuforia(parametersVu);
+        //VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
+        MyVuforiaStone = new VuforiaStone(superWebcamName.webcamName, parametersVu, targetsSkyStone, vuforia,lastLocation);
+
+
+/*        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        webcam = new WebcamNameMerged(webcam);
+        webcam = hardwareMap.get(WebcamNameMerged.class, "Webcam 1");
         webcam.openCameraDevice();
-
-        /*
-         * Specify the image processing pipeline we wish to invoke upon receipt
-         * of a frame from the camera. Note that switching pipelines on-the-fly
-         * (while a streaming session is in flight) *IS* supported.
-         */
         skyStoneDetector = new SkystoneDetector();
-        webcam.setPipeline(skyStoneDetector);
+        webcam.setPipeline(skyStoneDetector);*/
 
         /*
          * Tell the camera to start streaming images to us! Note that you must make sure
@@ -69,7 +82,7 @@ public class WebcamRealSkystoneDeTeCtOr extends LinearOpMode {
          * away from the user.
          */
 //        TODO: change tesolute
-        webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+        superWebcamName.OpenCv.startStreamingImplSpecific(320, 240);
 
         /*
          * Wait for the user to press start on the Driver Station
@@ -78,18 +91,8 @@ public class WebcamRealSkystoneDeTeCtOr extends LinearOpMode {
 
         while (opModeIsActive())
         {
-            /*
-             * Send some stats to the telemetry
-             */
-            telemetry.addData("Stone Position X", skyStoneDetector.getScreenPosition().x);
-            telemetry.addData("Stone Position Y", skyStoneDetector.getScreenPosition().y);
-            telemetry.addData("Frame Count", webcam.getFrameCount());
-            telemetry.addData("FPS", String.format(Locale.US, "%.2f", webcam.getFps()));
-            telemetry.addData("Total frame time ms", webcam.getTotalFrameTimeMs());
-            telemetry.addData("Pipeline time ms", webcam.getPipelineTimeMs());
-            telemetry.addData("Overhead time ms", webcam.getOverheadTimeMs());
-            telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
-            telemetry.update();
+            telemetry.addData("Mikum:", Mikum);
+            Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
 
             /*
              * NOTE: stopping the stream from the camera early (before the end of the OpMode
@@ -117,7 +120,7 @@ public class WebcamRealSkystoneDeTeCtOr extends LinearOpMode {
                  * time. Of course, this comment is irrelevant in light of the use case described in
                  * the above "important note".
                  */
-                webcam.closeCameraDevice();
+                superWebcamName.openCvWebcam.closeCameraDevice();
             }
 
             /*
@@ -133,10 +136,10 @@ public class WebcamRealSkystoneDeTeCtOr extends LinearOpMode {
              * and resume the viewport if the "Y" button on gamepad1 is pressed.
              */
             else if(gamepad1.x) {
-                webcam.pauseViewport();
+                superWebcamName.openCvWebcam.pauseViewport();
             }
             else if(gamepad1.y) {
-                webcam.resumeViewport();
+                superWebcamName.openCvWebcam.resumeViewport();
             }
         }
     }
