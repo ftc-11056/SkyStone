@@ -21,14 +21,14 @@ import java.util.List;
 
 public class SkystoneDetector extends DogeCVDetector {
     public DogeCV.AreaScoringMethod areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Setting to decide to use MaxAreaScorer or PerfectAreaScorer
-//TODO: change filters
+    //TODO: change filters
     //Create the default filters and scorers
     public DogeCVColorFilter blackFilter = new GrayscaleFilter(0, 40);
     public DogeCVColorFilter yellowFilter = new LeviColorFilter(LeviColorFilter.ColorPreset.YELLOW, 0); //was 70Default Yellow blackFilter
 
     public RatioScorer ratioScorer = new RatioScorer(1.25, 3); // Used to find the short face of the stone
-    public MaxAreaScorer maxAreaScorer = new MaxAreaScorer( 0.01);                    // Used to find largest objects
-    public PerfectAreaScorer perfectAreaScorer = new PerfectAreaScorer(5000,0.05); // Used to find objects near a tuned area value
+    public MaxAreaScorer maxAreaScorer = new MaxAreaScorer(0.01);                    // Used to find largest objects
+    public PerfectAreaScorer perfectAreaScorer = new PerfectAreaScorer(5000, 0.05); // Used to find objects near a tuned area value
 
 
     // Results of the detector
@@ -40,12 +40,12 @@ public class SkystoneDetector extends DogeCVDetector {
     private Mat displayMat = new Mat();
     private Mat blackMask = new Mat();
     private Mat yellowMask = new Mat();
-    private Mat hierarchy  = new Mat();
-    
+    private Mat hierarchy = new Mat();
+
     public Point getScreenPosition() {
         return screenPosition;
     }
-    
+
     public Rect foundRectangle() {
         return foundRect;
     }
@@ -68,7 +68,7 @@ public class SkystoneDetector extends DogeCVDetector {
         List<MatOfPoint> contoursYellow = new ArrayList<>();
 
         Imgproc.findContours(yellowMask, contoursYellow, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
-        Imgproc.drawContours(displayMat,contoursYellow,-1,new Scalar(255,30,30),2);
+        Imgproc.drawContours(displayMat, contoursYellow, -1, new Scalar(255, 30, 30), 2);
 
 
         // Current result
@@ -76,50 +76,49 @@ public class SkystoneDetector extends DogeCVDetector {
         double bestDifference = Double.MAX_VALUE; // MAX_VALUE since less difference = better
 
         // Loop through the contours and score them, searching for the best result
-        for(MatOfPoint cont : contoursYellow){
+        for (MatOfPoint cont : contoursYellow) {
             double score = calculateScore(cont); // Get the difference score using the scoring API
 
             // Get bounding rect of contour
             Rect rect = Imgproc.boundingRect(cont);
-            Imgproc.rectangle(displayMat, rect.tl(), rect.br(), new Scalar(0,0,255),2); // Draw rect
+            Imgproc.rectangle(displayMat, rect.tl(), rect.br(), new Scalar(0, 0, 255), 2); // Draw rect
 
             // If the result is better then the previously tracked one, set this rect as the new best
-            if(score < bestDifference){
+            if (score < bestDifference) {
                 bestDifference = score;
                 bestRect = rect;
             }
         }
 
-        Imgproc.rectangle(blackMask, bestRect.tl(), bestRect.br(), new Scalar(255,255,255), 1, Imgproc.LINE_4, 0);
+        Imgproc.rectangle(blackMask, bestRect.tl(), bestRect.br(), new Scalar(255, 255, 255), 1, Imgproc.LINE_4, 0);
         blackFilter.process(workingMat.clone(), blackMask);
         List<MatOfPoint> contoursBlack = new ArrayList<>();
 
         Imgproc.findContours(blackMask, contoursBlack, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
-        Imgproc.drawContours(displayMat,contoursBlack,-1,new Scalar(40,40,40),2);
+        Imgproc.drawContours(displayMat, contoursBlack, -1, new Scalar(40, 40, 40), 2);
 
-        for(MatOfPoint cont : contoursBlack){
+        for (MatOfPoint cont : contoursBlack) {
             double score = calculateScore(cont); // Get the difference score using the scoring API
 
             // Get bounding rect of contour
             Rect rect = Imgproc.boundingRect(cont);
-            Imgproc.rectangle(displayMat, rect.tl(), rect.br(), new Scalar(0,0,255),2); // Draw rect
+            Imgproc.rectangle(displayMat, rect.tl(), rect.br(), new Scalar(0, 0, 255), 2); // Draw rect
 
             // If the result is better then the previously tracked one, set this rect as the new best
-            if(score < bestDifference){
+            if (score < bestDifference) {
                 bestDifference = score;
                 bestRect = rect;
             }
         }
-        if(bestRect != null) {
+        if (bestRect != null) {
             // Show chosen result
-            Imgproc.rectangle(displayMat, bestRect.tl(), bestRect.br(), new Scalar(255,0,0),4);
-            Imgproc.putText(displayMat, "Chosen", bestRect.tl(),0,1,new Scalar(255,255,255));
+            Imgproc.rectangle(displayMat, bestRect.tl(), bestRect.br(), new Scalar(255, 0, 0), 4);
+            Imgproc.putText(displayMat, "Chosen", bestRect.tl(), 0, 1, new Scalar(255, 255, 255));
 
             screenPosition = new Point(bestRect.x, bestRect.y);
             foundRect = bestRect;
             found = true;
-        }
-        else {
+        } else {
             found = false;
         }
 
@@ -143,11 +142,11 @@ public class SkystoneDetector extends DogeCVDetector {
         addScorer(ratioScorer);
 
         // Add diffrent scorers depending on the selected mode
-        if(areaScoringMethod == DogeCV.AreaScoringMethod.MAX_AREA){
+        if (areaScoringMethod == DogeCV.AreaScoringMethod.MAX_AREA) {
             addScorer(maxAreaScorer);
         }
 
-        if (areaScoringMethod == DogeCV.AreaScoringMethod.PERFECT_AREA){
+        if (areaScoringMethod == DogeCV.AreaScoringMethod.PERFECT_AREA) {
             addScorer(perfectAreaScorer);
         }
     }
