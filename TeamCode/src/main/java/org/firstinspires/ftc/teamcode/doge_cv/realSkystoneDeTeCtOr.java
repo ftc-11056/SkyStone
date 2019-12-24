@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.doge_cv;
 
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.basicAuto;
+import org.firstinspires.ftc.teamcode.doge_cv.afterDoge.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-import org.openftc.easyopencv.OpenCvInternalCamera;
 
 import java.util.Locale;
 
@@ -17,9 +18,10 @@ import java.util.Locale;
  * Derived Work Copyright(c) 2019 DogeDevs
  */
 @TeleOp(name = "Skystone Detector OpMode", group="DogeCV")
-
-public class realSkystoneDeTeCtOr extends LinearOpMode {
+public class realSkystoneDeTeCtOr extends basicAuto {
     private OpenCvCamera phoneCam;
+    OpenCvCamera webcam;
+
     private SkystoneDetector skyStoneDetector;
 
     @Override
@@ -33,9 +35,7 @@ public class realSkystoneDeTeCtOr extends LinearOpMode {
          * single-parameter constructor instead (commented out below)
          */
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        phoneCam = new OpenCvInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
-
-
+        webcam = OpenCvCameraFactory.getInstance().createWebcam( hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         // OR...  Do Not Activate the Camera Monitor View
         //phoneCam = new OpenCvInternalCamera(OpenCvInternalCamera.CameraDirection.BACK);
 
@@ -43,6 +43,7 @@ public class realSkystoneDeTeCtOr extends LinearOpMode {
          * Open the connection to the camera device
          */
         phoneCam.openCameraDevice();
+        webcam.openCameraDevice();
 
         /*
          * Specify the image processing pipeline we wish to invoke upon receipt
@@ -51,6 +52,8 @@ public class realSkystoneDeTeCtOr extends LinearOpMode {
          */
         skyStoneDetector = new SkystoneDetector();
         phoneCam.setPipeline(skyStoneDetector);
+        webcam.setPipeline(skyStoneDetector);
+
 
         /*
          * Tell the camera to start streaming images to us! Note that you must make sure
@@ -65,6 +68,9 @@ public class realSkystoneDeTeCtOr extends LinearOpMode {
          */
 //        TODO: change tesolute
         phoneCam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+        webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+
+
 
         /*
          * Wait for the user to press start on the Driver Station
@@ -80,6 +86,7 @@ public class realSkystoneDeTeCtOr extends LinearOpMode {
             telemetry.addData("Stone Position Y", skyStoneDetector.getScreenPosition().y);
             telemetry.addData("Frame Count", phoneCam.getFrameCount());
             telemetry.addData("FPS", String.format(Locale.US, "%.2f", phoneCam.getFps()));
+            telemetry.addData("Webcam FPS", webcam.getFps());
             telemetry.addData("Total frame time ms", phoneCam.getTotalFrameTimeMs());
             telemetry.addData("Pipeline time ms", phoneCam.getPipelineTimeMs());
             telemetry.addData("Overhead time ms", phoneCam.getOverheadTimeMs());
@@ -113,7 +120,9 @@ public class realSkystoneDeTeCtOr extends LinearOpMode {
                  * the above "important note".
                  */
                 phoneCam.stopStreaming();
-                //webcam.closeCameraDevice();
+                webcam.stopStreaming();
+
+             //   webcam.closeCameraDevice();
             }
 
             /*
@@ -130,10 +139,14 @@ public class realSkystoneDeTeCtOr extends LinearOpMode {
              */
             else if(gamepad1.x) {
                 phoneCam.pauseViewport();
+                webcam.pauseViewport();
             }
             else if(gamepad1.y) {
                 phoneCam.resumeViewport();
+                webcam.resumeViewport();
             }
         }
+
     }
+
 }
