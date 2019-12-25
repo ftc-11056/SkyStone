@@ -64,15 +64,15 @@ public class Robot extends LinearOpMode {
     public double CapstoneDown = 0;
 
 
-    public double ParkingMotIn = 0.7;
+    public double ParkingMotIn = 0.6;
     public double ParkingMotOut = 0;
 
-    public double LeftServoDown = 0.25;
-    public double RightServoDown = 0.1;
-    public double LeftServoUp = 0.8;
-    public double RightServoUp = 0.64;
+    public double LeftServoDown = 1;
+    public double RightServoDown = 0.8;
+    public double LeftServoUp = 0.5;
+    public double RightServoUp = 0.25;
 
-    public double ArmClose = 0.135;
+    public double ArmClose = 0.12;
     public double ArmOpen = 1;
 
     public double cubeNotInMM = 150;

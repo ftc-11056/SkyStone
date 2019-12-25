@@ -35,11 +35,14 @@ public class chekWebcamWork extends basicAuto {
         //Inits the detector. Choose which camera to use, and whether to detect VuMarks here
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = new OpenCvWebcam((CameraName) webcam, cameraMonitorViewId);
+        webcam.setPipeline(skyStoneDetector);
         waitForStart();
 
         while (opModeIsActive()) {
-            telemetry.addData("Poistion", skyStoneDetector.getScreenPosition());
+            telemetry.addData("Stone Position X", skyStoneDetector.getScreenPosition().x);
+            telemetry.addData("Stone Position Y", skyStoneDetector.getScreenPosition().y);
             telemetry.update();
+
         }
     }
 
