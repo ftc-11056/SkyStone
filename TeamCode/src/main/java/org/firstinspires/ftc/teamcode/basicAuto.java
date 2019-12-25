@@ -10,7 +10,6 @@ import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 import org.firstinspires.ftc.teamcode.PhotoID.VuforiaStone;
-import org.firstinspires.ftc.teamcode.Robot;
 
 public class basicAuto extends Robot {
 
@@ -46,7 +45,6 @@ public class basicAuto extends Robot {
         vuforia = ClassFactory.getInstance().createVuforia(parametersVu);
         //VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
         MyVuforiaStone = new VuforiaStone( webcamName,parametersVu, targetsSkyStone, vuforia,lastLocation);
-
         Arm.setPosition(ArmClose);
         ParkingMot.setPosition(ParkingMotOut);
         pattern = RevBlinkinLedDriver.BlinkinPattern.WHITE;

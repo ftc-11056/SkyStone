@@ -3,9 +3,7 @@ package org.firstinspires.ftc.teamcode.doge_cv;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.basicAuto;
-import org.firstinspires.ftc.teamcode.doge_cv.afterDoge.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
@@ -34,16 +32,16 @@ public class realSkystoneDeTeCtOr extends basicAuto {
          * the RC phone). If no camera monitor is desired, use the alternate
          * single-parameter constructor instead (commented out below)
          */
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        webcam = OpenCvCameraFactory.getInstance().createWebcam( hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+       // int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+       // webcam = OpenCvCameraFactory.getInstance().createWebcam( hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         // OR...  Do Not Activate the Camera Monitor View
         //phoneCam = new OpenCvInternalCamera(OpenCvInternalCamera.CameraDirection.BACK);
 
         /*
          * Open the connection to the camera device
          */
-        phoneCam.openCameraDevice();
-        webcam.openCameraDevice();
+//        phoneCam.openCameraDevice();
+//        webcam.openCameraDevice();
 
         /*
          * Specify the image processing pipeline we wish to invoke upon receipt
@@ -51,8 +49,8 @@ public class realSkystoneDeTeCtOr extends basicAuto {
          * (while a streaming session is in flight) *IS* supported.
          */
         skyStoneDetector = new SkystoneDetector();
-        phoneCam.setPipeline(skyStoneDetector);
-        webcam.setPipeline(skyStoneDetector);
+//        phoneCam.setPipeline(skyStoneDetector);
+   //     webcam.setPipeline(skyStoneDetector);
 
 
         /*
@@ -67,10 +65,8 @@ public class realSkystoneDeTeCtOr extends basicAuto {
          * away from the user.
          */
 //        TODO: change tesolute
-        phoneCam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+//        phoneCam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
         webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
-
-
 
         /*
          * Wait for the user to press start on the Driver Station
@@ -119,7 +115,7 @@ public class realSkystoneDeTeCtOr extends basicAuto {
                  * time. Of course, this comment is irrelevant in light of the use case described in
                  * the above "important note".
                  */
-                phoneCam.stopStreaming();
+//                phoneCam.stopStreaming();
                 webcam.stopStreaming();
 
              //   webcam.closeCameraDevice();
@@ -138,11 +134,11 @@ public class realSkystoneDeTeCtOr extends basicAuto {
              * and resume the viewport if the "Y" button on gamepad1 is pressed.
              */
             else if(gamepad1.x) {
-                phoneCam.pauseViewport();
+//                phoneCam.pauseViewport();
                 webcam.pauseViewport();
             }
             else if(gamepad1.y) {
-                phoneCam.resumeViewport();
+//                phoneCam.resumeViewport();
                 webcam.resumeViewport();
             }
         }

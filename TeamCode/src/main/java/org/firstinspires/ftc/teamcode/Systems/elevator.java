@@ -35,7 +35,7 @@ public class elevator  {
         leftEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftEle.setPower(power*(pos-leftEle.getCurrentPosition())*kp);
-        rightEle.setPower(power*(pos-rightEle.getCurrentPosition())*kp);
+        rightEle.setPower(power*(pos-leftEle.getCurrentPosition())*kp);
     }
 
 
