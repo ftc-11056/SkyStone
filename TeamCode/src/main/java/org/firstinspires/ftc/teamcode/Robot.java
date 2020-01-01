@@ -253,6 +253,18 @@ public class Robot extends LinearOpMode {
         }
     }
 
-
+    public void PlacingStone (){
+        MyElevator.ElevateWithEncoder(-350,0.5,0.3);
+        Arm.setPosition(ArmOpen);
+//        sleep(1000);
+        MyElevator.ElevateWithEncoder(0,0.3,0.0035);
+//        sleep(500);
+        Output.setPosition(OutputUp);
+//        sleep(500);
+        MyElevator.ElevateWithEncoder(-350,0.5,0.3);
+        Arm.setPosition(ArmClose);
+//        sleep(1200);
+        MyElevator.ElevateWithEncoder(0,0.3,0.0035);
+    }
 }
 
