@@ -15,9 +15,9 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
     public FtcDashboard dashboard;
     private OurPoint StartPosition = new OurPoint(1.566, -0.875, 90);
     private OurPoint[] Left1 = {
-            new OurPoint(1.566, -0.875, 125),
-            new OurPoint(0.75, -0.75, 125),
-            new OurPoint(0.55, -1, 180)};
+            new OurPoint(1.566, -0.875, 128),
+            new OurPoint(0.6, -0.8, 128),
+            new OurPoint(0.6, -1.05, 180)};
     private double toleranceLeft1 = 50;
     private double KcLeft1 = 3;
     private double MaxVelocityLeft1 = 1.5;
@@ -28,9 +28,9 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
             new OurPoint(0.7, -0.991, 180),
             new OurPoint(0.9, -0.35, 180),
             new OurPoint(0.9, 0.55, 270),
-            new OurPoint(0.7, 1.2, 270)};
+            new OurPoint(0.65, 1.2, 270)};
     private double toleranceLeftFoundation = 40;
-    private double KcLeftFoundation = 4.5;
+    private double KcLeftFoundation = 3.5;
     private double MaxVelocityLeftFoundation = 1.5;
     private double turnSpeedLeftFoundation = 1.2;
     private boolean frontLeftFoundation = false;
@@ -41,9 +41,9 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
             new OurPoint(0.9, -0.85, 132),
             new OurPoint(0.7, -1.46, 132)};
     private double toleranceLeft2 = 60;
-    private double KcLeft2 = 3;
+    private double KcLeft2 = 3.5;
     private double MaxVelocityLeft2 = 1.5;
-    private double turnSpeedLeft2 = 0.8;
+    private double turnSpeedLeft2 = 1.5;
     private boolean frontLeft2 = true;
     private double temp = 0;
 
@@ -120,13 +120,13 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
         MyPurePursuitGUI = new PurePursuitGUI(Left2, MyOdometry.getPosition(), toleranceLeft2, KcLeft2, MaxVelocityLeft2, turnSpeedLeft2, frontLeft2);
         while (opModeIsActive() && isRun) {
             isRun = purePesuitRun();
-
-            if (MyPurePursuitGUI.findClosetPointIndex() >= 1 && MyPurePursuitGUI.findClosetPointIndex() <= 24) {
-                PlacingStone();
+            setPointIndexStartElavator(0);
+            if (MyPurePursuitGUI.findClosetPointIndex() >= 0 && MyPurePursuitGUI.findClosetPointIndex() <= 28) {
+                PlacingStone(MyPurePursuitGUI.findClosetPointIndex(),packet);
             }
 
             deltaFromFlatAngle = Math.abs(MyOdometry.getDirection() - Math.toRadians(270));
-            if (MyPurePursuitGUI.findClosetPointIndex() >= 18 && deltaFromFlatAngle < Math.toRadians(2)) {
+            if (MyPurePursuitGUI.findClosetPointIndex() >= 16 && deltaFromFlatAngle < Math.toRadians(4)) {
                 LeftServo.setPosition(LeftServoUp);
                 RightServo.setPosition(RightServoUp);
             }
@@ -149,8 +149,6 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
             packet = new TelemetryPacket();
             MyPurePursuitGUI.updateGraghic(packet);
             packet.put("isRun", isRun.toString());
-            packet.put("run times", temp);
-            packet.put("deltaFromFlatAngle", Math.toDegrees(deltaFromFlatAngle));
             dashboard.sendTelemetryPacket(packet);
         }
 
@@ -172,7 +170,6 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
         }
         MyPurePursuitGUI.updateGraghic(packet);
         packet.put("isRun",isRun.toString());
-        packet.put("deltaFromFlatAngle", Math.toDegrees(deltaFromFlatAngle));
         dashboard.sendTelemetryPacket(packet);
         return true;
     }

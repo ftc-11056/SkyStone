@@ -92,7 +92,7 @@ public class Robot extends LinearOpMode {
     public double ArmClose = 0.12;
     public double ArmOpen = 1;
     public boolean IntakeStop = true;
-
+    public int PointIndexStartElavator = 0;
 
     public double cubeNotInMM = 150;
 
@@ -222,6 +222,9 @@ public class Robot extends LinearOpMode {
         MyElevator = new elevator(leftLinearMotor, rightLinearMotor, upMagnetElevator, downMagnetElevator, fixedPosition);
     }
 
+    public void setPointIndexStartElavator(int pointIndexStartElavator) {
+        PointIndexStartElavator = pointIndexStartElavator;
+    }
 
     public void updateOdometry(){
         double currentTime = runtime.seconds();
@@ -253,18 +256,26 @@ public class Robot extends LinearOpMode {
         }
     }
 
-    public void PlacingStone (){
-        MyElevator.ElevateWithEncoder(-350,0.5,0.3);
-        Arm.setPosition(ArmOpen);
-//        sleep(1000);
-        MyElevator.ElevateWithEncoder(0,0.3,0.0035);
-//        sleep(500);
-        Output.setPosition(OutputUp);
-//        sleep(500);
-        MyElevator.ElevateWithEncoder(-350,0.5,0.3);
-        Arm.setPosition(ArmClose);
-//        sleep(1200);
-        MyElevator.ElevateWithEncoder(0,0.3,0.0035);
+    public void PlacingStone(int currentPointIndex, TelemetryPacket packet){
+        int delta = currentPointIndex - PointIndexStartElavator;
+        packet.put("delte", delta);
+        if(delta >= 0 && delta <= 4) {
+            MyElevator.ElevateWithEncoder(-350, 0.5, 0.3);
+            Arm.setPosition(ArmOpen);
+        }
+        if(delta >= 5 && delta <= 7) {
+            MyElevator.ElevateWithEncoder(0, 0.3, 0.0035);
+        }
+        if(delta >= 8 && delta <=10) {
+            Output.setPosition(OutputUp);
+        }
+        if(delta >= 11 && delta <= 15) {
+            MyElevator.ElevateWithEncoder(-350, 0.5, 0.3);
+            Arm.setPosition(ArmClose);
+        }
+        if(delta >= 13 && delta <= 14) {
+            MyElevator.ElevateWithEncoder(0, 0.3, 0.0035);
+        }
     }
 }
 
