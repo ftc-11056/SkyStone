@@ -13,10 +13,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.teamcode.PP.OurPoint;
 
 import java.util.Arrays;
 
-public class DriveTrain {
+    public class DriveTrain {
 
     /* Fileds */
 
@@ -35,6 +36,11 @@ public class DriveTrain {
     public double lastAngles = 0;
     Orientation angle = new Orientation();
     double globalAngle = 0, power = .30, correction;
+
+    public OurPoint stopPosition = null;
+    public double dx = 0;
+    public double dy = 0;
+
 
     protected BNO055IMU IMU = null;
 
@@ -68,10 +74,10 @@ public class DriveTrain {
     /* Methodes */
 
     public void arcade(double y, double x, double c) {
-        double leftFrontVal = -y + x + c;
-        double rightFrontVal = -y - x - c;
-        double leftBackVal = -y - x + c;
-        double rightBackVal = -y + x - c;
+        double leftFrontVal = y + x + c;
+        double rightFrontVal = y - x - c;
+        double leftBackVal = y - x + c;
+        double rightBackVal = y + x - c;
 
         //Move range to between 0 and +1, if not already
         double[] wheelPowers = {rightFrontVal, leftFrontVal, leftBackVal, rightBackVal};
@@ -118,10 +124,10 @@ public class DriveTrain {
 
         // Ensure that the opmode is still active
 
-        LeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+       /* LeftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LeftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        RightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);*/
 
         if (State == 1) COUNTS_PER_CM =  20 ; /* 1 for Strafe*/
         else COUNTS_PER_CM = 17 ; /* for Strate */
@@ -299,9 +305,33 @@ public class DriveTrain {
            /* telemetry.addData("CubeDistans:", cubeIn.getDistance(DistanceUnit.MM));
             telemetry.update();*/
             encoderDrive(0.2, 20, 20, 20, 20, 2);
-
         }
     }
+
+
+        public void setStopPosition(OurPoint position){
+            stopPosition = position;
+        }
+
+        public void encoderStop(OurPoint position){
+            dx = stopPosition.getX() - position.getX();
+            dy = stopPosition.getY() - position.getY();
+            arcade(dy,dx,0);
+        }
+
+        public void stop(){
+            LeftFront.setPower(0);
+            LeftBack.setPower(0);
+            RightFront.setPower(0);
+            RightBack.setPower(0);
+            LeftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            LeftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            RightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            RightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        }
+
+
+
 }
 
 

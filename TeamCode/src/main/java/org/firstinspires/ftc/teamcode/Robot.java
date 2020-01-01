@@ -1,31 +1,44 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.I2cDevice;
+import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
+import org.firstinspires.ftc.teamcode.PP.Odometry;
+import org.firstinspires.ftc.teamcode.PP.OurPoint;
+import org.firstinspires.ftc.teamcode.PP.PurePursuitGUI;
 import org.firstinspires.ftc.teamcode.Systems.DriveTrain;
 import org.firstinspires.ftc.teamcode.Systems.IntakeTrain;
-import org.firstinspires.ftc.teamcode.Systems.Odometry;
 import org.firstinspires.ftc.teamcode.Systems.elevator;
 
 public class Robot extends LinearOpMode {
 
     protected ElapsedTime runtime = new ElapsedTime();
 
-    /* Drive Train Motor */
+    //Drive Train Motor
     public DcMotor LB = null;
     public DcMotor  LF = null;
     public DcMotor  RF = null;
     public DcMotor  RB = null;
 
-    /*Systems Motor and Servo*/
+    //Systems Motor and Servo
     public DcMotor leftLinearMotor = null;
     public DcMotor rightLinearMotor = null;
     public DcMotor IntakeL = null;
@@ -37,9 +50,12 @@ public class Robot extends LinearOpMode {
     public Servo ParkingMot = null;
     public Servo Capstone = null;
 
+
     /*IMU Fileds*/
     protected BNO055IMU IMU = null;
     protected Orientation angles = null;
+    protected Velocity Velocity;
+    protected Acceleration Acceleration;
 
     //digitalChannels
     public DigitalChannel downMagnetElevator = null;
@@ -47,6 +63,7 @@ public class Robot extends LinearOpMode {
 
     /*Analog Sensor*/
     protected DistanceSensor cubeIn;
+
 
     /*Mechanisms*/
     protected DriveTrain MyDriveTrain = null;
@@ -74,6 +91,8 @@ public class Robot extends LinearOpMode {
 
     public double ArmClose = 0.12;
     public double ArmOpen = 1;
+    public boolean IntakeStop = true;
+
 
     public double cubeNotInMM = 150;
 
@@ -81,6 +100,8 @@ public class Robot extends LinearOpMode {
 
     public RevBlinkinLedDriver blinkinLedDriver;
     public RevBlinkinLedDriver.BlinkinPattern pattern;
+
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -92,7 +113,8 @@ public class Robot extends LinearOpMode {
         LF  = hardwareMap.get(DcMotor.class, "LF");
         RF  = hardwareMap.get(DcMotor.class, "RF");
         RB  = hardwareMap.get(DcMotor.class, "RB");
-        // Define and Initialize Systems Motors and Servo
+
+        //Define and Initialize Systems Motors and Servo
         leftLinearMotor = hardwareMap.get(DcMotor.class,"leftLinearMotor");
         rightLinearMotor = hardwareMap.get(DcMotor.class,"rightLinearMotor");
         Arm  = hardwareMap.get(Servo.class, "Arm");
@@ -116,6 +138,7 @@ public class Robot extends LinearOpMode {
 
         blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
 
+
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -127,47 +150,109 @@ public class Robot extends LinearOpMode {
         leftLinearMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightLinearMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+
         RF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         RB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        LF.setDirection(DcMotor.Direction.FORWARD);
+        LB.setDirection(DcMotor.Direction.FORWARD);
+
         IntakeL.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE the intake System
-
-
 
         leftLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        LF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        RF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        LB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        RB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //Odometry Encoders:
+        IntakeR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        IntakeL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        IntakeR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        IntakeL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightLinearMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
 
         // Set all motors to zero power
         LF.setPower(0);
         LB.setPower(0);
         RB.setPower(0);
         RF.setPower(0);
-      //  linear_motor.setPower(0);
 
-        LeftServo.setPosition(LeftServoUp);
-        RightServo.setPosition(RightServoUp);
-        Output.setPosition(OutputUp);
-//        Arm.setPosition(0.135);
+        LF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
-//        LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        /*Define and Initialize Of IMU*/
+        //Define and Initialize Of IMU
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit           = BNO055IMU.AngleUnit.RADIANS;
+        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
+
+        parameters.loggingEnabled      = true;
+        parameters.loggingTag          = "IMU";
         IMU = hardwareMap.get(BNO055IMU.class, "imu");
+        IMU.initialize(parameters);
+
+        // make sure the imu gyro is calibrated before continuing.
+        while (!isStarted() && !isStopRequested() && !IMU.isGyroCalibrated()) {
+            sleep(50);
+            idle();
+        }
+        angles = IMU.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
+        Velocity = IMU.getVelocity();
+        Acceleration = IMU.getAcceleration();
+
 
         // Define and initialize ALL installed servos.
+        LeftServo.setPosition(LeftServoUp);
+        RightServo.setPosition(RightServoUp);
+        Output.setPosition(OutputUp);
 
-        // Define Mechanisms:.
-        MyDriveTrain = new DriveTrain(LB,LF, RF, RB, IMU);
+
+        //Define Mechanisms:
+        MyDriveTrain = new DriveTrain(LB,LF, RF, RB,IMU);
         MyIntake = new IntakeTrain(IntakeL, IntakeR);
         MyElevator = new elevator(leftLinearMotor, rightLinearMotor, upMagnetElevator, downMagnetElevator, fixedPosition);
     }
+
+
+    public void updateOdometry(){
+        double currentTime = runtime.seconds();
+        double odometryRight = IntakeR.getCurrentPosition();
+        double odometryLeft = (IntakeL.getCurrentPosition());
+        //product by -1 because the sensor give an opposite value.
+        double odometryHorizental = -(rightLinearMotor.getCurrentPosition());
+        MyOdometry.setAll(odometryRight, odometryLeft, odometryHorizental, currentTime);
+    }
+
+    public void BuildOdometry(OurPoint Position){
+        MyOdometry = new Odometry(Position);
+    }
+
+    public void StopAndSavePlace(PurePursuitGUI MyPurePursuitGUI, FtcDashboard dashboard){
+        double stopTime = runtime.seconds();
+        TelemetryPacket packet;
+        MyDriveTrain.setStopPosition(new OurPoint(MyOdometry.dSide, MyOdometry.dForward));
+        while(((runtime.seconds() - stopTime) < 1.5) && opModeIsActive()) {
+            packet = new TelemetryPacket();
+            if(MyPurePursuitGUI.lost){
+                packet.addLine("lost");
+            }
+            packet.addLine("stop");
+            MyDriveTrain.encoderStop(new OurPoint(MyOdometry.dSide, MyOdometry.dForward));
+            updateOdometry();
+            MyPurePursuitGUI.updateGraghic(packet);
+            dashboard.sendTelemetryPacket(packet);
+        }
+    }
+
+
 }
+
