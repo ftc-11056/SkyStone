@@ -20,8 +20,7 @@ public class PurePursuitGUI extends PathFollowerMecanum {
     //Fields:
     public static double MaxAcceleration = 1.2;
     public static double lookAheadDistance = 0.225;
-    public static double Ka = 0.8;
-    public static double Kp = 0.3;
+    //public static double Kp = 0.3;
     public static double Ki = 0;
     public static double Kd = 0;
 
@@ -30,7 +29,7 @@ public class PurePursuitGUI extends PathFollowerMecanum {
     //constructors:
 
     public PurePursuitGUI(OurPoint[] Path, OurPoint Position, double tolerance, double Kc, double MaxVelocity, double turnSpeed, boolean front){
-        super(Position, null , lookAheadDistance, MaxAcceleration, turnSpeed,1 / MaxVelocity, Ka, Kp, Ki, Kd, front);
+        super(Position, null , lookAheadDistance, MaxAcceleration, turnSpeed,1 / MaxVelocity, 0.8, 0.3, Ki, Kd, front);
         MyPathBuilder = new PathBuilder(Path, MaxVelocity, MaxAcceleration, Kc, tolerance);
         readWayPointFromCSV();
     }
@@ -89,16 +88,17 @@ public class PurePursuitGUI extends PathFollowerMecanum {
     }
 
     public void updateGraghic(TelemetryPacket packet){
-        //packet.put("Target Velocity", targetVelocity);
+        packet.put("Target Velocity", targetVelocity);
+        packet.put("Target Velocity Y", Yvelocity);
         //packet.put("Measured Velocity", measuredVelocity);
-        packet.put("X Power",Xpower);
+       // packet.put("X Power",Xpower);
         packet.put("Y Power",Ypower);
-        packet.put("C Power",Cpower);
-        packet.put("Direction",robotDirection);
-        packet.put("Target Direction",targetDirection);
+       // packet.put("C Power",Cpower);
+        //packet.put("Direction",robotDirection);
+        //packet.put("Target Direction",targetDirection);
         //packet.put("Point angle",temp);
-        packet.put("Robot position", RobotPosition.toString());
-        packet.put("Closed Point Index", findClosetPointIndex());
+        //packet.put("Robot position", RobotPosition.toString());
+        //packet.put("Closed Point Index", findClosetPointIndex());
         //if(temp1 != null){
         //    packet.put("closed Point", temp1.toString());
         //}

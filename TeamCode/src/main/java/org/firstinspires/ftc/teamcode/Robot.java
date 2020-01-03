@@ -70,7 +70,7 @@ public class Robot extends LinearOpMode {
     public double servoPosition = 0.005;
     protected int fixedPosition = 0;
 
-    public double OutputDown = 0.4;
+    public double OutputDown = 0.3;
     public double OutputUp = 0.8;
 
     public double CapstoneUp = 0.6;
@@ -81,9 +81,9 @@ public class Robot extends LinearOpMode {
     public double ParkingMotOut = 0;
 
     public double LeftServoDown = 1;
-    public double RightServoDown = 0.8;
-    public double LeftServoUp = 0.5;
-    public double RightServoUp = 0.25;
+    public double RightServoDown = 1;
+    public double LeftServoUp = 0.4;
+    public double RightServoUp = 0.5;
 
     public double ArmClose = 0.12;
     public double ArmOpen = 1;
@@ -256,21 +256,23 @@ public class Robot extends LinearOpMode {
         int delta = currentPointIndex - PointIndexStartElavator;
         packet.put("delte", delta);
         if(delta >= 0 && delta <= 4) {
-            MyElevator.ElevateWithEncoder(-350, 0.5, 0.3);
-            Arm.setPosition(ArmOpen);
+            MyElevator.ElevateWithEncoder(-350, 0.4, 0.3);
         }
         if(delta >= 5 && delta <= 7) {
+            Arm.setPosition(ArmOpen);
+        }
+        if(delta >= 8 && delta <= 10) {
             MyElevator.ElevateWithEncoder(0, 0.3, 0.0035);
         }
-        if(delta >= 8 && delta <=10) {
+        if(delta >= 11 && delta <=13) {
             Output.setPosition(OutputUp);
         }
-        if(delta >= 11 && delta <= 15) {
-            MyElevator.ElevateWithEncoder(-350, 0.5, 0.3);
+        if(delta >= 14 && delta <= 17) {
+            MyElevator.ElevateWithEncoder(-250, 0.7, 0.3);
             Arm.setPosition(ArmClose);
         }
-        if(delta >= 13 && delta <= 14) {
-            MyElevator.ElevateWithEncoder(0, 0.3, 0.0035);
+        if(delta >= 16 && delta <= 18) {
+            MyElevator.ElevateWithEncoder(0, 0.7, 0.0035);
         }
     }
 }

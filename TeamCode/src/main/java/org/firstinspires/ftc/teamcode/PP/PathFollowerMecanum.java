@@ -34,10 +34,10 @@ public class PathFollowerMecanum {
     protected double YtargetAcceleration;
     protected double Xdistance;
 
-    private final double Kv;
+    private double Kv;
     private final double XencreaseConstant = 2;
-    private final double Ka;
-    private final double Kp;
+    private double Ka;
+    private double Kp;
     private final double Ki;
     private final double Kd;
 
@@ -255,6 +255,10 @@ public class PathFollowerMecanum {
         double FeedForwardC = Cvelocity * turnSpeed;
         double FeedBackX = PID(measuredVelocityX, "X");
         double FeedBackY = PID(measuredVelocityY, "Y");
+        packet.put("FF y", FeedForwardY);
+        packet.put("FB y", FeedBackY);
+        packet.put("acceleration factor y", Ka*YtargetAcceleration);
+        packet.put("Velocity factor y", Kv*Yvelocity);
         Xpower = FeedForwardX + FeedBackX;
         Ypower = FeedForwardY + FeedBackY;
         Cpower = FeedForwardC;
@@ -271,5 +275,13 @@ public class PathFollowerMecanum {
     public double getCpower() {
         return Cpower;
     }
-
+    public void setKa(double Ka){
+        this.Ka = Ka;
+    }
+    public void setKp(double Kp){
+        this.Kp = Kp;
+    }
+    public void setKv(double Kv){
+        this.Kv = Kv;
+    }
 }
