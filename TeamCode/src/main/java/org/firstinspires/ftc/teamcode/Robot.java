@@ -45,7 +45,7 @@ public class Robot extends LinearOpMode {
     public Servo RightServo = null;
     public Servo ParkingMot = null;
     public Servo Capstone = null;
-    public DigitalChannel Touch_foundation=null;
+    public DigitalChannel Touch_foundation = null;
 
 
     /*IMU Fileds*/
@@ -132,7 +132,7 @@ public class Robot extends LinearOpMode {
         downMagnetElevator = hardwareMap.get(DigitalChannel.class,"downMagnetELevator");
 
         cubeIn = hardwareMap.get(DistanceSensor.class, "cubeIn");
-        Touch_foundation=hardwareMap.get(DigitalChannel.class,"Touch_Foundation");
+        Touch_foundation = hardwareMap.get(DigitalChannel.class, "Touch_Foundation");
 
         blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
 
@@ -260,20 +260,22 @@ public class Robot extends LinearOpMode {
         if(delta >= 0 && delta <= 4) {
             MyElevator.ElevateWithEncoder(-350, 0.4, 0.3);
         }
-        if(delta >= 5 && delta <= 7) {
+        if(delta >= 5 && delta <= 10) {
             Arm.setPosition(ArmOpen);
         }
-        if(delta >= 8 && delta <= 10) {
-            MyElevator.ElevateWithEncoder(0, 0.3, 0.0035);
+        if(delta >= 11 && delta <= 20) {
+            MyElevator.ElevateWithEncoder(0, 0.7, 0.0035);
         }
-        if(delta >= 11 && delta <=13) {
+        if(delta >= 21 && delta <=23) {
             Output.setPosition(OutputUp);
         }
-        if(delta >= 14 && delta <= 17) {
-            MyElevator.ElevateWithEncoder(-250, 0.7, 0.3);
+        if(delta >= 24 && delta <= 34) {
+            MyElevator.ElevateWithEncoder(-350, 0.4, 0.3);
+        }
+        if(delta >= 35 && delta <= 41) {
             Arm.setPosition(ArmClose);
         }
-        if(delta >= 16 && delta <= 18) {
+        if(delta >= 42  && delta <= 45) {
             MyElevator.ElevateWithEncoder(0, 0.7, 0.0035);
         }
     }

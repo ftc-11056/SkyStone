@@ -16,8 +16,8 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
     private OurPoint StartPosition = new OurPoint(1.566, -0.875, 90);
     private OurPoint[] Left1 = {
             new OurPoint(1.566, -0.875, 130),
-            new OurPoint(0.8, -0.7, 130),
-            new OurPoint(0.51,-1,130)};
+            new OurPoint(0.8, -0.6, 130),
+            new OurPoint(0.62,-1,130)};
     private double toleranceLeft1 = 50;
     private double KcLeft1 = 0.5;
     private double MaxVelocityLeft1 = 0.3;
@@ -25,10 +25,10 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
     private boolean frontLeft1 = true;
 
     private OurPoint[] LeftFoundation = {
-            new OurPoint(0.5,-1.02,180),
+            new OurPoint(0.58,-1,180),
             new OurPoint(0.9, -0.35, 180),
             new OurPoint(0.90, 0.55, 270),
-            new OurPoint(0.74, 1.15, 270)};
+            new OurPoint(0.74, 1.18, 270)};
     private double toleranceLeftFoundation = 40;
     private double KcLeftFoundation = 3;
     private double MaxVelocityLeftFoundation = 1.5;
@@ -37,32 +37,32 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
 
     private OurPoint[] Left2 = {
             new OurPoint(0.74, 1.15, 270),
-            new OurPoint(1, 1.15,180),
-            new OurPoint(1, 0.40, 180),
-            new OurPoint(1  , -0.85, 150),
-            new OurPoint(0.65, -1.4, 150),
-            new OurPoint(0.45, -1.45, 150)};
-    private double toleranceLeft2 = 80.5;
-    private double KcLeft2 = 2.5;
+            new OurPoint(1.55, 1.15,180),
+            new OurPoint(0.85, 0.40, 180),
+            new OurPoint(0.85, -0.85, 130),
+            new OurPoint(0.55, -1.35, 130),
+            new OurPoint(0.36, -1.38, 130)};
+    private double toleranceLeft2 = 82;
+    private double KcLeft2 = 1.5;
     private double MaxVelocityLeft2 = 1.5;
-    private double turnSpeedLeft2 = 1.5;
+    private double turnSpeedLeft2 = 2.5;
     private boolean frontLeft2 = true;
 
     private OurPoint[] LeftFoundation2 = {
-            new OurPoint(0.5, -1.46, 180),
-            new OurPoint(0.9, -0.85, 180),
-            new OurPoint(0.9, 0.15, 180),
-            //new OurPoint(1.2, 0.5, 180),
-            new OurPoint(0.9, 1.1, 180)};
-    private double toleranceLeftFoundation2 = 61.9;
-    private double KcLeftFoundation2 = 4.5;
+            new OurPoint(0.36, -1.38, 180),
+            new OurPoint(0.85, -0.85, 180),
+            new OurPoint(0.85, 0.15, 180),
+            new OurPoint(1.2, 0.5, 180),
+            new OurPoint(1.2, 1, 180)};
+    private double toleranceLeftFoundation2 = 80;
+    private double KcLeftFoundation2 = 2.5;
     private double MaxVelocityLeftFoundation2 = 1.5;
-    private double turnSpeedLeftFoundation2 = 0.7;
+    private double turnSpeedLeftFoundation2 = 0.2;
     private boolean frontLeftFoundation2 = false;
 
     private OurPoint[] Parking = {
-            new OurPoint(1.2, 1.1, 180),
-            new OurPoint(0.9, 0.40, 180)};
+            new OurPoint(1.2, 1.05, 180),
+            new OurPoint(0.9, 0, 180)};
     private double toleranceParking = 10;
     private double KcParking = 4.5;
     private double MaxVelocityParking = 1.5;
@@ -93,9 +93,8 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
         MyPurePursuitGUI.setKv(1);
         while (opModeIsActive() && isRun) {
             isRun = purePesuitRun();
-            if (MyPurePursuitGUI.findClosetPointIndex() >= 13) {
-                MyPurePursuitGUI.setKa(0.1);
-                MyPurePursuitGUI.setKv(0.3);
+            if (MyPurePursuitGUI.findClosetPointIndex() >= 16) {
+                MyPurePursuitGUI.setKv(0.6);
                 MyIntake.maxIntake();
             }
         }
@@ -105,7 +104,7 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
         MyPurePursuitGUI = new PurePursuitGUI(LeftFoundation, MyOdometry.getPosition(), toleranceLeftFoundation, KcLeftFoundation, MaxVelocityLeftFoundation, turnSpeedLeftFoundation, frontLeftFoundation);
         while (opModeIsActive() && isRun) {
             isRun = purePesuitRun();
-            if (MyPurePursuitGUI.findClosetPointIndex() >= 20) {
+            if (MyPurePursuitGUI.findClosetPointIndex() == 1) {
                 MyIntake.ShutDown();
             }
 
@@ -125,20 +124,27 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
         MyPurePursuitGUI = new PurePursuitGUI(Left2, MyOdometry.getPosition(), toleranceLeft2, KcLeft2, MaxVelocityLeft2, turnSpeedLeft2, frontLeft2);
         while (opModeIsActive() && isRun) {
             isRun = purePesuitRun();
+            if(MyPurePursuitGUI.findClosetPointIndex() <= 12){
+                MyPurePursuitGUI.setTurnSpeed(0.2);
+            }
+            else {
+                packet.addLine("switch");
+                MyPurePursuitGUI.setTurnSpeed(2.5);
+            }
 
             setPointIndexStartElavator(0);
-            if (MyPurePursuitGUI.findClosetPointIndex() >= 0 && MyPurePursuitGUI.findClosetPointIndex() <= 35) {
+            if (MyPurePursuitGUI.findClosetPointIndex() >= 0 && MyPurePursuitGUI.findClosetPointIndex() <= 45) {
                 PlacingStone(MyPurePursuitGUI.findClosetPointIndex(),packet);
             }
 
             deltaFromFlatAngle = Math.abs(MyOdometry.getDirection() - Math.toRadians(270));
-            if (MyPurePursuitGUI.findClosetPointIndex() >= 20) {
+            if (MyPurePursuitGUI.findClosetPointIndex() >= 27) {
                 LeftServo.setPosition(LeftServoUp);
                 RightServo.setPosition(RightServoUp);
             }
 
-            if(MyPurePursuitGUI.findClosetPointIndex() >= 20){
-                MyPurePursuitGUI.setKv(0.6);
+            if(MyPurePursuitGUI.findClosetPointIndex() >= 50){
+                MyPurePursuitGUI.setKv(0.5);
                 MyIntake.maxIntake();
             }
         }
@@ -153,13 +159,13 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
                 MyIntake.ShutDown();
             }
         }
-/*
+
         isRun = true;
         MyPurePursuitGUI = new PurePursuitGUI(Parking, MyOdometry.getPosition(), toleranceParking, KcParking, MaxVelocityParking, turnSpeedParking, frontParking);
         while(opModeIsActive() && isRun){
             isRun =  purePesuitRun();
         }
-*/
+
         while (!isStopRequested()) {
             packet = new TelemetryPacket();
             MyPurePursuitGUI.updateGraghic(packet);

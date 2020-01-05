@@ -91,13 +91,13 @@ public class PurePursuitGUI extends PathFollowerMecanum {
         packet.put("Target Velocity", targetVelocity);
         packet.put("Target Velocity Y", Yvelocity);
         //packet.put("Measured Velocity", measuredVelocity);
-       // packet.put("X Power",Xpower);
+        packet.put("X Power",Xpower);
         packet.put("Y Power",Ypower);
-       // packet.put("C Power",Cpower);
-        //packet.put("Direction",robotDirection);
-        //packet.put("Target Direction",targetDirection);
+        packet.put("C Power",Cpower);
+        packet.put("Direction",robotDirection);
+        packet.put("Target Direction",targetDirection);
         //packet.put("Point angle",temp);
-        //packet.put("Robot position", RobotPosition.toString());
+        packet.put("Robot position", RobotPosition.toString());
         packet.put("Closed Point Index", findClosetPointIndex());
         if(temp1 != null){
             packet.put("closed Point", temp1.toString());

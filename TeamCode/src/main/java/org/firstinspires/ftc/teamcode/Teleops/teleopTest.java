@@ -17,7 +17,7 @@ public class teleopTest extends Robot {
     private int stayingPosition = 0;
     private int encodersStay = 0;
     private double stayPN = 0.001;
-    DigitalChannel Touch_Foundation;
+//    DigitalChannel Touch_Foundation;
 
 
     @Override
@@ -64,10 +64,9 @@ public class teleopTest extends Robot {
             telemetry.addData("left Power", leftLinearMotor.getPower());
             telemetry.addData("right Power", rightLinearMotor.getPower());
             telemetry.update();
-            if (Touch_Foundation.getState() == false){
+      /*      if (Touch_Foundation.getState() == false){
                 LB.setPower(1);
-            }
-
+            }*/
         }
     }
 }

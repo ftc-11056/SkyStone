@@ -20,7 +20,7 @@ public class PathFollowerMecanum {
     private double closedPointBeforIndex;
     public OurPoint LookaheadPoint;
     protected double targetDirection;
-    private final double turnSpeed;
+    private double turnSpeed;
     protected double targetVelocity;
     protected double measuredVelocity;
 
@@ -283,5 +283,8 @@ public class PathFollowerMecanum {
     }
     public void setKv(double Kv){
         this.Kv = Kv;
+    }
+    public void setTurnSpeed(double turnSpeed){
+        this.turnSpeed = turnSpeed;
     }
 }
