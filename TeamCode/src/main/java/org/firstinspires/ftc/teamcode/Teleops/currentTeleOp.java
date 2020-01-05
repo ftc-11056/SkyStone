@@ -50,7 +50,9 @@ public class currentTeleOp extends Robot {
     // levels counter
 
     private int currentLevel = 1;
-    private int upEncodersToLevels = 100;
+    private int upEncodersToLevels = 0;
+    private int encoderToLevel = 0;
+    private boolean degel = false;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -61,6 +63,8 @@ public class currentTeleOp extends Robot {
         LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        rightLinearMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
         blinkinLedDriver.setPattern(pattern);
@@ -169,10 +173,8 @@ public class currentTeleOp extends Robot {
                 telemetry.update();
             } else if (upDegel == true && downDegel != 1)
                 if ((-time + runtime.seconds()) > 0.7) {
-                    MyElevator.ElevateWithEncoder(-530, 1, 0.8);
+                    MyElevator.ElevateWithEncoder(-400, 1, 0.8);
                     stayingPosition = leftLinearMotor.getCurrentPosition();
-                    telemetry.addLine("Here");
-                    telemetry.update();
                     if (leftLinearMotor.getCurrentPosition() < -350) {
                         Arm.setPosition(1);
                     }
@@ -193,7 +195,7 @@ public class currentTeleOp extends Robot {
             }
             if (downDegel == 1 && upDegel != true)
             if ((-time + runtime.seconds()) > 1.7) {
-                MyElevator.ElevateWithEncoder(20, 0.2, 0.0088);
+                MyElevator.ElevateWithEncoder(20, 0.1, 0.0088);
                 stayingPosition = leftLinearMotor.getCurrentPosition();
                 telemetry.addLine("Here");
                 telemetry.update();
@@ -216,7 +218,7 @@ public class currentTeleOp extends Robot {
         }
 
 //            TODO: normal moving
-        if (gamepad2.right_bumper && leftLinearMotor.getCurrentPosition() > -400 /*&& upMagnetElevator.getState() == false*/) {
+        if (gamepad2.right_bumper && leftLinearMotor.getCurrentPosition() > -400 ) {
             MyElevator.ElevateWithEncoder(-430, 1, 1);
             stayingPosition = leftLinearMotor.getCurrentPosition();
             bumpersDondMove = false;
@@ -244,24 +246,8 @@ public class currentTeleOp extends Robot {
 
         encodersStay = stayingPosition;
 
-//        TODO: Levels Counter
-
-            if (gamepad2.dpad_up && (leftLinearMotor.getCurrentPosition() > 0 && leftLinearMotor.getCurrentPosition() > 20)) {
-                upEncodersToLevels = 100;
-                MyElevator.ElevateWithEncoder(upEncodersToLevels,0.3,1);
-            }else if (gamepad2.dpad_up && (leftLinearMotor.getCurrentPosition() > 90 && leftLinearMotor.getCurrentPosition() > 110)){
-                upEncodersToLevels = 200;
-                MyElevator.ElevateWithEncoder(upEncodersToLevels,0.3,1);
-            }else if (gamepad2.dpad_up && (leftLinearMotor.getCurrentPosition() > 190 && leftLinearMotor.getCurrentPosition() > 210)){
-                upEncodersToLevels = 300;
-                MyElevator.ElevateWithEncoder(upEncodersToLevels,0.3,1);
-            }else if (gamepad2.dpad_up && (leftLinearMotor.getCurrentPosition() > 290 && leftLinearMotor.getCurrentPosition() > 310)){
-                upEncodersToLevels = 400;
-                MyElevator.ElevateWithEncoder(upEncodersToLevels,0.3,1);
-            }
-
 //            TODO: telemetryes
-        telemetry.addData("encoders to go:", upEncodersToLevels);
+        telemetry.addData("encoders to go:", encoderToLevel);
         telemetry.addData("current Position LeftElevator", leftLinearMotor.getCurrentPosition());
         telemetry.addData("Left power Elevator", leftLinearMotor.getPower());
         telemetry.addData("right power Elevator", rightLinearMotor.getPower());
@@ -271,6 +257,8 @@ public class currentTeleOp extends Robot {
         telemetry.addData("Mode: ", MyDriveTrain.Mode);
         telemetry.addData("stay D n: ", stayDN);
         telemetry.update();
+
+
 
     }
 }

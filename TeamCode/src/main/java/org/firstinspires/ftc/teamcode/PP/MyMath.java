@@ -38,6 +38,9 @@ public class MyMath {
         if (P.getX() == Q.getX()) {
             Q.setX(Q.getX() + 0.001);
         }
+        if(P.getY() == Q.getY()){
+            Q.setY(Q.getY() + 0.001);
+        }
         double k1 = 0.5 * (square(P.getX()) + square(P.getY()) - square(Q.getX()) - square(Q.getY())) / (P.getX() - Q.getX());
         double k2 = (P.getY() - Q.getY()) / (P.getX() - Q.getX());
         double y = 0.5 * (square(Q.getX()) - 2 * Q.getX() * k1 + square(Q.getY()) - square(R.getX()) + 2 * R.getX() * k1 - square(R.getY())) / (R.getX() * k2 - R.getY() + Q.getY() - Q.getX() * k2);

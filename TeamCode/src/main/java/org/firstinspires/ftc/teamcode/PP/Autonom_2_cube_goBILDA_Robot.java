@@ -20,8 +20,8 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
             new OurPoint(0.51,-1,130)};
     private double toleranceLeft1 = 50;
     private double KcLeft1 = 0.5;
-    private double MaxVelocityLeft1 = 0.5;
-    private double turnSpeedLeft1 = 0.5;
+    private double MaxVelocityLeft1 = 0.3;
+    private double turnSpeedLeft1 = 0.3;
     private boolean frontLeft1 = true;
 
     private OurPoint[] LeftFoundation = {
@@ -37,12 +37,12 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
 
     private OurPoint[] Left2 = {
             new OurPoint(0.74, 1.15, 270),
-            new OurPoint(1.2, 1.15,180),
-            new OurPoint(1.2, 0.40, 180),
-            new OurPoint(1.2, -0.85, 150),
+            new OurPoint(1, 1.15,180),
+            new OurPoint(1, 0.40, 180),
+            new OurPoint(1  , -0.85, 150),
             new OurPoint(0.65, -1.4, 150),
-            new OurPoint(0.35, -1.45, 150)};
-    private double toleranceLeft2 = 60;
+            new OurPoint(0.45, -1.45, 150)};
+    private double toleranceLeft2 = 80.5;
     private double KcLeft2 = 2.5;
     private double MaxVelocityLeft2 = 1.5;
     private double turnSpeedLeft2 = 1.5;
@@ -94,7 +94,8 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
         while (opModeIsActive() && isRun) {
             isRun = purePesuitRun();
             if (MyPurePursuitGUI.findClosetPointIndex() >= 13) {
-                MyPurePursuitGUI.setKv(0.6);
+                MyPurePursuitGUI.setKa(0.1);
+                MyPurePursuitGUI.setKv(0.3);
                 MyIntake.maxIntake();
             }
         }

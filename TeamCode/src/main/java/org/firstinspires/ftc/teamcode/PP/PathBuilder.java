@@ -14,13 +14,16 @@ public class PathBuilder {
     public StringBuilder SB = null;
 
 
-    public static void main(String[] args){
-        OurPoint[] Path4 = {
-                new OurPoint(1.566, -0.875, 110),
-                new OurPoint(0.85, -0.75, 110),
-                new OurPoint(0.55,-0.98,110)};
-        PathBuilder bf = new PathBuilder(Path4,0.01, 0.5, 1, 50);
-    }
+//    public static void main(String[] args){
+//        OurPoint[] Path4 = {
+//                new OurPoint(0.74, 1.15, 270),
+//                new OurPoint(1, 1.15,180),
+//                new OurPoint(1, 0.40, 180),
+//                new OurPoint(1  , -0.85, 150),
+//                new OurPoint(0.65, -1.4, 150),
+//                new OurPoint(0.45, -1.45, 150)};
+//        PathBuilder bf = new PathBuilder(Path4,1.5, 1.2, 5, 80.2);
+//    }
 
 
     public PathBuilder(OurPoint[] Path, double MaxVelocity, double MaxAcceleration, double Kc, double tolerance){

@@ -98,10 +98,10 @@ public class PurePursuitGUI extends PathFollowerMecanum {
         //packet.put("Target Direction",targetDirection);
         //packet.put("Point angle",temp);
         //packet.put("Robot position", RobotPosition.toString());
-        //packet.put("Closed Point Index", findClosetPointIndex());
-        //if(temp1 != null){
-        //    packet.put("closed Point", temp1.toString());
-        //}
+        packet.put("Closed Point Index", findClosetPointIndex());
+        if(temp1 != null){
+            packet.put("closed Point", temp1.toString());
+        }
         //packet.put("Robot - point - angle", LookaheadPointAngleAccordingRobotLine);
         double[][] path = new  double[2][wayPoint.length];
         for(int i = 0; i < wayPoint.length; i++){
