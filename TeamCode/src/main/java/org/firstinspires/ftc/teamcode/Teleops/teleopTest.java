@@ -17,8 +17,6 @@ public class teleopTest extends Robot {
     private int stayingPosition = 0;
     private int encodersStay = 0;
     private double stayPN = 0.001;
-//    DigitalChannel Touch_Foundation;
-
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -34,25 +32,26 @@ public class teleopTest extends Robot {
 
             if (flag == false && gamepad2.dpad_up && (leftLinearMotor.getCurrentPosition() > -10 &&
                     leftLinearMotor.getCurrentPosition() < 10) /*&& upEncodersToLevels == 0*/) {
-                MyElevator.ElevateWithEncoder(-100, 0.3, 0.9);
+                MyElevator.ElevateWithEncoderTest(-100, 0.3, 0.9);
                 stayingPosition = leftLinearMotor.getCurrentPosition();
                 flag = true;
                 if (leftLinearMotor.getCurrentPosition() <= -90) flag = false;
-            } else if (!flag && gamepad2.dpad_up && (leftLinearMotor.getCurrentPosition() > -110 &&
+            }
+            else if (!flag && gamepad2.dpad_up && (leftLinearMotor.getCurrentPosition() > -110 &&
                     leftLinearMotor.getCurrentPosition() < -90) /*&& upEncodersToLevels == -100*/) {
-                MyElevator.ElevateWithEncoder(-200, 0.3, 0.9);
+                MyElevator.ElevateWithEncoderTest(-200, 0.3, 0.9);
                 stayingPosition = leftLinearMotor.getCurrentPosition();
                 flag = true;
                 if (leftLinearMotor.getCurrentPosition() <= -190) flag = false;
-
-            } else if (!flag && gamepad2.dpad_up && (leftLinearMotor.getCurrentPosition() > -210 &&
+            }
+            else if (!flag && gamepad2.dpad_up && (leftLinearMotor.getCurrentPosition() > -210 &&
                     leftLinearMotor.getCurrentPosition() < -190)/* && upEncodersToLevels == -200*/) {
-                MyElevator.ElevateWithEncoder(-300, 0.3, 0.9);
+                MyElevator.ElevateWithEncoderTest(-300, 0.3, 0.9);
                 stayingPosition = leftLinearMotor.getCurrentPosition();
                 flag = true;
                 if (leftLinearMotor.getCurrentPosition() <= -290) flag = false;
-
-            } else flag = false;
+            }
+            else flag = false;
 
             encodersStay = stayingPosition;
 
@@ -64,9 +63,13 @@ public class teleopTest extends Robot {
             telemetry.addData("left Power", leftLinearMotor.getPower());
             telemetry.addData("right Power", rightLinearMotor.getPower());
             telemetry.update();
-      /*      if (Touch_Foundation.getState() == false){
-                LB.setPower(1);
-            }*/
+            if (Touch_Foundation.getState() == false){
+                telemetry.addLine("1 1 0 5 6   T H E  Y  B O T ");
+                telemetry.update();
+            }
+
+
+
         }
     }
 }

@@ -38,6 +38,14 @@ public class elevator {
         rightEle.setPower(power * (pos - leftEle.getCurrentPosition()) * kp);
     }
 
+    public void ElevateWithEncoderTest(int pos, double power, double kp) {
+        leftEle.setTargetPosition(pos);
+        rightEle.setTargetPosition(pos);
+        leftEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        rightEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftEle.setPower(power * (pos - leftEle.getCurrentPosition()) * kp);
+        rightEle.setPower(-(power * (pos - leftEle.getCurrentPosition()) * kp));
+    }
 
     public void WithoutPElevateWithEncoder(int pos, double power) {
         leftEle.setTargetPosition(pos);
