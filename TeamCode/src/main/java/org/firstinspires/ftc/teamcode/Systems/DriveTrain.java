@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Systems;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -25,6 +26,7 @@ import java.util.Arrays;
     public DcMotor LeftFront = null;
     public DcMotor RightFront = null;
     public DcMotor RightBack = null;
+    public DigitalChannel touchFoundtion = null;
 
 
     /*static final double COUNTS_PER_MOTOR_REV = 28;    // eg: ANDYMARK Motor Encoder
@@ -54,12 +56,13 @@ import java.util.Arrays;
 
 
     /* Constructor */
-    public DriveTrain(DcMotor LB, DcMotor LF, DcMotor RF, DcMotor RB, BNO055IMU imu) {
+    public DriveTrain(DcMotor LB, DcMotor LF, DcMotor RF, DcMotor RB, BNO055IMU imu, DigitalChannel TouchFoundation) {
         this.LeftBack = LB;
         this.LeftFront = LF;
         this.RightFront = RF;
         this.RightBack = RB;
         IMU = imu;
+        this.touchFoundtion = TouchFoundation;
     }
 
     public void SetPower (double LB, double RB, double LF, double RF){
@@ -329,6 +332,9 @@ import java.util.Arrays;
             RightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             RightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
+      /*  public void drive_to_microswitch(){
+        if (touchFoundtion)
+        }*/
 
 
 
