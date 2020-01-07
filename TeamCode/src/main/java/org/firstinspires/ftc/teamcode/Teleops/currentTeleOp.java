@@ -47,12 +47,6 @@ public class currentTeleOp extends Robot {
     // normal down mode
     private String ArmMode = "in";
 
-    // levels counter
-
-    private int currentLevel = 1;
-    private int upEncodersToLevels = 0;
-    private int encoderToLevel = 0;
-    private boolean degel = false;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -140,7 +134,7 @@ public class currentTeleOp extends Robot {
             }
 
 
-//            TODO: Intake Train
+//            TODO: Intake System
             if (gamepad2.right_trigger > 0) {
                 MyIntake.maxIntake();
             } else if (gamepad2.left_trigger > 0) {
@@ -247,7 +241,6 @@ public class currentTeleOp extends Robot {
         encodersStay = stayingPosition;
 
 //            TODO: telemetryes
-        telemetry.addData("encoders to go:", encoderToLevel);
         telemetry.addData("current Position LeftElevator", leftLinearMotor.getCurrentPosition());
         telemetry.addData("Left power Elevator", leftLinearMotor.getPower());
         telemetry.addData("right power Elevator", rightLinearMotor.getPower());

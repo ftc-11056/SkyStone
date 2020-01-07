@@ -63,10 +63,10 @@ public class teleopTest extends Robot {
             telemetry.addData("left Power", leftLinearMotor.getPower());
             telemetry.addData("right Power", rightLinearMotor.getPower());
             telemetry.update();
-            if (Touch_Foundation.getState() == false){
+            /*if (MyDriveTrain.touchFoundtion  .getState() == false){
                 telemetry.addLine("1 1 0 5 6   T H E  Y  B O T ");
                 telemetry.update();
-            }
+            }*/
 
 
 

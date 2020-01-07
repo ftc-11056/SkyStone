@@ -27,6 +27,7 @@ import org.firstinspires.ftc.teamcode.Systems.elevator;
 public class Robot extends LinearOpMode {
 
     protected ElapsedTime runtime = new ElapsedTime();
+    protected ElapsedTime programRunTime = new ElapsedTime();
 
     //Drive Train Motor
     public DcMotor LB = null;
@@ -45,7 +46,7 @@ public class Robot extends LinearOpMode {
     public Servo RightServo = null;
     public Servo ParkingMot = null;
     public Servo Capstone = null;
-    public DigitalChannel Touch_foundation = null;
+//    public DigitalChannel Touch_foundation = null;
 
 
     /*IMU Fileds*/
@@ -132,7 +133,7 @@ public class Robot extends LinearOpMode {
         downMagnetElevator = hardwareMap.get(DigitalChannel.class,"downMagnetELevator");
 
         cubeIn = hardwareMap.get(DistanceSensor.class, "cubeIn");
-        Touch_foundation = hardwareMap.get(DigitalChannel.class, "Touch_Foundation");
+//        Touch_foundation = hardwareMap.get(DigitalChannel.class, "Touch_Foundation");
 
         blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
 
@@ -215,7 +216,7 @@ public class Robot extends LinearOpMode {
 
 
         //Define Mechanisms:
-        MyDriveTrain = new DriveTrain(LB,LF, RF, RB,IMU);
+        MyDriveTrain = new DriveTrain(LB,LF, RF, RB,IMU/*, Touch_foundation*/);
         MyIntake = new IntakeTrain(IntakeL, IntakeR);
         MyElevator = new elevator(leftLinearMotor, rightLinearMotor, upMagnetElevator, downMagnetElevator, fixedPosition);
     }

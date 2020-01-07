@@ -18,6 +18,7 @@ public class FoundationPlacementBlue extends basicAuto {
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
         waitForStart();
+        programRunTime.reset();
         MyDriveTrain.encoderDrive(0.5,-30,30,30,-30,2);
         MyDriveTrain.encoderDrive(0.5,-20,-20,-20,-20,2);
         MyDriveTrain.RotateP(90,0.7,10,0.0108);
