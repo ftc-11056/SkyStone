@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Robot;
 @Autonomous(name = "Autonom_2_cube_goBILDA_Robot", group = "teamcode")
 public class Autonom_2_cube_goBILDA_Robot extends Robot {
 
-    public String CubePlace = "Center";
+    public String CubePlace = "Left";
     public PurePursuitGUI MyPurePursuitGUI;
     public FtcDashboard dashboard;
     private OurPoint StartPosition = new OurPoint(1.566, -0.875, 90);
@@ -18,18 +18,18 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
     private OurPoint[] Left1 = {
             new OurPoint(1.566, -0.875, 130),
             new OurPoint(0.8, -0.6, 130),
-            new OurPoint(0.62,-1,130)};
+            new OurPoint(0.55,-1,130)};
     private double toleranceLeft1 = 50;
     private double KcLeft1 = 0.5;
-    private double MaxVelocityLeft1 = 0.3;
-    private double turnSpeedLeft1 = 0.3;
+    private double MaxVelocityLeft1 = 0.4;
+    private double turnSpeedLeft1 = 0.4;
     private boolean frontLeft1 = true;
 
     private OurPoint[] LeftFoundation = {
-            new OurPoint(0.58,-1,180),
+            new OurPoint(0.55,-1,180),
             new OurPoint(0.9, -0.35, 180),
             new OurPoint(0.90, 0.55, 270),
-            new OurPoint(0.74, 1.18, 270)};
+            new OurPoint(0.5, 1.18, 270)};
     private double toleranceLeftFoundation = 40;
     private double KcLeftFoundation = 3;
     private double MaxVelocityLeftFoundation = 1.5;
@@ -37,8 +37,8 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
     private boolean frontLeftFoundation = false;
 
     private OurPoint[] Left2 = {
-            new OurPoint(0.74, 1.18, 270),
-            new OurPoint(1.55, 1.15,180),
+            new OurPoint(0.5, 1.18, 270),
+            new OurPoint(1.55, 1.18,180),
             new OurPoint(0.85, 0.30, 180),
             new OurPoint(0.85, -0.85, 130),
             new OurPoint(0.55, -1.35, 130),
@@ -64,8 +64,8 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
     //    TODO Center Points
         private OurPoint[] Center1 = {
                 new OurPoint(1.566, -0.875, 130),
-                new OurPoint(0.8, -0.6, 130),
-                new OurPoint(0.62,-0.8,130)};
+                new OurPoint(0.8, -0.7, 130),
+                new OurPoint(0.58,-0.55,130)};
         private double toleranceCenter1 = 50;
         private double KcCenter1 = 0.5;
         private double MaxVelocityCenter1 = 0.3;
@@ -73,9 +73,10 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
         private boolean frontCenter1 = true;
 
         private OurPoint[] CenterFoundation = {
-                new OurPoint(0.62,-0.8,180),
-                new OurPoint(0.9, -0.35, 180),
-                new OurPoint(0.90, 0.55, 270),
+                new OurPoint(0.58,-0.5,180),
+                new OurPoint(0.85,-0.40,180),
+                new OurPoint(0.9,-0.35,180),
+                new OurPoint(0.9, 0.55, 270),
                 new OurPoint(0.74, 1.18, 270)};
         private double toleranceCenterFoundation = 40;
         private double KcCenterFoundation = 3;
@@ -89,7 +90,7 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
                 new OurPoint(0.85, 0.30, 180),
                 new OurPoint(0.85, -0.85, 130),
                 new OurPoint(0.55, -1.35, 130),
-                new OurPoint(0.30, -1.20, 130)};
+                new OurPoint(0.30, -1.1, 130)};
         private double toleranceCenter2 = 82;
         private double KcCenter2 = 1.5;
         private double MaxVelocityCenter2 = 1;
@@ -105,7 +106,7 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
         private double toleranceCenterFoundation2 = 80;
         private double KcCenterFoundation2 = 2.5;
         private double MaxVelocityCenterFoundation2 = 1.5;
-        private double turnSpeedCenterFoundation2 = 0.2;
+        private double turnSpeedCenterFoundation2 = 1.5;
         private boolean frontCenterFoundation2 = false;
 
     //    TODO Right Points
@@ -175,7 +176,8 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
         dashboard = FtcDashboard.getInstance();
         packet = new TelemetryPacket();
         BuildOdometry(StartPosition);
-        MyPurePursuitGUI = new PurePursuitGUI(Left1, MyOdometry.getPosition(), toleranceLeft1, KcLeft1, MaxVelocityLeft1, turnSpeedLeft1, frontLeft1);
+//        MyPurePursuitGUI = new PurePursuitGUI(Left1, MyOdometry.getPosition(), toleranceLeft1, KcLeft1, MaxVelocityLeft1, turnSpeedLeft1, frontLeft1);
+        MyPurePursuitGUI = new PurePursuitGUI(Left2, MyOdometry.getPosition(), toleranceLeft2, KcLeft2, MaxVelocityLeft2, turnSpeedLeft2, frontLeft2);
         while (!isStarted()) {
             packet = new TelemetryPacket();
             MyPurePursuitGUI.updateGraghic(packet);
@@ -192,7 +194,7 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
             while (opModeIsActive() && isRun) {
                 isRun = purePesuitRun();
                 if (MyPurePursuitGUI.findClosetPointIndex() >= 16) {
-                    MyPurePursuitGUI.setKv(0.6);
+                    MyPurePursuitGUI.setKv(0.5);
                     MyIntake.maxIntake();
                 }
             }
@@ -224,7 +226,8 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
                 isRun = purePesuitRun();
                 if (MyPurePursuitGUI.findClosetPointIndex() <= 12) {
                     MyPurePursuitGUI.setTurnSpeed(0.2);
-                } else {
+                }
+                else {
                     packet.addLine("switch");
                     MyPurePursuitGUI.setTurnSpeed(2.5);
                 }
@@ -238,11 +241,11 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
                 if (MyPurePursuitGUI.findClosetPointIndex() >= 27) {
                     LeftServo.setPosition(LeftServoUp);
                     RightServo.setPosition(RightServoUp);
-                    MyPurePursuitGUI.setTurnSpeed(0.3);
+                    MyPurePursuitGUI.setKv(0.5);
+                    MyPurePursuitGUI.setTurnSpeed(0.2);
                 }
 
                 if (MyPurePursuitGUI.findClosetPointIndex() >= 50) {
-                    MyPurePursuitGUI.setKv(0.5);
                     MyIntake.maxIntake();
                 }
             }
@@ -312,7 +315,7 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
                 if (MyPurePursuitGUI.findClosetPointIndex() >= 27) {
                     LeftServo.setPosition(LeftServoUp);
                     RightServo.setPosition(RightServoUp);
-                    MyPurePursuitGUI.setTurnSpeed(0.3);
+                    MyPurePursuitGUI.setTurnSpeed(1.5);
                 }
 
                 if (MyPurePursuitGUI.findClosetPointIndex() >= 50) {
@@ -332,7 +335,8 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
             }
         }
 
-//        TODO Right Lane
+        //        TODO Right Lane
+        else if (CubePlace == "Right"){
         isRun = true;
         MyPurePursuitGUI = new PurePursuitGUI(Right1, MyOdometry.getPosition(), toleranceRight1, KcRight1, MaxVelocityRight1, turnSpeedRight1, frontRight1);
         MyPurePursuitGUI.setKv(1);
@@ -370,7 +374,7 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
         while (opModeIsActive() && isRun) {
             isRun = purePesuitRun();
             if (MyPurePursuitGUI.findClosetPointIndex() <= 12) {
-                MyPurePursuitGUI.setTurnSpeed(0.2);
+                MyPurePursuitGUI.setTurnSpeed(0.1);
             } else {
                 packet.addLine("switch");
                 MyPurePursuitGUI.setTurnSpeed(2.5);
@@ -392,26 +396,30 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
                 MyPurePursuitGUI.setKv(0.5);
                 MyIntake.maxIntake();
             }
+        }
 
-
-
-        isRun = true;
-        MyPurePursuitGUI = new PurePursuitGUI(RightFoundation2, MyOdometry.getPosition(), toleranceRightFoundation2, KcRightFoundation2, MaxVelocityRightFoundation2, turnSpeedRightFoundation2, frontRightFoundation2);
-        while (opModeIsActive() && isRun) {
-            isRun = purePesuitRun();
-            if (MyPurePursuitGUI.findClosetPointIndex() >= 10) {
-                MyIntake.ShutDown();
+            isRun = true;
+            MyPurePursuitGUI = new PurePursuitGUI(RightFoundation2, MyOdometry.getPosition(), toleranceRightFoundation2, KcRightFoundation2, MaxVelocityRightFoundation2, turnSpeedRightFoundation2, frontRightFoundation2);
+            while (opModeIsActive() && isRun) {
+                isRun = purePesuitRun();
+                if (MyPurePursuitGUI.findClosetPointIndex() >= 10) {
+                    MyIntake.ShutDown();
+                }
             }
-        }
-    }
 
 
-//        TODO Parking
-        isRun = true;
-        MyPurePursuitGUI = new PurePursuitGUI(Parking, MyOdometry.getPosition(), toleranceParking, KcParking, MaxVelocityParking, turnSpeedParking, frontParking);
-        while (opModeIsActive() && isRun) {
-            isRun = purePesuitRun();
         }
+
+            //        TODO Parking
+            isRun = true;
+            MyPurePursuitGUI = new PurePursuitGUI(Parking, MyOdometry.getPosition(), toleranceParking, KcParking, MaxVelocityParking, turnSpeedParking, frontParking);
+            while (opModeIsActive() && isRun) {
+                isRun = purePesuitRun();
+            }
+
+
+
+
 
 
 
@@ -441,6 +449,10 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
         }
         MyPurePursuitGUI.updateGraghic(packet);
         packet.put("isRun",isRun.toString());
+        packet.put("LF",MyDriveTrain.LeftFront.getPower());
+        packet.put("LB",MyDriveTrain.LeftBack.getPower());
+        packet.put("RF",MyDriveTrain.RightFront.getPower());
+        packet.put("RB",MyDriveTrain.RightBack.getPower());
         dashboard.sendTelemetryPacket(packet);
         return true;
     }
