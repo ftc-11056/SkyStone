@@ -90,6 +90,7 @@ public class PurePursuitGUI extends PathFollowerMecanum {
     public void updateGraghic(TelemetryPacket packet){
         packet.put("Target Velocity", targetVelocity);
         packet.put("Target Velocity Y", Yvelocity);
+        packet.put("Target Velocity X", Xvelocity);
         //packet.put("Measured Velocity", measuredVelocity);
         packet.put("X Power",Xpower);
         packet.put("Y Power",Ypower);
@@ -97,12 +98,13 @@ public class PurePursuitGUI extends PathFollowerMecanum {
         packet.put("Direction",Math.toDegrees(robotDirection));
         packet.put("Target Direction",Math.toDegrees(targetDirection));
         //packet.put("Point angle",temp);
-        packet.put("Robot position", RobotPosition.toString());
-        packet.put("Closed Point Index", findClosetPointIndex());
-        if(temp1 != null){
-            packet.put("closed Point", temp1.toString());
-        }
-        //packet.put("Robot - point - angle", LookaheadPointAngleAccordingRobotLine);
+       // packet.put("Robot position", RobotPosition.toString());
+        //packet.put("Closed Point Index", findClosetPointIndex());
+        //if(temp1 != null){
+        //    packet.put("closed Point", temp1.toString());
+        //}
+        packet.put("Robot - point - angle", Math.toDegrees(LookaheadPointAngleAccordingRobotLine));
+        packet.put("X distance", Xdistance);
         double[][] path = new  double[2][wayPoint.length];
         for(int i = 0; i < wayPoint.length; i++){
             path[0][i] = ((OurPoint)wayPoint[i][0]).getX()*100/2.54;

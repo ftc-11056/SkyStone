@@ -215,7 +215,7 @@ public class Robot extends LinearOpMode {
 
 
         //Define Mechanisms:
-        MyDriveTrain = new DriveTrain(LB,LF, RF, RB,IMU);
+        MyDriveTrain = new DriveTrain(LB,LF, RF, RB,IMU,Touch_foundation);
         MyIntake = new IntakeTrain(IntakeL, IntakeR);
         MyElevator = new elevator(leftLinearMotor, rightLinearMotor, upMagnetElevator, downMagnetElevator, fixedPosition);
     }
