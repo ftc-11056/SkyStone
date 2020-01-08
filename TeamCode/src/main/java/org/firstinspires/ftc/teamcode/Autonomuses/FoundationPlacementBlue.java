@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode.Autonomuses;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.basicAuto;
 
-
+@Disabled
 @Autonomous(name = "FoundationPlacementBlue", group = "teamcode")
 public class FoundationPlacementBlue extends basicAuto {
 
@@ -18,7 +19,7 @@ public class FoundationPlacementBlue extends basicAuto {
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
         waitForStart();
-        programRunTime.reset();
+       // programRunTime.reset();
         MyDriveTrain.encoderDrive(0.5,-30,30,30,-30,2);
         MyDriveTrain.encoderDrive(0.5,-20,-20,-20,-20,2);
         MyDriveTrain.RotateP(90,0.7,10,0.0108);
