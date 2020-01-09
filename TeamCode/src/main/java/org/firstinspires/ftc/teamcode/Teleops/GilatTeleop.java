@@ -69,23 +69,21 @@ public class GilatTeleop extends Robot {
   //          TODO: One Level Uper
             if(gamepad2.b&&!up){
                 up=true;
-                MyElevator.ElevateWithEncoderTest(pos-100,0.1,0.003);
-                stayingPosition=pos-100;
+                MyElevator.ElevateWithEncoderTest(pos,0.1,0.003);
+                stayingPosition=pos;
             }
-            if(up&& leftLinearMotor.getCurrentPosition()<=pos-90&& !gamepad2.b){
+            if(up&& leftLinearMotor.getCurrentPosition()<=pos+90&& !gamepad2.b){
                 up=false;
                 counter+=1;
             }
-
-
 //            TODO: One Level Lower
 
             if (gamepad2.x && !low){
                 low = true;
-                MyElevator.ElevateWithEncoderTest(pos + 100, 0.1, 0.003);
-                stayingPosition = pos + 100;
+                MyElevator.ElevateWithEncoderTest(pos+200 , 0.1, 0.003);
+                stayingPosition = pos+200 ;
             }
-            if(low && leftLinearMotor.getCurrentPosition() >= pos + 90 && !gamepad2.x){
+            if(low && leftLinearMotor.getCurrentPosition() >= pos - 90 && !gamepad2.x){
                 low = false;
                 counter -=1;
             }
@@ -141,7 +139,7 @@ public class GilatTeleop extends Robot {
             }
             if (downDegel == 1 && upDegel != true)
                 if ((-time + runtime.seconds()) > 1.7) {
-                    MyElevator.ElevateWithEncoder(20, 0.1, 0.0088);
+                    MyElevator.ElevateWithEncoder(20, 0.1, 0.00088);
                     stayingPosition = leftLinearMotor.getCurrentPosition();
                 }
 
@@ -209,6 +207,23 @@ public class GilatTeleop extends Robot {
             telemetry.addData("YdontMove", YDondMove);
             telemetry.addData("EndOfY", endOfY);
             telemetry.update();
+
+  //        TODO: Hillel Mechanizem
+            if (gamepad1.right_bumper) {
+                Arm.setPosition(0.32);
+              //  ArmMode = "in";
+            } else if (gamepad1.right_trigger>0) {
+                Arm.setPosition(1);
+             //   ArmMode = "out";
+            }
+
+            if (gamepad1.left_bumper) {
+                Output.setPosition(0.52);
+               // ArmMode = "in";
+            } else if (gamepad1.left_trigger>0) {
+                Output.setPosition(0.87);
+               // ArmMode = "out";
+            }
 
         }
     }

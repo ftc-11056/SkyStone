@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.doge_cv;
 
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.basicAuto;
@@ -15,7 +16,8 @@ import java.util.Locale;
  * Original Work Copright(c) 2019 OpenFTC Team
  * Derived Work Copyright(c) 2019 DogeDevs
  */
-@TeleOp(name = "Skystone Detector OpMode", group="DogeCV")
+@Disabled
+@TeleOp(name = "mkl", group="DogeCV")
 public class realSkystoneDeTeCtOr extends basicAuto {
     private OpenCvCamera phoneCam;
     OpenCvCamera webcam;
