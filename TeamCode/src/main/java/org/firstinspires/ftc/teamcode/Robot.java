@@ -30,9 +30,9 @@ public class Robot extends LinearOpMode {
 
     //Drive Train Motor
     public DcMotor LB = null;
-    public DcMotor  LF = null;
-    public DcMotor  RF = null;
-    public DcMotor  RB = null;
+    public DcMotor LF = null;
+    public DcMotor RF = null;
+    public DcMotor RB = null;
 
     //Systems Motor and Servo
     public DcMotor leftLinearMotor = null;
@@ -71,7 +71,7 @@ public class Robot extends LinearOpMode {
     public double servoPosition = 0.005;
     protected int fixedPosition = 0;
 
-    public double OutputDown = 0.3;
+    public double OutputDown = 0.29;
     public double OutputUp = 0.8;
 
     public double CapstoneUp = 0.6;
@@ -90,6 +90,7 @@ public class Robot extends LinearOpMode {
     public double ArmOpen = 1;
     public boolean IntakeStop = true;
     public int PointIndexStartElavator = 0;
+    public double PlacingStoneTime = 0;
 
     public double cubeNotInMM = 150;
 
@@ -99,37 +100,36 @@ public class Robot extends LinearOpMode {
     public RevBlinkinLedDriver.BlinkinPattern pattern;
 
 
-
     @Override
     public void runOpMode() throws InterruptedException {
 
         runtime.reset();
 
         // Define and Initialize Motors Of Drive Train
-        LB  = hardwareMap.get(DcMotor.class, "LB");
-        LF  = hardwareMap.get(DcMotor.class, "LF");
-        RF  = hardwareMap.get(DcMotor.class, "RF");
-        RB  = hardwareMap.get(DcMotor.class, "RB");
+        LB = hardwareMap.get(DcMotor.class, "LB");
+        LF = hardwareMap.get(DcMotor.class, "LF");
+        RF = hardwareMap.get(DcMotor.class, "RF");
+        RB = hardwareMap.get(DcMotor.class, "RB");
 
         //Define and Initialize Systems Motors and Servo
-        leftLinearMotor = hardwareMap.get(DcMotor.class,"leftLinearMotor");
-        rightLinearMotor = hardwareMap.get(DcMotor.class,"rightLinearMotor");
-        Arm  = hardwareMap.get(Servo.class, "Arm");
+        leftLinearMotor = hardwareMap.get(DcMotor.class, "leftLinearMotor");
+        rightLinearMotor = hardwareMap.get(DcMotor.class, "rightLinearMotor");
+        Arm = hardwareMap.get(Servo.class, "Arm");
 
-        Output  = hardwareMap.get(Servo.class, "OutPut");
+        Output = hardwareMap.get(Servo.class, "OutPut");
 
-        IntakeL = hardwareMap.get(DcMotor.class,"IntakeL");
-        IntakeR = hardwareMap.get(DcMotor.class,"IntakeR");
+        IntakeL = hardwareMap.get(DcMotor.class, "IntakeL");
+        IntakeR = hardwareMap.get(DcMotor.class, "IntakeR");
 
-        ParkingMot = hardwareMap.get(Servo.class,"ParkingMot");
+        ParkingMot = hardwareMap.get(Servo.class, "ParkingMot");
 
-        Capstone = hardwareMap.get(Servo.class,"Capstone");
+        Capstone = hardwareMap.get(Servo.class, "Capstone");
 
-        LeftServo  = hardwareMap.get(Servo.class, "LeftServo");
-        RightServo  = hardwareMap.get(Servo.class, "RightServo");
+        LeftServo = hardwareMap.get(Servo.class, "LeftServo");
+        RightServo = hardwareMap.get(Servo.class, "RightServo");
 
-        upMagnetElevator = hardwareMap.get(DigitalChannel.class,"upMagnetELevator");
-        downMagnetElevator = hardwareMap.get(DigitalChannel.class,"downMagnetELevator");
+        upMagnetElevator = hardwareMap.get(DigitalChannel.class, "upMagnetELevator");
+        downMagnetElevator = hardwareMap.get(DigitalChannel.class, "downMagnetELevator");
 
         cubeIn = hardwareMap.get(DistanceSensor.class, "cubeIn");
         Touch_foundation = hardwareMap.get(DigitalChannel.class, "Touch_Foundation");
@@ -137,7 +137,7 @@ public class Robot extends LinearOpMode {
         blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
 
 
-         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -168,7 +168,6 @@ public class Robot extends LinearOpMode {
         rightLinearMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
-
         // Set all motors to zero power
         LF.setPower(0);
         LB.setPower(0);
@@ -189,12 +188,12 @@ public class Robot extends LinearOpMode {
 
         //Define and Initialize Of IMU
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit           = BNO055IMU.AngleUnit.RADIANS;
-        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
         parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
 
-        parameters.loggingEnabled      = true;
-        parameters.loggingTag          = "IMU";
+        parameters.loggingEnabled = true;
+        parameters.loggingTag = "IMU";
         IMU = hardwareMap.get(BNO055IMU.class, "imu");
         IMU.initialize(parameters);
 
@@ -215,7 +214,7 @@ public class Robot extends LinearOpMode {
 
 
         //Define Mechanisms:
-        MyDriveTrain = new DriveTrain(LB,LF, RF, RB,IMU/*,Touch_foundation*/);
+        MyDriveTrain = new DriveTrain(LB, LF, RF, RB, IMU/*,Touch_foundation*/);
         MyIntake = new IntakeTrain(IntakeL, IntakeR);
         MyElevator = new elevator(leftLinearMotor, rightLinearMotor, upMagnetElevator, downMagnetElevator, fixedPosition);
     }
@@ -224,7 +223,7 @@ public class Robot extends LinearOpMode {
         PointIndexStartElavator = pointIndexStartElavator;
     }
 
-    public void updateOdometry(){
+    public void updateOdometry() {
         double currentTime = runtime.seconds();
         double odometryRight = IntakeR.getCurrentPosition();
         double odometryLeft = (IntakeL.getCurrentPosition());
@@ -233,17 +232,17 @@ public class Robot extends LinearOpMode {
         MyOdometry.setAll(odometryRight, odometryLeft, odometryHorizental, currentTime);
     }
 
-    public void BuildOdometry(OurPoint Position){
+    public void BuildOdometry(OurPoint Position) {
         MyOdometry = new Odometry(Position);
     }
 
-    public void StopAndSavePlace(PurePursuitGUI MyPurePursuitGUI, FtcDashboard dashboard){
+    public void StopAndSavePlace(PurePursuitGUI MyPurePursuitGUI, FtcDashboard dashboard) {
         double stopTime = runtime.seconds();
         TelemetryPacket packet;
         MyDriveTrain.setStopPosition(new OurPoint(MyOdometry.dSide, MyOdometry.dForward));
-        while(((runtime.seconds() - stopTime) < 1.5) && opModeIsActive()) {
+        while (((runtime.seconds() - stopTime) < 1.5) && opModeIsActive()) {
             packet = new TelemetryPacket();
-            if(MyPurePursuitGUI.lost){
+            if (MyPurePursuitGUI.lost) {
                 packet.addLine("lost");
             }
             packet.addLine("stop");
@@ -254,30 +253,60 @@ public class Robot extends LinearOpMode {
         }
     }
 
-    public void PlacingStone(int currentPointIndex, TelemetryPacket packet){
+    public void PlacingStoneWhitPoints(int currentPointIndex, TelemetryPacket packet) {
         int delta = currentPointIndex - PointIndexStartElavator;
         packet.put("delte", delta);
-        if(delta >= 0 && delta <= 4) {
+        if (delta >= 0 && delta <= 4) {
             MyElevator.ElevateWithEncoder(-350, 0.4, 0.3);
         }
-        if(delta >= 5 && delta <= 10) {
+        if (delta >= 5 && delta <= 10) {
             Arm.setPosition(ArmOpen);
         }
-        if(delta >= 11 && delta <= 20) {
+        if (delta >= 11 && delta <= 18) {
             MyElevator.ElevateWithEncoder(0, 0.7, 0.0035);
         }
-        if(delta >= 21 && delta <=23) {
+        if (delta >= 19 && delta <= 23) {
             Output.setPosition(OutputUp);
         }
-        if(delta >= 24 && delta <= 34) {
+        if (delta >= 24 && delta <= 34) {
             MyElevator.ElevateWithEncoder(-350, 0.4, 0.3);
         }
-        if(delta >= 35 && delta <= 41) {
+        if (delta >= 35 && delta <= 41) {
             Arm.setPosition(ArmClose);
         }
-        if(delta >= 42  && delta <= 45) {
+        if (delta >= 42 && delta <= 45) {
             MyElevator.ElevateWithEncoder(0, 0.7, 0.0035);
         }
     }
+
+    public boolean PlacingStoneWhitTime(TelemetryPacket packet) {
+        boolean ElvateBusy = true;
+        double Delta = runtime.seconds()-PlacingStoneTime;
+        packet.put("delte", Delta);
+        if (Delta >= 0.3 && Delta <= 1) {
+            MyElevator.ElevateWithEncoder(-350, 0.4, 0.3);
+        }
+        if (Delta >= 1.1 && Delta <= 2) {
+            Arm.setPosition(ArmOpen);
+        }
+        if (Delta >= 2.1 && Delta <= 3) {
+            MyElevator.ElevateWithEncoder(0, 0.3, 0.0035);
+        }
+        if (Delta >= 3 && Delta <= 4) {
+            Output.setPosition(OutputUp);
+        }
+        if (Delta >= 4.1 && Delta <= 5) {
+            MyElevator.ElevateWithEncoder(-350, 0.4, 0.3);
+        }
+        if (Delta >= 5.1 && Delta <= 6) {
+            Arm.setPosition(ArmClose);
+        }
+        if (Delta >= 6.1 && Delta <= 7) {
+            MyElevator.ElevateWithEncoder(0, 0.4, 0.0035);
+            ElvateBusy = false;
+        }
+        return ElvateBusy;
+    }
+
 }
 
