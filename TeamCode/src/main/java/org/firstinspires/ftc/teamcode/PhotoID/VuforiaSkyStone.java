@@ -140,9 +140,10 @@ public class VuforiaSkyStone extends LinearOpMode {
     private float phoneZRotate = 0;
 
     enum ImagePos {
-        Right,
+        Center,
         Left,
-        Center
+        Right
+
     }
 
     public ImagePos getImageLocation(double yPos) {
