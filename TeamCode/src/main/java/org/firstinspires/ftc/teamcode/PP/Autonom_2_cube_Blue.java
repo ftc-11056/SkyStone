@@ -7,18 +7,18 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Robot;
 
 
-@Autonomous(name = "Autonom_2_cube_goBILDA_Robot", group = "teamcode")
-public class Autonom_2_cube_goBILDA_Robot extends Robot {
+@Autonomous(name = "Autonom_2_cube_Blue", group = "teamcode")
+public class Autonom_2_cube_Blue extends Robot {
 
-    public String CubePlace = "Center";
+    public String CubePlace = "Left";
     public PurePursuitGUI MyPurePursuitGUI;
     public FtcDashboard dashboard;
-    private OurPoint StartPosition = new OurPoint(1.566, -0.875, 90);
+    private OurPoint StartPosition = new OurPoint(-1.566, -0.875, 270);
     //    TODO Left Points
     private OurPoint[] Left1 = {
-            new OurPoint(1.566, -0.875, 130),
-            new OurPoint(0.8, -0.6, 130),
-            new OurPoint(0.55, -1, 130)};
+            new OurPoint(-1.566, -0.875, 230),
+            new OurPoint(-0.8, -0.6, 230),
+            new OurPoint(-0.55, -1, 230)};
     private double toleranceLeft1 = 50;
     private double KcLeft1 = 0.5;
     private double MaxVelocityLeft1 = 0.4;
@@ -26,23 +26,23 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
     private boolean frontLeft1 = true;
 
     private OurPoint[] LeftFoundation = {
-            new OurPoint(0.55, -1, 180),
-            new OurPoint(0.9, -0.35, 180),
-            new OurPoint(0.9, 0.55, 270),
-            new OurPoint(0.55, 1.18, 270)};
-    private double toleranceLeftFoundation = 40;
+            new OurPoint(-0.55, -1, 180),
+            new OurPoint(-0.9, -0.35, 180),
+            new OurPoint(-0.9, 0.55, 90),
+            new OurPoint(-0.55, 1.23, 90)};
+    private double toleranceLeftFoundation = 90;
     private double KcLeftFoundation = 3;
     private double MaxVelocityLeftFoundation = 1.5;
     private double turnSpeedLeftFoundation = 1.2;
     private boolean frontLeftFoundation = false;
 
     private OurPoint[] Left2 = {
-            new OurPoint(0.55, 1.18, 270),
-            new OurPoint(1.55, 1.18, 180),
-            new OurPoint(0.80, 0.30, 180),
-            new OurPoint(0.80, -0.85, 130),
-            new OurPoint(0.55, -1.36, 130),
-            new OurPoint(0.32, -1.36, 130)};
+            new OurPoint(-0.55, 1.23, 90),
+            new OurPoint(-1.55, 1.23, 180),
+            new OurPoint(-0.80, 0.30, 180),
+            new OurPoint(-0.80, -0.85, 230),
+            new OurPoint(-0.55, -1.36, 230),
+            new OurPoint(-0.32, -1.36, 230)};
     private double toleranceLeft2 = 82;
     private double KcLeft2 = 1.5;
     private double MaxVelocityLeft2 = 1;
@@ -50,11 +50,11 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
     private boolean frontLeft2 = true;
 
     private OurPoint[] LeftFoundation2 = {
-            new OurPoint(0.32, -1.36, 180),
-            new OurPoint(0.85, -0.85, 180),
-            new OurPoint(0.85, 0.15, 180),
-            new OurPoint(1.2, 0.5, 180),
-            new OurPoint(1.2, 1.05, 180)};
+            new OurPoint(-0.32, -1.36, 180),
+            new OurPoint(-0.85, -0.85, 180),
+            new OurPoint(-0.85, 0.15, 180),
+            new OurPoint(-1.2, 0.5, 180),
+            new OurPoint(-1.2, 1.05, 180)};
     private double toleranceLeftFoundation2 = 80;
     private double KcLeftFoundation2 = 2.5;
     private double MaxVelocityLeftFoundation2 = 1.5;
@@ -63,9 +63,9 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
 
     //    TODO Center Points
     private OurPoint[] Center1 = {
-            new OurPoint(1.566, -0.875, 130),
-            new OurPoint(0.8, -0.4, 130),
-            new OurPoint(0.55, -0.7, 130)};
+            new OurPoint(-1.566, -0.875, 230),
+            new OurPoint(-0.8, -0.4, 230),
+            new OurPoint(-0.55, -0.7, 230)};
     private double toleranceCenter1 = 50;
     private double KcCenter1 = 0.5;
     private double MaxVelocityCenter1 = 0.3;
@@ -73,10 +73,10 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
     private boolean frontCenter1 = true;
 
     private OurPoint[] CenterFoundation = {
-            new OurPoint(0.55, -0.7, 180),
-            new OurPoint(0.9, -0.35, 180),
-            new OurPoint(0.9, 0.55, 270),
-            new OurPoint(0.6, 1.18, 270)};
+            new OurPoint(-0.55, -0.7, 180),
+            new OurPoint(-0.9, -0.35, 180),
+            new OurPoint(-0.9, 0.55, 90),
+            new OurPoint(-0.6, 1.18, 90)};
     private double toleranceCenterFoundation = 40;
     private double KcCenterFoundation = 3;
     private double MaxVelocityCenterFoundation = 1.5;
@@ -84,12 +84,12 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
     private boolean frontCenterFoundation = false;
 
     private OurPoint[] Center2 = {
-            new OurPoint(0.6, 1.18, 270),
-            new OurPoint(1.55, 1.18, 180),
-            new OurPoint(0.8, 0.3, 180),
-            new OurPoint(0.8, -0.85, 130),
-            new OurPoint(0.55, -1.1, 130),
-            new OurPoint(0.25, -1.1, 130)};
+            new OurPoint(-0.6, 1.18, 90),
+            new OurPoint(-1.55, 1.18, 180),
+            new OurPoint(-0.8, 0.3, 180),
+            new OurPoint(-0.8, -0.85, 230),
+            new OurPoint(-0.55, -1.1, 230),
+            new OurPoint(-0.25, -1.1, 230)};
     private double toleranceCenter2 = 82;
     private double KcCenter2 = 1.5;
     private double MaxVelocityCenter2 = 1;
@@ -97,11 +97,11 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
     private boolean frontCenter2 = true;
 
     private OurPoint[] CenterFoundation2 = {
-            new OurPoint(0.25, -1.1, 180),
-            new OurPoint(0.75, -0.7, 180),
-            new OurPoint(0.75, 0.15, 180),
-            new OurPoint(1.2, 0.5, 180),
-            new OurPoint(1.2, 1.05, 180)};
+            new OurPoint(-0.25, -1.1, 180),
+            new OurPoint(-0.75, -0.7, 180),
+            new OurPoint(-0.75, 0.15, 180),
+            new OurPoint(-1.2, 0.5, 180),
+            new OurPoint(-1.2, 1.05, 180)};
     private double toleranceCenterFoundation2 = 80;
     private double KcCenterFoundation2 = 2.5;
     private double MaxVelocityCenterFoundation2 = 1.5;
@@ -110,9 +110,9 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
 
     //    TODO Right Points
     private OurPoint[] Right1 = {
-            new OurPoint(1.566, -0.875, 130),
-            new OurPoint(0.8, -0.2, 130),
-            new OurPoint(0.55, -0.5, 130)};
+            new OurPoint(-1.566, -0.875, 230),
+            new OurPoint(-0.8, -0.2, 230),
+            new OurPoint(-0.55, -0.5, 230)};
     private double toleranceRight1 = 50;
     private double KcRight1 = 0.5;
     private double MaxVelocityRight1 = 0.3;
@@ -120,10 +120,10 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
     private boolean frontRight1 = true;
 
     private OurPoint[] RightFoundation = {
-            new OurPoint(0.55, -0.5, 180),
-            new OurPoint(0.9, -0.35, 180),
-            new OurPoint(0.9, 0.55, 270),
-            new OurPoint(0.6, 1.18, 270)};
+            new OurPoint(-0.55, -0.5, 180),
+            new OurPoint(-0.9, -0.35, 180),
+            new OurPoint(-0.9, 0.55, 90),
+            new OurPoint(-0.6, 1.18, 90)};
     private double toleranceRightFoundation = 40;
     private double KcRightFoundation = 3;
     private double MaxVelocityRightFoundation = 1.5;
@@ -131,12 +131,12 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
     private boolean frontRightFoundation = false;
 
     private OurPoint[] Right2 = {
-            new OurPoint(0.6, 1.18, 270),
-            new OurPoint(1.55, 1.18, 180),
-            new OurPoint(0.8, 0.3, 180),
-            new OurPoint(0.8, -0.85, 130),
-            new OurPoint(0.55, -0.9, 130),
-            new OurPoint(0.25, -0.9, 130)};
+            new OurPoint(-0.6, 1.18, 90),
+            new OurPoint(-1.55, 1.18, 180),
+            new OurPoint(-0.8, 0.3, 180),
+            new OurPoint(-0.8, -0.85, 230),
+            new OurPoint(-0.55, -0.9, 230),
+            new OurPoint(-0.25, -0.9, 230)};
     private double toleranceRight2 = 82;
     private double KcRight2 = 1.5;
     private double MaxVelocityRight2 = 1;
@@ -144,11 +144,11 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
     private boolean frontRight2 = true;
 
     private OurPoint[] RightFoundation2 = {
-            new OurPoint(0.25, -0.9, 180),
-            new OurPoint(0.75, -0.6, 180),
-            new OurPoint(0.75, 0.15, 180),
-            new OurPoint(1.2, 0.5,180),
-            new OurPoint(1.2, 1.05, 180)};
+            new OurPoint(-0.25, -0.9, 180),
+            new OurPoint(-0.75, -0.6, 180),
+            new OurPoint(-0.75, 0.15, 180),
+            new OurPoint(-1.2, 0.5,180),
+            new OurPoint(-1.2, 1.05, 180)};
     private double toleranceRightFoundation2 = 80;
     private double KcRightFoundation2 = 2.5;
     private double MaxVelocityRightFoundation2 = 1.5;
@@ -157,8 +157,8 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
 
     //    TODO Parking Points
     private OurPoint[] Parking = {
-            new OurPoint(1.2, 0.97, 180),
-            new OurPoint(0.8, 0, 180)};
+            new OurPoint(-1.2, 0.97, 180),
+            new OurPoint(-0.8, 0, 180)};
     private double toleranceParking = 10;
     private double KcParking = 4.5;
     private double MaxVelocityParking = 1.5;
@@ -175,7 +175,7 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
         dashboard = FtcDashboard.getInstance();
         packet = new TelemetryPacket();
         BuildOdometry(StartPosition);
-        MyPurePursuitGUI = new PurePursuitGUI(CenterFoundation, MyOdometry.getPosition(), toleranceCenterFoundation, KcCenterFoundation, MaxVelocityCenterFoundation, turnSpeedCenterFoundation, frontCenterFoundation);
+        MyPurePursuitGUI = new PurePursuitGUI(LeftFoundation, MyOdometry.getPosition(), toleranceLeftFoundation, KcLeftFoundation, MaxVelocityLeftFoundation, turnSpeedLeftFoundation, frontLeftFoundation);
         while (!isStarted()) {
             packet = new TelemetryPacket();
             MyPurePursuitGUI.updateGraghic(packet);

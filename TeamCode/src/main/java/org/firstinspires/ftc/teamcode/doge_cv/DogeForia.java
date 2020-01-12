@@ -10,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 import org.firstinspires.ftc.teamcode.PhotoID.VuforiaStone;
+import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
@@ -32,6 +33,7 @@ public class DogeForia extends LinearOpMode {
     protected VuforiaTrackables targetsSkyStone;
     WebcamName webcamName = null;
     OpenCvWebcam webcam = null;
+    OpenCvCamera cameraWebcam;
 
     SkystoneDetector skystoneDetector;
 
@@ -70,6 +72,7 @@ public class DogeForia extends LinearOpMode {
 
         webcam.openCameraDevice();
 //        webcam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
+
 
         while (!isStarted()){
             telemetry.addLine("here");

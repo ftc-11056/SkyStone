@@ -218,10 +218,10 @@ public class GilatTeleop extends Robot {
             }
 
             if (gamepad1.left_bumper) {
-                Output.setPosition(0.52);
+                Output.setPosition(0.63);
                // ArmMode = "in";
             } else if (gamepad1.left_trigger>0) {
-                Output.setPosition(0.87);
+                Output.setPosition(1);
                // ArmMode = "out";
             }
 
