@@ -36,7 +36,7 @@ public class OneCubeBlue extends basicAuto {
         telemetry.addData("angles", MyDriveTrain.getAngle());
         telemetry.update();
         sleep(2000);
-        Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
+//        Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
         MyDriveTrain.RotateP(-180,1,10,0.0108);
 //        Mikum = -3;
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

@@ -3,49 +3,37 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
-import org.firstinspires.ftc.teamcode.PhotoID.VuforiaStone;
+import org.firstinspires.ftc.teamcode.doge_cv.SkystoneDetector;
+import org.firstinspires.ftc.teamcode.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraRotation;
 
 public class basicAuto extends Robot {
 
-    protected VuforiaStone MyVuforiaStone = null;
+    OpenCvCamera webcam;
+    SkystoneDetector skystoneDetector;
 
-    protected VuforiaLocalizer vuforia;
-    protected OpenGLMatrix lastLocation = null;
-    private static final float mmPerInch = 25.4f;
-    public float Mikum = 0;
-    public int vuforiastop = 0;
-
-    protected static final String VUFORIA_KEY =
-            "AShqm3D/////AAABmT32+8BbZEYfoY+L8BbhMAiFCWBAqEs1AghjDq2xOQw/uhnPZ4EVDEHOdbIxubuyTgO1mP2yAPzwlRyTTuBrTFIyVAUHjY0+j32GLbh0oLrKqnfyPtagrvZFS/YuAMhDNX25Uc1zXlD6iXX3pDoKBFuQLQ8zD/NvH5Ib2MTlMQq2srJpav6FRHGf0zU5OnEn1g+n2D5G3Uw7h19CyWFI/rQdUJ6kP2m9yMD8tAZDZiKhE0woZ/MgdGU5FgI6faiYCefYpLqrnW6ytWLenftxcKpccUHur1cWSjRxboVyPbVtgueWC7ytf0FrgyAvRo9uxGRXN6tYrjK1EZIPdssJ5PHxzWUd706EQvXIQwxd4Ndx";    // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
-    protected VuforiaLocalizer.Parameters parametersVu;
-    protected VuforiaTrackables targetsSkyStone;
-    WebcamName webcamName = null;
+    public double Mikum = 0;
 
     @Override
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
 
 //        TODO: Webcam
-        webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
+
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters parametersVu = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
 
-        //VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+        webcam.openCameraDevice();
 
-        parametersVu.vuforiaLicenseKey = VUFORIA_KEY;
-        parametersVu.cameraName = webcamName;
+        skystoneDetector = new SkystoneDetector(2,50,70);
+        webcam.setPipeline(skystoneDetector);
 
-        //  Instantiate the Vuforia engine
-        vuforia = ClassFactory.getInstance().createVuforia(parametersVu);
-        //VuforiaTrackables targetsSkyStone = this.vuforia.loadTrackablesFromAsset("Skystone");
-        MyVuforiaStone = new VuforiaStone( webcamName,parametersVu, targetsSkyStone, vuforia,lastLocation);
+        webcam.startStreaming(320, 240, OpenCvCameraRotation.SIDEWAYS_RIGHT);
+
+//      TODO: Anothers
         Arm.setPosition(ArmClose);
         ParkingMot.setPosition(ParkingMotOut);
         pattern = RevBlinkinLedDriver.BlinkinPattern.WHITE;

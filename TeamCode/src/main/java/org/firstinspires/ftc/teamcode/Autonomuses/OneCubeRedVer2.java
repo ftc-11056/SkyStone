@@ -38,7 +38,7 @@ public class OneCubeRedVer2 extends basicAuto {
 
         MyDriveTrain.encoderDrive(0.8, -30, 30, 30, -30, 1);
         MyDriveTrain.Rotate(0,0.1,10);
-        Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
+//        Mikum = MyVuforiaStone.ConceptVuforiaSkyStoneNavigationWebcam();
 
 
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

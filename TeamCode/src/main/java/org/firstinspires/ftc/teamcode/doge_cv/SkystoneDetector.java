@@ -21,15 +21,14 @@ import java.util.List;
 
 public class SkystoneDetector extends DogeCVDetector {
     public DogeCV.AreaScoringMethod areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Setting to decide to use MaxAreaScorer or PerfectAreaScorer
-    //TODO: change filters
-    //Create the default filters and scorers
-    public DogeCVColorFilter blackFilter = new GrayscaleFilter(0, 40);
-    public DogeCVColorFilter yellowFilter = new LeviColorFilter(LeviColorFilter.ColorPreset.YELLOW, 0); //was 70Default Yellow blackFilter
 
     public RatioScorer ratioScorer = new RatioScorer(1.25, 3); // Used to find the short face of the stone
     public MaxAreaScorer maxAreaScorer = new MaxAreaScorer(0.01);                    // Used to find largest objects
     public PerfectAreaScorer perfectAreaScorer = new PerfectAreaScorer(5000, 0.05); // Used to find objects near a tuned area value
 
+    public int blackLower;
+    public int blackUpper;
+    public int Yellow;
 
     // Results of the detector
     private Point screenPosition = new Point(); // Screen position of the mineral
@@ -51,9 +50,18 @@ public class SkystoneDetector extends DogeCVDetector {
     }
 
 
-    public SkystoneDetector() {
+    public SkystoneDetector(int blackLower, int blackUpper, int Yellow) {
         detectorName = "Skystone Detector";
+        this.blackLower = blackLower;
+        this.blackUpper = blackUpper;
+        this.Yellow = Yellow;
     }
+
+    //TODO: change filters
+    //Create the default filters and scorers
+    public DogeCVColorFilter blackFilter = new GrayscaleFilter(2, 40);
+    public DogeCVColorFilter yellowFilter = new LeviColorFilter(LeviColorFilter.ColorPreset.YELLOW, 20); //was 70Default Yellow blackFilter
+
 
     @Override
     public Mat process(Mat input) {

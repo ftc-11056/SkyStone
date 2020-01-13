@@ -1,40 +1,83 @@
-package org.firstinspires.ftc.teamcode.doge_cv;
+/*
+ * Original work (WebcamExample.java) copyright (c) 2018 Robert Atkinson
+ * Derived work copyright (c) 2019 OpenFTC Team
+ *
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted (subject to the limitations in the disclaimer below) provided that
+ * the following conditions are met:
+ *
+ * Redistributions of source code must retain the above copyright notice, this list
+ * of conditions and the following disclaimer.
+ *
+ * Redistributions in binary form must reproduce the above copyright notice, this
+ * list of conditions and the following disclaimer in the documentation and/or
+ * other materials provided with the distribution.
+ *
+ * Neither the name of Robert Atkinson nor the names of his contributors may be used to
+ * endorse or promote products derived from this software without specific prior
+ * written permission.
+ *
+ * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
+ * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESSFOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
+ * TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
-import android.content.Context;
-import android.hardware.usb.UsbManager;
+package org.firstinspires.ftc.teamcode.easyopencv;
+
+import android.graphics.ImageFormat;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
-import com.qualcomm.robotcore.hardware.HardwareDevice;
-import com.qualcomm.robotcore.util.SerialNumber;
+import com.qualcomm.robotcore.util.RobotLog;
 
-import org.firstinspires.ftc.robotcore.external.function.Consumer;
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.android.util.Size;
 import org.firstinspires.ftc.robotcore.external.function.Continuation;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.Camera;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraCaptureRequest;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraCaptureSequenceId;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraCaptureSession;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraCharacteristics;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraException;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraFrame;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraName;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.ExposureControl;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.FocusControl;
+import org.firstinspires.ftc.robotcore.internal.camera.CameraManagerInternal;
+import org.firstinspires.ftc.robotcore.internal.camera.ImageFormatMapper;
 import org.firstinspires.ftc.robotcore.internal.camera.RenumberedCameraFrame;
 import org.firstinspires.ftc.robotcore.internal.camera.libuvc.api.UvcApiCameraFrame;
 import org.firstinspires.ftc.robotcore.internal.camera.libuvc.nativeobject.UvcFrame;
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
+import org.firstinspires.ftc.robotcore.internal.vuforia.externalprovider.CameraMode;
+import org.firstinspires.ftc.robotcore.internal.vuforia.externalprovider.FrameFormat;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
-import org.openftc.easyopencv.OpenCvCameraBase;
+import org.firstinspires.ftc.teamcode.easyopencv.OpenCvCameraBase;
+import org.openftc.easyopencv.OpenCvCameraException;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.lang.reflect.Field;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executor;
+import java.util.concurrent.TimeUnit;
 
-public class WebcamNameMerged extends OpenCvCameraBase implements CameraCaptureSession.CaptureCallback, HardwareDevice, CameraName {
-
-//    private final CameraManagerInternal cameraManager;
-//    private final Executor serialThreadPool;
+@SuppressWarnings("WeakerAccess")
+class OpenCvWebcamImpl extends OpenCvCameraBase implements CameraCaptureSession.CaptureCallback
+{
+    private final CameraManagerInternal cameraManager;
+    private final Executor serialThreadPool;
     private final int secondsPermissionTimeout = 1;
     private final CameraName cameraName;
     private CameraCharacteristics cameraCharacteristics = null;
@@ -43,13 +86,31 @@ public class WebcamNameMerged extends OpenCvCameraBase implements CameraCaptureS
     private Mat rawSensorMat;
     private Mat rgbMat;
     private byte[] imgDat;
+    private volatile boolean isOpen = false;
+    private volatile boolean isStreaming = false;
 
+    //----------------------------------------------------------------------------------------------
+    // Constructors
+    //----------------------------------------------------------------------------------------------
 
-    public WebcamNameMerged(/*CameraManagerInternal cameraManager, Executor serialThreadPool,*/ CameraName cameraName) {
-        /*this.cameraManager = cameraManager;
-        this.serialThreadPool = serialThreadPool;*/
+    public OpenCvWebcamImpl(CameraName cameraName)
+    {
+        this.cameraManager = (CameraManagerInternal) ClassFactory.getInstance().getCameraManager();
+        this.serialThreadPool = cameraManager.getSerialThreadPool();
         this.cameraName = cameraName;
     }
+
+    public OpenCvWebcamImpl(CameraName cameraName, int containerLayoutId)
+    {
+        super(containerLayoutId);
+        this.cameraManager = (CameraManagerInternal) ClassFactory.getInstance().getCameraManager();
+        this.serialThreadPool = cameraManager.getSerialThreadPool();
+        this.cameraName = cameraName;
+    }
+
+    //----------------------------------------------------------------------------------------------
+    // Opening and closing
+    //----------------------------------------------------------------------------------------------
 
     public synchronized ExposureControl getExposureControl()
     {
@@ -75,86 +136,84 @@ public class WebcamNameMerged extends OpenCvCameraBase implements CameraCaptureS
         return control;
     }
 
-    @Override
-    public boolean isWebcam() {
-        return false;
-    }
-
-    @Override
-    public boolean isCameraDirection() {
-        return false;
-    }
-
-    @Override
-    public boolean isSwitchable() {
-        return false;
-    }
-
-    @Override
-    public boolean isUnknown() {
-        return false;
-    }
-
-    @Override
-    public void asyncRequestCameraPermission(Context context, Deadline deadline, Continuation<? extends Consumer<Boolean>> continuation) {
-
-    }
-
-    @Override
-    public boolean requestCameraPermission(Deadline deadline) {
-        return false;
-    }
-
     public synchronized CameraCharacteristics getCameraCharacteristics()
     {
         return cameraCharacteristics;
     }
 
-    /*@Override
-    protected void openCameraDeviceImplSpecific() {
-        try
-        {
-            camera = cameraManager.requestPermissionAndOpenCamera(new Deadline(secondsPermissionTimeout, TimeUnit.SECONDS), cameraName, null);
-
-            if (camera != null) //Opening succeeded!
-            {
-                cameraCharacteristics = camera.getCameraName().getCameraCharacteristics();
-            }
-            else //Opening failed! :(
-            {
-                cameraCharacteristics = cameraName.getCameraCharacteristics();
-            }
-        }
-        catch (Exception e)
-        {
-            camera = null;
-            throw e;
-        }
-    }*/
-
     @Override
-    protected void openCameraDeviceImplSpecific() {
+    public synchronized void openCameraDevice() /*throws CameraException*/
+    {
+        if(!isOpen)
+        {
+            try
+            {
+                camera = cameraManager.requestPermissionAndOpenCamera(new Deadline(secondsPermissionTimeout, TimeUnit.SECONDS), cameraName, null);
 
+                if (camera != null) //Opening succeeded!
+                {
+                    cameraCharacteristics = camera.getCameraName().getCameraCharacteristics();
+                    isOpen = true;
+                }
+                else //Opening failed! :(
+                {
+                    cameraCharacteristics = cameraName.getCameraCharacteristics();
+                }
+            }
+            catch (Exception e)
+            {
+                camera = null;
+                throw e;
+            }
+        }
     }
 
     @Override
-    public synchronized void closeCameraDeviceImplSpecific()
+    public synchronized void closeCameraDevice()
     {
-        if (camera != null)
+        cleanupForClosingCamera();
+
+        if(isOpen)
+        {
+            if (camera != null)
+            {
+                stopStreaming();
+                camera.close();
+                camera = null;
+            }
+
+            isOpen = false;
+        }
+    }
+
+    @Override
+    public synchronized void startStreaming(int width, int height)
+    {
+        startStreaming(width, height, getDefaultRotation());
+    }
+
+    @Override
+    public synchronized void startStreaming(final int width, final int height, OpenCvCameraRotation rotation)
+    {
+        if(!isOpen)
+        {
+            throw new OpenCvCameraException("startStreaming() called, but camera is not opened!");
+        }
+
+        /*
+         * If we're already streaming, then that's OK, but we need to stop
+         * streaming in the old mode before we can restart in the new one.
+         */
+        if(isStreaming)
         {
             stopStreaming();
-            camera.close();
-            camera = null;
         }
-    }
 
-    @Override
-    protected void startStreamingImplSpecific(int width, int height) {
+        /*
+         * Prep the viewport
+         */
+        prepareForStartStreaming(width, height, rotation);
 
-    }
-
-    /*public synchronized void startStreamingImplSpecific(final int width, final int height)
-    {
         final CountDownLatch captureStartResult = new CountDownLatch(1);
 
         boolean sizeSupported = false;
@@ -169,7 +228,14 @@ public class WebcamNameMerged extends OpenCvCameraBase implements CameraCaptureS
 
         if(!sizeSupported)
         {
-            throw new OpenCvCameraException("Camera does not support requested resolution!");
+            StringBuilder supportedSizesBuilder = new StringBuilder();
+
+            for(Size s : cameraCharacteristics.getSizes(ImageFormat.YUY2))
+            {
+                supportedSizesBuilder.append(String.format("[%dx%d], ", s.getWidth(), s.getHeight()));
+            }
+
+            throw new OpenCvCameraException("Camera does not support requested resolution! Supported resolutions are " + supportedSizesBuilder.toString());
         }
 
         try
@@ -181,7 +247,13 @@ public class WebcamNameMerged extends OpenCvCameraBase implements CameraCaptureS
                 {
                     try
                     {
-                        CameraMode streamingMode = new CameraMode(width, height, 30, FrameFormat.YUYV);
+                        CameraMode streamingMode = new CameraMode(
+                                width,
+                                height,
+                                cameraCharacteristics.getMaxFramesPerSecond(
+                                        ImageFormatMapper.androidFromVuforiaWebcam(FrameFormat.YUYV),
+                                        new Size(width, height)),
+                                        FrameFormat.YUYV);
 
                         //Indicate how we want to stream
                         final CameraCaptureRequest cameraCaptureRequest = camera.createCaptureRequest(
@@ -191,7 +263,7 @@ public class WebcamNameMerged extends OpenCvCameraBase implements CameraCaptureS
 
                         // Start streaming!
                         session.startCapture(cameraCaptureRequest,
-                                WebcamName.this,
+                                OpenCvWebcamImpl.this,
                                 Continuation.create(serialThreadPool, new CameraCaptureSession.StatusCallback()
                                 {
                                     @Override
@@ -240,15 +312,19 @@ public class WebcamNameMerged extends OpenCvCameraBase implements CameraCaptureS
         {
             Thread.currentThread().interrupt();
         }
-    }*/
+
+        isStreaming = true;
+    }
 
     @Override
-    protected OpenCvCameraRotation getDefaultRotation()  {
+    protected OpenCvCameraRotation getDefaultRotation()
+    {
         return OpenCvCameraRotation.SIDEWAYS_LEFT;
     }
 
     @Override
-    protected int mapRotationEnumToOpenCvRotateCode(OpenCvCameraRotation rotation) {
+    protected int mapRotationEnumToOpenCvRotateCode(OpenCvCameraRotation rotation)
+    {
         /*
          * The camera sensor in a webcam is mounted in the logical manner, such
          * that the raw image is upright when the webcam is used in its "normal"
@@ -274,8 +350,21 @@ public class WebcamNameMerged extends OpenCvCameraBase implements CameraCaptureS
         }
     }
 
-    public synchronized void stopStreamingImplSpecific()
+    /***
+     * Stop streaming frames from the webcam, if we were
+     * streaming in the first place. If not, we don't do
+     * anything at all here.
+     */
+    @Override
+    public synchronized void stopStreaming()
     {
+        if(!isOpen)
+        {
+            throw new OpenCvCameraException("stopStreaming() called, but camera is not opened!");
+        }
+
+        cleanupForEndStreaming();
+
         imgDat = null;
         rgbMat = null;
         rawSensorMat = null;
@@ -286,8 +375,14 @@ public class WebcamNameMerged extends OpenCvCameraBase implements CameraCaptureS
             cameraCaptureSession.close();
             cameraCaptureSession = null;
         }
+
+        isStreaming = false;
     }
 
+    /*
+     * This needs to be synchronized with stopStreamingImplSpecific()
+     * because we touch objects that are destroyed in that method.
+     */
     @Override
     public synchronized void onNewFrame(@NonNull CameraCaptureSession session, @NonNull CameraCaptureRequest request, @NonNull CameraFrame cameraFrame)
     {
@@ -337,66 +432,4 @@ public class WebcamNameMerged extends OpenCvCameraBase implements CameraCaptureS
             e.printStackTrace();
         }
     }
-
-    @Override
-    public Manufacturer getManufacturer() {
-        return null;
-    }
-
-    @Override
-    public String getDeviceName() {
-        return null;
-    }
-
-    @Override
-    public String getConnectionInfo() {
-        return null;
-    }
-
-    @Override
-    public int getVersion() {
-        return 0;
-    }
-
-    @Override
-    public void resetDeviceConfigurationForOpMode() {
-
-    }
-
-    @Override
-    public void close() {
-
-    }
-
-    /**
-     * Returns the USB serial number of the webcam
-     *
-     * @return the USB serial number of the webcam
-     */
-    @NonNull
-    SerialNumber getSerialNumber() {
-        return null;
-    }
-
-    /**
-     * Returns the USB device path currently associated with this webcam.
-     * May be null if the webcam is not presently attached.
-     *
-     * @return returns the USB device path associated with this name.
-     * @see UsbManager#getDeviceList()
-     */
-    @Nullable
-    String getUsbDeviceNameIfAttached() {
-        return null;
-    }
-
-    /**
-     * Returns whether this camera currently attached to the robot controller
-     *
-     * @return whether this camera currently attached to the robot controller
-     */
-    boolean isAttached() {
-        return false;
-    }
-
 }

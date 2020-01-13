@@ -38,6 +38,20 @@ public class elevator {
         rightEle.setPower(power * (pos - leftEle.getCurrentPosition()) * kp);
     }
 
+    public void ElevateCustomRight(int pos, double power, double kp) {
+        leftEle.setTargetPosition(pos);
+        leftEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        rightEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        if (leftEle.getCurrentPosition() < -395) {
+            rightEle.setPower(0.2);
+            leftEle.setPower(0.2);
+        }
+        else  {
+            rightEle.setPower(power * (pos - leftEle.getCurrentPosition()) * kp);
+            leftEle.setPower(power * (pos - leftEle.getCurrentPosition()) * kp);
+        }
+    }
+
     public void ElevateWithEncoderTest(int pos, double power, double kp) {
         leftEle.setTargetPosition(pos);
         rightEle.setTargetPosition(pos);

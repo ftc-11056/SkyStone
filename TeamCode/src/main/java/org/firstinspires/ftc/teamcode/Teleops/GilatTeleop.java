@@ -69,10 +69,10 @@ public class GilatTeleop extends Robot {
   //          TODO: One Level Uper
             if(gamepad2.b&&!up){
                 up=true;
-                MyElevator.ElevateWithEncoderTest(pos,0.1,0.003);
+                MyElevator.ElevateWithEncoder(pos,1,1);
                 stayingPosition=pos;
             }
-            if(up&& leftLinearMotor.getCurrentPosition()<=pos+90&& !gamepad2.b){
+            if(up&& leftLinearMotor.getCurrentPosition() <= pos + 90 && !gamepad2.b){
                 up=false;
                 counter+=1;
             }
@@ -80,7 +80,7 @@ public class GilatTeleop extends Robot {
 
             if (gamepad2.x && !low){
                 low = true;
-                MyElevator.ElevateWithEncoderTest(pos+200 , 0.1, 0.003);
+                MyElevator.ElevateWithEncoder(pos + 200 , 0.6, 0.003);
                 stayingPosition = pos+200 ;
             }
             if(low && leftLinearMotor.getCurrentPosition() >= pos - 90 && !gamepad2.x){
@@ -108,15 +108,15 @@ public class GilatTeleop extends Robot {
                 telemetry.addData("time is:", time);
                 telemetry.update();
             } else if (upDegel == true && downDegel != 1) {
-                if (((-time + runtime.seconds()) > 0.7 && (-time + runtime.seconds()) < 2) && firstRase == false) {
-                    MyElevator.ElevateWithEncoder(-400, 1, 0.8);
-//                    stayingPosition = leftLinearMotor.getCurrentPosition();
+                if (((-time + runtime.seconds()) > 0.7 && (-time + runtime.seconds()) < 2.3) && firstRase == false) {
+                    MyElevator.ElevateCustomRight(-400, 1, 0.4);
+                    stayingPosition = -400;
                     if (leftLinearMotor.getCurrentPosition() < -350) {
                         Arm.setPosition(1);
                     }
                 }
-                if ((-time + runtime.seconds()) > 2 && leftLinearMotor.getCurrentPosition() < -390 && counterbool) {
-                    MyElevator.ElevateWithEncoder(pos, 1, 0.8);
+                if ((-time + runtime.seconds()) > 2.3 && leftLinearMotor.getCurrentPosition() < -390 && counterbool) {
+//                    MyElevator.ElevateWithEncoder(pos, 0.65, 0.01);
                     stayingPosition = pos;
                     counter += 1;
                     counterbool = false;
@@ -128,7 +128,7 @@ public class GilatTeleop extends Robot {
 //          TODO: AA Auto Button:
             if (gamepad2.a) {
                 Output.setPosition(OutputUp);
-                MyElevator.ElevateWithEncoder(-570, 1, 1);
+                MyElevator.ElevateWithEncoder(-400, 1, 1);
                 ADondMove = false;
                 downDegel = 1;
                 flag = true;
@@ -136,16 +136,18 @@ public class GilatTeleop extends Robot {
             }
             if (leftLinearMotor.getCurrentPosition() < -350 && downDegel == 1) {
                 Arm.setPosition(ArmClose);
+                rightLinearMotor.setPower(0);
             }
             if (downDegel == 1 && upDegel != true)
-                if ((-time + runtime.seconds()) > 1.7) {
-                    MyElevator.ElevateWithEncoder(20, 0.1, 0.00088);
+                if ((-time + runtime.seconds()) > 2.3) {
+                    MyElevator.ElevateWithEncoder(20, 0.3, 0.003);
                     stayingPosition = leftLinearMotor.getCurrentPosition();
                 }
 
 //            TODO: reset auto Buttons:
             if (pos >= -400 && endOfY == true) {
-                if (leftLinearMotor.getCurrentPosition() >= (pos - 10) ) {
+                if ((leftLinearMotor.getCurrentPosition() >= (pos - 10) && Arm.getPosition() == ArmOpen)
+                        || gamepad2.b || gamepad2.x || gamepad2.a) {
                     telemetry.addLine(" in reset POS >>> -400");
                     upDegel = false;
                     flag = false;
@@ -155,7 +157,8 @@ public class GilatTeleop extends Robot {
                 }
             }
             if (pos < -400 && endOfY == true) {
-                if (leftLinearMotor.getCurrentPosition() < (pos + 100 + 10)){
+                if ((leftLinearMotor.getCurrentPosition() < (pos + 100 + 10) && Arm.getPosition() == ArmOpen)
+                        || gamepad2.b || gamepad2.x || gamepad2.a){
                     telemetry.addLine(" in reset POS <<< -400");
                     upDegel = false;
                     flag = false;
@@ -166,7 +169,7 @@ public class GilatTeleop extends Robot {
             }
 
             if (gamepad2.left_bumper || gamepad2.right_bumper || leftLinearMotor.getCurrentPosition() > 0 ||
-                    downMagnetElevator.getState() == false || gamepad2.right_bumper || gamepad2.left_bumper) {
+                    downMagnetElevator.getState() == false || gamepad2.right_bumper || gamepad2.left_bumper || gamepad2.y) {
                 downDegel = 0;
                 downDegelToServo = 0;
                 flag = false;
@@ -186,13 +189,15 @@ public class GilatTeleop extends Robot {
                 bumpersDondMove = false;
             }
 //            TODO: stop commands
-            else if (downMagnetElevator.getState() == true && upDegel == false && downDegel == 0 && downDegelToServo == 0 && ADondMove && !gamepad2.a) {
+            else if (downMagnetElevator.getState() == true && upDegel == false && downDegel == 0 && downDegelToServo == 0
+                    && ADondMove && !gamepad2.a && low == false && up == false) {
                 stayErrors = leftLinearMotor.getCurrentPosition() - stayingPosition;
                 power = 1 * stayErrors * stayPN;
                 leftLinearMotor.setTargetPosition(encodersStay);
                 leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 leftLinearMotor.setPower(power);
                 rightLinearMotor.setPower(power);
+                telemetry.addLine("Stop Elevator");
             } /*else if (upDegel == false && downDegel == 0 && downDegelToServo == 0 && ADondMove && !gamepad2.a) {
                 leftLinearMotor.setPower(0);
                 rightLinearMotor.setPower(0);
@@ -204,8 +209,8 @@ public class GilatTeleop extends Robot {
             telemetry.addData("current Position LeftElevator", leftLinearMotor.getCurrentPosition());
             telemetry.addData("counter", counter);
             telemetry.addData("POS", pos);
-            telemetry.addData("YdontMove", YDondMove);
-            telemetry.addData("EndOfY", endOfY);
+            telemetry.addData("right",rightLinearMotor.getPower());
+            telemetry.addData("left",leftLinearMotor.getPower());
             telemetry.update();
 
   //        TODO: Hillel Mechanizem

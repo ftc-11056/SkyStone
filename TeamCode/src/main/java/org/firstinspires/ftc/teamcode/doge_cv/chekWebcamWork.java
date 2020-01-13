@@ -29,11 +29,9 @@ public class chekWebcamWork extends basicAuto {
     private SkystoneDetector skyStoneDetector;
     @Override
     public void runOpMode() {
-
-
         webcamName = hardwareMap.get(WebcamName.class, "Webcam 1"); //Retrieves the webcam from the hardware map
 
-        skyStoneDetector = new SkystoneDetector(); // Create a Gold Detector
+        skyStoneDetector = new SkystoneDetector(2,3,5); // Create a Gold Detector
 
         //Sets the Vuforia license key. ALWAYS SET BEFORE INIT!
 
