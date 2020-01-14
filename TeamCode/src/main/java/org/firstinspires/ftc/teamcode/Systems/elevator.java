@@ -43,8 +43,8 @@ public class elevator {
         leftEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //        rightEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         if (leftEle.getCurrentPosition() < -395) {
-            rightEle.setPower(0.2);
-            leftEle.setPower(0.2);
+            rightEle.setPower(0);
+            leftEle.setPower(0);
         }
         else  {
             rightEle.setPower(power * (pos - leftEle.getCurrentPosition()) * kp);

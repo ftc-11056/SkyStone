@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode.Teleops;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Robot;
 
 @TeleOp(name = "GilatTeleop", group = "teleops")
@@ -66,26 +69,26 @@ public class GilatTeleop extends Robot {
             //        TODO: Levels Counter
 
 
-  //          TODO: One Level Uper
-            if(gamepad2.b&&!up){
-                up=true;
-                MyElevator.ElevateWithEncoder(pos,1,1);
-                stayingPosition=pos;
+            //          TODO: One Level Uper
+            if (gamepad2.b && !up) {
+                up = true;
+                MyElevator.ElevateWithEncoder(pos, 1, 1);
+                stayingPosition = pos;
             }
-            if(up&& leftLinearMotor.getCurrentPosition() <= pos + 90 && !gamepad2.b){
-                up=false;
-                counter+=1;
+            if (up && leftLinearMotor.getCurrentPosition() <= pos + 90 && !gamepad2.b) {
+                up = false;
+                counter += 1;
             }
 //            TODO: One Level Lower
 
-            if (gamepad2.x && !low){
+            if (gamepad2.x && !low) {
                 low = true;
-                MyElevator.ElevateWithEncoder(pos + 200 , 0.6, 0.003);
-                stayingPosition = pos+200 ;
+                MyElevator.ElevateWithEncoder(pos + 200, 0.6, 0.003);
+                stayingPosition = pos + 200;
             }
-            if(low && leftLinearMotor.getCurrentPosition() >= pos - 90 && !gamepad2.x){
+            if (low && leftLinearMotor.getCurrentPosition() >= pos - 90 && !gamepad2.x) {
                 low = false;
-                counter -=1;
+                counter -= 1;
             }
 
             //      TODO: Reset Counter
@@ -108,15 +111,15 @@ public class GilatTeleop extends Robot {
                 telemetry.addData("time is:", time);
                 telemetry.update();
             } else if (upDegel == true && downDegel != 1) {
-                if (((-time + runtime.seconds()) > 0.7 && (-time + runtime.seconds()) < 2.3) && firstRase == false) {
+                if (((-time + runtime.seconds()) > 0.7 && (-time + runtime.seconds()) < 6) && firstRase == false) {
                     MyElevator.ElevateCustomRight(-400, 1, 0.4);
                     stayingPosition = -400;
                     if (leftLinearMotor.getCurrentPosition() < -350) {
                         Arm.setPosition(1);
                     }
                 }
-                if ((-time + runtime.seconds()) > 2.3 && leftLinearMotor.getCurrentPosition() < -390 && counterbool) {
-//                    MyElevator.ElevateWithEncoder(pos, 0.65, 0.01);
+                if ((-time + runtime.seconds()) > 6 && leftLinearMotor.getCurrentPosition() < -390 && counterbool) {
+                    MyElevator.ElevateWithEncoder(pos, 1, 0.01);
                     stayingPosition = pos;
                     counter += 1;
                     counterbool = false;
@@ -139,7 +142,7 @@ public class GilatTeleop extends Robot {
                 rightLinearMotor.setPower(0);
             }
             if (downDegel == 1 && upDegel != true)
-                if ((-time + runtime.seconds()) > 2.3) {
+                if ((-time + runtime.seconds()) > 1.7) {
                     MyElevator.ElevateWithEncoder(20, 0.3, 0.003);
                     stayingPosition = leftLinearMotor.getCurrentPosition();
                 }
@@ -158,7 +161,7 @@ public class GilatTeleop extends Robot {
             }
             if (pos < -400 && endOfY == true) {
                 if ((leftLinearMotor.getCurrentPosition() < (pos + 100 + 10) && Arm.getPosition() == ArmOpen)
-                        || gamepad2.b || gamepad2.x || gamepad2.a){
+                        || gamepad2.b || gamepad2.x || gamepad2.a) {
                     telemetry.addLine(" in reset POS <<< -400");
                     upDegel = false;
                     flag = false;
@@ -206,29 +209,42 @@ public class GilatTeleop extends Robot {
             encodersStay = stayingPosition;
 
 
-            telemetry.addData("current Position LeftElevator", leftLinearMotor.getCurrentPosition());
+          /*  telemetry.addData("current Position LeftElevator", leftLinearMotor.getCurrentPosition());
             telemetry.addData("counter", counter);
             telemetry.addData("POS", pos);
-            telemetry.addData("right",rightLinearMotor.getPower());
-            telemetry.addData("left",leftLinearMotor.getPower());
-            telemetry.update();
+            telemetry.addData("right", rightLinearMotor.getPower());
+            telemetry.addData("left", leftLinearMotor.getPower());
+            telemetry.update();*/
 
-  //        TODO: Hillel Mechanizem
+            //        TODO: Hillel Mechanizem
             if (gamepad1.right_bumper) {
                 Arm.setPosition(0.32);
-              //  ArmMode = "in";
-            } else if (gamepad1.right_trigger>0) {
+                //  ArmMode = "in";
+            } else if (gamepad1.right_trigger > 0) {
                 Arm.setPosition(1);
-             //   ArmMode = "out";
+                //   ArmMode = "out";
             }
 
             if (gamepad1.left_bumper) {
                 Output.setPosition(0.63);
-               // ArmMode = "in";
-            } else if (gamepad1.left_trigger>0) {
+                // ArmMode = "in";
+            } else if (gamepad1.left_trigger > 0) {
                 Output.setPosition(1);
-               // ArmMode = "out";
+                // ArmMode = "out";
             }
+
+            //     TODO: touch sensor
+            if (Touch_Foundation.getState() == false) {
+                telemetry.addLine("1 1 0 5 6   T H E  Y  B O T ");
+                telemetry.update();
+
+            }
+            blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
+            if (cubeIn.getDistance(DistanceUnit.MM) > cubeNotInMM) {
+                blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
+            }
+
+
 
         }
     }
