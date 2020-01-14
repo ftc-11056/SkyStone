@@ -29,7 +29,7 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
             new OurPoint(0.55, -1, 180),
             new OurPoint(0.9, -0.35, 180),
             new OurPoint(0.9, 0.55, 270),
-            new OurPoint(0.55, 1.18, 270)};
+            new OurPoint(0.55, 1.21, 270)};
     private double toleranceLeftFoundation = 40;
     private double KcLeftFoundation = 3;
     private double MaxVelocityLeftFoundation = 1.5;
@@ -39,8 +39,8 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
     private OurPoint[] Left2 = {
             new OurPoint(0.55, 1.18, 270),
             new OurPoint(1.55, 1.18, 180),
-            new OurPoint(0.80, 0.30, 180),
-            new OurPoint(0.80, -0.85, 130),
+            new OurPoint(0.8, 0.30, 180),
+            new OurPoint(0.8, -0.85, 130),
             new OurPoint(0.55, -1.36, 130),
             new OurPoint(0.32, -1.36, 130)};
     private double toleranceLeft2 = 82;
@@ -175,7 +175,7 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
         dashboard = FtcDashboard.getInstance();
         packet = new TelemetryPacket();
         BuildOdometry(StartPosition);
-        MyPurePursuitGUI = new PurePursuitGUI(CenterFoundation, MyOdometry.getPosition(), toleranceCenterFoundation, KcCenterFoundation, MaxVelocityCenterFoundation, turnSpeedCenterFoundation, frontCenterFoundation);
+        MyPurePursuitGUI = new PurePursuitGUI(Left2, MyOdometry.getPosition(), toleranceLeft2, KcLeft2, MaxVelocityLeft2, turnSpeedLeft2, frontLeft2);
         while (!isStarted()) {
             packet = new TelemetryPacket();
             MyPurePursuitGUI.updateGraghic(packet);
