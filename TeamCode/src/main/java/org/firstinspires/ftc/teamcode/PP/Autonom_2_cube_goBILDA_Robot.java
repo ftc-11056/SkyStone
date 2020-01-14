@@ -49,6 +49,7 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
     private double turnSpeedLeft2 = 1.5;
     private boolean frontLeft2 = true;
 
+
     private OurPoint[] LeftFoundation2 = {
             new OurPoint(0.32, -1.36, 180),
             new OurPoint(0.85, -0.85, 180),

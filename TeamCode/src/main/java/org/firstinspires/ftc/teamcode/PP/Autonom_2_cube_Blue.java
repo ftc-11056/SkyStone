@@ -49,6 +49,7 @@ public class Autonom_2_cube_Blue extends Robot {
     private double turnSpeedLeft2 = 1.5;
     private boolean frontLeft2 = true;
 
+
     private OurPoint[] LeftFoundation2 = {
             new OurPoint(-0.35, -1.48, 180),
             new OurPoint(-0.9, -0.85, 180),
