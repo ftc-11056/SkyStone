@@ -185,7 +185,8 @@ public class goBildaTeleOp extends Robot {
         //      TODO: Reset Counter
             if (gamepad2.right_bumper) counter = 1;
 
-    //          TODO: YY Auto Button:
+//          TODO: YY Auto Button:
+
             if (gamepad2.y) {
                 YDondMove = false;
                 upDegel = true;
@@ -200,15 +201,18 @@ public class goBildaTeleOp extends Robot {
                 telemetry.addData("time is:", time);
                 telemetry.update();
             } else if (upDegel == true && downDegel != 1) {
-                if (((-time + runtime.seconds()) > 0.7 && (-time + runtime.seconds()) < 6) && firstRase == false) {
-                    MyElevator.ElevateCustomRight(-400, 1, 0.4);
+                if (((-time + runtime.seconds()) > 0.7 && (-time + runtime.seconds()) < 1.9) && firstRase == false) {
+                    if (upDegel == true) {
+                        MyElevator.ElevateWithEncoder(-500,1,0.005);
+                    }
                     stayingPosition = -400;
                     if (leftLinearMotor.getCurrentPosition() < -350) {
                         Arm.setPosition(1);
                     }
                 }
-                if ((-time + runtime.seconds()) > 6 && leftLinearMotor.getCurrentPosition() < -390 && counterbool) {
+                if ((-time + runtime.seconds()) > 1.9 && leftLinearMotor.getCurrentPosition() < -390 && counterbool) {
                     MyElevator.ElevateWithEncoder(pos, 1, 0.01);
+                    telemetry.addLine("Elevator move");
                     stayingPosition = pos;
                     counter += 1;
                     counterbool = false;
@@ -221,6 +225,7 @@ public class goBildaTeleOp extends Robot {
             if (gamepad2.a) {
                 Output.setPosition(OutputUp);
                 MyElevator.ElevateWithEncoder(-400, 1, 1);
+                telemetry.addLine("Elevator move");
                 ADondMove = false;
                 downDegel = 1;
                 flag = true;
@@ -233,6 +238,7 @@ public class goBildaTeleOp extends Robot {
             if (downDegel == 1 && upDegel != true)
                 if ((-time + runtime.seconds()) > 1.7) {
                     MyElevator.ElevateWithEncoder(20, 0.3, 0.003);
+                    telemetry.addLine("Elevator move");
                     stayingPosition = leftLinearMotor.getCurrentPosition();
                 }
 
@@ -271,11 +277,12 @@ public class goBildaTeleOp extends Robot {
             }
 
 //            TODO: normal moving
-            /*if (gamepad2.right_bumper && leftLinearMotor.getCurrentPosition() > -400) {
+            if (gamepad2.right_bumper && leftLinearMotor.getCurrentPosition() > -400) {
                 MyElevator.ElevateWithEncoder(-430, 1, 1);
+                telemetry.addLine("Elevator move");
                 stayingPosition = leftLinearMotor.getCurrentPosition();
                 bumpersDondMove = false;
-            } else*/ if (gamepad2.left_bumper && downMagnetElevator.getState() == true) {
+            } else if (gamepad2.left_bumper && downMagnetElevator.getState() == true) {
                 MyElevator.ElevateWithEncoder(20, 0.1, 0.0088);
                 stayingPosition = leftLinearMotor.getCurrentPosition();
                 bumpersDondMove = false;
