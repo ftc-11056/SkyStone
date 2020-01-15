@@ -22,8 +22,7 @@ public class cotumedTeleop extends Robot {
     private double power = 0;
     private double stayPower = 0;
 
-
-
+    private boolean autoY = false;
     @Override
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
@@ -74,17 +73,24 @@ public class cotumedTeleop extends Robot {
 //TODO[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[GAMEPAD 222222222222222]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
 
             if (gamepad2.y){
-                stayingPosition = -1000;
+                autoY = true;
+                Output.setPosition(OutputDown);
+                time = runtime.seconds();
+                telemetry.addLine("1");
+            }if (autoY == true && (-time + runtime.seconds() > 1.2)){
+                stayingPosition = -400;
                 power = 1;
-            }else if (gamepad2.b){
-                stayingPosition = -700;
-                power = 0.8;
-            }else if (gamepad2.a){
-                stayingPosition = -300;
-                power = 0.5;
-            }else if (gamepad2.x){
-                stayingPosition = 0;
-                power = 0.2;
+                Arm.setPosition(ArmOpen);
+                telemetry.addLine("2");
+            }/*if (leftLinearMotor.getCurrentPosition() < -390 && Arm.getPosition() == ArmOpen){
+                autoY = false;
+                MyElevator.setStayValues(-100,0.9);
+                telemetry.addLine("3");
+            }*/
+
+            if (gamepad2.left_bumper){
+                MyElevator.ElevateWithEncoder(20, 0.1, 0.0088);
+                MyElevator.setStayValues(leftLinearMotor.getCurrentPosition(),0.2);
             } else {
                 stayErrors = leftLinearMotor.getCurrentPosition() - stayingPosition;
                 stayPower = power * stayErrors * stayPN;
@@ -103,4 +109,3 @@ public class cotumedTeleop extends Robot {
         }
     }
 }
-
