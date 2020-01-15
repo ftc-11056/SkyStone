@@ -67,7 +67,7 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
             new OurPoint(1.566, -0.875, 130),
             new OurPoint(0.8, -0.4, 130),
             new OurPoint(0.55, -0.7, 130)};
-    private double toleranceCenter1 = 50;
+    private double toleranceCenter1 = 55;
     private double KcCenter1 = 0.5;
     private double MaxVelocityCenter1 = 0.3;
     private double turnSpeedCenter1 = 0.3;
@@ -77,7 +77,7 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
             new OurPoint(0.55, -0.7, 180),
             new OurPoint(0.9, -0.35, 180),
             new OurPoint(0.9, 0.55, 270),
-            new OurPoint(0.6, 1.18, 270)};
+            new OurPoint(0.6, 1.21, 270)};
     private double toleranceCenterFoundation = 40;
     private double KcCenterFoundation = 3;
     private double MaxVelocityCenterFoundation = 1.5;
