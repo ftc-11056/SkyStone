@@ -16,10 +16,6 @@ public class GilatTeleop extends Robot {
     private int Level = 100;
     int counter = 1;
     int pos = 0;
-    int rightEncoderPosition = 0;
-    int downPOS = 0;
-    int upPOS = 0;
-    private boolean counterflag = false;
     private boolean low = false;
     private boolean up = false;
     private boolean endOfY = false;
@@ -29,10 +25,8 @@ public class GilatTeleop extends Robot {
     private int encodersStay;
     private double time = 0;
     private int stayErrors = 0;
-    private int stayCounter = 0;
 
     private double stayPN = 0.001;
-    private double stayDN = 0.00001;
     private double power = 0;
 
     //    up values:
@@ -48,9 +42,7 @@ public class GilatTeleop extends Robot {
     private boolean ADondMove = true;
     private boolean underMagnet = false;
     private boolean Abutton = false;
-    private int anotherDownVar = 0;
 
-    private int fixAuto = 0;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -239,13 +231,13 @@ public class GilatTeleop extends Robot {
                 telemetry.update();
 
             }
-            blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
-            if (cubeIn.getDistance(DistanceUnit.MM) > cubeNotInMM) {
+            if (cubeIn.getDistance(DistanceUnit.MM) < cubeNotInMM) {
+                //    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
                 blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
+            } else {
+                blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
+                telemetry.addLine("qqqq");
             }
-
-
-
         }
     }
 }
