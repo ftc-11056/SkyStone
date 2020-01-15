@@ -11,8 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.teamcode.Robot;
 
 
-@TeleOp(name = "goBildaTeleOp", group = "teleops")
-public class goBildaTeleOp extends Robot {
+public class currentTeleop extends Robot {
 
 //    TODO: values
     private double ledTime = 0;
