@@ -23,8 +23,8 @@ public class goBuildaTeleop extends Robot {
     //    Level Counter
 
     private int Level = 100;
-    int counter = 1;
-    int pos = 0;
+    private int counter = 1;
+    private int pos = 0;
     private boolean low = false;
     private boolean up = false;
     private boolean endOfY = false;
@@ -170,7 +170,6 @@ public class goBuildaTeleop extends Robot {
                 counter += 1;
             }
 //            TODO: One Level Lower
-
             if (gamepad2.left_stick_y < -0.7 && gamepad2.left_stick_button && !low) {
                 low = true;
                 MyElevator.ElevateWithEncoder(pos + 200, 0.6, 0.003);
