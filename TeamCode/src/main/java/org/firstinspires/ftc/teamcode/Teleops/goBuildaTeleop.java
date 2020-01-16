@@ -5,9 +5,11 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Robot;
 
 @TeleOp(name = "goBuildaTeleop", group = "teleops")
@@ -118,28 +120,30 @@ public class goBuildaTeleop extends Robot {
 
             if (gamepad2.x) {
                 Arm.setPosition(ArmOpen);
-            }
-            else if (gamepad2.b){
+            } else if (gamepad2.b) {
                 Arm.setPosition(ArmClose);
 
             }
 
             if (gamepad1.left_bumper) {
                 ParkingMot.setPosition(ParkingMotIn);
-            }
-            else if (gamepad1.right_bumper) {
+            } else if (gamepad1.right_bumper) {
                 ParkingMot.setPosition(ParkingMotOut);
             }
 
-            if (gamepad2.left_stick_y > 0.7 && gamepad2.left_stick_button){
+            if (gamepad2.left_stick_y > 0.7 && gamepad2.left_stick_button) {
                 Capstone.setPosition(CapstoneUp);
-            }else if (gamepad2.left_stick_y < -0.7 && gamepad2.right_stick_button){
+            } else if (gamepad2.left_stick_y < -0.7 && gamepad2.right_stick_button) {
                 Capstone.setPosition(CapstoneDown);
             }
 
 
 //            TODO: Intake System
             if (gamepad2.right_trigger > 0) {
+                if (cubeIn.getDistance(DistanceUnit.MM) < cubeNotInMM)
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
+                else if (cubeIn.getDistance(DistanceUnit.MM) > cubeNotInMM)
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
                 MyIntake.maxIntake();
             } else if (gamepad2.left_trigger > 0) {
                 MyIntake.maxOuttake();
@@ -202,7 +206,7 @@ public class goBuildaTeleop extends Robot {
             } else if (upDegel == true && downDegel != 1) {
                 if (((-time + runtime.seconds()) > 0.7 && (-time + runtime.seconds()) < 1.9) && firstRase == false) {
                     if (upDegel == true) {
-                        MyElevator.ElevateWithEncoder(-500,1,0.005);
+                        MyElevator.ElevateWithEncoder(-500, 1, 0.005);
                     }
                     stayingPosition = -400;
                     if (leftLinearMotor.getCurrentPosition() < -350) {
@@ -304,7 +308,6 @@ public class goBuildaTeleop extends Robot {
             encodersStay = stayingPosition;
 
 
-
 //            TODO: telemetryes
             telemetry.addData("current Position LeftElevator", leftLinearMotor.getCurrentPosition());
             telemetry.addData("Left power Elevator", leftLinearMotor.getPower());
@@ -312,7 +315,6 @@ public class goBuildaTeleop extends Robot {
             telemetry.addData("down sensor Magnet", downMagnetElevator.getState());
             telemetry.addData("Mode: ", MyDriveTrain.Mode);
             telemetry.update();
-
 
 
         }
