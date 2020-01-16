@@ -9,6 +9,8 @@ public class elevator {
     private DcMotor rightEle = null;
     private DigitalChannel upMagnet = null;
     private DigitalChannel downMagnet = null;
+    public int stay = 0;
+    public double stayPower = 0;
 
     public elevator(DcMotor leftEle, DcMotor rightEle, DigitalChannel upMagnet, DigitalChannel downMagnet, int fixedPosition) {
         this.leftEle = leftEle;
@@ -36,6 +38,19 @@ public class elevator {
 //        rightEle.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftEle.setPower(power * (pos - leftEle.getCurrentPosition()) * kp);
         rightEle.setPower(power * (pos - leftEle.getCurrentPosition()) * kp);
+    }
+
+    public void setStayValues(int stay, double power){
+        this.stay = stay;
+        stayPower = power;
+    }
+
+    public int getStay(){
+        return stay;
+    }
+
+    public double getStayPower(){
+        return  stayPower;
     }
 
     public void ElevateCustomRight(int pos, double power, double kp) {
