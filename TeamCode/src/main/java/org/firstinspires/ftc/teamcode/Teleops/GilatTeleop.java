@@ -247,9 +247,12 @@ public class GilatTeleop extends Robot {
                 telemetry.addLine("1 1 0 5 6   T H E  Y  B O T ");
 
             }
-            blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
             if (cubeIn.getDistance(DistanceUnit.MM) > cubeNotInMM) {
                 blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
+            }
+            else if (cubeIn.getDistance(DistanceUnit.MM) < cubeNotInMM){
+                blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
+
             }
         }
     }
