@@ -11,8 +11,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.teamcode.Robot;
 
-@TeleOp(name = "cotumedTeleop", group = "teleops")
-public class cotumedTeleop extends Robot {
+@TeleOp(name = "CustuMadeTeleop", group = "teleops")
+public class CustuMadeTeleop extends Robot {
 
     private int stayingPosition = 0;
     private int encodersStay;
@@ -23,6 +23,14 @@ public class cotumedTeleop extends Robot {
     private double stayPower = 0;
 
     private boolean autoY = false;
+    private boolean up = false;
+    private boolean low = false;
+
+
+    private int Level = 100;
+    private int counter = 1;
+    private int pos = 0;
+
     @Override
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
@@ -39,7 +47,7 @@ public class cotumedTeleop extends Robot {
         blinkinLedDriver.setPattern(pattern);
 
         waitForStart();
-        while (opModeIsActive()){
+        while (opModeIsActive()) {
             //TODO[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[GAMEPAD 11111111111]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
 
 //            TODO: Drive
@@ -70,42 +78,123 @@ public class cotumedTeleop extends Robot {
                 telemetry.addLine("imu isnt calibrated");
             }
 
+            if (gamepad1.a) {
+                LeftServo.setPosition(LeftServoDown);
+                RightServo.setPosition(RightServoDown);
+            } else if (gamepad1.y) {
+                LeftServo.setPosition(LeftServoUp);
+                RightServo.setPosition(RightServoUp);
+            }
+
 //TODO[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[GAMEPAD 222222222222222]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
 
-            if (gamepad2.y){
+//           TODO: Servos:
+            if (gamepad2.dpad_up) {
+                Output.setPosition(OutputUp);
+            } else if (gamepad2.dpad_down) {
+                Output.setPosition(OutputDown);
+            }
+
+            if (gamepad2.x) {
+                Arm.setPosition(ArmOpen);
+            }
+            else if (gamepad2.b){
+                Arm.setPosition(ArmClose);
+
+            }
+
+            if (gamepad1.left_bumper) {
+                ParkingMot.setPosition(ParkingMotIn);
+            }
+            else if (gamepad1.right_bumper) {
+                ParkingMot.setPosition(ParkingMotOut);
+            }
+
+            if (gamepad2.left_stick_y > 0.7 && gamepad2.left_stick_button){
+                Capstone.setPosition(CapstoneUp);
+            }else if (gamepad2.left_stick_y < -0.7 && gamepad2.right_stick_button){
+                Capstone.setPosition(CapstoneDown);
+            }
+
+
+//            TODO: Intake System
+            if (gamepad2.right_trigger > 0) {
+                MyIntake.maxIntake();
+            } else if (gamepad2.left_trigger > 0) {
+                MyIntake.maxOuttake();
+            } else {
+                MyIntake.ShutDown();
+            }
+
+//TODO[[[[[[[[[[[[[[[[[[[[[[[[[[[[[Elevator]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+            pos = -counter * Level;
+
+//            TODO: Auto Y
+            if (gamepad2.y) {
                 autoY = true;
                 Output.setPosition(OutputDown);
                 time = runtime.seconds();
                 telemetry.addLine("1");
-            }if (autoY == true && (-time + runtime.seconds() > 1.2)){
-                stayingPosition = -400;
+            }
+            if (autoY == true && (-time + runtime.seconds() > 1.2)) {
+                stayingPosition = pos;
                 power = 1;
                 Arm.setPosition(ArmOpen);
                 telemetry.addLine("2");
+                autoY = false;
+                counter += 1;
             }
 
-            if (gamepad2.dpad_down){
-                ParkingMot.setPosition(1);
-            }else if (gamepad2.dpad_up){
-                ParkingMot.setPosition(0);
+//            TODO: Auto A
+            if (gamepad2.a){
+                stayingPosition = 0;
+                Arm.setPosition(ArmClose);
+                Output.setPosition(OutputUp);
+                power = 0.5;
             }
 
-            if (gamepad2.left_bumper){
+//            TODO: One Level Upper
+            if (gamepad2.left_stick_y < -0.5 && gamepad2.left_stick_button) {
+                up = true;
+                stayingPosition = pos;
+                power = 1;
+            }else if (up && leftLinearMotor.getCurrentPosition() <= pos + 90) {
+                up = false;
+                counter += 1;
+            }
+
+            //      TODO: Reset Counter
+            if (gamepad2.dpad_right) counter = 1;
+
+//            TODO: One Level Lower
+            if (gamepad2.left_stick_y > 0.5 && gamepad2.left_stick_button) {
+                low = true;
+                stayingPosition = pos + 100 + 10;
+            }else if (low && leftLinearMotor.getCurrentPosition() >= pos + 90) {
+                low = false;
+                counter -= 1;
+            }
+
+//            TODO: Slow Downing
+            if (gamepad2.left_bumper) {
                 MyElevator.ElevateWithEncoder(20, 0.1, 0.0088);
-                MyElevator.setStayValues(leftLinearMotor.getCurrentPosition(),0.2);
-            } else {
+                MyElevator.setStayValues(leftLinearMotor.getCurrentPosition(), 0.2);
+            }
+//            TODO: the only move command
+            else {
                 stayErrors = leftLinearMotor.getCurrentPosition() - stayingPosition;
                 stayPower = power * stayErrors * stayPN;
                 leftLinearMotor.setTargetPosition(encodersStay);
                 leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 leftLinearMotor.setPower(stayPower);
                 rightLinearMotor.setPower(stayPower);
-                telemetry.addLine("Stop Elevator");
             }
 
             encodersStay = stayingPosition;
 
             telemetry.addData("leftElevator:", leftLinearMotor.getCurrentPosition());
+            telemetry.addData("autoY", autoY);
+            telemetry.addData("counter", counter);
             telemetry.update();
 
         }
