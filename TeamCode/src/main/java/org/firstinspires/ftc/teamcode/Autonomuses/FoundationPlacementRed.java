@@ -20,6 +20,23 @@ public class FoundationPlacementRed extends Robot {
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
         waitForStart();
+        while (Touch_Foundation.getState()) {
+            RB.setPower(-0.4);
+            LB.setPower(-0.4);
+            RF.setPower(-0.4);
+            LF.setPower(-0.4);
+        }
+        LeftServo.setPosition(LeftServoDown);
+        RightServo.setPosition(RightServoDown);
+        sleep(500);
+        MyDriveTrain.encoderDrive(1, 110, 110, 110, 110, 2);
+        MyDriveTrain.encoderDrive(0.3, 140, 140, -140, -140, 2);
+        LeftServo.setPosition(LeftServoUp);
+        RightServo.setPosition(RightServoUp);
+        ParkingMot.setPosition(ParkingMotIn);
+        sleep(500);
+        MyDriveTrain.encoderDrive(0.5, -10, -10, -10, -10, 1);
+        MyDriveTrain.encoderDrive(0.5, 53, 53, 53, 53, 1);
         /*MyDriveTrain.encoderDrive(0.5,-30,30,30,-30,2);
         MyDriveTrain.encoderDrive(0.5,20,20,20,20,2);
         MyDriveTrain.RotateP(90,0.4,10,0.0108);
@@ -40,19 +57,11 @@ public class FoundationPlacementRed extends Robot {
         MyDriveTrain.encoderDrive(0.3,-30,30,30,-30,2);
         ParkingMot.setPosition(ParkingMotIn);
         sleep(500);
-        MyDriveTrain.encoderDrive(0.5,-43,-43, -43,-43,1);*/
-        while (Touch_Foundation.getState()) {
-            rightLinearMotor.setPower(0.5);
-            leftLinearMotor.setPower(0.5);
-//            if (Touch_Foundation.getState() == false){
-//                rightLinearMotor.setPower(0);
-//                leftLinearMotor.setPower(0);
-
-
-
-
-        }
+        MyDriveTrain.encoderDrive(0.5,-43,-43, -43,-43,1);
+        */
 
     }
 
 }
+
+

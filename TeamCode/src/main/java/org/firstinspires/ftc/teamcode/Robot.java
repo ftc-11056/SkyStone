@@ -259,22 +259,22 @@ public class Robot extends LinearOpMode {
         if (delta >= 0 && delta <= 4) {
             MyElevator.ElevateWithEncoder(-350, 0.4, 0.3);
         }
-        if (delta >= 5 && delta <= 10) {
+        if (delta >= 5 && delta <= 12) {
             Arm.setPosition(ArmOpen);
         }
-        if (delta >= 11 && delta <= 18) {
+        if (delta >= 13 && delta <= 18) {
             MyElevator.ElevateWithEncoder(0, 0.7, 0.0035);
         }
         if (delta >= 19 && delta <= 23) {
             Output.setPosition(OutputUp);
         }
-        if (delta >= 24 && delta <= 34) {
+        if (delta >= 24 && delta <= 32) {
             MyElevator.ElevateWithEncoder(-350, 0.4, 0.3);
         }
-        if (delta >= 35 && delta <= 41) {
+        if (delta >= 33 && delta <= 38) {
             Arm.setPosition(ArmClose);
         }
-        if (delta >= 42 && delta <= 45) {
+        if (delta >= 39 && delta <= 42) {
             MyElevator.ElevateWithEncoder(0, 0.7, 0.0035);
         }
     }
@@ -289,19 +289,19 @@ public class Robot extends LinearOpMode {
         if (Delta >= 1.1 && Delta <= 2) {
             Arm.setPosition(ArmOpen);
         }
-        if (Delta >= 2.1 && Delta <= 3) {
+        if (Delta >= 2.1 && Delta <= 2.5) {
             MyElevator.ElevateWithEncoder(0, 0.3, 0.0035);
         }
-        if (Delta >= 3 && Delta <= 4) {
+        if (Delta >= 2.6 && Delta <= 3.6) {
             Output.setPosition(OutputUp);
         }
-        if (Delta >= 4.1 && Delta <= 5) {
+        if (Delta >= 3.7 && Delta <= 4.7) {
             MyElevator.ElevateWithEncoder(-350, 0.4, 0.3);
         }
-        if (Delta >= 5.1 && Delta <= 6) {
+        if (Delta >= 4.8 && Delta <= 5.5) {
             Arm.setPosition(ArmClose);
         }
-        if (Delta >= 6.1 && Delta <= 7) {
+        if (Delta >= 5.6 && Delta <= 6) {
             MyElevator.ElevateWithEncoder(0, 0.4, 0.0035);
             ElvateBusy = false;
         }
