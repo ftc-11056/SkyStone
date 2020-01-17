@@ -82,11 +82,13 @@ public class cotumedTeleop extends Robot {
                 power = 1;
                 Arm.setPosition(ArmOpen);
                 telemetry.addLine("2");
-            }/*if (leftLinearMotor.getCurrentPosition() < -390 && Arm.getPosition() == ArmOpen){
-                autoY = false;
-                MyElevator.setStayValues(-100,0.9);
-                telemetry.addLine("3");
-            }*/
+            }
+
+            if (gamepad2.dpad_down){
+                ParkingMot.setPosition(1);
+            }else if (gamepad2.dpad_up){
+                ParkingMot.setPosition(0);
+            }
 
             if (gamepad2.left_bumper){
                 MyElevator.ElevateWithEncoder(20, 0.1, 0.0088);
