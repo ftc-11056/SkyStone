@@ -30,8 +30,8 @@ public class IntakeTrain extends Robot {
     }
 
     public void maxIntake(){
-        IntakeL.setPower(0.7);
-        IntakeR.setPower(0.7);
+        IntakeL.setPower(0.85);
+        IntakeR.setPower(0.85);
     }
     public void ShutDown(){
         IntakeL.setPower(0);
