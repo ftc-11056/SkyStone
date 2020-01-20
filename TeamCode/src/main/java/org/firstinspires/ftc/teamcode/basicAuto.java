@@ -12,8 +12,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 public class basicAuto extends Robot {
 
-    OpenCvCamera webcam;
-    SkystoneDetector skystoneDetector;
+    public OpenCvCamera webcam;
+    public SkystoneDetector skystoneDetector;
 
     public double Mikum = 0;
 
