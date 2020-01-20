@@ -12,9 +12,9 @@ public class FoundationPlacementBlue extends basicAuto {
     /* Declare OpMode members. */
 
 
-    /*
+    /**
      * Code to run ONCE when the driver hits INIT
-     */
+     **/
     @Override
     public void runOpMode() throws InterruptedException {
         super.runOpMode();

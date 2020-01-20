@@ -28,10 +28,11 @@ public class Autonom_2_cube_Blue extends Robot {
     private OurPoint[] LeftFoundation = {
             new OurPoint(-0.55, -1, 180),
             new OurPoint(-0.9, -0.35, 180),
-            new OurPoint(-0.9, 0.55, 90),
-            new OurPoint(-0.53, 1.21, 90)};
-    private double toleranceLeftFoundation = 75;
-    private double KcLeftFoundation = 3;
+            new OurPoint(-0.9, -0.3, 180),
+            new OurPoint(-1, 0.85, 90),
+            new OurPoint(-0.55, 1.17, 90)};
+    private double toleranceLeftFoundation = 95;
+    private double KcLeftFoundation = 1.5;
     private double MaxVelocityLeftFoundation = 1.5;
     private double turnSpeedLeftFoundation = 1.2;
     private boolean frontLeftFoundation = false;
@@ -40,9 +41,9 @@ public class Autonom_2_cube_Blue extends Robot {
             new OurPoint(-0.53, 1.21, 90),
             new OurPoint(-1.25, 1.21, 180),
             new OurPoint(-0.85, 0.30, 180),
-            new OurPoint(-0.8, -0.85, 230),
-            new OurPoint(-0.55, -1.36, 230),
-            new OurPoint(-0.32, -1.36, 230)};
+            new OurPoint(-0.8, -0.95, 230),
+            new OurPoint(-0.55, -1.43, 230),
+            new OurPoint(-0.32, -1.43, 230)};
     private double toleranceLeft2 = 120;
     private double KcLeft2 = 1.5;
     private double MaxVelocityLeft2 = 1;
@@ -54,8 +55,8 @@ public class Autonom_2_cube_Blue extends Robot {
             new OurPoint(-0.32, -1.36, 180),
             new OurPoint(-0.9, -0.85, 180),
             new OurPoint(-0.9, 0.15, 180),
-            new OurPoint(-1.2, 0.5, 180),
-            new OurPoint(-1.2, 0.97, 180)};
+            new OurPoint(-1, 0.5, 180),
+            new OurPoint(-1, 0.97, 180)};
     private double toleranceLeftFoundation2 = 55;
     private double KcLeftFoundation2 = 2.5;
     private double MaxVelocityLeftFoundation2 = 1.5;
@@ -176,7 +177,7 @@ public class Autonom_2_cube_Blue extends Robot {
         dashboard = FtcDashboard.getInstance();
         packet = new TelemetryPacket();
         BuildOdometry(StartPosition);
-        MyPurePursuitGUI = new PurePursuitGUI(Left2, MyOdometry.getPosition(), toleranceLeft2, KcLeft2, MaxVelocityLeft2, turnSpeedLeft2, frontLeft2);
+        MyPurePursuitGUI = new PurePursuitGUI(LeftFoundation, MyOdometry.getPosition(), toleranceLeftFoundation, KcLeftFoundation, MaxVelocityLeftFoundation, turnSpeedLeftFoundation, frontLeftFoundation);
         while (!isStarted()) {
             packet = new TelemetryPacket();
             MyPurePursuitGUI.updateGraghic(packet);
@@ -207,15 +208,21 @@ public class Autonom_2_cube_Blue extends Robot {
                     MyIntake.ShutDown();
                 }
 
-                if (MyPurePursuitGUI.findClosetPointIndex() >= 42) {
+                if (MyPurePursuitGUI.findClosetPointIndex() >= 35) {
+                    MyPurePursuitGUI.setTurnSpeed(2.5);
+                }
+
+                if (MyPurePursuitGUI.findClosetPointIndex() >= 40) {
                     LeftServo.setPosition(0.85);
                     RightServo.setPosition(0.85);
+                    MyPurePursuitGUI.setTurnSpeed(1);
+                    MyPurePursuitGUI.setKv(0.5);
                 }
 
             }
 
             MyIntake.maxOuttake();
-            sleep(1000);
+            sleep(1500);
             MyIntake.ShutDown();
             Output.setPosition(OutputDown);
             LeftServo.setPosition(LeftServoDown);
