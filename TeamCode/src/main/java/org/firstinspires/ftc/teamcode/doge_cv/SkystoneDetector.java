@@ -23,8 +23,13 @@ public class SkystoneDetector extends DogeCVDetector {
     public DogeCV.AreaScoringMethod areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Setting to decide to use MaxAreaScorer or PerfectAreaScorer
 
     public RatioScorer ratioScorer = new RatioScorer(1.25, 3); // Used to find the short face of the stone
-    public MaxAreaScorer maxAreaScorer = new MaxAreaScorer(0.01);                    // Used to find largest objects
+    public MaxAreaScorer maxAreaScorer = new MaxAreaScorer(0.1);                    // Used to find largest objects
     public PerfectAreaScorer perfectAreaScorer = new PerfectAreaScorer(5000, 0.05); // Used to find objects near a tuned area value
+
+    //TODO: change filters
+    //Create the default filters and scorers
+    public DogeCVColorFilter blackFilter = new GrayscaleFilter(5, 30);
+    public DogeCVColorFilter yellowFilter = new LeviColorFilter(LeviColorFilter.ColorPreset.YELLOW, 15); //was 70Default Yellow blackFilter
 
     // Results of the detector
     private Point screenPosition = new Point(); // Screen position of the mineral
@@ -36,6 +41,10 @@ public class SkystoneDetector extends DogeCVDetector {
     private Mat blackMask = new Mat();
     private Mat yellowMask = new Mat();
     private Mat hierarchy = new Mat();
+
+    public int upBlack = 0;
+    public int downBlack = 0;
+    public int yellow = 0;
 
     public Point getScreenPosition() {
         return screenPosition;
@@ -49,12 +58,6 @@ public class SkystoneDetector extends DogeCVDetector {
     public SkystoneDetector(int blackLower, int blackUpper, int Yellow) {
         detectorName = "Skystone Detector";
     }
-
-    //TODO: change filters
-    //Create the default filters and scorers
-    public DogeCVColorFilter blackFilter = new GrayscaleFilter(2, 40);
-    public DogeCVColorFilter yellowFilter = new LeviColorFilter(LeviColorFilter.ColorPreset.YELLOW, 20); //was 70Default Yellow blackFilter
-
 
     @Override
     public Mat process(Mat input) {
@@ -72,7 +75,7 @@ public class SkystoneDetector extends DogeCVDetector {
         Imgproc.drawContours(displayMat, contoursYellow, -1, new Scalar(255, 30, 30), 2);
 
 
-        // Current result
+        // Cu rrent result
         Rect bestRect = foundRect;
         double bestDifference = Double.MAX_VALUE; // MAX_VALUE since less difference = better
 

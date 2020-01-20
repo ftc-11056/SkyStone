@@ -5,6 +5,7 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -18,7 +19,7 @@ public class CustuMadeTeleop extends Robot {
     private int encodersStay;
     private double time = 0;
     private int stayErrors = 0;
-    private double stayPN = 0.001;
+    private double stayPN = 0.1;
     private double power = 0;
     private double stayPower = 0;
 
@@ -42,6 +43,7 @@ public class CustuMadeTeleop extends Robot {
         RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         rightLinearMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftLinearMotor.setDirection(DcMotor.Direction.REVERSE);
 
         pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
         blinkinLedDriver.setPattern(pattern);
@@ -58,7 +60,7 @@ public class CustuMadeTeleop extends Robot {
             else if (gamepad1.b) MyDriveTrain.setMode("Oriented");
 
             if (MyDriveTrain.getMode().equals("Oriented")) {
-                MyDriveTrain.fieldOriented(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, heading + -360);
+                MyDriveTrain.fieldOriented(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, heading);
             } else {
                 MyDriveTrain.arcade(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
             }

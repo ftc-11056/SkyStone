@@ -21,7 +21,6 @@ import java.util.Locale;
  * Derived Work Copyright(c) 2019 DogeDevs
  */
 @Disabled
-@TeleOp(name = "chekWebcamWork", group = "DogeCV")
 public class chekWebcamWork extends basicAuto {
 
     private WebcamName webcamName = null;

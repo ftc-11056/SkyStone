@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.Robot;
 
 
-@TeleOp(name = "MenahemTeleop", group = "teleops")
 public class MenahemTeleop extends Robot {
 
     // levels counter

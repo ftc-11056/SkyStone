@@ -16,8 +16,6 @@ import java.util.Locale;
  * Original Work Copright(c) 2019 OpenFTC Team
  * Derived Work Copyright(c) 2019 DogeDevs
  */
-@TeleOp(name = "Stone Detector OpMode", group = "DogeCV")
-
 public class SkystoneDetectorExample extends LinearOpMode {
     private OpenCvCamera phoneCam;
     private StoneDetector Stone_detector;
