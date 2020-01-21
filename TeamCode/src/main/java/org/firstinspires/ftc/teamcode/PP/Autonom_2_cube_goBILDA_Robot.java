@@ -52,10 +52,10 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
 
     private OurPoint[] LeftFoundation2 = {
             new OurPoint(0.32, -1.36, 180),
-            new OurPoint(0.85, -0.85, 180),
-            new OurPoint(0.85, 0.15, 180),
-            new OurPoint(1.2, 0.5, 180),
-            new OurPoint(1.2, 1.05, 180)};
+            new OurPoint(-0.9, -0.85, 180),
+            new OurPoint(-0.9, 0.15, 180),
+            new OurPoint(-1, 0.5, 180),
+            new OurPoint(-1, 0.97, 180)};
     private double toleranceLeftFoundation2 = 80;
     private double KcLeftFoundation2 = 2.5;
     private double MaxVelocityLeftFoundation2 = 1.5;
@@ -148,7 +148,7 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
             new OurPoint(0.25, -0.9, 180),
             new OurPoint(0.75, -0.6, 180),
             new OurPoint(0.75, 0.15, 180),
-            new OurPoint(1.2, 0.5,180),
+            new OurPoint(1.2, 0.5, 180),
             new OurPoint(1.2, 1.05, 180)};
     private double toleranceRightFoundation2 = 80;
     private double KcRightFoundation2 = 2.5;
@@ -260,7 +260,7 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
                     MyIntake.ShutDown();
                     Output.setPosition(OutputDown);
                 }
-                if(MyPurePursuitGUI.findClosetPointIndex() == 39){
+                if (MyPurePursuitGUI.findClosetPointIndex() == 39) {
                     PlacingStoneTime = runtime.seconds();
                 }
 //                if (MyPurePursuitGUI.findClosetPointIndex() >= 40) {
@@ -344,7 +344,7 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
                     MyIntake.ShutDown();
                     Output.setPosition(OutputDown);
                 }
-                if (MyPurePursuitGUI.findClosetPointIndex() == 39){
+                if (MyPurePursuitGUI.findClosetPointIndex() == 39) {
                     PlacingStoneTime = runtime.seconds();
                 }
 //                if(MyPurePursuitGUI.findClosetPointIndex() >= 40){
@@ -426,7 +426,7 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
                     MyIntake.ShutDown();
                     Output.setPosition(OutputDown);
                 }
-                if (MyPurePursuitGUI.findClosetPointIndex() == 39){
+                if (MyPurePursuitGUI.findClosetPointIndex() == 39) {
                     PlacingStoneTime = runtime.seconds();
                 }
 //                if(MyPurePursuitGUI.findClosetPointIndex() >= 40){
@@ -456,8 +456,8 @@ public class Autonom_2_cube_goBILDA_Robot extends Robot {
 
     }
 
-    private void LocalUpdateGraphic(){
-        packet.put("ElevateorBusy",ElevateorBusy);
+    private void LocalUpdateGraphic() {
+        packet.put("ElevateorBusy", ElevateorBusy);
         packet.put("isRun", isRun.toString());
         packet.put("LF", MyDriveTrain.LeftFront.getPower());
         packet.put("LB", MyDriveTrain.LeftBack.getPower());

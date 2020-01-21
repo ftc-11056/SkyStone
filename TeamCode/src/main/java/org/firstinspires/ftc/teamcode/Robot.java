@@ -281,7 +281,7 @@ public class Robot extends LinearOpMode {
 
     public boolean PlacingStoneWhitTime(TelemetryPacket packet) {
         boolean ElvateBusy = true;
-        double Delta = runtime.seconds()-PlacingStoneTime;
+        double Delta = runtime.seconds() - PlacingStoneTime;
         packet.put("delte", Delta);
         if (Delta >= 0.3 && Delta <= 1) {
             MyElevator.ElevateWithEncoder(-350, 0.4, 0.3);

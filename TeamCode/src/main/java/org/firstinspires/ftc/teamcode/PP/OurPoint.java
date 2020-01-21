@@ -10,19 +10,19 @@ public class OurPoint {
 
     //constractors:
 
-    public OurPoint(double x, double y){
+    public OurPoint(double x, double y) {
         this.x = x;
         this.y = y;
         this.angle = 0;
     }
 
-    public OurPoint(){
+    public OurPoint() {
         this.x = 0;
         this.y = 0;
         this.angle = 0;
     }
 
-    public OurPoint(double x, double y, double angle){
+    public OurPoint(double x, double y, double angle) {
         this.x = x;
         this.y = y;
         this.angle = angle;
@@ -63,7 +63,7 @@ public class OurPoint {
         this.angle = Math.toDegrees(angle);
     }
 
-    public void move(double dX, double dY){
+    public void move(double dX, double dY) {
         x += dX;
         y += dY;
     }
