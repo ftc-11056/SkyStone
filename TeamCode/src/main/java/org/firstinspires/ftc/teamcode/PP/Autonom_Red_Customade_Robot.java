@@ -5,10 +5,11 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.RobotCustomade;
 
 
 @Autonomous(name = "Autonom_Red_Customade_Robot", group = "teamcode")
-public class Autonom_Red_Customade_Robot extends Robot {
+public class Autonom_Red_Customade_Robot extends RobotCustomade {
 
     public PurePursuitGUI MyPurePursuitGUI;
     public FtcDashboard dashboard;

@@ -1,9 +1,6 @@
 package org.firstinspires.ftc.teamcode.PP;
 
-
-import org.firstinspires.ftc.teamcode.PP.OurPoint;
-
-public class Odometry {
+public class OdometryCustomMade {
 
     //fields:
 
@@ -19,12 +16,15 @@ public class Odometry {
     private double AccelerationY;
     private double lastTime;
 
-    //GoBILDA Robot measurements:
-    private final double distanceVerticalToCenter = 0.18821;
-    public final double distanceHorizentalToCenter = 0.16671;
+
+    //Custom made Robot measurements:
+    private final double distanceVerticalToCenter = 0.08379;
+    public final double distanceHorizentalToCenter = 0.09594;
     private final double wheelCicurmference = 0.159592772;
     private final double ticForRound = 8192;
     private final double ratio = 1;
+
+
 
     private final double convertEncoderToM = wheelCicurmference / (ticForRound * ratio);
 
@@ -47,7 +47,7 @@ public class Odometry {
 
     //constractors:
 
-    public Odometry(OurPoint RobotPosition){
+    public OdometryCustomMade(OurPoint RobotPosition){
         Position = RobotPosition;
         Position.setRadAngle(Position.getRadAngle() + (Math.PI / 2));
         lastEncoderRight = 0;
@@ -62,7 +62,7 @@ public class Odometry {
         lastTime = 0;
     }
 
-    public Odometry(){
+    public OdometryCustomMade(){
         Position = new OurPoint();
         Position.setRadAngle(Position.getRadAngle() + (Math.PI / 2));
         lastEncoderRight = 0;

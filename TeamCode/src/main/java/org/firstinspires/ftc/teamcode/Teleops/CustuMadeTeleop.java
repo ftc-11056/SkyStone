@@ -20,7 +20,7 @@ public class CustuMadeTeleop extends RobotCustomade {
     private int encodersStay;
     private double time = 0;
     private int stayErrors = 0;
-    private double stayPN = 0.1;
+    private double stayPN = 0.01;
     private double power = 0;
     private double stayPower = 0;
 

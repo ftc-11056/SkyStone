@@ -17,12 +17,13 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
-import org.firstinspires.ftc.teamcode.PP.Odometry;
+import org.firstinspires.ftc.teamcode.PP.OdometryCustomMade;
 import org.firstinspires.ftc.teamcode.PP.OurPoint;
 import org.firstinspires.ftc.teamcode.PP.PurePursuitGUI;
 import org.firstinspires.ftc.teamcode.Systems.DriveTrain;
 import org.firstinspires.ftc.teamcode.Systems.IntakeTrain;
 import org.firstinspires.ftc.teamcode.Systems.elevator;
+
 
 public class RobotCustomade extends LinearOpMode {
 
@@ -64,7 +65,7 @@ public class RobotCustomade extends LinearOpMode {
 
     /*Mechanisms*/
     protected DriveTrain MyDriveTrain = null;
-    protected Odometry MyOdometry = null;
+    protected OdometryCustomMade MyOdometry = null;
     protected IntakeTrain MyIntake = null;
     protected elevator MyElevator = null;
 
@@ -81,10 +82,10 @@ public class RobotCustomade extends LinearOpMode {
     public double ParkingMotIn = 0.6;
     public double ParkingMotOut = 0;
 
-    public double LeftServoDown = 1;
-    public double RightServoDown = 1;
-    public double LeftServoUp = 0.4;
-    public double RightServoUp = 0.5;
+    public double LeftServoDown = 0.2;
+    public double RightServoDown = 0.77;
+    public double LeftServoUp = 0.77;
+    public double RightServoUp = 0.2;
 
     public double ArmClose = 0.12;
     public double ArmOpen = 1;
@@ -214,9 +215,9 @@ public class RobotCustomade extends LinearOpMode {
 
 
         // Define and initialize ALL installed servos.
-        LeftServo.setPosition(LeftServoUp);
-        RightServo.setPosition(RightServoUp);
-        Output.setPosition(OutputUp);
+//        LeftServo.setPosition(LeftServoUp);
+//        RightServo.setPosition(RightServoUp);
+//        Output.setPosition(OutputUp);
 
 
         //Define Mechanisms:
@@ -233,13 +234,12 @@ public class RobotCustomade extends LinearOpMode {
         double currentTime = runtime.seconds();
         double odometryRight = IntakeR.getCurrentPosition();
         double odometryLeft = (IntakeL.getCurrentPosition());
-        //In goBILDA Robot product by -1 because the sensor give an opposite value.
-        double odometryHorizental = -(rightLinearMotor.getCurrentPosition());
+        double odometryHorizental = (rightLinearMotor.getCurrentPosition());
         MyOdometry.setAll(odometryRight, odometryLeft, odometryHorizental, currentTime);
     }
 
     public void BuildOdometry(OurPoint Position) {
-        MyOdometry = new Odometry(Position);
+        MyOdometry = new OdometryCustomMade(Position);
     }
 
     public void StopAndSavePlace(PurePursuitGUI MyPurePursuitGUI, FtcDashboard dashboard) {
