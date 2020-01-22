@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Robot;
 
 
-@Autonomous(name = "Autonom_2_cube_goBILDA_Robot", group = "teamcode")
-public class Autonom_2_cube_goBILDA_Robot extends Robot {
+@Autonomous(name = "Autonom_Red_goBILDA_Robot", group = "teamcode")
+public class Autonom_Red_goBILDA_Robot extends Robot {
 
     public String CubePlace = "Center";
     public PurePursuitGUI MyPurePursuitGUI;

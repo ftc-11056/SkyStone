@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Robot;
 
 
-@Autonomous(name = "Autonom_2_cube_Blue", group = "teamcode")
-public class Autonom_2_cube_Blue extends Robot {
+@Autonomous(name = "Autonom_Blue_goBILDA_Robot", group = "teamcode")
+public class Autonom_Blue_goBILDA_Robot extends Robot {
 
     public String CubePlace = "Center";
     public PurePursuitGUI MyPurePursuitGUI;
@@ -90,7 +90,7 @@ public class Autonom_2_cube_Blue extends Robot {
             new OurPoint(-0.54, 1.13, 90),
             new OurPoint(-1.55, 1.23, 180),
             new OurPoint(-0.85, 0.30, 180),
-            new OurPoint(-0.85, -1, 180),
+            new OurPoint(-0.85, -1, 230),
             new OurPoint(-0.4, -1, 230),
             new OurPoint(-0.55, -1.2, 230)};
     private double toleranceCenter2 = 120;
@@ -301,10 +301,10 @@ public class Autonom_2_cube_Blue extends Robot {
                 if (MyPurePursuitGUI.findClosetPointIndex() == 1) {
                     MyIntake.ShutDown();
                 }
-                if (MyPurePursuitGUI.findClosetPointIndex() >= 35) {
-                    MyPurePursuitGUI.setTurnSpeed(2);
-
-                }
+//                if (MyPurePursuitGUI.findClosetPointIndex() >= 35) {
+//                    MyPurePursuitGUI.setTurnSpeed(2);
+//
+//                }
                 if (MyPurePursuitGUI.findClosetPointIndex() >= 40) {
                     LeftServo.setPosition(0.85);
                     RightServo.setPosition(0.85);

@@ -26,9 +26,8 @@ public class Odometry {
     private final double wheelCicurmference = 0.159592772;
     private final double ticForRound = 8192;
     private final double ratio = 1;
+
 */
-
-
     //GoBILDA Robot measurements:
     private final double distanceVerticalToCenter = 0.18821;
     public final double distanceHorizentalToCenter = 0.16671;
