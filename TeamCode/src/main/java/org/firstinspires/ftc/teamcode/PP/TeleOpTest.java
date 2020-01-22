@@ -71,7 +71,7 @@ public class TeleOpTest extends Robot {
             packet = new TelemetryPacket();
             odometryRight = IntakeR.getCurrentPosition();
             odometryLeft = (IntakeL.getCurrentPosition());
-            odometryHorizental = -(rightLinearMotor.getCurrentPosition());
+            odometryHorizental = (rightLinearMotor.getCurrentPosition());
             packet.put("odometryRight: ", odometryRight);
             packet.put("odometryLeft: ", odometryLeft);
             packet.put("odometryHorizental: ", odometryHorizental);

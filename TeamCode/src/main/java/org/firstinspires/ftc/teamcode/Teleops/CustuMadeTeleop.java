@@ -11,9 +11,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.RobotCustomade;
 
 @TeleOp(name = "CustuMadeTeleop", group = "teleops")
-public class CustuMadeTeleop extends Robot {
+public class CustuMadeTeleop extends RobotCustomade {
 
     private int stayingPosition = 0;
     private int encodersStay;
@@ -28,7 +29,7 @@ public class CustuMadeTeleop extends Robot {
     private boolean low = false;
 
 
-    private int Level = 100;
+    private int Level = 200;
     private int counter = 1;
     private int pos = 0;
 
@@ -43,7 +44,6 @@ public class CustuMadeTeleop extends Robot {
         RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         rightLinearMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftLinearMotor.setDirection(DcMotor.Direction.REVERSE);
 
         pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
         blinkinLedDriver.setPattern(pattern);

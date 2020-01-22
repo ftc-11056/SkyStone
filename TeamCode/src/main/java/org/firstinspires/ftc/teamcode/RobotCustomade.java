@@ -24,7 +24,7 @@ import org.firstinspires.ftc.teamcode.Systems.DriveTrain;
 import org.firstinspires.ftc.teamcode.Systems.IntakeTrain;
 import org.firstinspires.ftc.teamcode.Systems.elevator;
 
-public class Robot extends LinearOpMode {
+public class RobotCustomade extends LinearOpMode {
 
     protected ElapsedTime runtime = new ElapsedTime();
 

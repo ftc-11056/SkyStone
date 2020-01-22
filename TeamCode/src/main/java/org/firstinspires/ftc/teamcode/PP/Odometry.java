@@ -19,14 +19,15 @@ public class Odometry {
     private double AccelerationY;
     private double lastTime;
 
-    /*
+/*
     //Custom made Robot measurements:
-    private final double distanceVerticalToCenter = 0.15333;
-    public final double distanceHorizentalToCenter = 0.1251;
+    private final double distanceVerticalToCenter = 0.08379;
+    public final double distanceHorizentalToCenter = 0.09594;
     private final double wheelCicurmference = 0.159592772;
-    private final double ticForRound = 867;
-    private final double ratio = 1.666666;
-    */
+    private final double ticForRound = 8192;
+    private final double ratio = 1;
+*/
+
 
     //GoBILDA Robot measurements:
     private final double distanceVerticalToCenter = 0.18821;
