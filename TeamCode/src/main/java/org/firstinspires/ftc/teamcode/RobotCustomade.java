@@ -72,8 +72,8 @@ public class RobotCustomade extends LinearOpMode {
     public double servoPosition = 0.005;
     protected int fixedPosition = 0;
 
-    public double OutputDown = 0.29;
-    public double OutputUp = 0.8;
+    public double OutputClose = 0.2;
+    public double OutputOpen = 0.7;
 
     public double CapstoneUp = 0.6;
     public double CapstoneDown = 0;
@@ -87,8 +87,8 @@ public class RobotCustomade extends LinearOpMode {
     public double LeftServoUp = 0.77;
     public double RightServoUp = 0.2;
 
-    public double ArmClose = 0.12;
-    public double ArmOpen = 1;
+    public double ArmClose = 0.67;
+    public double ArmOpen = 0.2;
     public boolean IntakeStop = true;
     public int PointIndexStartElavator = 0;
     public double PlacingStoneTime = 0;
@@ -272,7 +272,7 @@ public class RobotCustomade extends LinearOpMode {
             MyElevator.ElevateWithEncoder(0, 0.7, 0.0035);
         }
         if (delta >= 19 && delta <= 23) {
-            Output.setPosition(OutputUp);
+            Output.setPosition(OutputOpen);
         }
         if (delta >= 24 && delta <= 32) {
             MyElevator.ElevateWithEncoder(-350, 0.4, 0.3);
@@ -299,7 +299,7 @@ public class RobotCustomade extends LinearOpMode {
             MyElevator.ElevateWithEncoder(0, 0.3, 0.0035);
         }
         if (Delta >= 2.6 && Delta <= 3.6) {
-            Output.setPosition(OutputUp);
+            Output.setPosition(OutputOpen);
         }
         if (Delta >= 3.7 && Delta <= 4.7) {
             MyElevator.ElevateWithEncoder(-350, 0.4, 0.3);

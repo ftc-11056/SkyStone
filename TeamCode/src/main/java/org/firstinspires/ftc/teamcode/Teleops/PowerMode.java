@@ -7,9 +7,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.RobotCustomade;
 
 @TeleOp(name = "powerMode" , group = "teleops")
-public class PowerMode extends Robot {
+public class PowerMode extends RobotCustomade {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -53,6 +54,11 @@ public class PowerMode extends Robot {
                 RB.setPower(0);
                 RF.setPower(0);
             }
+
+            if (gamepad1.dpad_up) RightServo.setPosition(0.8);
+            if (gamepad1.dpad_down) RightServo.setPosition(0.2);
+            if (gamepad1.dpad_left) LeftServo.setPosition(0.8);
+            if (gamepad1.dpad_right) LeftServo.setPosition(0.2);
         }
     }
 }
