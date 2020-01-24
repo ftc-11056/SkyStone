@@ -18,7 +18,7 @@ public class PurePursuitGUI extends PathFollowerMecanum {
 
 
     //Fields:
-    public static double MaxAcceleration = 1.2;
+    public static double MaxAcceleration = 1;
     public static double lookAheadDistance = 0.225;
     //public static double Kp = 0.3;
     public static double Ki = 0;

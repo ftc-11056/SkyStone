@@ -109,9 +109,8 @@ public class OdometryCustomMade {
         DeltaAngle +=dAngle;
         RminusL +=(dRight - dLeft);
         updateVelocities();
+        updateAcceleration();
 
-        AccelerationX = (velocityX - lastVelocityX) / dTime;
-        AccelerationY = (velocityY - lastVelocityY) / dTime;
 
         Position.move(dX,dY);
 
@@ -127,6 +126,22 @@ public class OdometryCustomMade {
         double NewAngle = MyMath.AngleMap(Position.getRadAngle());
         Position.setRadAngle(NewAngle);
 
+    }
+
+    public void updateAcceleration(){
+        if(dTime <=0.025){
+            return;
+        }
+        double dVelocityX = velocityX - lastVelocityX;
+        double dVelocityY = velocityY - lastVelocityY;
+        double currAccelerationX = dVelocityX / dTime;
+        double currAccelerationY = dVelocityY / dTime;
+        if(dVelocityX >= 0.000000001 && currAccelerationX < 200){
+            AccelerationX = currAccelerationX;
+        }
+        if(dVelocityY >= 0.000000001 && currAccelerationY < 200){
+            AccelerationY = currAccelerationY;
+        }
     }
 
     public void updateVelocities(){

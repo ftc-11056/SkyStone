@@ -11,11 +11,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.RobotCustomade;
 
 import java.util.ArrayList;
 
 @TeleOp(name = "TeleOpTest", group = "teamcode")
-public class TeleOpTest extends Robot {
+public class TeleOpTest extends RobotCustomade {
 
 
     @Override
@@ -24,11 +25,15 @@ public class TeleOpTest extends Robot {
         double odometryRight = 0;
         double odometryLeft = 0;
         double odometryHorizental = 0;
-        BuildOdometry(new OurPoint(1.566, -0.875, 90));
+        BuildOdometry(new OurPoint(1.566, -0.875, 270));
         FtcDashboard dashboard = FtcDashboard.getInstance();
         TelemetryPacket packet = new TelemetryPacket();
         waitForStart();
         runtime.reset();
+        double MaxVelY = 0;
+        double MaxVelX = 0;
+        double MaxAcclelerationY = 0;
+        double MaxAcclelerationX = 0;
         double start,currentTime = runtime.seconds();
         start = currentTime;
         /*while(opModeIsActive() && (currentTime - start) < 0.8){
@@ -76,16 +81,35 @@ public class TeleOpTest extends Robot {
             packet.put("odometryLeft: ", odometryLeft);
             packet.put("odometryHorizental: ", odometryHorizental);
             updateOdometry();
-            double OdometryAngle = MyOdometry.getDirection();
-            OurPoint position = MyOdometry.getPosition();
+            double OdometryAngle = MyOdometry.getPosition().getDegAngle();
             packet.put("OdometryAngle:" , OdometryAngle);
+            packet.put("RminusL:" , MyOdometry.RminusL);
+            OurPoint position = MyOdometry.getPosition();
             packet.put("position:" , position.toString());
             packet.put("xRobot:" , MyOdometry.xRobot);
             packet.put("yRobot:" , MyOdometry.yRobot);
-            packet.put("RminusL:" , MyOdometry.RminusL);
-            packet.put("Change in angle:" , MyOdometry.DeltaAngle);
             packet.put("x:" , position.getX());
             packet.put("y:" , position.getY());
+
+/*
+            packet.put("VelocityY:" , MyOdometry.getVelocityY());
+            packet.put("VelocityX:" , MyOdometry.getVelocityX());
+            packet.put("Max VelocityX:" , MaxVelX);
+            packet.put("Max VelocityY:" , MaxVelY);
+            if(MyOdometry.getVelocityY() > MaxVelY)
+                MaxVelY =  MyOdometry.getVelocityY();
+            if(MyOdometry.getVelocityX() > MaxVelX)
+                MaxVelX =  MyOdometry.getVelocityX();
+
+            packet.put("AcclelerationY:" , MyOdometry.getAccelerationY());
+            packet.put("AcclelerationX:" , MyOdometry.getAccelerationX());
+            packet.put("Max AcclelerationX:" , MaxAcclelerationX);
+            packet.put("Max AcclelerationY:" , MaxAcclelerationY);
+            if(MyOdometry.getAccelerationY() > MaxAcclelerationY)
+                MaxAcclelerationY =  MyOdometry.getAccelerationY();
+            if(MyOdometry.getAccelerationX() > MaxAcclelerationX)
+                MaxAcclelerationX =  MyOdometry.getAccelerationX();
+*/
             double x = position.getX()*100/2.54;
             double y = position.getY()*100/2.54;
             double tmpX = x;

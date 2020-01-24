@@ -21,7 +21,7 @@ public class Paths_Library {
             new OurPoint(0.9, 0.55, 270),
             new OurPoint(0.55, 1.21, 270)};
     private static double toleranceLeftFoundation = 40;
-    private static double KcLeftFoundation = 3;
+    private static double KcLeftFoundation = 2;
     private static double MaxVelocityLeftFoundation = 1.5;
     private static double turnSpeedLeftFoundation = 1.2;
     private static boolean frontLeftFoundation = false;

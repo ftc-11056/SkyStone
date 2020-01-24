@@ -3,10 +3,11 @@ package org.firstinspires.ftc.teamcode.PP;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Robot;
 
-
+@Disabled
 @Autonomous(name = "Autonom_Blue_goBILDA_Robot", group = "teamcode")
 public class Autonom_Blue_goBILDA_Robot extends Robot {
 
