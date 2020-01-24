@@ -28,10 +28,11 @@ public class CustuMadeTeleop extends RobotCustomade {
     private boolean up = false;
     private boolean low = false;
 
-
     private int Level = 200;
     private int counter = 1;
     private int pos = 0;
+
+    private boolean Capass = false;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -182,7 +183,26 @@ public class CustuMadeTeleop extends RobotCustomade {
                 counter -= 1;
             }
 
-//            TODO: Slow Downing
+//            TODO: Capstone Button
+
+            if (gamepad2.right_bumper){
+                stayingPosition = -300;
+                power = 0.9;
+                stayPN = 0.01;
+                Capass = true;
+            }else if (Capass && leftLinearMotor.getCurrentPosition() == stayingPosition){
+                Capstone.setPosition(CapstoneDown);
+                time = runtime.seconds();
+            }
+            if (Capass && (-time + runtime.seconds() > 1.2)){
+                Arm.setPosition(ArmOpen);
+                time = runtime.seconds();
+            }if (Capass && (-time + runtime.seconds() > 1.2) && Arm.getPosition() == ArmOpen){
+                Capass = false;
+            }
+
+//            TODO: Slow Down
+
             if (gamepad2.left_bumper) {
                 MyElevator.ElevateWithEncoder(20, 0.1, 0.0088);
                 encodersStay = leftLinearMotor.getCurrentPosition();
@@ -191,7 +211,7 @@ public class CustuMadeTeleop extends RobotCustomade {
             else if (leftLinearMotor.getCurrentPosition() > -1790){
 //                stayErrors = leftLinearMotor.getCurrentPosition() - stayingPosition;
 //                stayPower = power * stayErrors * stayPN;
-//                leftLinearMotor.setTargetPosition(encodersStay);
+//                leftLinearMotor.setTargetPosition(en codersStay);
 //                leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //                leftLinearMotor.setPower(stayPower);
 //                rightLinearMotor.setPower(stayPower);
