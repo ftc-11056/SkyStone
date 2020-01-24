@@ -5,36 +5,36 @@ public class Paths_Library {
 
 
     private static OurPoint[] Left1Points = {
-            new OurPoint(1.566, -0.8325, 130),
-            new OurPoint(0.8, -0.6, 130),
-            new OurPoint(0.55, -1, 130)};
+            new OurPoint(1.566, -0.8325, 140),
+            new OurPoint(0.85, -0.72, 140),
+            new OurPoint(0.65, -0.95, 140)};
     private static double toleranceLeft1 = 50;
     private static double KcLeft1 = 0.5;
-    private static double MaxVelocityLeft1 = 0.4;
+    private static double MaxVelocityLeft1 = 0.6;
     private static double turnSpeedLeft1 = 0.4;
     private static boolean frontLeft1 = true;
     private static Path Left1 = new Path(Left1Points, toleranceLeft1, KcLeft1, MaxVelocityLeft1, turnSpeedLeft1, frontLeft1);
 
     private static OurPoint[] LeftFoundationPoints = {
-            new OurPoint(0.55, -1, 180),
+            new OurPoint(0.65, -0.95, 180),
             new OurPoint(0.9, -0.35, 180),
             new OurPoint(0.9, 0.55, 270),
-            new OurPoint(0.55, 1.21, 270)};
-    private static double toleranceLeftFoundation = 40;
-    private static double KcLeftFoundation = 2;
+            new OurPoint(0.55, 1.17, 270)};
+    private static double toleranceLeftFoundation = 37;
+    private static double KcLeftFoundation = 1.5;
     private static double MaxVelocityLeftFoundation = 1.5;
-    private static double turnSpeedLeftFoundation = 1.2;
+    private static double turnSpeedLeftFoundation = 1.3;
     private static boolean frontLeftFoundation = false;
     private static Path LeftFoundation = new Path(LeftFoundationPoints, toleranceLeftFoundation, KcLeftFoundation, MaxVelocityLeftFoundation, turnSpeedLeftFoundation, frontLeftFoundation);
 
     private static OurPoint[] Left2Points = {
-            new OurPoint(0.55, 1.18, 270),
-            new OurPoint(1.55, 1.18, 180),
-            new OurPoint(0.8, 0.30, 180),
-            new OurPoint(0.8, -0.85, 130),
+            new OurPoint(0.55, 1.17, 270),
+            new OurPoint(1.3, 1.17, 180),
+            new OurPoint(0.9, 0.30, 180),
+            new OurPoint(0.9, -0.85, 130),
             new OurPoint(0.55, -1.36, 130),
             new OurPoint(0.32, -1.36, 130)};
-    private static double toleranceLeft2 = 82;
+    private static double toleranceLeft2 = 70.5;
     private static double KcLeft2 = 1.5;
     private static double MaxVelocityLeft2 = 1;
     private static double turnSpeedLeft2 = 1.5;

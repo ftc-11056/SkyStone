@@ -173,7 +173,6 @@ public class PathFollowerMecanum {
         this.robotDirection = RobotPosition.getRadAngle();
         int closetPointIndex = findClosetPointIndex();
         temp1 = (OurPoint)wayPoint[closetPointIndex][0];
-        temp = ((OurPoint)wayPoint[closetPointIndex][0]).getRadAngle();
         targetDirection = (((OurPoint)wayPoint[closetPointIndex][0]).getRadAngle()) + (Math.PI / 2);
         LookaheadPoint = findLookaheadPoint();
         if(LookaheadPoint == null) {
@@ -250,15 +249,12 @@ public class PathFollowerMecanum {
     public void UpdatePowerByRobotPosition(TelemetryPacket packet, double time, OurPoint RobotPosition, double measuredVelocityX, double measuredVelocityY){
         UpdateVelocitiesByRobotPosition(packet, time, RobotPosition);
         measuredVelocity = Math.sqrt(MyMath.square(measuredVelocityX) + MyMath.square(measuredVelocityY));
+        temp = Math.sqrt(MyMath.square(Ka*YtargetAcceleration) + MyMath.square(Ka*XtargetAcceleration));
         double FeedForwardX = Kv*Xvelocity + Ka*XtargetAcceleration;
         double FeedForwardY = Kv*Yvelocity + Ka*YtargetAcceleration;
         double FeedForwardC = Cvelocity * turnSpeed;
         double FeedBackX = PID(measuredVelocityX, "X");
         double FeedBackY = PID(measuredVelocityY, "Y");
-        packet.put("FF y", FeedForwardY);
-        packet.put("FB y", FeedBackY);
-        packet.put("acceleration factor y", Ka*YtargetAcceleration);
-        packet.put("Velocity factor y", Kv*Yvelocity);
         Xpower = FeedForwardX + FeedBackX;
         Ypower = FeedForwardY + FeedBackY;
         Cpower = FeedForwardC;

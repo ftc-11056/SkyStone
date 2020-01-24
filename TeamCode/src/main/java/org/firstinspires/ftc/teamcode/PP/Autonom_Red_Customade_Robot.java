@@ -31,7 +31,7 @@ public class Autonom_Red_Customade_Robot extends RobotCustomade {
         Path[] Paths = Paths_Library.LeftPaths;
 
 
-        MyPurePursuitGUI = new PurePursuitGUI(Paths[0].getWayPoints(), MyOdometry.getPosition(), Paths[0].getTolerance(), Paths[0].getKc(), Paths[0].getMaxVelocity(), Paths[0].getTurnSpeed(), Paths[0].isFront());
+        MyPurePursuitGUI = new PurePursuitGUI(Paths[2].getWayPoints(), MyOdometry.getPosition(), Paths[2].getTolerance(), Paths[2].getKc(), Paths[2].getMaxVelocity(), Paths[2].getTurnSpeed(), Paths[2].isFront());
         while (!isStarted()) {
             packet = new TelemetryPacket();
             MyPurePursuitGUI.updateGraghic(packet);
@@ -47,8 +47,11 @@ public class Autonom_Red_Customade_Robot extends RobotCustomade {
         while (opModeIsActive() && isRun) {
             isRun = purePesuitRun();
             if (MyPurePursuitGUI.findClosetPointIndex() >= 16) {
-                MyPurePursuitGUI.setKv(0.7);
+                MyPurePursuitGUI.setKa(-0.6);
+                MyPurePursuitGUI.setKv(0.6);
                 MyIntake.maxIntake();
+                LeftServo.setPosition(0.25);
+                RightServo.setPosition(0.73);
             }
         }
 
@@ -57,29 +60,29 @@ public class Autonom_Red_Customade_Robot extends RobotCustomade {
         MyPurePursuitGUI = new PurePursuitGUI(Paths[1].getWayPoints(), MyOdometry.getPosition(), Paths[1].getTolerance(), Paths[1].getKc(), Paths[1].getMaxVelocity(), Paths[1].getTurnSpeed(), Paths[1].isFront());
         while (opModeIsActive() && isRun) {
             isRun = purePesuitRun();
-            if (MyPurePursuitGUI.findClosetPointIndex() == 1) {
+            if (MyPurePursuitGUI.findClosetPointIndex() >= 1) {
                 MyIntake.ShutDown();
             }
 
-//            if (MyPurePursuitGUI.findClosetPointIndex() >= 42) {
-//                LeftServo.setPosition(0.85);
-//                RightServo.setPosition(0.85);
+//            if (MyPurePursuitGUI.findClosetPointIndex() >= 37) {
+//                LeftServo.setPosition(LeftServoMiddle);
+//                RightServo.setPosition(RightServoMiddle);
 //            }
 
         }
-/*
-        Output.setPosition(OutputDown);
+
+        Output.setPosition(OutputClose);
         LeftServo.setPosition(LeftServoDown);
         RightServo.setPosition(RightServoDown);
-        sleep(400);
+        sleep(2500);
 
 
         isRun = true;
         MyPurePursuitGUI = new PurePursuitGUI(Paths[2].getWayPoints(), MyOdometry.getPosition(), Paths[2].getTolerance(), Paths[2].getKc(), Paths[2].getMaxVelocity(), Paths[2].getTurnSpeed(), Paths[2].isFront());
         while (opModeIsActive() && isRun) {
             isRun = purePesuitRun();
-            if (MyPurePursuitGUI.findClosetPointIndex() <= 12) {
-                MyPurePursuitGUI.setTurnSpeed(0.2);
+            if (MyPurePursuitGUI.findClosetPointIndex() <= 10) {
+                MyPurePursuitGUI.setTurnSpeed(0);
             } else {
                 packet.addLine("switch");
                 MyPurePursuitGUI.setTurnSpeed(2.5);
@@ -91,7 +94,7 @@ public class Autonom_Red_Customade_Robot extends RobotCustomade {
 //                }
 
             deltaFromFlatAngle = Math.abs(MyOdometry.getDirection() - Math.toRadians(270));
-            if (MyPurePursuitGUI.findClosetPointIndex() >= 35) {
+            if (MyPurePursuitGUI.findClosetPointIndex() >= 30){
                 LeftServo.setPosition(LeftServoUp);
                 RightServo.setPosition(RightServoUp);
                 MyPurePursuitGUI.setKv(0.5);
@@ -99,12 +102,12 @@ public class Autonom_Red_Customade_Robot extends RobotCustomade {
             }
 
             if (MyPurePursuitGUI.findClosetPointIndex() >= 50) {
-                Output.setPosition(OutputUp);
+                Output.setPosition(OutputOpen);
                 MyIntake.maxIntake();
             }
         }
 
-
+/*
         isRun = true;
         ElevateorBusy = true;
         MyPurePursuitGUI = new PurePursuitGUI(Paths[3].getWayPoints(), MyOdometry.getPosition(), Paths[3].getTolerance(), Paths[3].getKc(), Paths[3].getMaxVelocity(), Paths[3].getTurnSpeed(), Paths[3].isFront());
@@ -112,7 +115,7 @@ public class Autonom_Red_Customade_Robot extends RobotCustomade {
             isRun = purePesuitRun();
             if (MyPurePursuitGUI.findClosetPointIndex() >= 10) {
                 MyIntake.ShutDown();
-                Output.setPosition(OutputDown);
+                Output.setPosition(OutputClose);
             }
             if (MyPurePursuitGUI.findClosetPointIndex() == 39) {
                 PlacingStoneTime = runtime.seconds();
@@ -141,13 +144,14 @@ public class Autonom_Red_Customade_Robot extends RobotCustomade {
 
     }
 
-    private void LocalUpdateGraphic() {
+    private void LocalUpdateGraphic() {/*
         packet.put("ElevateorBusy", ElevateorBusy);
         packet.put("isRun", isRun.toString());
         packet.put("LF", MyDriveTrain.LeftFront.getPower());
         packet.put("LB", MyDriveTrain.LeftBack.getPower());
         packet.put("RF", MyDriveTrain.RightFront.getPower());
         packet.put("RB", MyDriveTrain.RightBack.getPower());
+        */
     }
 
     public boolean purePesuitRun() {

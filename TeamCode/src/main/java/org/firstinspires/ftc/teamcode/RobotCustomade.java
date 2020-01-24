@@ -20,6 +20,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.teamcode.PP.OdometryCustomMade;
 import org.firstinspires.ftc.teamcode.PP.OurPoint;
 import org.firstinspires.ftc.teamcode.PP.PurePursuitGUI;
+import org.firstinspires.ftc.teamcode.Systems.CustomadeIntake;
 import org.firstinspires.ftc.teamcode.Systems.DriveTrain;
 import org.firstinspires.ftc.teamcode.Systems.IntakeTrain;
 import org.firstinspires.ftc.teamcode.Systems.elevator;
@@ -66,7 +67,7 @@ public class RobotCustomade extends LinearOpMode {
     /*Mechanisms*/
     protected DriveTrain MyDriveTrain = null;
     protected OdometryCustomMade MyOdometry = null;
-    protected IntakeTrain MyIntake = null;
+    protected CustomadeIntake MyIntake = null;
     protected elevator MyElevator = null;
 
     public double servoPosition = 0.005;
@@ -82,10 +83,12 @@ public class RobotCustomade extends LinearOpMode {
     public double ParkingMotIn = 0.6;
     public double ParkingMotOut = 0;
 
-    public double LeftServoDown = 0.2;
-    public double RightServoDown = 0.77;
-    public double LeftServoUp = 0.77;
-    public double RightServoUp = 0.2;
+    public double RightServoDown = 0.2;
+    public double LeftServoDown = 0.77;
+    public double RightServoUp = 0.77;
+    public double LeftServoUp = 0.2;
+    public double RightServoMiddle = 0.67;
+    public double LeftServoMiddle = 0.3;
 
     public double ArmClose = 0.67;
     public double ArmOpen = 0.2;
@@ -95,11 +98,6 @@ public class RobotCustomade extends LinearOpMode {
 
     public double cubeNotInMM = 150;
 
-    public double CostumLeftServoUp = 0.2;
-    public double CostumLeftServoDown = 0.77;
-
-    public double CostumRightServoDown = 0.2;
-    public double CostumRightServoUp = 0.77;
 
     public String passWord = "dont pass";
 
@@ -203,26 +201,27 @@ public class RobotCustomade extends LinearOpMode {
         parameters.loggingTag = "IMU";
         IMU = hardwareMap.get(BNO055IMU.class, "imu");
         IMU.initialize(parameters);
-
+/*
         // make sure the imu gyro is calibrated before continuing.
         while (!isStarted() && !isStopRequested() && !IMU.isGyroCalibrated()) {
             sleep(50);
             idle();
         }
+        */
         angles = IMU.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
         Velocity = IMU.getVelocity();
         Acceleration = IMU.getAcceleration();
 
 
         // Define and initialize ALL installed servos.
-//        LeftServo.setPosition(LeftServoUp);
-//        RightServo.setPosition(RightServoUp);
+        LeftServo.setPosition(LeftServoUp);
+        RightServo.setPosition(RightServoUp);
 //        Output.setPosition(OutputUp);
 
 
         //Define Mechanisms:
         MyDriveTrain = new DriveTrain(LB, LF, RF, RB, IMU/*,Touch_foundation*/);
-        MyIntake = new IntakeTrain(IntakeL, IntakeR);
+        MyIntake = new CustomadeIntake(IntakeL, IntakeR);
         MyElevator = new elevator(leftLinearMotor, rightLinearMotor, upMagnetElevator, downMagnetElevator, fixedPosition);
     }
 
