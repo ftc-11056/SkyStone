@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.RobotCustomade;
 
@@ -61,7 +62,7 @@ public class CustuMadeTeleop extends RobotCustomade {
             else if (gamepad1.b) MyDriveTrain.setMode("Oriented");
 
             if (MyDriveTrain.getMode().equals("Oriented")) {
-                MyDriveTrain.fieldOriented(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, heading);
+                MyDriveTrain.fieldOriented(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, heading +90);
             } else {
                 MyDriveTrain.arcade(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
             }
@@ -130,6 +131,8 @@ public class CustuMadeTeleop extends RobotCustomade {
                 MyIntake.ShutDown();
             }
 
+//            if (cubeIn.getDistance(DistanceUnit.MM) < 60 && gamepad2.right_trigger > 0) Output.setPosition(ArmClose);
+
 //TODO[[[[[[[[[[[[[[[[[[[[[[[[[[[[[Elevator]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
             pos = -counter * Level;
 
@@ -195,11 +198,15 @@ public class CustuMadeTeleop extends RobotCustomade {
                 time = runtime.seconds();
             }
             if (Capass && (-time + runtime.seconds() > 1.2)){
-                Arm.setPosition(ArmOpen);
                 time = runtime.seconds();
-            }if (Capass && (-time + runtime.seconds() > 1.2) && Arm.getPosition() == ArmOpen){
+                stayingPosition = 0;
+            }if (Capass && (-time + runtime.seconds() > 1.2) && stayingPosition == 0){
+                Arm.setPosition(ArmOpen);
                 Capass = false;
-            }
+            }if (Arm.getPosition() == ArmOpen) Capass = false;
+
+            if (gamepad1.right_trigger > 0) Capstone.setPosition(1);
+            else if (gamepad1.left_trigger > 0) Capstone.setPosition(0);
 
 //            TODO: Slow Down
 
@@ -209,17 +216,17 @@ public class CustuMadeTeleop extends RobotCustomade {
             }
 //            TODO: the only move command
             else if (leftLinearMotor.getCurrentPosition() > -1790){
-//                stayErrors = leftLinearMotor.getCurrentPosition() - stayingPosition;
-//                stayPower = power * stayErrors * stayPN;
-//                leftLinearMotor.setTargetPosition(en codersStay);
-//                leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//                leftLinearMotor.setPower(stayPower);
-//                rightLinearMotor.setPower(stayPower);
+                stayErrors = leftLinearMotor.getCurrentPosition() - stayingPosition;
+                stayPower = power * stayErrors * stayPN;
+                leftLinearMotor.setTargetPosition(encodersStay);
+                leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                leftLinearMotor.setPower(stayPower);
+                rightLinearMotor.setPower(stayPower);
                 if (leftLinearMotor.getCurrentPosition() == pos) stayPN = 0.001;
             }else {
-//                leftLinearMotor.setPower(0);
-//                rightLinearMotor.setPower(0);
-//                stayingPosition = -1790;
+                leftLinearMotor.setPower(0);
+                rightLinearMotor.setPower(0);
+                stayingPosition = -1790;
             }
 
             encodersStay = stayingPosition;
