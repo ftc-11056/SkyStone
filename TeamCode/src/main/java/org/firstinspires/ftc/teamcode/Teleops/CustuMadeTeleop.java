@@ -20,6 +20,7 @@ public class CustuMadeTeleop extends RobotCustomade {
     private int stayingPosition = 0;
     private int encodersStay;
     private double time = 0;
+
     private int stayErrors = 0;
     private double stayPN = 0.01;
     private double power = 0;
@@ -62,7 +63,7 @@ public class CustuMadeTeleop extends RobotCustomade {
             else if (gamepad1.b) MyDriveTrain.setMode("Oriented");
 
             if (MyDriveTrain.getMode().equals("Oriented")) {
-                MyDriveTrain.fieldOriented(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, heading +90);
+                MyDriveTrain.fieldOriented(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, heading +0);
             } else {
                 MyDriveTrain.arcade(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
             }
@@ -115,12 +116,12 @@ public class CustuMadeTeleop extends RobotCustomade {
                 ParkingMot.setPosition(ParkingMotOut);
             }
 
-            if (gamepad2.left_stick_y > 0.7 && gamepad2.left_stick_button){
+         /*   if (gamepad2.left_stick_y > 0.7 && gamepad2.left_stick_button){
                 Capstone.setPosition(CapstoneUp);
             }else if (gamepad2.left_stick_y < -0.7 && gamepad2.right_stick_button){
                 Capstone.setPosition(CapstoneDown);
             }
-
+*/
 
 //            TODO: Intake System
             if (gamepad2.right_trigger > 0) {
@@ -179,7 +180,7 @@ public class CustuMadeTeleop extends RobotCustomade {
 //            TODO: One Level Lower
             if (gamepad2.left_stick_y > 0.5 && gamepad2.left_stick_button) {
                 low = true;
-                stayingPosition = pos + 100 + 10;
+                stayingPosition = pos + Level + 10;
                 stayPN = 0.005;
             }else if (low && leftLinearMotor.getCurrentPosition() >= pos + 90) {
                 low = false;
@@ -188,25 +189,35 @@ public class CustuMadeTeleop extends RobotCustomade {
 
 //            TODO: Capstone Button
 
-            if (gamepad2.right_bumper){
-                stayingPosition = -300;
-                power = 0.9;
-                stayPN = 0.01;
+            if (gamepad2.right_bumper) {
+                time = runtime.seconds();
+                Output.setPosition(OutputOpen);
                 Capass = true;
-            }else if (Capass && leftLinearMotor.getCurrentPosition() == stayingPosition){
-                Capstone.setPosition(CapstoneDown);
-                time = runtime.seconds();
             }
-            if (Capass && (-time + runtime.seconds() > 1.2)){
-                time = runtime.seconds();
+                if(Capass&&(-time + runtime.seconds() > 1.2)) {
+                    stayingPosition = -300;
+                    power = 0.5;
+                    stayPN = 0.01;
+                }
+             if (Capass && leftLinearMotor.getCurrentPosition() <= -280){
+                Capstone.setPosition(CapstoneDown);
+            }
+            if (Capass && (-time + runtime.seconds() > 2.4)){
                 stayingPosition = 0;
-            }if (Capass && (-time + runtime.seconds() > 1.2) && stayingPosition == 0){
+                power=0.3;
+                stayPN=0.001;
+            }
+            if (Capass && (-time + runtime.seconds() > 3.6) && stayingPosition >= -10) {
+                Output.setPosition(OutputClose);
+            }
+            if (Capass && (-time + runtime.seconds() > 4.8) && stayingPosition >= -10){
                 Arm.setPosition(ArmOpen);
                 Capass = false;
-            }if (Arm.getPosition() == ArmOpen) Capass = false;
-
-            if (gamepad1.right_trigger > 0) Capstone.setPosition(1);
-            else if (gamepad1.left_trigger > 0) Capstone.setPosition(0);
+            }
+            /*if (Arm.getPosition() == ArmOpen) Capass = false;
+*/
+            if (gamepad1.right_trigger > 0) Capstone.setPosition(0.3);
+            else if (gamepad1.left_trigger > 0) Capstone.setPosition(0.7);
 
 //            TODO: Slow Down
 
