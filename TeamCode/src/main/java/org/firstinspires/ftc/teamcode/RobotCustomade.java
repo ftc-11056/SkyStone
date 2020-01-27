@@ -73,11 +73,11 @@ public class RobotCustomade extends LinearOpMode {
     public double servoPosition = 0.005;
     protected int fixedPosition = 0;
 
-    public double OutputClose = 0.2;
-    public double OutputOpen = 0.7;
+    public double OutputClose = 0.7;
+    public double OutputOpen = 0.4;
 
-    public double CapstoneUp = 0.6;
-    public double CapstoneDown = 0;
+    public double CapstoneUp = 0.15  ;
+    public double CapstoneDown = 0.54;
 
 
     public double ParkingMotIn = 0.6;
@@ -90,8 +90,8 @@ public class RobotCustomade extends LinearOpMode {
     public double RightServoMiddle = 0.15;
     public double LeftServoMiddle = 0.85;
 
-    public double ArmClose = 0.67;
-    public double ArmOpen = 0.2;
+    public double ArmClose = 0.8;
+    public double ArmOpen = 0.3;
     public boolean IntakeStop = true;
     public int PointIndexStartElavator = 0;
     public double PlacingStoneTime = 0;
@@ -233,7 +233,7 @@ public class RobotCustomade extends LinearOpMode {
         double currentTime = runtime.seconds();
         double odometryRight = IntakeR.getCurrentPosition();
         double odometryLeft = (IntakeL.getCurrentPosition());
-        double odometryHorizental = (rightLinearMotor.getCurrentPosition());
+        double odometryHorizental = (-rightLinearMotor.getCurrentPosition());
         MyOdometry.setAll(odometryRight, odometryLeft, odometryHorizental, currentTime);
     }
 

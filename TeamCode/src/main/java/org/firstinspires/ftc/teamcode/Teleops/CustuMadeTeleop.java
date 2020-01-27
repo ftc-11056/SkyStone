@@ -31,9 +31,10 @@ public class CustuMadeTeleop extends RobotCustomade {
     private boolean up = false;
     private boolean low = false;
 
-    private int Level = 200;
+    private int Level = 150;
     private int counter = 1;
     private int pos = 0;
+
 
     private boolean Capass = false;
 
@@ -134,7 +135,15 @@ public class CustuMadeTeleop extends RobotCustomade {
                 MyIntake.ShutDown();
             }
 
-//            if (cubeIn.getDistance(DistanceUnit.MM) < 60 && gamepad2.right_trigger > 0) Output.setPosition(ArmClose);
+            if (cubeIn.getDistance(DistanceUnit.MM) > cubeNotInMM) {
+                blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
+            }
+            else if (cubeIn.getDistance(DistanceUnit.MM) < cubeNotInMM){
+                blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
+
+            }
+
+//            if (cubeIn.getDistance(DistanceUnit.MM) < 60 && gamepad2.right_trigger > 0) Output.setPosition(OutputClose);
 
 //TODO[[[[[[[[[[[[[[[[[[[[[[[[[[[[[Elevator]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
             pos = -counter * Level;
@@ -162,7 +171,7 @@ public class CustuMadeTeleop extends RobotCustomade {
                 Output.setPosition(OutputOpen);
                 stayingPosition = 0;
                 power = 0.3;
-                stayPN = 0.005;
+                stayPN = 0.004;
             }
 
 //            TODO: One Level Upper
@@ -193,11 +202,11 @@ public class CustuMadeTeleop extends RobotCustomade {
 
             if (gamepad2.right_bumper) {
                 time = runtime.seconds();
-                Output.setPosition(OutputOpen);
+                Output.setPosition(0.45);
                 Capass = true;
             }
                 if(Capass&&(-time + runtime.seconds() > 1.2)) {
-                    stayingPosition = -300;
+                    stayingPosition = -600;
                     power = 0.5;
                     stayPN = 0.01;
                 }
@@ -206,8 +215,8 @@ public class CustuMadeTeleop extends RobotCustomade {
             }
             if (Capass && (-time + runtime.seconds() > 2.4)){
                 stayingPosition = 0;
-                power=0.3;
-                stayPN=0.001;
+                power = 0.3;
+                stayPN = 0.005;
             }
             if (Capass && (-time + runtime.seconds() > 3.6) && stayingPosition >= -10) {
                 Output.setPosition(OutputClose);
@@ -232,7 +241,9 @@ public class CustuMadeTeleop extends RobotCustomade {
 //                stayingPosition = leftLinearMotor.getCurrentPosition();
             }
 //            TODO: the only move command
-            else if (leftLinearMotor.getCurrentPosition() > -1450 && leftLinearMotor.getCurrentPosition() <-20){
+            else if (leftLinearMotor.getCurrentPosition() > -1450 /*&& leftLinearMotor.getCurrentPosition() <-20
+                        && downMagnetElevator.getState() == true
+                        || stayingPosition == -20*/ ){
                 stayErrors = leftLinearMotor.getCurrentPosition() - stayingPosition;
                 stayPower = power * stayErrors * stayPN;
                 leftLinearMotor.setTargetPosition(encodersStay);
@@ -240,7 +251,7 @@ public class CustuMadeTeleop extends RobotCustomade {
                 leftLinearMotor.setPower(stayPower);
                 rightLinearMotor.setPower(stayPower);
                 if (leftLinearMotor.getCurrentPosition() == pos) stayPN = 0.001;
-            }else if (leftLinearMotor.getCurrentPosition() < -20) {
+            }else if (leftLinearMotor.getCurrentPosition() < -20 || downMagnetElevator.getState() == false) {
                 leftLinearMotor.setPower(0);
                 rightLinearMotor.setPower(0);
                 stayingPosition = -20;

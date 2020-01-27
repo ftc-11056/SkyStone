@@ -18,7 +18,7 @@ public class OdometryCustomMade {
 
 
     //Custom made Robot measurements:
-    private final double distanceVerticalToCenter = 0.0865;
+    private final double distanceVerticalToCenter = 0.0805;
     public final double distanceHorizentalToCenter = 0.09594;
     private final double wheelCicurmference = 0.159592772;
     private final double ticForRound = 8192;
@@ -91,11 +91,12 @@ public class OdometryCustomMade {
         dLeft = currentEncoderLeft - lastEncoderLeft;
         dCenter = currentEncoderSide - lastEncoderSide;
 
-        dAngle = (dRight - dLeft) / (2*distanceVerticalToCenter);
-        currentAngle = dAngle;
+        //updateAndle();
+        dAngle = (dRight - dLeft) / (2 * distanceVerticalToCenter);
+        Position.setRadAngle(Position.getRadAngle() + dAngle);
+
         dForward = (dRight + dLeft)/2;
         dSide = (distanceHorizentalToCenter*(dLeft - dRight))/(2*distanceVerticalToCenter) + dCenter;
-        Position.setRadAngle(Position.getRadAngle() + dAngle);
 
         double sinD = Math.sin(Position.getRadAngle());
         double cosD = Math.cos(Position.getRadAngle());
@@ -128,7 +129,18 @@ public class OdometryCustomMade {
 
     }
 
-    public void updateAcceleration(){
+    private void updateAndle(){
+        dAngle = (dRight - dLeft) / (2 * distanceVerticalToCenter);
+        if((Math.abs(dSide) >= 0.0000001 || Math.abs(dForward) >= 0.0000001) ) {
+            if (Math.abs(dAngle) <= 0.01    ){
+                return;
+            }
+            currentAngle = dAngle;
+            Position.setRadAngle(Position.getRadAngle() + dAngle);
+        }
+    }
+
+    private void updateAcceleration(){
         if(dTime <=0.025){
             return;
         }
@@ -144,7 +156,7 @@ public class OdometryCustomMade {
         }
     }
 
-    public void updateVelocities(){
+    private void updateVelocities(){
         if(dTime <=0.025){
             return;
         }

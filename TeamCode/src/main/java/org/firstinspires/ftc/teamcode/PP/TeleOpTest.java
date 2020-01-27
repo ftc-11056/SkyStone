@@ -72,6 +72,8 @@ public class TeleOpTest extends RobotCustomade {
         }
         MyDriveTrain.stop();
 */
+        double sumAngle = 0;
+        double numOfCounts = 0;
         while (opModeIsActive()){
             packet = new TelemetryPacket();
             odometryRight = IntakeR.getCurrentPosition();
@@ -82,9 +84,15 @@ public class TeleOpTest extends RobotCustomade {
             packet.put("odometryHorizental: ", odometryHorizental);
             updateOdometry();
             double OdometryAngle = MyOdometry.getPosition().getDegAngle();
+            if(MyOdometry.dSide >= 0.0000001 || MyOdometry.dForward >= 0.0000001){
+                sumAngle += MyOdometry.currentAngle;
+                numOfCounts ++;
+            }
+            packet.put("OdometryAngle AVG:" , sumAngle / numOfCounts);
             packet.put("OdometryAngle:" , OdometryAngle);
             packet.put("RminusL:" , MyOdometry.RminusL);
             packet.put("DeltaAngle:" , Math.toDegrees(MyOdometry.DeltaAngle));
+            packet.put("current Angle:" , Math.toDegrees(MyOdometry.currentAngle));
             OurPoint position = MyOdometry.getPosition();
             packet.put("position:" , position.toString());
             packet.put("xRobot:" , MyOdometry.xRobot);
