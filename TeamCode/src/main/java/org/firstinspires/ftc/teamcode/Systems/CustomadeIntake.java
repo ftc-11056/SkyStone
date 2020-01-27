@@ -30,8 +30,8 @@ public class CustomadeIntake extends Robot {
     }
 
     public void maxIntake() {
-        IntakeL.setPower(-0.6);
-        IntakeR.setPower(-0.6);
+        IntakeL.setPower(-0.8);
+        IntakeR.setPower(-0.8);
     }
 
     public void ShutDown() {

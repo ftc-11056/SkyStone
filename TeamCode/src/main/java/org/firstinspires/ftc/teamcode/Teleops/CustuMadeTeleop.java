@@ -11,6 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.RobotCustomade;
 
@@ -57,13 +58,14 @@ public class CustuMadeTeleop extends RobotCustomade {
 
 //            TODO: Drive
             angles = IMU.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
+
             double heading = angles.firstAngle;
 
             if (gamepad1.x) MyDriveTrain.setMode("arcade");
             else if (gamepad1.b) MyDriveTrain.setMode("Oriented");
 
             if (MyDriveTrain.getMode().equals("Oriented")) {
-                MyDriveTrain.fieldOriented(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, heading +0);
+                MyDriveTrain.fieldOriented(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, -heading);
             } else {
                 MyDriveTrain.arcade(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
             }
@@ -159,7 +161,7 @@ public class CustuMadeTeleop extends RobotCustomade {
                 Arm.setPosition(ArmClose);
                 Output.setPosition(OutputOpen);
                 stayingPosition = 0;
-                power = 0.5;
+                power = 0.3;
                 stayPN = 0.005;
             }
 
@@ -222,11 +224,15 @@ public class CustuMadeTeleop extends RobotCustomade {
 //            TODO: Slow Down
 
             if (gamepad2.left_bumper) {
-                MyElevator.ElevateWithEncoder(20, 0.1, 0.0088);
-                encodersStay = leftLinearMotor.getCurrentPosition();
+////                MyElevator.ElevateWithEncoder(-10, 0.1, 0.0088);
+//                leftLinearMotor.setTargetPosition(-10);
+//                leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                leftLinearMotor.setPower(0.2);
+//                rightLinearMotor.setPower(0.2);
+//                stayingPosition = leftLinearMotor.getCurrentPosition();
             }
 //            TODO: the only move command
-            else if (leftLinearMotor.getCurrentPosition() > -1790){
+            else if (leftLinearMotor.getCurrentPosition() > -1450 && leftLinearMotor.getCurrentPosition() <-20){
                 stayErrors = leftLinearMotor.getCurrentPosition() - stayingPosition;
                 stayPower = power * stayErrors * stayPN;
                 leftLinearMotor.setTargetPosition(encodersStay);
@@ -234,10 +240,14 @@ public class CustuMadeTeleop extends RobotCustomade {
                 leftLinearMotor.setPower(stayPower);
                 rightLinearMotor.setPower(stayPower);
                 if (leftLinearMotor.getCurrentPosition() == pos) stayPN = 0.001;
+            }else if (leftLinearMotor.getCurrentPosition() < -20) {
+                leftLinearMotor.setPower(0);
+                rightLinearMotor.setPower(0);
+                stayingPosition = -20;
             }else {
                 leftLinearMotor.setPower(0);
                 rightLinearMotor.setPower(0);
-                stayingPosition = -1790;
+                stayingPosition = -1440;
             }
 
             encodersStay = stayingPosition;

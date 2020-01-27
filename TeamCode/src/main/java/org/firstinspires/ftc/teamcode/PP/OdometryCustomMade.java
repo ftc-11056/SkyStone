@@ -18,7 +18,7 @@ public class OdometryCustomMade {
 
 
     //Custom made Robot measurements:
-    private final double distanceVerticalToCenter = 0.08379;
+    private final double distanceVerticalToCenter = 0.0865;
     public final double distanceHorizentalToCenter = 0.09594;
     private final double wheelCicurmference = 0.159592772;
     private final double ticForRound = 8192;

@@ -25,7 +25,7 @@ public class TeleOpTest extends RobotCustomade {
         double odometryRight = 0;
         double odometryLeft = 0;
         double odometryHorizental = 0;
-        BuildOdometry(new OurPoint(1.566, -0.875, 270));
+        BuildOdometry(new OurPoint(1.566, -0.875, 90));
         FtcDashboard dashboard = FtcDashboard.getInstance();
         TelemetryPacket packet = new TelemetryPacket();
         waitForStart();
@@ -84,6 +84,7 @@ public class TeleOpTest extends RobotCustomade {
             double OdometryAngle = MyOdometry.getPosition().getDegAngle();
             packet.put("OdometryAngle:" , OdometryAngle);
             packet.put("RminusL:" , MyOdometry.RminusL);
+            packet.put("DeltaAngle:" , Math.toDegrees(MyOdometry.DeltaAngle));
             OurPoint position = MyOdometry.getPosition();
             packet.put("position:" , position.toString());
             packet.put("xRobot:" , MyOdometry.xRobot);
@@ -140,42 +141,6 @@ public class TeleOpTest extends RobotCustomade {
             else {
                 MyDriveTrain.arcade(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
             }
-
-            /*
-            if (gamepad1.left_bumper && Arm.getPosition() > 0.75) {
-                Arm.setPosition(Arm.getPosition() - servoPosition);
-            } else if (gamepad1.right_bumper && Arm.getPosition() < 1) {
-                Arm.setPosition(Arm.getPosition() + servoPosition);
-            } else {
-                Arm.setPosition(Arm.getPosition());
-            }
-
-            telemetry.addData("Arm Position", Arm.getPosition());
-            telemetry.update();
-
-            if (gamepad1.a) {
-                Output.setPosition(1);
-
-            } else if (gamepad1.y) {
-                Output.setPosition(0);
-            }
-
-            if (gamepad1.dpad_up) {
-
-                LinearMotor.setPower(0.5);
-            } else if (gamepad1.dpad_down) {
-                LinearMotor.setPower(-0.5);
-            } else {
-                LinearMotor.setPower(0);
-            }
-            if (gamepad1.dpad_right) {
-                MyIntake.maxIntake();
-            } else if (gamepad1.dpad_left) {
-                MyIntake.maxOuttake();
-            } else {
-                MyIntake.move(0, 0);
-            }
-            */
             dashboard.sendTelemetryPacket(packet);
         }
 

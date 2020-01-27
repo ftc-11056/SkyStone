@@ -23,7 +23,7 @@ public class Paths_Library {
     private static double toleranceLeftFoundation = 37;
     private static double KcLeftFoundation = 1.5;
     private static double MaxVelocityLeftFoundation = 1.5;
-    private static double turnSpeedLeftFoundation = 1.3;
+    private static double turnSpeedLeftFoundation = 1.1;
     private static boolean frontLeftFoundation = false;
     private static Path LeftFoundation = new Path(LeftFoundationPoints, toleranceLeftFoundation, KcLeftFoundation, MaxVelocityLeftFoundation, turnSpeedLeftFoundation, frontLeftFoundation);
 
@@ -31,10 +31,10 @@ public class Paths_Library {
             new OurPoint(0.55, 1.17, 270),
             new OurPoint(1.3, 1.17, 180),
             new OurPoint(0.9, 0.30, 180),
-            new OurPoint(0.9, -0.85, 130),
-            new OurPoint(0.55, -1.36, 130),
-            new OurPoint(0.32, -1.36, 130)};
-    private static double toleranceLeft2 = 70.5;
+            new OurPoint(0.9, -0.55, 132),
+            new OurPoint(0.9, -1.65, 132),
+            new OurPoint(0.44, -1.65, 132)};
+    private static double toleranceLeft2 = 95;
     private static double KcLeft2 = 1.5;
     private static double MaxVelocityLeft2 = 1;
     private static double turnSpeedLeft2 = 1.5;
