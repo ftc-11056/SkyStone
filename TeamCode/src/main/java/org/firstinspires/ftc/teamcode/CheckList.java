@@ -1,77 +1,44 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.support.v4.app.ServiceCompat;
-
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.basicAuto;
-import org.firstinspires.ftc.teamcode.basicAutoCustumade;
-
+import org.firstinspires.ftc.teamcode.PP.PurePursuitGUI;
+import org.firstinspires.ftc.teamcode.PP.OurPoint;
 
 @Autonomous(name = "CheckList", group = "teamcode")
 public class CheckList extends basicAutoCustumade {
 
-    /* Declare OpMode members. */
+    public PurePursuitGUI MyPurePursuitGUI;
+    private OurPoint StartPosition = new OurPoint(-1.566, -0.8325, 270);
+    public TelemetryPacket packet = null;
+    private Boolean isRun = true;
+
+    private static OurPoint[] TestPoints = {
+            new OurPoint(-1, 1, 180),
+            new OurPoint(-1.5, 1, 180)};
+    private static double toleranceTest = 10;
+    private static double KcTest = 4.5;
+    private static double MaxVelocityTest = 1.5;
+    private static double turnSpeedTest = 0.7;
+    private static boolean frontTest = true;
 
 
-    /*
-     * Code to run ONCE when the driver hits INIT
-     */
     @Override
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
+        packet = new TelemetryPacket();
+        BuildOdometry(StartPosition);
 
+        isRun = true;
+        MyPurePursuitGUI = new PurePursuitGUI(TestPoints, MyOdometry.getPosition(), toleranceTest, KcTest, MaxVelocityTest, turnSpeedTest, frontTest);
+        while (opModeIsActive() && isRun) {
+            isRun = purePesuitRun();
+        }
         waitForStart();
         runtime.reset();
-
-        LF.setTargetPosition(400);
-        LF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        LF.setPower(1);
-        while (LF.isBusy()) {
-            telemetry.addData("LFencoder: ", LF.getCurrentPosition());
-            telemetry.update();
-        }
-        LF.setPower(0);
-
-        sleep(1000);
-
-        RF.setTargetPosition(400);
-        RF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        RF.setPower(1);
-        while (RF.isBusy()) {
-            telemetry.addData("LFencoder: ", RF.getCurrentPosition());
-            telemetry.update();
-        }
-        RF.setPower(0);
-
-        sleep(1000);
-
-        LB.setTargetPosition(400);
-        LB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        LB.setPower(1);
-        while (LB.isBusy()) {
-            telemetry.addData("LFencoder: ", LB.getCurrentPosition());
-            telemetry.update();
-        }
-        LB.setPower(0);
-
-        sleep(1000);
-
-        RB.setTargetPosition(400);
-        RB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        RB.setPower(1);
-        while (RB.isBusy()) {
-            telemetry.addData("LFencoder: ", RB.getCurrentPosition());
-            telemetry.update();
-        }
-        RB.setPower(0);
-        telemetry.addData("Angles", MyDriveTrain.getAngle());
-        sleep(1500);
-        telemetry.update();
-
-        MyDriveTrain.Rotate(90,1,10);
 
         MyElevator.ElevateWithEncoder(-500, 0.3, 0.5);
 
@@ -86,16 +53,16 @@ public class CheckList extends basicAutoCustumade {
         sleep(1000);
         MyIntake.maxOuttake();
 
-        MyDriveTrain.SetPower(0.8,0.8,0.8,0.8);
+        MyDriveTrain.SetPower(0.8, 0.8, 0.8, 0.8);
         sleep(1000);
-        MyDriveTrain.SetPower(0,0,0,0);
+        MyDriveTrain.SetPower(0, 0, 0, 0);
         telemetry.addData("Odometry Y", MyOdometry.getPosition().getY());
         telemetry.update();
         sleep(4000);
 
-        MyDriveTrain.SetPower(-0.8,0.8,0.8,-0.8);
+        MyDriveTrain.SetPower(-0.8, 0.8, 0.8, -0.8);
         sleep(1000);
-        MyDriveTrain.SetPower(0,0,0,0);
+        MyDriveTrain.SetPower(0, 0, 0, 0);
         telemetry.addData("Odometry X", MyOdometry.getPosition().getX());
         telemetry.update();
 
@@ -131,5 +98,35 @@ public class CheckList extends basicAutoCustumade {
         telemetry.addData("right touch", RightTouch.getState());
         telemetry.update();
         sleep(2000);
+
+
+//        TODO Telemetry
+        while (!isStopRequested()) {
+            packet = new TelemetryPacket();
+            MyPurePursuitGUI.updateGraghic(packet);
+            packet.put("isRun", isRun.toString());
+        }
+
     }
+
+    private void LocalUpdateGraphic() {
+    }
+
+    public boolean purePesuitRun() {
+        packet = new TelemetryPacket();
+        double currentTime = runtime.seconds();
+        updateOdometry();
+        MyPurePursuitGUI.UpdatePowerByRobotPosition(packet, currentTime, MyOdometry.getPosition(), MyOdometry.getVelocityX(), MyOdometry.getVelocityY());
+        if (MyPurePursuitGUI.stop) {
+            MyDriveTrain.stop();
+            packet.addLine("the end");
+            return false;
+        } else {
+            MyDriveTrain.arcade(MyPurePursuitGUI.getYpower(), MyPurePursuitGUI.getXpower(), MyPurePursuitGUI.getCpower());
+        }
+        return true;
+    }
+
 }
+
+

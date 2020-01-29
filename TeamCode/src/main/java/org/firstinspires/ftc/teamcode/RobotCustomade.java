@@ -75,23 +75,22 @@ public class RobotCustomade extends LinearOpMode {
     protected int fixedPosition = 0;
 
     public double OutputClose = 0.75;
-    public double OutputOpen = 0.4;
+    public double OutputOpen = 0.5 ;
 
     public double CapstoneUp = 0.15  ;
     public double CapstoneDown = 0.54;
 
+    public double ParkingMotIn = 0.93;
+    public double ParkingMotOut = 0.33;
 
-    public double ParkingMotIn = 0.6;
-    public double ParkingMotOut = 0;
+    public double RightServoDown = 0.2;
+    public double LeftServoDown = 0.58;
+    public double RightServoUp = 0.7;
+    public double LeftServoUp = 0.1;
+    public double RightServoMiddle = 0.45;
+    public double LeftServoMiddle = 0.35;
 
-    public double RightServoDown = 0;
-    public double LeftServoDown = 1;
-    public double RightServoUp = 0.75;
-    public double LeftServoUp = 0.25;
-    public double RightServoMiddle = 0.15;
-    public double LeftServoMiddle = 0.85;
-
-    public double ArmClose = 0.8;
+    public double ArmClose = 0.79;
     public double ArmOpen = 0.3;
     public boolean IntakeStop = true;
     public int PointIndexStartElavator = 0;
@@ -203,7 +202,8 @@ public class RobotCustomade extends LinearOpMode {
         parameters.loggingEnabled = true;
         parameters.loggingTag = "IMU";
         IMU = hardwareMap.get(BNO055IMU.class, "imu");
-        IMU.initialize(parameters);
+        if(IMU != null)
+            IMU.initialize(parameters);
 /*
         // make sure the imu gyro is calibrated before continuing.
         while (!isStarted() && !isStopRequested() && !IMU.isGyroCalibrated()) {
@@ -292,13 +292,13 @@ public class RobotCustomade extends LinearOpMode {
         boolean ElvateBusy = true;
         double Delta = runtime.seconds() - PlacingStoneTime;
         packet.put("delte", Delta);
-        if (Delta >= 0 && Delta <= 1) {
+        if (Delta >= 0 && Delta <= 0.8) {
             Arm.setPosition(ArmOpen);
         }
-        if (Delta >= 1 && Delta <= 1.5) {
+        if (Delta >= 0.5 && Delta <= 1.3) {
             Output.setPosition(OutputOpen);
         }
-        if (Delta >= 1.5 && Delta <= 2.5) {
+        if (Delta >= 1.3 && Delta <= 2.1) {
             Arm.setPosition(ArmClose);
             ElvateBusy = false;
         }
