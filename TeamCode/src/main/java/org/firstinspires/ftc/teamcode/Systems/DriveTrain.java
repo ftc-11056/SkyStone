@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Systems;
 
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
@@ -303,15 +305,30 @@ import java.util.Arrays;
 
         // reset -angle tracking on new heading
     }
-    public void Verification(DistanceSensor cubeIn, double cubeNotInMM) {
-        if (cubeIn.getDistance(DistanceUnit.MM) > cubeNotInMM) {
-            encoderDrive(0.2, -20, -20, -20, -20, 2);
-           /* telemetry.addData("CubeDistans:", cubeIn.getDistance(DistanceUnit.MM));
-            telemetry.update();*/
-            encoderDrive(0.2, 20, 20, 20, 20, 2);
+
+    public void Verification(DistanceSensor cubeIn, double cubeNotInMM, TelemetryPacket packet, FtcDashboard dashboard) {
+        if(cubeIn.getDistance(DistanceUnit.MM) > cubeNotInMM ) {
+            double VerificationStart = runtime.seconds();
+            while ((runtime.seconds()-VerificationStart) <= 0.8) {
+                SetPower(0.3, 0.3, 0.3, 0.3);
+                packet.addLine("BIS");
+                dashboard.sendTelemetryPacket(packet);
+            }
+            while ((runtime.seconds()-VerificationStart) <= 1.6){
+                SetPower(-0.3, -0.3, -0.3, -0.3);
+                packet.addLine("BIS");
+                dashboard.sendTelemetryPacket(packet);
+            }
         }
     }
 
+    public void TouchFoundation (DigitalChannel left, DigitalChannel right){
+        double Ftime = runtime.seconds();
+        while (left.getState() == true && right.getState() == true && (runtime.seconds() -Ftime  <= 0.8)){
+            double power = -0.3;
+            SetPower(power, power, power, power);
+        }
+    }
 
         public void setStopPosition(OurPoint position){
             stopPosition = position;

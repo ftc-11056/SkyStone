@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.Autonomuses;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.basicAuto;
 
 
 @Autonomous(name = "TwoCubeRed", group = "teamcode")
+@Disabled
 public class TwoCubeRed extends basicAuto {
 
     /* Declare OpMode members. */
@@ -53,7 +55,7 @@ public class TwoCubeRed extends basicAuto {
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.2, -60, -60, -60, -60, 2);
             sleep(500);
-            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
+//            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(1, 50, 50, 50, 50, 2);
@@ -70,7 +72,7 @@ public class TwoCubeRed extends basicAuto {
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.2, -25, -25, -25, -25, 2);
             sleep(500);
-            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
+//            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.2, 10, 10, 10, 10, 2);
@@ -90,7 +92,7 @@ public class TwoCubeRed extends basicAuto {
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.2, -25, -25, -25, -25, 2);
             sleep(500);
-            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
+//            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.2, 10, 10, 10, 10, 2);
@@ -121,7 +123,7 @@ public class TwoCubeRed extends basicAuto {
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(1, -25, -25, -25, -25, 2);
             sleep(500);
-            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
+//            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.8, 45, -45, -45, 45, 1);
@@ -142,7 +144,7 @@ public class TwoCubeRed extends basicAuto {
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.2, -25, -25, -25, -25, 2);
             sleep(500);
-            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
+//            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.3, 10, 10, 10, 10, 2);
@@ -168,7 +170,7 @@ public class TwoCubeRed extends basicAuto {
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.3, -28, -28, -28, -28, 2);
             sleep(500);
-            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
+//            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.8, 50, -50, -50, 50, 1);

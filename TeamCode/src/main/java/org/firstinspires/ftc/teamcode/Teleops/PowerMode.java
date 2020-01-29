@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Teleops;
 
 import android.graphics.Path;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -10,6 +11,7 @@ import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.RobotCustomade;
 
 @TeleOp(name = "powerMode" , group = "teleops")
+//@Disabled
 public class PowerMode extends RobotCustomade {
 
     @Override

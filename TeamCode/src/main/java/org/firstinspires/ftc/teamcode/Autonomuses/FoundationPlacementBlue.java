@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.basicAuto;
 
-@Disabled
 @Autonomous(name = "FoundationPlacementBlue", group = "teamcode")
 public class FoundationPlacementBlue extends basicAuto {
 

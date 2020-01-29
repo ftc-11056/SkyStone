@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.Teleops;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.basicAuto;
 
 @TeleOp(name = "CalibrateWebcam",group = "dogecv")
+@Disabled
 public class CalibrateWebcam extends basicAuto {
 
     @Override

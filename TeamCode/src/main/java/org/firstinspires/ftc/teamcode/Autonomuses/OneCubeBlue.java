@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.Autonomuses;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.basicAuto;
 
 
 @Autonomous(name = "OneCubeBlue", group = "teamcode")
+@Disabled
 public class OneCubeBlue extends basicAuto {
 
     /* Declare OpMode members. */
@@ -54,7 +56,7 @@ public class OneCubeBlue extends basicAuto {
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.8, -25, -25, -25, -25, 2);
             sleep(500);
-            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
+//            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.9, -50, 50, 50, -50, 1);
@@ -71,7 +73,7 @@ public class OneCubeBlue extends basicAuto {
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.8, -25, -25, -25, -25, 2);
             sleep(500);
-            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
+//            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.5, -50, 50, 50, -50, 1);
@@ -89,7 +91,7 @@ public class OneCubeBlue extends basicAuto {
             MyIntake.maxIntake();
             MyDriveTrain.encoderDrive(0.8, -25, -25, -25, -25, 2);
             sleep(500) ;
-            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
+//            MyDriveTrain.Verification(cubeIn,cubeNotInMM);
 
             MyIntake.ShutDown();
             MyDriveTrain.encoderDrive(0.5, -50, 50, 50, -50, 1);

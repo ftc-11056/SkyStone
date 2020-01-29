@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Autonomuses;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -8,7 +9,7 @@ import org.firstinspires.ftc.teamcode.basicAuto;
 
 
 @Autonomous(name = "OneCubeRedVer2", group = "teamcode")
-
+@Disabled
 public class OneCubeRedVer2 extends basicAuto {
 
     /* Declare OpMode members. */

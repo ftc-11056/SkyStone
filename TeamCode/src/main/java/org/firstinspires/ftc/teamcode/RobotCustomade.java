@@ -47,7 +47,8 @@ public class RobotCustomade extends LinearOpMode {
     public Servo RightServo = null;
     public Servo ParkingMot = null;
     public Servo Capstone = null;
-    public DigitalChannel Touch_Foundation = null;
+    public DigitalChannel LeftTouch = null;
+    public DigitalChannel RightTouch = null;
 
 
     /*IMU Fileds*/
@@ -73,7 +74,7 @@ public class RobotCustomade extends LinearOpMode {
     public double servoPosition = 0.005;
     protected int fixedPosition = 0;
 
-    public double OutputClose = 0.7;
+    public double OutputClose = 0.75;
     public double OutputOpen = 0.4;
 
     public double CapstoneUp = 0.15  ;
@@ -96,7 +97,7 @@ public class RobotCustomade extends LinearOpMode {
     public int PointIndexStartElavator = 0;
     public double PlacingStoneTime = 0;
 
-    public double cubeNotInMM = 150;
+    public double cubeNotInMM = 100;
 
 
     public String passWord = "dont pass";
@@ -136,8 +137,10 @@ public class RobotCustomade extends LinearOpMode {
         upMagnetElevator = hardwareMap.get(DigitalChannel.class, "upMagnetELevator");
         downMagnetElevator = hardwareMap.get(DigitalChannel.class, "downMagnetELevator");
 
+        LeftTouch = hardwareMap.get(DigitalChannel.class, "LeftTouch");
+        RightTouch = hardwareMap.get(DigitalChannel.class, "RightTouch");
+
         cubeIn = hardwareMap.get(DistanceSensor.class, "cubeIn");
-        Touch_Foundation = hardwareMap.get(DigitalChannel.class, "Touch_Foundation");
 
         blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
 
@@ -216,7 +219,8 @@ public class RobotCustomade extends LinearOpMode {
         // Define and initialize ALL installed servos.
         LeftServo.setPosition(LeftServoUp);
         RightServo.setPosition(RightServoUp);
-//        Output.setPosition(OutputUp);
+        Output.setPosition(OutputOpen);
+        Arm.setPosition(ArmClose);
 
 
         //Define Mechanisms:
@@ -233,7 +237,7 @@ public class RobotCustomade extends LinearOpMode {
         double currentTime = runtime.seconds();
         double odometryRight = IntakeR.getCurrentPosition();
         double odometryLeft = (IntakeL.getCurrentPosition());
-        double odometryHorizental = (-rightLinearMotor.getCurrentPosition());
+        double odometryHorizental = -(rightLinearMotor.getCurrentPosition());
         MyOdometry.setAll(odometryRight, odometryLeft, odometryHorizental, currentTime);
     }
 
@@ -288,26 +292,14 @@ public class RobotCustomade extends LinearOpMode {
         boolean ElvateBusy = true;
         double Delta = runtime.seconds() - PlacingStoneTime;
         packet.put("delte", Delta);
-        if (Delta >= 0.3 && Delta <= 1) {
-            MyElevator.ElevateWithEncoder(-350, 0.4, 0.3);
-        }
-        if (Delta >= 1.1 && Delta <= 2) {
+        if (Delta >= 0 && Delta <= 1) {
             Arm.setPosition(ArmOpen);
         }
-        if (Delta >= 2.1 && Delta <= 2.5) {
-            MyElevator.ElevateWithEncoder(0, 0.3, 0.0035);
-        }
-        if (Delta >= 2.6 && Delta <= 3.6) {
+        if (Delta >= 1 && Delta <= 1.5) {
             Output.setPosition(OutputOpen);
         }
-        if (Delta >= 3.7 && Delta <= 4.7) {
-            MyElevator.ElevateWithEncoder(-350, 0.4, 0.3);
-        }
-        if (Delta >= 4.8 && Delta <= 5.5) {
+        if (Delta >= 1.5 && Delta <= 2.5) {
             Arm.setPosition(ArmClose);
-        }
-        if (Delta >= 5.6 && Delta <= 6) {
-            MyElevator.ElevateWithEncoder(0, 0.4, 0.0035);
             ElvateBusy = false;
         }
         return ElvateBusy;

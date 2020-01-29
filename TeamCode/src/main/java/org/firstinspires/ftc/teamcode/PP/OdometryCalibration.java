@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.PP;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.teamcode.Robot;
 import java.util.ArrayList;
 
 @TeleOp(name="OdometryCalibration", group="Iterative Opmode")
+@Disabled
 public class OdometryCalibration extends Robot {
 
     // Declare OpMode members.

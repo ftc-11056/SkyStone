@@ -35,8 +35,8 @@ public class CustuMadeTeleop extends RobotCustomade {
     private int counter = 1;
     private int pos = 0;
 
-
     private boolean Capass = false;
+    private boolean slowDown = false;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -225,6 +225,18 @@ public class CustuMadeTeleop extends RobotCustomade {
                 Arm.setPosition(ArmOpen);
                 Capass = false;
             }
+
+            if (gamepad2.left_bumper){
+                stayingPosition = -10;
+                power = 0.1;
+                stayPN = 0.001;
+                slowDown = true;
+            }else if (slowDown){
+                stayingPosition = leftLinearMotor.getCurrentPosition();
+                slowDown = false;
+
+            }
+
             /*if (Arm.getPosition() == ArmOpen) Capass = false;
 */
             if (gamepad1.right_trigger > 0) Capstone.setPosition(0.3);
@@ -232,18 +244,17 @@ public class CustuMadeTeleop extends RobotCustomade {
 
 //            TODO: Slow Down
 
-            if (gamepad2.left_bumper) {
-////                MyElevator.ElevateWithEncoder(-10, 0.1, 0.0088);
-//                leftLinearMotor.setTargetPosition(-10);
-//                leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//                leftLinearMotor.setPower(0.2);
-//                rightLinearMotor.setPower(0.2);
-//                stayingPosition = leftLinearMotor.getCurrentPosition();
+            /*if (gamepad2.left_bumper) {
+//                MyElevator.ElevateWithEncoder(-10, 0.1, 0.0088);
+                leftLinearMotor.setTargetPosition(-10);
+                leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                leftLinearMotor.setPower(0.2);
+                rightLinearMotor.setPower(0.2);
+                stayingPosition = leftLinearMotor.getCurrentPosition();
             }
 //            TODO: the only move command
-            else if (leftLinearMotor.getCurrentPosition() > -1450 /*&& leftLinearMotor.getCurrentPosition() <-20
-                        && downMagnetElevator.getState() == true
-                        || stayingPosition == -20*/ ){
+            else*/ if (leftLinearMotor.getCurrentPosition() > -1450 && downMagnetElevator.getState() == true
+                 || stayingPosition < -5){
                 stayErrors = leftLinearMotor.getCurrentPosition() - stayingPosition;
                 stayPower = power * stayErrors * stayPN;
                 leftLinearMotor.setTargetPosition(encodersStay);
@@ -251,20 +262,21 @@ public class CustuMadeTeleop extends RobotCustomade {
                 leftLinearMotor.setPower(stayPower);
                 rightLinearMotor.setPower(stayPower);
                 if (leftLinearMotor.getCurrentPosition() == pos) stayPN = 0.001;
-            }else if (leftLinearMotor.getCurrentPosition() < -20 || downMagnetElevator.getState() == false) {
+            }else if (downMagnetElevator.getState() == false) {
                 leftLinearMotor.setPower(0);
                 rightLinearMotor.setPower(0);
-                stayingPosition = -20;
             }else {
                 leftLinearMotor.setPower(0);
                 rightLinearMotor.setPower(0);
-                stayingPosition = -1440;
+                  stayingPosition = -1440;
             }
 
             encodersStay = stayingPosition;
 
+            telemetry.addData("rightPower:", rightLinearMotor.getPower());
+            telemetry.addData("leftPower", leftLinearMotor.getPower());
             telemetry.addData("leftElevator:", leftLinearMotor.getCurrentPosition());
-            telemetry.addData("autoY", autoY);
+            telemetry.addData("stayingPosition", stayingPosition);
             telemetry.addData("counter", counter);
             telemetry.update();
 

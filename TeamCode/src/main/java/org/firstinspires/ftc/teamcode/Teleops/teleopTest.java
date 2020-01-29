@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Teleops;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
@@ -8,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Robot;
 
 
 @TeleOp(name = "teleopCounterTest", group = "teleops")
+@Disabled
 public class teleopTest extends Robot {
 
     // levels counter
