@@ -33,9 +33,8 @@ public class Autonom_Red_Customade_Robot extends basicAutoCustumade {
         BuildOdometry(StartPosition);
 
         Mikum = skystoneDetector.getScreenPosition().y;
-        Mikum = 140;
 
-        if(Mikum <= 160) {
+        if(Mikum <= 160){
             Paths = Paths_Library_Blue.LeftPaths;
         }
         else if (Mikum >= 190){

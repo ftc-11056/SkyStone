@@ -142,7 +142,7 @@ public class Paths_Library_Red {
     private static Path Right2 = new Path(Right2Points, toleranceRight2, KcRight2, MaxVelocityRight2, turnSpeedRight2, frontRight2);
 
     private static OurPoint[] RightFoundation2Points = {
-            new OurPoint(0.55, -1.3, 180),
+            new OurPoint(0.48, -1.37, 180),
             new OurPoint(0.95, -0.85, 180),
             new OurPoint(0.95, 0.15, 180),
             new OurPoint(1.15, 0.5, 180),
