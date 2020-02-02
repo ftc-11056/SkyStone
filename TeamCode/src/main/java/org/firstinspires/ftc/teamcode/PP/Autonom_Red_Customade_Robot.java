@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.PP;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.RobotCustomade;
@@ -13,7 +14,7 @@ import org.firstinspires.ftc.teamcode.basicAutoCustumade;
 public class Autonom_Red_Customade_Robot extends basicAutoCustumade {
 
     public PurePursuitGUI MyPurePursuitGUI;
-    public FtcDashboard dashboard;
+//    public FtcDashboard dashboard;
     private OurPoint StartPosition = new OurPoint(1.566, -0.8325, 90);
     public TelemetryPacket packet = null;
     private Boolean isRun = true;
@@ -28,35 +29,35 @@ public class Autonom_Red_Customade_Robot extends basicAutoCustumade {
     @Override
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
-        dashboard = FtcDashboard.getInstance();
+//        dashboard = FtcDashboard.getInstance();
         packet = new TelemetryPacket();
         BuildOdometry(StartPosition);
 
         Mikum = skystoneDetector.getScreenPosition().y;
-
-        if(Mikum <= 160){
-            Paths = Paths_Library_Blue.LeftPaths;
-        }
-        else if (Mikum >= 190){
-            Paths = Paths_Library_Blue.RightPaths;
-        }
-        else {
-            Paths = Paths_Library_Blue.CenterPaths;
-        }
 
         int numOfCheck = 3;
         MyPurePursuitGUI = new PurePursuitGUI(Paths[numOfCheck].getWayPoints(), MyOdometry.getPosition(), Paths[numOfCheck].getTolerance(), Paths[numOfCheck].getKc(), Paths[numOfCheck].getMaxVelocity(), Paths[numOfCheck].getTurnSpeed(), Paths[numOfCheck].isFront());
             while (!isStarted()) {
             packet = new TelemetryPacket();
             MyPurePursuitGUI.updateGraghic(packet);
-            dashboard.sendTelemetryPacket(packet);
+//            dashboard.sendTelemetryPacket(packet);
             Mikum = skystoneDetector.getScreenPosition().y;
             telemetry.addData("skystone", Mikum);
             telemetry.update();
         }
+        if(Mikum <= 90){
+            Paths = Paths_Library_Red.LeftPaths;
+        }
+        else if (Mikum >= 210){
+            Paths = Paths_Library_Red.RightPaths;
+        }
+        else {
+            Paths = Paths_Library_Red.CenterPaths;
+        }
+
         runtime.reset();
-        waitForStart();
         webcam.closeCameraDevice();
+        waitForStart();
 
         isRun = true;
         MyPurePursuitGUI = new PurePursuitGUI(Paths[0].getWayPoints(), MyOdometry.getPosition(), Paths[0].getTolerance(), Paths[0].getKc(), Paths[0].getMaxVelocity(), Paths[0].getTurnSpeed(), Paths[0].isFront());
@@ -133,7 +134,7 @@ public class Autonom_Red_Customade_Robot extends basicAutoCustumade {
             }
         }
         factor = 1;
-        MyDriveTrain.Verification(cubeIn,cubeNotInMM,packet,dashboard);
+//        MyDriveTrain.Verification(cubeIn,cubeNotInMM,packet,dashboard);
 
         isRun = true;
         ElevateorBusy = true;
@@ -162,11 +163,11 @@ public class Autonom_Red_Customade_Robot extends basicAutoCustumade {
 
 
 //        TODO Telemetry
-        while (!isStopRequested()) {
+        while (opModeIsActive()&&!isStopRequested()) {
             packet = new TelemetryPacket();
             MyPurePursuitGUI.updateGraghic(packet);
             packet.put("isRun", isRun.toString());
-            dashboard.sendTelemetryPacket(packet);
+//            dashboard.sendTelemetryPacket(packet);
         }
 
     }
@@ -184,14 +185,14 @@ public class Autonom_Red_Customade_Robot extends basicAutoCustumade {
         if (MyPurePursuitGUI.stop) {
             MyDriveTrain.stop();
             packet.addLine("the end");
-            dashboard.sendTelemetryPacket(packet);
+//            dashboard.sendTelemetryPacket(packet);
             return false;
         } else {
             MyDriveTrain.arcade(factor*MyPurePursuitGUI.getYpower(), factor* petchX *MyPurePursuitGUI.getXpower(), factor*MyPurePursuitGUI.getCpower());
         }
         MyPurePursuitGUI.updateGraghic(packet);
         LocalUpdateGraphic();
-        dashboard.sendTelemetryPacket(packet);
+//        dashboard.sendTelemetryPacket(packet);
         return true;
     }
 

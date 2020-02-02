@@ -35,7 +35,6 @@ public class basicAutoCustumade extends RobotCustomade {
 
 //      TODO: Anothers
         Arm.setPosition(ArmClose);
-        ParkingMot.setPosition(ParkingMotOut);
         pattern = RevBlinkinLedDriver.BlinkinPattern.WHITE;
         blinkinLedDriver.setPattern(pattern);
 

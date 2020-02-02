@@ -75,13 +75,13 @@ public class RobotCustomade extends LinearOpMode {
     protected int fixedPosition = 0;
 
     public double OutputClose = 0.75;
-    public double OutputOpen = 0.5 ;
+    public double OutputOpen = 0.53 ;
 
     public double CapstoneUp = 0.15  ;
     public double CapstoneDown = 0.54;
 
-    public double ParkingMotIn = 0.93;
-    public double ParkingMotOut = 0.33;
+    public double ParkingMotOut = 1;
+    public double ParkingMotIn = 0.33;
 
     public double RightServoDown = 0.2;
     public double LeftServoDown = 0.58;
@@ -97,7 +97,6 @@ public class RobotCustomade extends LinearOpMode {
     public double PlacingStoneTime = 0;
 
     public double cubeNotInMM = 100;
-
 
     public String passWord = "dont pass";
 
@@ -194,6 +193,7 @@ public class RobotCustomade extends LinearOpMode {
         RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //Define and Initialize Of IMU
+
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
         parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
@@ -202,8 +202,7 @@ public class RobotCustomade extends LinearOpMode {
         parameters.loggingEnabled = true;
         parameters.loggingTag = "IMU";
         IMU = hardwareMap.get(BNO055IMU.class, "imu");
-        if(IMU != null)
-            IMU.initialize(parameters);
+//        IMU.initialize(parameters);
 /*
         // make sure the imu gyro is calibrated before continuing.
         while (!isStarted() && !isStopRequested() && !IMU.isGyroCalibrated()) {
@@ -211,10 +210,10 @@ public class RobotCustomade extends LinearOpMode {
             idle();
         }
         */
-        angles = IMU.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
+        /*angles = IMU.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
         Velocity = IMU.getVelocity();
         Acceleration = IMU.getAcceleration();
-
+*/
 
         // Define and initialize ALL installed servos.
         LeftServo.setPosition(LeftServoUp);
