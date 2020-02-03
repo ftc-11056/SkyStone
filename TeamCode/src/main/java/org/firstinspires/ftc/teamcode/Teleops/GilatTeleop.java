@@ -282,7 +282,7 @@ public class GilatTeleop extends LinearOpMode {
             } else if (upDegel == true && downDegel != 1) {
                 if (((-time + runtime.seconds()) > 0.7 && (-time + runtime.seconds()) < 1.9) && firstRase == false) {
                     if (upDegel == true) {
-                        MyElevator.ElevateWithEncoder(-500,1,0.005);
+                        MyElevator.ElevateWithEncoder(-500, 1, 0.005);
                     }
                     stayingPosition = -400;
                     if (leftLinearMotor.getCurrentPosition() < -350) {
@@ -415,8 +415,7 @@ public class GilatTeleop extends LinearOpMode {
             }
             if (cubeIn.getDistance(DistanceUnit.MM) > cubeNotInMM) {
                 blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
-            }
-            else if (cubeIn.getDistance(DistanceUnit.MM) < cubeNotInMM){
+            } else if (cubeIn.getDistance(DistanceUnit.MM) < cubeNotInMM) {
                 blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
 
             }

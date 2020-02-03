@@ -18,12 +18,14 @@ public class FoundationPlacementBlue extends basicAuto {
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
         waitForStart();
-        while (Touch_Foundation.getState()) {
+      /* while (Touch_Foundation.getState()) {
             RB.setPower(-0.4);
             LB.setPower(-0.4);
             RF.setPower(-0.4);
             LF.setPower(-0.4);
-            LeftServo.setPosition(LeftServoDown);
+        }*/
+        MyDriveTrain.encoderDrive(1, -50, -50, -50, -50, 2);
+        LeftServo.setPosition(LeftServoDown);
             RightServo.setPosition(RightServoDown);
             MyDriveTrain.encoderDrive(1, 110, 110, 110, 110, 2);
             MyDriveTrain.encoderDrive(0.3, -140, -140, 140, 140, 2);
@@ -38,4 +40,4 @@ public class FoundationPlacementBlue extends basicAuto {
         }
 
     }
-}
+
