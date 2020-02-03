@@ -170,10 +170,10 @@ public class CustuMadeTeleop extends RobotCustomade {
                 MyIntake.ShutDown();
             }
 
-            if (cubeIn.getDistance(DistanceUnit.MM) > cubeNotInMM && gamepad2.right_trigger > 0) {
+            /*if (cubeIn.getDistance(DistanceUnit.MM) > cubeNotInMM && gamepad2.right_trigger > 0) {
                 blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BEATS_PER_MINUTE_RAINBOW_PALETTE);
-            } else if (cubeIn.getDistance(DistanceUnit.MM) < cubeNotInMM && gamepad2.right_trigger > 0) {
-                blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP1_2_TWINKLES);
+            } else */if (cubeIn.getDistance(DistanceUnit.MM) < cubeNotInMM && gamepad2.right_trigger > 0) {
+                blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.COLOR_WAVES_FOREST_PALETTE);
             }
 
             if (cubeIn.getDistance(DistanceUnit.MM) < cubeNotInMM && gamepad2.right_trigger > 0)
@@ -182,32 +182,30 @@ public class CustuMadeTeleop extends RobotCustomade {
 //TODO[[[[[[[[[[[[[[[[[[[[[[[[[[[[[Elevator]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
 
             if (gamepad2.right_trigger == 0) {
-                if (counter == 0)
+                if (counter == 0 && leftLinearMotor.getCurrentPosition() > -20)
                     blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BEATS_PER_MINUTE_RAINBOW_PALETTE);
-                if (counter == 1)
+                if (counter == 1 && leftLinearMotor.getCurrentPosition() > -20)
                     blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.AQUA);
-                else if (counter == 2)
-                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.HOT_PINK);
-                else if (counter == 3)
-                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.WHITE);
-                else if (counter == 4)
-                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
-                else if (counter == 5)
-                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GOLD);
-                else if (counter == 6)
-                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED_ORANGE);
-                else if (counter == 7)
-                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
-                else if (counter == 8)
-                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.YELLOW);
-                else if (counter == 9)
-                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GRAY);
-                else if (counter == 10)
+                else if (counter == 2 && leftLinearMotor.getCurrentPosition() > -20)
                     blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
-                else if (counter == 11)
+                else if (counter == 3 && leftLinearMotor.getCurrentPosition() > -20)
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.YELLOW);
+                else if (counter == 4 && leftLinearMotor.getCurrentPosition() > -20)
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
+                else if (counter == 5 && leftLinearMotor.getCurrentPosition() > -20)
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
+                else if (counter == 6 && leftLinearMotor.getCurrentPosition() > -20)
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.WHITE);
+                else if (counter == 7 && leftLinearMotor.getCurrentPosition() > -20)
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.HOT_PINK);
+                else if (counter == 8 && leftLinearMotor.getCurrentPosition() > -20)
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.ORANGE);
+                else if (counter == 9 && leftLinearMotor.getCurrentPosition() > -20)
                     blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.STROBE_RED);
             }
             pos = -counter * Level;
+
+            IntakeL.getController();
 
 //            TODO: Auto Y
             if (gamepad2.y) {
