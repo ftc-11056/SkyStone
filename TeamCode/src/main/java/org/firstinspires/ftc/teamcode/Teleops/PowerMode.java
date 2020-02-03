@@ -31,16 +31,16 @@ public class PowerMode extends RobotCustomade {
         waitForStart();
         while (opModeIsActive()) {
 
-            if (gamepad2.b) rightLinearMotor.setPower(0.5);
+            /*if (gamepad2.b) rightLinearMotor.setPower(0.5);
             else if (gamepad2.x) rightLinearMotor.setPower(-0.5);
             else if (gamepad2.y) leftLinearMotor.setPower(0.5);
             else if (gamepad2.a) leftLinearMotor.setPower(-0.5);
-            else if (gamepad2.dpad_up) {
-                leftLinearMotor.setPower(0.5);
-                rightLinearMotor.setPower(0.5);
+            else*/ if (gamepad2.dpad_up) {
+                leftLinearMotor.setPower(0.1);
+                rightLinearMotor.setPower(0.1);
             } else if (gamepad2.dpad_down) {
-                leftLinearMotor.setPower(-0.5);
-                rightLinearMotor.setPower(-0.5);
+                leftLinearMotor.setPower(-0.1);
+                rightLinearMotor.setPower(-0.1);
             } else {
                 leftLinearMotor.setPower(0);
                 rightLinearMotor.setPower(0);

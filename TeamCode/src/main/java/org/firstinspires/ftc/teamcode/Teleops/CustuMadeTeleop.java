@@ -37,7 +37,7 @@ public class CustuMadeTeleop extends RobotCustomade {
     private boolean up = false;
     private boolean low = false;
 
-    private int Level = 200;
+    private int Level = 175;
     private int counter = 2;
     private int pos = 0;
 
@@ -48,6 +48,8 @@ public class CustuMadeTeleop extends RobotCustomade {
     private double leftStickX = 0;
     private double leftStickY = 0;
     private double rightStickX = 0;
+
+    private boolean resetStart = true;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -64,8 +66,20 @@ public class CustuMadeTeleop extends RobotCustomade {
         pattern = RevBlinkinLedDriver.BlinkinPattern.BLACK;
         blinkinLedDriver.setPattern(pattern);
 
+        while (!isStarted()){
+            runtime.reset();
+        }
         waitForStart();
         while (opModeIsActive()) {
+            if (runtime.seconds() < 2){
+                stayingPosition = -50;
+                power = 0.1;
+                stayPN = 0.06;
+            }else if (resetStart){
+                resetStart = false;
+                leftLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                stayingPosition = 0;
+            }
             //TODO[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[GAMEPAD 11111111111]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
 
 //            TODO: Drive
@@ -156,33 +170,64 @@ public class CustuMadeTeleop extends RobotCustomade {
                 MyIntake.ShutDown();
             }
 
-            if (cubeIn.getDistance(DistanceUnit.MM) > cubeNotInMM) {
-                blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
-            } else if (cubeIn.getDistance(DistanceUnit.MM) < cubeNotInMM) {
-                blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
+            if (cubeIn.getDistance(DistanceUnit.MM) > cubeNotInMM && gamepad2.right_trigger > 0) {
+                blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BEATS_PER_MINUTE_RAINBOW_PALETTE);
+            } else if (cubeIn.getDistance(DistanceUnit.MM) < cubeNotInMM && gamepad2.right_trigger > 0) {
+                blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP1_2_TWINKLES);
             }
 
             if (cubeIn.getDistance(DistanceUnit.MM) < cubeNotInMM && gamepad2.right_trigger > 0)
                 Output.setPosition(OutputClose);
 
 //TODO[[[[[[[[[[[[[[[[[[[[[[[[[[[[[Elevator]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+
+            if (gamepad2.right_trigger == 0) {
+                if (counter == 0)
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BEATS_PER_MINUTE_RAINBOW_PALETTE);
+                if (counter == 1)
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.AQUA);
+                else if (counter == 2)
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.HOT_PINK);
+                else if (counter == 3)
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.WHITE);
+                else if (counter == 4)
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
+                else if (counter == 5)
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GOLD);
+                else if (counter == 6)
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED_ORANGE);
+                else if (counter == 7)
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
+                else if (counter == 8)
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.YELLOW);
+                else if (counter == 9)
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GRAY);
+                else if (counter == 10)
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
+                else if (counter == 11)
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.STROBE_RED);
+            }
             pos = -counter * Level;
 
 //            TODO: Auto Y
             if (gamepad2.y) {
                 autoY = true;
-                Output.setPosition(OutputClose);
+              //  Output.setPosition(OutputClose);
                 time = runtime.seconds();
                 telemetry.addLine("1");
-            }
-            if (autoY == true && (-time + runtime.seconds() > 1.2)) {
                 stayingPosition = pos;
                 power = 0.9;
                 stayPN = 0.01;
                 telemetry.addLine("2");
             }
+            /*if (autoY == true && (-time + runtime.seconds() > 1.2)) {
+                stayingPosition = pos;
+                power = 0.9;
+                stayPN = 0.01;
+                telemetry.addLine("2");
+            }*/
             if (autoY == true && leftLinearMotor.getCurrentPosition() < stayingPosition + 15 && stayingPosition == pos) {
-                Arm.setPosition(ArmOpen);
+               // Arm.setPosition(ArmOpen);
                 autoY = false;
                 counter += 1;
                 telemetry.addLine("3");
@@ -191,7 +236,7 @@ public class CustuMadeTeleop extends RobotCustomade {
 //            TODO: Auto A
             if (gamepad1.left_trigger > 0){
                 autoYDownEle = true;
-                stayingPosition = pos + 270;
+                stayingPosition = pos + 250;
                 power = 0.9;
                 stayPN = 0.01;
                 time = runtime.seconds();
@@ -200,8 +245,8 @@ public class CustuMadeTeleop extends RobotCustomade {
                 time = runtime.seconds();
                 autoYDownEle = false;
                 autoAUpEle = true;
-            }if (autoAUpEle && (runtime.seconds() - time > 0.6)) {
-                stayingPosition = pos + 50;
+            }if (autoAUpEle && (runtime.seconds() - time > 0.4)) {
+                //stayingPosition = pos + 50;
                 power = 0.9;
                 stayPN = 0.01;
                 time = runtime.seconds();
@@ -217,7 +262,7 @@ public class CustuMadeTeleop extends RobotCustomade {
                 Output.setPosition(OutputOpen);
                 stayingPosition = 0;
                 power = 0.3;
-                stayPN = 0.004;
+                stayPN = 0.009;
                 telemetry.addLine("2");
                 autoA = false;
             }/*if (autoA == true && leftLinearMotor.getCurrentPosition() > -20){
@@ -334,7 +379,7 @@ public class CustuMadeTeleop extends RobotCustomade {
             }
 //            TODO: the only move command
             else*/
-            if (leftLinearMotor.getCurrentPosition() > -1450 && downMagnetElevator.getState() == true
+            if (leftLinearMotor.getCurrentPosition() > -1550 && downMagnetElevator.getState() == true
                     || stayingPosition < -5) {
                 stayErrors = leftLinearMotor.getCurrentPosition() - stayingPosition;
                 stayPower = power * stayErrors * stayPN;

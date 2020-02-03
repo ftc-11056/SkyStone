@@ -35,7 +35,7 @@ public class Autonom_Red_3Cubes extends basicAutoCustumade {
 
         Mikum = skystoneDetector.getScreenPosition().y;
 
-        int numOfCheck = 3;
+        int numOfCheck = 0;
         MyPurePursuitGUI = new PurePursuitGUI(Paths[numOfCheck].getWayPoints(), MyOdometry.getPosition(), Paths[numOfCheck].getTolerance(), Paths[numOfCheck].getKc(), Paths[numOfCheck].getMaxVelocity(), Paths[numOfCheck].getTurnSpeed(), Paths[numOfCheck].isFront());
         while (!isStarted()) {
             packet = new TelemetryPacket();
@@ -46,15 +46,15 @@ public class Autonom_Red_3Cubes extends basicAutoCustumade {
             telemetry.update();
         }
 
-        Mikum = 30;
+        Mikum = 150;
         if(Mikum <= 90){
-            Paths = Paths_Library_Red.LeftPaths;
+            Paths = Paths_Library_Red_3Cubes.LeftPaths;
         }
         else if (Mikum >= 210){
-            Paths = Paths_Library_Red.RightPaths;
+            Paths = Paths_Library_Red_3Cubes.RightPaths;
         }
         else {
-            Paths = Paths_Library_Red.CenterPaths;
+            Paths = Paths_Library_Red_3Cubes.CenterPaths;
         }
 
         runtime.reset();
