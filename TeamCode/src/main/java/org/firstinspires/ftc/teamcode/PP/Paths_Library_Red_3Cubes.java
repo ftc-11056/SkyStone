@@ -17,7 +17,6 @@ public class Paths_Library_Red_3Cubes {
 
     private static OurPoint[] LeftFoundationPoints = {
             new OurPoint(0.55, -1.67, 180),
-            new OurPoint(0.98, -1.63, 180),
             new OurPoint(0.95, -0.7, 180),
             new OurPoint(0.95, 0.55, 270),
             new OurPoint(0.5, 1.20, 270)};
@@ -66,8 +65,7 @@ public class Paths_Library_Red_3Cubes {
     private static Path Center1 = new Path(Center1Points, toleranceCenter1, KcCenter1, MaxVelocityCenter1, turnSpeedCenter1, frontCenter1);
 
     private static OurPoint[] CenterFoundationPoints = {
-            new OurPoint(0.48, -1.52, 140),
-            new OurPoint(1.2, -1, 140),
+            new OurPoint(0.48, -1.52, 180),
             new OurPoint(0.95, -0.7, 180),
             new OurPoint(0.95, 0.55, 270),
             new OurPoint(0.5, 1.20, 270)};

@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.basicAutoCustumade;
 
 
 @Autonomous(name = "Autonom_Red_3Cubes", group = "teamcode")
-public class Autonom_Red_3Cubes extends basicAutoCustumade {
+public class Autonom_Red_3Cubes extends /*basicAutoCustumade*/ RobotCustomade {
 
     public PurePursuitGUI MyPurePursuitGUI;
     public FtcDashboard dashboard;
@@ -24,7 +24,7 @@ public class Autonom_Red_3Cubes extends basicAutoCustumade {
     private double pechY = 1;
     private double distanceToCenter;
     private double factor = 1;
-    Path[] Paths = Paths_Library_Red_3Cubes.LeftPaths;
+    Path[] Paths = Paths_Library_Red_3Cubes.CenterPaths;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -33,20 +33,20 @@ public class Autonom_Red_3Cubes extends basicAutoCustumade {
         packet = new TelemetryPacket();
         BuildOdometry(StartPosition);
 
-        Mikum = skystoneDetector.getScreenPosition().y;
+//        Mikum = skystoneDetector.getScreenPosition().y;
 
-        int numOfCheck = 0;
+        int numOfCheck = 3;
         MyPurePursuitGUI = new PurePursuitGUI(Paths[numOfCheck].getWayPoints(), MyOdometry.getPosition(), Paths[numOfCheck].getTolerance(), Paths[numOfCheck].getKc(), Paths[numOfCheck].getMaxVelocity(), Paths[numOfCheck].getTurnSpeed(), Paths[numOfCheck].isFront());
         while (!isStarted()) {
             packet = new TelemetryPacket();
             MyPurePursuitGUI.updateGraghic(packet);
             dashboard.sendTelemetryPacket(packet);
-            Mikum = skystoneDetector.getScreenPosition().y;
-            telemetry.addData("skystone", Mikum);
-            telemetry.update();
+//            Mikum = skystoneDetector.getScreenPosition().y;
+//            telemetry.addData("skystone", Mikum);
+//            telemetry.update();
         }
 
-        Mikum = 150;
+       /* Mikum = 150;
         if(Mikum <= 90){
             Paths = Paths_Library_Red_3Cubes.LeftPaths;
         }
@@ -56,9 +56,9 @@ public class Autonom_Red_3Cubes extends basicAutoCustumade {
         else {
             Paths = Paths_Library_Red_3Cubes.CenterPaths;
         }
-
+*/
         runtime.reset();
-        webcam.closeCameraDevice();
+//        webcam.closeCameraDevice();
         waitForStart();
 
         isRun = true;

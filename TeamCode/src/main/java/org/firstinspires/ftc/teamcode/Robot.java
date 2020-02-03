@@ -46,6 +46,8 @@ public class Robot extends LinearOpMode {
     public Servo ParkingMot = null;
     public Servo Capstone = null;
     public DigitalChannel Touch_Foundation = null;
+    public DigitalChannel Touch_Foundation2 = null;
+
 
 
     /*IMU Fileds*/
@@ -139,6 +141,8 @@ public class Robot extends LinearOpMode {
 
         cubeIn = hardwareMap.get(DistanceSensor.class, "cubeIn");
         Touch_Foundation = hardwareMap.get(DigitalChannel.class, "Touch_Foundation");
+        Touch_Foundation = hardwareMap.get(DigitalChannel.class, "Touch_Foundation2");
+
 
         blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
 
