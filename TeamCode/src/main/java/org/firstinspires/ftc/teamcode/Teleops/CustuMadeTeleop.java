@@ -30,11 +30,15 @@ public class CustuMadeTeleop extends RobotCustomade {
     private boolean autoY = false;
     private boolean autoA = false;
     private boolean autoAUpEle = false;
+    private boolean autoAArm = false;
+    private boolean autoYDownEle = false;
+    private boolean autoAB = false;
+    private boolean autoAUpEleB = false;
     private boolean up = false;
     private boolean low = false;
 
     private int Level = 200;
-    private int counter = 1;
+    private int counter = 2;
     private int pos = 0;
 
     private boolean Capass = false;
@@ -185,13 +189,26 @@ public class CustuMadeTeleop extends RobotCustomade {
             }
 
 //            TODO: Auto A
-            if (gamepad2.a) {
-                stayingPosition = pos + 50;
-                autoAUpEle = true;
+            if (gamepad1.left_trigger > 0){
+                autoYDownEle = true;
+                stayingPosition = pos + 270;
+                power = 0.9;
+                stayPN = 0.01;
                 time = runtime.seconds();
-            }
-            if (autoAUpEle == true && (runtime.seconds() - time > 0.5)){
+            }if (autoYDownEle == true && (runtime.seconds() - time > 0.2)){
+                Output.setPosition(OutputOpen);
+                time = runtime.seconds();
+                autoYDownEle = false;
+                autoAUpEle = true;
+            }if (autoAUpEle && (runtime.seconds() - time > 0.6)) {
+                stayingPosition = pos + 50;
+                power = 0.9;
+                stayPN = 0.01;
+                time = runtime.seconds();
                 autoAUpEle = false;
+                autoAArm = true;
+            }if (autoAArm == true && (runtime.seconds() - time > 0.5)){
+                autoAArm = false;
                 autoA = true;
                 Arm.setPosition(ArmClose);
                 time = runtime.seconds();
@@ -213,6 +230,25 @@ public class CustuMadeTeleop extends RobotCustomade {
                 power = 0.3;
                 stayPN = 0.004;
             }*/
+
+            if (gamepad2.a) {
+                stayingPosition = pos + 50;
+                autoAUpEleB = true;
+                time = runtime.seconds();
+            }if (autoAUpEleB == true && (runtime.seconds() - time > 0.5)){
+                autoAUpEleB = false;
+                autoA = true;
+                Arm.setPosition(ArmClose);
+                time = runtime.seconds();
+                telemetry.addLine("1");
+            }if (autoAB == true && (runtime.seconds() - time > 1)){
+                Output.setPosition(OutputOpen);
+                stayingPosition = 0;
+                power = 0.3;
+                stayPN = 0.004;
+                telemetry.addLine("2");
+                autoAB = false;
+            }
 
 //            TODO: One Level Upper
             if (gamepad2.left_stick_y < -0.5 && gamepad2.left_stick_button) {
