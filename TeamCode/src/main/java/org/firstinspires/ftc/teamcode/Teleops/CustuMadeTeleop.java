@@ -48,6 +48,8 @@ public class CustuMadeTeleop extends RobotCustomade {
     private double leftStickX = 0;
     private double leftStickY = 0;
     private double rightStickX = 0;
+    private int foundation= 0;
+    private int katze= 0;
 
     private boolean resetStart = true;
 
@@ -121,13 +123,17 @@ public class CustuMadeTeleop extends RobotCustomade {
                 telemetry.addLine("imu isnt calibrated");
             }
 
-            if (gamepad1.a) {
+            if (gamepad1.a && foundation == 0) {
                 LeftServo.setPosition(LeftServoDown);
                 RightServo.setPosition(RightServoDown);
+                foundation = 1;
+                sleep(150);
             } else if
-            (gamepad1.y) {
+            (gamepad1.a && foundation == 1) {
                 LeftServo.setPosition(LeftServoUp);
                 RightServo.setPosition(RightServoUp);
+                foundation = 0;
+                sleep(150);
             }
 
             if (gamepad1.left_bumper) {
@@ -145,12 +151,22 @@ public class CustuMadeTeleop extends RobotCustomade {
                 Output.setPosition(OutputClose);
             }
 
-            if (gamepad2.x) {
+           /* if (gamepad2.x) {
                 Arm.setPosition(ArmOpen);
             } else if (gamepad2.b) {
                 Arm.setPosition(ArmClose);
 
-            }
+            }*/
+           if (gamepad2.x && katze == 0) {
+               Arm.setPosition(ArmOpen);
+               katze = 1;
+               sleep(150);
+           } else if
+           (gamepad2.x && katze == 1) {
+               Arm.setPosition(ArmClose);
+               katze = 0;
+               sleep(150);
+           }
 
 
 
