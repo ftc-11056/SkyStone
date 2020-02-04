@@ -7,9 +7,9 @@ public class Paths_Library_Red_3Cubes {
     private static OurPoint[] Left1Points = {
             new OurPoint(1.566, -0.8325, 143),
             new OurPoint(0.8, -1.3, 140),
-            new OurPoint(0.55, -1.6, 140)};
+            new OurPoint(0.55, -1.63, 140)};
     private static double toleranceLeft1 = 75;
-    private static double KcLeft1 = 0.5;
+    private static double KcLeft1 = 1.5;
     private static double MaxVelocityLeft1 = 0.6;
     private static double turnSpeedLeft1 = 0.4;
     private static boolean frontLeft1 = true;
@@ -30,9 +30,9 @@ public class Paths_Library_Red_3Cubes {
     private static OurPoint[] Left2Points = {
             new OurPoint(0.5, 1.25, 270),
             new OurPoint(1.35, 1.25, 180),
-            new OurPoint(0.95, 0.30, 180),
-            new OurPoint(0.87, -0.6, 143),
-            new OurPoint(0.55, -1.09, 143)};
+            new OurPoint(0.9, 0.30, 180),
+            new OurPoint(0.87, -0.53, 143),
+            new OurPoint(0.55, -0.93, 143)};
     private static double toleranceLeft2 = 115;
     private static double KcLeft2 = 1.5;
     private static double MaxVelocityLeft2 = 1;
@@ -42,7 +42,7 @@ public class Paths_Library_Red_3Cubes {
 
     private static OurPoint[] LeftFoundation2Points = {
             new OurPoint(0.5, -1.09, 180),
-            new OurPoint(0.95, -0.7, 180),
+            new OurPoint(0.9, -0.7, 180),
             new OurPoint(1.15, 0.5, 180),
             new OurPoint(1.15, 1.05, 180)};
     private static double toleranceLeftFoundation2 = 85;
@@ -54,9 +54,9 @@ public class Paths_Library_Red_3Cubes {
 
     private static OurPoint[] Left3Points = {
             new OurPoint(1.15, 1.05, 180),
-            new OurPoint(0.9, -0.4, 140),
+            new OurPoint(0.87, -0.2, 140),
             new OurPoint(0.25, -0.7, 140)};
-    private static double toleranceLeft3 = 85;
+    private static double toleranceLeft3 = 95;
     private static double KcLeft3 = 2.5;
     private static double MaxVelocityLeft3 = 1.5;
     private static double turnSpeedLeft3 = 0.2;
@@ -64,11 +64,11 @@ public class Paths_Library_Red_3Cubes {
     private static Path Left3 = new Path(Left3Points, toleranceLeft3, KcLeft3, MaxVelocityLeft3, turnSpeedLeft3, frontLeft3);
 
     private static OurPoint[] LeftFoundation3Points = {
-            new OurPoint(0.25, -0.7, 140),
-            new OurPoint(0.95, -0.4, 180),
+            new OurPoint(0.25, -0.7, 180),
+            new OurPoint(0.9, -0.75, 180),
             new OurPoint(1.15, 0.3, 180),
             new OurPoint(1.15, 1.05, 180)};
-    private static double toleranceLeftFoundation3 = 85;
+    private static double toleranceLeftFoundation3 = 100;
     private static double KcLeftFoundation3 = 2.5;
     private static double MaxVelocityLeftFoundation3 = 1.5;
     private static double turnSpeedLeftFoundation3 = 0.2;

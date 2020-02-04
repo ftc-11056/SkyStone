@@ -324,7 +324,7 @@ import java.util.Arrays;
 
     public void TouchFoundation (DigitalChannel left, DigitalChannel right){
         double Ftime = runtime.seconds();
-        while (left.getState() == true && right.getState() == true && (runtime.seconds() -Ftime  <= 0.8)){
+        while (left.getState() && right.getState() && (runtime.seconds() -Ftime  <= 0.8)){
             double power = -0.3;
             SetPower(power, power, power, power);
         }

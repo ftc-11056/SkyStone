@@ -221,8 +221,6 @@ public class CustuMadeTeleop extends RobotCustomade {
             }
             pos = -counter * Level;
 
-            IntakeL.getController();
-
 //            TODO: Auto Y
             if (gamepad2.y) {
                 autoY = true;
@@ -322,7 +320,7 @@ public class CustuMadeTeleop extends RobotCustomade {
             }
 
             //      TODO: Reset Counter
-            if (gamepad2.dpad_right) counter = 1;
+            if (gamepad2.dpad_right) counter = 0;
 
 //            TODO: One Level Lower
             if (gamepad2.left_stick_y > 0.5 && gamepad2.left_stick_button) {
