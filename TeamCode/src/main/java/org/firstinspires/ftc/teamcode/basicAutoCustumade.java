@@ -6,6 +6,7 @@ import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.doge_cv.SkystoneDetector;
+import org.firstinspires.ftc.teamcode.doge_cv.StoneDetector;
 import org.firstinspires.ftc.teamcode.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraRotation;

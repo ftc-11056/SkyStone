@@ -16,6 +16,7 @@ import java.util.Locale;
  * Original Work Copright(c) 2019 OpenFTC Team
  * Derived Work Copyright(c) 2019 DogeDevs
  */
+@TeleOp(name = "SkystoneDetectorExample", group = "dogecv")
 public class SkystoneDetectorExample extends LinearOpMode {
     private OpenCvCamera phoneCam;
     private StoneDetector Stone_detector;
@@ -30,8 +31,6 @@ public class SkystoneDetectorExample extends LinearOpMode {
          * the RC phone). If no camera monitor is desired, use the alternate
          * single-parameter constructor instead (commented out below)
          */
-        phoneCam = (OpenCvCamera) hardwareMap.get(WebcamName.class, "Webcam 1");
-
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         phoneCam = new OpenCvInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
 

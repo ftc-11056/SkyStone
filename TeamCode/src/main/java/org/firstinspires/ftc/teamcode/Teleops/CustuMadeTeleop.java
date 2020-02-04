@@ -224,7 +224,8 @@ public class CustuMadeTeleop extends RobotCustomade {
                 stayPN = 0.01;
                 telemetry.addLine("2");
             }*/
-            if (autoY == true && leftLinearMotor.getCurrentPosition() < stayingPosition + 15 && stayingPosition == pos) {
+            if ((autoY == true && leftLinearMotor.getCurrentPosition() < stayingPosition + 15 && stayingPosition == pos && counter !=0)
+                    || (autoY == true && stayingPosition == pos && counter == 0)){
                // Arm.setPosition(ArmOpen);
                 autoY = false;
                 counter += 1;
