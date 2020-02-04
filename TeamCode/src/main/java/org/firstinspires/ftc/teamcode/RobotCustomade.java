@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
@@ -35,6 +36,8 @@ public class RobotCustomade extends LinearOpMode {
     public DcMotor LF = null;
     public DcMotor RF = null;
     public DcMotor RB = null;
+
+    public VoltageSensor voltageSensor;
 
     //Systems Motor and Servo
     public DcMotor leftLinearMotor = null;
@@ -142,7 +145,6 @@ public class RobotCustomade extends LinearOpMode {
 
         blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
 
-
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -153,7 +155,6 @@ public class RobotCustomade extends LinearOpMode {
 
         leftLinearMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightLinearMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
 
         RF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         RB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors

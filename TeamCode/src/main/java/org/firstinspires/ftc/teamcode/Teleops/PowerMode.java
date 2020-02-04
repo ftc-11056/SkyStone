@@ -18,10 +18,6 @@ public class PowerMode extends RobotCustomade {
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
 
-
-        leftLinearMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightLinearMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
         LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -61,6 +57,9 @@ public class PowerMode extends RobotCustomade {
             if (gamepad1.dpad_down) RightServo.setPosition(0.2);
             if (gamepad1.dpad_left) LeftServo.setPosition(0.8);
             if (gamepad1.dpad_right) LeftServo.setPosition(0.2);
+
+            telemetry.addData("Voltage" , voltageSensor.getVoltage());
+            telemetry.update();
         }
     }
 }
