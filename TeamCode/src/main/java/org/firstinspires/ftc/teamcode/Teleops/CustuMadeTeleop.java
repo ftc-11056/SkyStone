@@ -214,8 +214,8 @@ public class CustuMadeTeleop extends RobotCustomade {
                 time = runtime.seconds();
                 telemetry.addLine("1");
                 stayingPosition = pos;
-                power = 0.9;
-                stayPN = 0.01;
+                power = 1;
+                stayPN = 0.02;
                 telemetry.addLine("2");
             }
             /*if (autoY == true && (-time + runtime.seconds() > 1.2)) {
@@ -250,13 +250,13 @@ public class CustuMadeTeleop extends RobotCustomade {
                 time = runtime.seconds();
                 autoAUpEle = false;
                 autoAArm = true;
-            }if (autoAArm == true && (runtime.seconds() - time > 0.5)){
+            }if (autoAArm == true && (runtime.seconds() - time > 0.3)){
                 autoAArm = false;
                 autoA = true;
                 Arm.setPosition(ArmClose);
                 time = runtime.seconds();
                 telemetry.addLine("1");
-            }if (autoA == true && (runtime.seconds() - time > 1)){
+            }if (autoA == true && (runtime.seconds() - time > 0.5)){
                 Output.setPosition(OutputOpen);
                 stayingPosition = 0;
                 power = 0.3;
