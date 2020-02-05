@@ -3,12 +3,13 @@ package org.firstinspires.ftc.teamcode.PP;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.RobotCustomade;
 import org.firstinspires.ftc.teamcode.basicAutoCustumade;
 
-
+@Disabled
 @Autonomous(name = "Autonom_Blue_Customade_Robot", group = "teamcode")
 public class Autonom_Blue_Customade_Robot extends basicAutoCustumade {
 

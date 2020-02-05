@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -31,13 +32,14 @@ public class RobotCustomade extends LinearOpMode {
 
     protected ElapsedTime runtime = new ElapsedTime();
 
+    public FtcDashboard dashboard;
+    public TelemetryPacket packet = null;
+
     //Drive Train Motor
     public DcMotor LB = null;
     public DcMotor LF = null;
     public DcMotor RF = null;
     public DcMotor RB = null;
-
-    public VoltageSensor voltageSensor;
 
     //Systems Motor and Servo
     public DcMotor leftLinearMotor = null;
@@ -303,6 +305,19 @@ public class RobotCustomade extends LinearOpMode {
             ElvateBusy = false;
         }
         return ElvateBusy;
+    }
+
+    public void TouchFoundation (DigitalChannel left, DigitalChannel right){
+        double Ftime = runtime.seconds();
+        while (opModeIsActive() && left.getState() && right.getState() && (runtime.seconds() -Ftime  <= 0.5)){
+            double power = -0.3;
+            double cPower = Range.clip((MyOdometry.getDirection() - (Math.toRadians(360)))/ Math.toRadians(30), -1, 1);
+            MyDriveTrain.arcade(power,0,cPower);
+            packet.put("touch left", left.getState());
+            packet.put("touch right", right.getState());
+            dashboard.sendTelemetryPacket(packet);
+        }
+        MyDriveTrain.SetPower(0,0,0,0);
     }
 
 }

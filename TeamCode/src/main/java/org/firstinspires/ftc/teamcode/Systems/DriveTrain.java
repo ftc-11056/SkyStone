@@ -322,13 +322,6 @@ import java.util.Arrays;
         }
     }
 
-    public void TouchFoundation (DigitalChannel left, DigitalChannel right){
-        double Ftime = runtime.seconds();
-        while (left.getState() && right.getState() && (runtime.seconds() -Ftime  <= 0.8)){
-            double power = -0.3;
-            SetPower(power, power, power, power);
-        }
-    }
 
         public void setStopPosition(OurPoint position){
             stopPosition = position;

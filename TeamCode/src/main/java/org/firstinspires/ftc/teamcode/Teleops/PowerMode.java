@@ -57,9 +57,6 @@ public class PowerMode extends RobotCustomade {
             if (gamepad1.dpad_down) RightServo.setPosition(0.2);
             if (gamepad1.dpad_left) LeftServo.setPosition(0.8);
             if (gamepad1.dpad_right) LeftServo.setPosition(0.2);
-
-            telemetry.addData("Voltage" , voltageSensor.getVoltage());
-            telemetry.update();
         }
     }
 }

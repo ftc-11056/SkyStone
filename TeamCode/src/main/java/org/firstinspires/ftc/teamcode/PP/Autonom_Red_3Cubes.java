@@ -14,9 +14,7 @@ import org.firstinspires.ftc.teamcode.basicAutoCustumade;
 public class Autonom_Red_3Cubes extends /*basicAutoCustumade*/ RobotCustomade {
 
     public PurePursuitGUI MyPurePursuitGUI;
-    public FtcDashboard dashboard;
     private OurPoint StartPosition = new OurPoint(1.566, -0.8325, 90);
-    public TelemetryPacket packet = null;
     private Boolean isRun = true;
     public double deltaFromFlatAngle = 0;
     private boolean ElevateorBusy = true;
@@ -35,7 +33,7 @@ public class Autonom_Red_3Cubes extends /*basicAutoCustumade*/ RobotCustomade {
 
 //        Mikum = skystoneDetector.getScreenPosition().y;
 
-        int numOfCheck = 4;
+        int numOfCheck = 1;
         MyPurePursuitGUI = new PurePursuitGUI(Paths[numOfCheck].getWayPoints(), MyOdometry.getPosition(), Paths[numOfCheck].getTolerance(), Paths[numOfCheck].getKc(), Paths[numOfCheck].getMaxVelocity(), Paths[numOfCheck].getTurnSpeed(), Paths[numOfCheck].isFront());
         while (!isStarted()) {
             packet = new TelemetryPacket();
@@ -98,7 +96,7 @@ public class Autonom_Red_3Cubes extends /*basicAutoCustumade*/ RobotCustomade {
             }
         }
 
-        MyDriveTrain.TouchFoundation(LeftTouch,RightTouch);
+        TouchFoundation(LeftTouch,RightTouch);
         Output.setPosition(OutputClose);
         LeftServo.setPosition(LeftServoDown);
         RightServo.setPosition(RightServoDown);
@@ -120,18 +118,21 @@ public class Autonom_Red_3Cubes extends /*basicAutoCustumade*/ RobotCustomade {
                 petchX = 1;
                 MyPurePursuitGUI.setTurnSpeed(2.5);
             }
+            else{
+                MyPurePursuitGUI.setTurnSpeed(1.5);
+            }
             if (MyPurePursuitGUI.findClosetPointIndex() <= 25) {
                 PlacingStoneWhitTime(packet);
             }
 
             deltaFromFlatAngle = Math.abs(MyOdometry.getDirection() - Math.toRadians(270));
-            if (MyPurePursuitGUI.findClosetPointIndex() >= 28){
+            if (MyPurePursuitGUI.findClosetPointIndex() >= 33){
                 LeftServo.setPosition(LeftServoUp);
                 RightServo.setPosition(RightServoUp);
                 //MyPurePursuitGUI.setKv(0.4);
                 MyPurePursuitGUI.setTurnSpeed(1);
             }
-            if (MyPurePursuitGUI.findClosetPointIndex() >= 52) {
+            if (MyPurePursuitGUI.findClosetPointIndex() >= 48) {
                 Output.setPosition(OutputOpen);
                 MyIntake.maxIntake();
                 factor = 0.4;
@@ -155,7 +156,7 @@ public class Autonom_Red_3Cubes extends /*basicAutoCustumade*/ RobotCustomade {
                 ElevateorBusy = PlacingStoneWhitTime(packet);
             }
         }
-
+/*
         isRun = true;
         boolean isCubeIn = false;
         MyPurePursuitGUI = new PurePursuitGUI(Paths[4].getWayPoints(), MyOdometry.getPosition(), Paths[4].getTolerance(), Paths[4].getKc(), Paths[4].getMaxVelocity(), Paths[4].getTurnSpeed(), Paths[4].isFront());
@@ -194,7 +195,7 @@ public class Autonom_Red_3Cubes extends /*basicAutoCustumade*/ RobotCustomade {
                 ElevateorBusy = PlacingStoneWhitTime(packet);
             }
         }
-
+*/
 
 
         //        TODO Parking
