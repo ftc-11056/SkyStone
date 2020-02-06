@@ -5,6 +5,9 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.teamcode.doge_cv.SkystoneDetector;
 import org.firstinspires.ftc.teamcode.doge_cv.StoneDetector;
 import org.firstinspires.ftc.teamcode.easyopencv.OpenCvCameraFactory;
@@ -23,7 +26,7 @@ public class basicAutoCustumade extends RobotCustomade {
         super.runOpMode();
 
 //        TODO: Webcam
-
+/*
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
 
@@ -33,7 +36,7 @@ public class basicAutoCustumade extends RobotCustomade {
         webcam.setPipeline(skystoneDetector);
 
         webcam.startStreaming(320, 240, OpenCvCameraRotation.SIDEWAYS_RIGHT);
-
+*/
 //      TODO: Anothers
         Arm.setPosition(ArmClose);
         pattern = RevBlinkinLedDriver.BlinkinPattern.WHITE;
@@ -54,6 +57,7 @@ public class basicAutoCustumade extends RobotCustomade {
             sleep(50);
             idle();
         }
+        angles = IMU.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS);
         telemetry.addLine("IMU_IS_READY");
         telemetry.update();
     }

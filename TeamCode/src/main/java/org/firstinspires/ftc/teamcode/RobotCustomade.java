@@ -82,18 +82,19 @@ public class RobotCustomade extends LinearOpMode {
     public double OutputClose = 0.75;
     public double OutputOpen = 0.53 ;
 
-    public double CapstoneUp = 0.44  ;
+    public double CapstoneUp = 0.44;
     public double CapstoneDown = 0.9;
 
     public double ParkingMotOut = 1;
     public double ParkingMotIn = 0.33;
 
-    public double RightServoDown = 0.2;
-    public double LeftServoDown = 0.58;
-    public double RightServoUp = 0.7;
-    public double LeftServoUp = 0.1;
-    public double RightServoMiddle = 0.45;
-    public double LeftServoMiddle = 0.35;
+    public double RightServoDown = 0.27;
+    public double LeftServoDown = 0.75;
+    public double RightServoUp = 0.68;
+    public double LeftServoUp = 0.35;
+    public double RightServoMiddle = 0.475;
+    public double LeftServoMiddle = 0.55;
+
 
     public double ArmClose = 0.79;
     public double ArmOpen = 0.3;
@@ -311,13 +312,17 @@ public class RobotCustomade extends LinearOpMode {
         double Ftime = runtime.seconds();
         while (opModeIsActive() && left.getState() && right.getState() && (runtime.seconds() -Ftime  <= 0.5)){
             double power = -0.3;
-            double cPower = Range.clip((MyOdometry.getDirection() - (Math.toRadians(360)))/ Math.toRadians(30), -1, 1);
+            double cPower = IMUError(180, 1);
             MyDriveTrain.arcade(power,0,cPower);
             packet.put("touch left", left.getState());
             packet.put("touch right", right.getState());
             dashboard.sendTelemetryPacket(packet);
         }
         MyDriveTrain.SetPower(0,0,0,0);
+    }
+
+    public double IMUError(double TargetAngle, double turnSpeed){
+        return turnSpeed*Range.clip((Math.toRadians(MyDriveTrain.getAngle()) - (Math.toRadians(TargetAngle)))/ Math.toRadians(30), -1, 1);
     }
 
 }

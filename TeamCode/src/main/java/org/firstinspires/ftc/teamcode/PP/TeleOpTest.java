@@ -133,7 +133,8 @@ public class TeleOpTest extends RobotCustomade {
             //Set Drive Mode
             if (gamepad1.x) MyDriveTrain.setMode("arcade");
             else if (gamepad1.b) MyDriveTrain.setMode("Oriented");
-            double direction = angles.firstAngle;
+//            double direction = angles.firstAngle;
+            double direction = 1;
             packet.put("Mode: " , MyDriveTrain.Mode);
 /*
             packet.put("RF", MyDriveTrain.RightFront.getPower());
