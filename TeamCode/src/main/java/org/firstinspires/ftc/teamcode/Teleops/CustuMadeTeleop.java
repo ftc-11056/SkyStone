@@ -123,17 +123,13 @@ public class CustuMadeTeleop extends RobotCustomade {
                 telemetry.addLine("imu isnt calibrated");
             }
 
-            if (gamepad1.a && foundation == 0) {
+            if (gamepad1.y) {
                 LeftServo.setPosition(LeftServoDown);
                 RightServo.setPosition(RightServoDown);
-                foundation = 1;
-                sleep(150);
-            } else if
-            (gamepad1.a && foundation == 1) {
+
+            } else if (gamepad1.a) {
                 LeftServo.setPosition(LeftServoUp);
                 RightServo.setPosition(RightServoUp);
-                foundation = 0;
-                sleep(150);
             }
 
             if (gamepad1.left_bumper) {
