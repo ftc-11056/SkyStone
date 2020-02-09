@@ -164,8 +164,6 @@ public class RobotCustomade extends LinearOpMode {
         LF.setDirection(DcMotor.Direction.FORWARD);
         LB.setDirection(DcMotor.Direction.FORWARD);
 
-        IntakeL.setDirection(DcMotor.Direction.REVERSE);// Set to REVERSE the intake System
-
         leftLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 

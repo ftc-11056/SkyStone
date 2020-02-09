@@ -323,6 +323,7 @@ import java.util.Arrays;
     }
 
 
+
         public void setStopPosition(OurPoint position){
             stopPosition = position;
         }

@@ -42,6 +42,9 @@ public class PowerMode extends RobotCustomade {
                 rightLinearMotor.setPower(0);
             }
 
+            if (gamepad2.right_bumper) rightLinearMotor.setPower(0.3);
+            else if (gamepad2.left_bumper) leftLinearMotor.setPower(0.3);
+
             if (gamepad1.x) LB.setPower(0.5);
             else if (gamepad1.y) LF.setPower(0.5);
             else if (gamepad1.a) RB.setPower(0.5);

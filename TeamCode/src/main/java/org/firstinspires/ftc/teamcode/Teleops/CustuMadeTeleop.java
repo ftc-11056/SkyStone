@@ -73,7 +73,7 @@ public class CustuMadeTeleop extends RobotCustomade {
         }
         waitForStart();
         while (opModeIsActive()) {
-            if (runtime.seconds() < 2){
+            /*if (runtime.seconds() < 2){
                 stayingPosition = -50;
                 power = 0.1;
                 stayPN = 0.06;
@@ -81,7 +81,7 @@ public class CustuMadeTeleop extends RobotCustomade {
                 resetStart = false;
                 leftLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 stayingPosition = 0;
-            }
+            }*/
             //TODO[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[GAMEPAD 11111111111]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
 
 //            TODO: Drive
