@@ -72,16 +72,13 @@ public class SkystoneDetectorExample extends LinearOpMode {
             /*
              * Send some stats to the telemetry
              */
-            if (Stone_detector.isDetected()) {
-                telemetry.addData("size", Stone_detector.foundRectangles().size());
-                try {
-                    for (int i = 0; i < Stone_detector.foundRectangles().size(); i++) {
-                        telemetry.addData("Stone" + (i + 1), Stone_detector.foundRectangles().get(i).toString());
-                    }
-                } catch (Exception e) {
-                    telemetry.addData("Stones", "Not Detected");
+            telemetry.addData("size", Stone_detector.foundRectangles().size());
+            try {
+                for (int i = 0; i < Stone_detector.foundRectangles().size(); i++) {
+                    telemetry.addData("Stone" + (i + 1), Stone_detector.foundRectangles().get(1).toString());
                 }
-
+            } catch (Exception e) {
+                telemetry.addData("Stones", "Not Detected");
             }
             telemetry.addData("Frame Count", phoneCam.getFrameCount());
             telemetry.addData("FPS", String.format(Locale.US, "%.2f", phoneCam.getFps()));

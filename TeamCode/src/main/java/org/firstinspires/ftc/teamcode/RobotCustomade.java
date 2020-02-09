@@ -88,12 +88,12 @@ public class RobotCustomade extends LinearOpMode {
     public double ParkingMotOut = 1;
     public double ParkingMotIn = 0.33;
 
-    public double RightServoDown = 0.27;
-    public double LeftServoDown = 0.75;
-    public double RightServoUp = 0.68;
+    public double RightServoDown = 0.26;
+    public double LeftServoDown = 0.77;
+    public double RightServoUp = 0.72;
     public double LeftServoUp = 0.35;
-    public double RightServoMiddle = 0.475;
-    public double LeftServoMiddle = 0.55;
+    public double RightServoMiddle = 0.49;
+    public double LeftServoMiddle = 0.56;
 
 
     public double ArmClose = 0.79;
