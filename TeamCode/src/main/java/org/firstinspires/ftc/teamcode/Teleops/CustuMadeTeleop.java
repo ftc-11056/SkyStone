@@ -124,12 +124,12 @@ public class CustuMadeTeleop extends RobotCustomade {
             }
 
             if (gamepad1.y) {
-                LeftServo.setPosition(LeftServoDown);
-                RightServo.setPosition(RightServoDown);
-
-            } else if (gamepad1.a) {
                 LeftServo.setPosition(LeftServoUp);
                 RightServo.setPosition(RightServoUp);
+
+            } else if (gamepad1.a) {
+                LeftServo.setPosition(LeftServoDown);
+                RightServo.setPosition(RightServoDown);
             }
 
             if (gamepad1.left_bumper) {

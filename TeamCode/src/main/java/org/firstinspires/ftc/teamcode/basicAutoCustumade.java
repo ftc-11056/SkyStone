@@ -38,6 +38,7 @@ public class basicAutoCustumade extends RobotCustomade {
         webcam.startStreaming(320, 240, OpenCvCameraRotation.SIDEWAYS_RIGHT);
 */
 //      TODO: Anothers
+
         Arm.setPosition(ArmClose);
         pattern = RevBlinkinLedDriver.BlinkinPattern.WHITE;
         blinkinLedDriver.setPattern(pattern);

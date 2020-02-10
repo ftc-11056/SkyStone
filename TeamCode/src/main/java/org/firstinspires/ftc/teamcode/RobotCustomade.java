@@ -88,20 +88,19 @@ public class RobotCustomade extends LinearOpMode {
     public double ParkingMotOut = 1;
     public double ParkingMotIn = 0.33;
 
-    public double RightServoDown = 0.26;
-    public double LeftServoDown = 0.77;
-    public double RightServoUp = 0.72;
-    public double LeftServoUp = 0.35;
-    public double RightServoMiddle = 0.49;
-    public double LeftServoMiddle = 0.56;
-
+    public double LeftServoDown = 0.79;
+    public double RightServoDown = 0.24;
+    public double LeftServoUp = 0.24;
+    public double RightServoUp = 0.73;
+    public double LeftServoMiddle = 0.515;
+    public double RightServoMiddle = 0.487;
 
     public double ArmClose = 0.79;
     public double ArmOpen = 0.3;
     public boolean IntakeStop = true;
     public int PointIndexStartElavator = 0;
     public double PlacingStoneTime = 0;
-
+    public double Delta;
     public double cubeNotInMM = 100;
 
     public String passWord = "dont pass";
@@ -289,17 +288,16 @@ public class RobotCustomade extends LinearOpMode {
         }
     }
 
-    public boolean PlacingStoneWhitTime(TelemetryPacket packet) {
+    public boolean PlacingStoneWhitTime() {
         boolean ElvateBusy = true;
-        double Delta = runtime.seconds() - PlacingStoneTime;
-        packet.put("delte", Delta);
-        if (Delta >= 0 && Delta <= 0.8) {
+        Delta = runtime.seconds() - PlacingStoneTime;
+        if (Delta >= 0 && Delta <= 0.6) {
             Arm.setPosition(ArmOpen);
         }
-        if (Delta >= 0.5 && Delta <= 1.3) {
+        if (Delta > 0.6 && Delta <= 1.3) {
             Output.setPosition(OutputOpen);
         }
-        if (Delta >= 1.3 && Delta <= 2.1) {
+        if (Delta > 1.3 && Delta <= 2.1) {
             Arm.setPosition(ArmClose);
             ElvateBusy = false;
         }
@@ -309,12 +307,10 @@ public class RobotCustomade extends LinearOpMode {
     public void TouchFoundation (DigitalChannel left, DigitalChannel right){
         double Ftime = runtime.seconds();
         while (opModeIsActive() && left.getState() && right.getState() && (runtime.seconds() -Ftime  <= 0.5)){
+            updateOdometry();
             double power = -0.3;
             double cPower = IMUError(180, 1);
             MyDriveTrain.arcade(power,0,cPower);
-            packet.put("touch left", left.getState());
-            packet.put("touch right", right.getState());
-            dashboard.sendTelemetryPacket(packet);
         }
         MyDriveTrain.SetPower(0,0,0,0);
     }

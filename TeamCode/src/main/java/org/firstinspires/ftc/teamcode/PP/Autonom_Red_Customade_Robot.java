@@ -115,7 +115,7 @@ public class Autonom_Red_Customade_Robot extends basicAutoCustumade {
                 MyPurePursuitGUI.setTurnSpeed(2.5);
             }
           if (MyPurePursuitGUI.findClosetPointIndex() <= 25) {
-             PlacingStoneWhitTime(packet);
+             PlacingStoneWhitTime();
           }
 
             deltaFromFlatAngle = Math.abs(MyOdometry.getDirection() - Math.toRadians(270));
@@ -149,7 +149,7 @@ public class Autonom_Red_Customade_Robot extends basicAutoCustumade {
                 PlacingStoneTime = runtime.seconds();
             }
             if(MyPurePursuitGUI.findClosetPointIndex() >= 40){
-                ElevateorBusy = PlacingStoneWhitTime(packet);
+                ElevateorBusy = PlacingStoneWhitTime();
             }
         }
 
