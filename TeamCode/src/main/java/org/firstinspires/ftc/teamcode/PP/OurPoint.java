@@ -28,6 +28,12 @@ public class OurPoint {
         this.angle = angle;
     }
 
+    public OurPoint(OurPoint p){
+        x = p.getX();
+        y = p.getY();
+        angle = p.getDegAngle();
+    }
+
 
     //methodes:
 

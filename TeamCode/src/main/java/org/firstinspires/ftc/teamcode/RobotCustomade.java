@@ -155,8 +155,8 @@ public class RobotCustomade extends LinearOpMode {
         IntakeL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         IntakeR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        leftLinearMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightLinearMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        leftLinearMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        rightLinearMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         RF.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         RB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
@@ -291,13 +291,13 @@ public class RobotCustomade extends LinearOpMode {
     public boolean PlacingStoneWhitTime() {
         boolean ElvateBusy = true;
         Delta = runtime.seconds() - PlacingStoneTime;
-        if (Delta >= 0 && Delta <= 0.6) {
+        if (Delta >= 0 && Delta <= 0.7) {
             Arm.setPosition(ArmOpen);
         }
-        if (Delta > 0.6 && Delta <= 1.3) {
+        if (Delta > 0.7 && Delta <= 1.6) {
             Output.setPosition(OutputOpen);
         }
-        if (Delta > 1.3 && Delta <= 2.1) {
+        if (Delta > 1.6 && Delta <= 2.5) {
             Arm.setPosition(ArmClose);
             ElvateBusy = false;
         }
@@ -317,6 +317,37 @@ public class RobotCustomade extends LinearOpMode {
 
     public double IMUError(double TargetAngle, double turnSpeed){
         return turnSpeed*Range.clip((Math.toRadians(MyDriveTrain.getAngle()) - (Math.toRadians(TargetAngle)))/ Math.toRadians(30), -1, 1);
+    }
+
+    public void RotateP1(int degrees, double power, double timeoutR,double KP) {
+        if (MyDriveTrain.getAngle() < degrees) {
+            while (MyDriveTrain.getAngle() < degrees && opModeIsActive()) {
+//                SumErrors = SumErrors + (getAngle() + degrees);
+                double error = degrees-MyDriveTrain.getAngle();
+                MyDriveTrain.LeftFront.setPower(-power  * error * KP);
+                MyDriveTrain.LeftBack.setPower(-power  * error * KP);
+                MyDriveTrain.RightFront.setPower(power  * error * KP);
+                MyDriveTrain.RightBack.setPower(power  * error * KP);
+                updateOdometry();
+            }
+        } else if (MyDriveTrain.getAngle() > degrees) {
+            while (MyDriveTrain.getAngle() > degrees && opModeIsActive()) {
+                double error = MyDriveTrain.getAngle()-degrees;
+                MyDriveTrain.LeftFront.setPower(power  * error * KP);
+                MyDriveTrain.LeftBack.setPower(power * error * KP);
+                MyDriveTrain.RightFront.setPower(-power * error * KP);
+                MyDriveTrain.RightBack.setPower(-power  * error * KP);
+                updateOdometry();
+            }
+        } else {
+            return;
+        }
+        // turn the motors off.
+        MyDriveTrain.LeftFront.setPower(0);
+        MyDriveTrain.LeftBack.setPower(0);
+        MyDriveTrain.RightFront.setPower(0);
+        MyDriveTrain.RightBack.setPower(0);
+
     }
 
 }

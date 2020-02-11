@@ -18,6 +18,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.teamcode.PP.OurPoint;
+import org.firstinspires.ftc.teamcode.RobotCustomade;
 
 import java.util.Arrays;
 
@@ -259,7 +260,6 @@ import java.util.Arrays;
         // reset -angle tracking on new heading
     }
     public void RotateP(int degrees, double power, double timeoutR,double KP) {
-        runtime.reset();
 
         double PNumber = 0.0108;
         double INumber = 0;
@@ -275,18 +275,16 @@ import java.util.Arrays;
 
         Angle = getAngle();
         if (getAngle() < degrees) {
-            while (getAngle() < degrees && runtime.seconds() < timeoutR) {
+            while (getAngle() < degrees) {
 //                SumErrors = SumErrors + (getAngle() + degrees);
                 double error = degrees-getAngle();
                 LeftFront.setPower(-power  * error * KP);
                 LeftBack.setPower(-power  * error * KP);
                 RightFront.setPower(power  * error * KP);
                 RightBack.setPower(power  * error * KP);
-
-
             }
         } else if (getAngle() > degrees) {
-            while (getAngle() > degrees && runtime.seconds() < timeoutR) {
+            while (getAngle() > degrees) {
                 double error = getAngle()-degrees;
                 LeftFront.setPower(power  * error * KP);
                 LeftBack.setPower(power * error * KP);

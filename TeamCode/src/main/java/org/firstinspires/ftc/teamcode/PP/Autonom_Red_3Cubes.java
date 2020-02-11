@@ -36,7 +36,7 @@ public class Autonom_Red_3Cubes extends basicAutoCustumade {
         blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
 //        Mikum = skystoneDetector.getScreenPosition().y;
 
-        int numOfCheck = 2;
+        int numOfCheck = 1;
         MyPurePursuitGUI = new PurePursuitGUI(Paths[numOfCheck].getWayPoints(), MyOdometry.getPosition(), Paths[numOfCheck].getTolerance(), Paths[numOfCheck].getKc(), Paths[numOfCheck].getMaxVelocity(), Paths[numOfCheck].getTurnSpeed(), Paths[numOfCheck].isFront());
         while (!isStarted()) {
             packet = new TelemetryPacket();
@@ -87,6 +87,7 @@ public class Autonom_Red_3Cubes extends basicAutoCustumade {
             isRun = purePesuitRun();
             if (MyPurePursuitGUI.findClosetPointIndex() >= 20) {
                 MyIntake.ShutDown();
+                MyPurePursuitGUI.setTurnSpeed(1);
                 Output.setPosition(OutputClose);
             }
 
@@ -96,52 +97,50 @@ public class Autonom_Red_3Cubes extends basicAutoCustumade {
                 MyPurePursuitGUI.setKv(0.4);
                 if(!LeftTouch.getState() || !RightTouch.getState()){
                     isTouch = true;
+
                 }
             }
-            if(MyPurePursuitGUI.findClosetPointIndex() >= 48){
+            if(MyPurePursuitGUI.findClosetPointIndex() >= 46){
                 IMUTurn = true;
                 Cpower = IMUError(180,0.6);
             }
         }
         MyOdometry.getPosition().setDegAngle(180 + MyDriveTrain.getAngle());
         IMUTurn = false;
+
         TouchFoundation(LeftTouch,RightTouch);
+
         Arm.setPosition(ArmOpen);
         LeftServo.setPosition(LeftServoDown);
         RightServo.setPosition(RightServoDown);
-        sleep(850);
+        sleep(400);
+
         Paths[2].getWayPoints()[0].setX(MyOdometry.getPosition().getX());
 
-        distanceToCenter = 1;
         isRun = true;
         PlacingStoneTime = runtime.seconds();
         MyPurePursuitGUI = new PurePursuitGUI(Paths[2].getWayPoints(), MyOdometry.getPosition(), Paths[2].getTolerance(), Paths[2].getKc(), Paths[2].getMaxVelocity(), Paths[2].getTurnSpeed(), Paths[2].isFront());
+        while (opModeIsActive() && isRun) {
+            isRun = purePesuitRun();
+            PlacingStoneWhitTime();
+        }
+
+        Arm.setPosition(ArmClose);
+        RotateP1(90,0.8,10,0.05);
+        MyOdometry.getPosition().setDegAngle(180 + MyDriveTrain.getAngle());
+        LeftServo.setPosition(LeftServoUp);
+        RightServo.setPosition(RightServoUp);
+        sleep(400);
+
+        Paths[3].getWayPoints()[0] = new OurPoint(MyOdometry.getPosition());
+        Paths[3].getWayPoints()[0].setDegAngle(180);
+
+        distanceToCenter = 1;
+        isRun = true;
+        MyPurePursuitGUI = new PurePursuitGUI(Paths[3].getWayPoints(), MyOdometry.getPosition(), Paths[3].getTolerance(), Paths[3].getKc(), Paths[3].getMaxVelocity(), Paths[3].getTurnSpeed(), Paths[3].isFront());
         while (opModeIsActive() && isRun && distanceToCenter >= 0.14) {
             isRun = purePesuitRun();
-            distanceToCenter = MyMath.distance(MyOdometry.getPosition(), Paths[2].getWayPoints()[Paths[2].getWayPoints().length-1]);
-            if (MyPurePursuitGUI.findClosetPointIndex() <= 10){
-//                MyPurePursuitGUI.setTurnSpeed(0);
-                petchX = 0;
-            }
-            else if (MyPurePursuitGUI.findClosetPointIndex() <= 30) {
-                packet.addLine("switch");
-                petchX = 1;
-                MyPurePursuitGUI.setTurnSpeed(2.5);
-            }
-            else{
-                MyPurePursuitGUI.setTurnSpeed(1.5);
-            }
-            if (MyPurePursuitGUI.findClosetPointIndex() <= 23) {
-                PlacingStoneWhitTime();
-            }
-
-            deltaFromFlatAngle = Math.abs(MyOdometry.getDirection() - Math.toRadians(270));
-            if (MyPurePursuitGUI.findClosetPointIndex() >= 27 && MyPurePursuitGUI.findClosetPointIndex() <= 48){
-                LeftServo.setPosition(LeftServoUp);
-                RightServo.setPosition(RightServoUp);
-                //MyPurePursuitGUI.setKv(0.4);
-                MyPurePursuitGUI.setTurnSpeed(0.6);
-            }
+            distanceToCenter = MyMath.distance(MyOdometry.getPosition(), Paths[3].getWayPoints()[Paths[3].getWayPoints().length-1]);
             if (MyPurePursuitGUI.findClosetPointIndex() >= 48) {
                 Output.setPosition(OutputOpen);
                 MyIntake.maxIntake();
@@ -152,7 +151,7 @@ public class Autonom_Red_3Cubes extends basicAutoCustumade {
 //        MyDriveTrain.Verification(cubeIn,cubeNotInMM,packet,dashboard);
 
         isRun = true;
-        MyPurePursuitGUI = new PurePursuitGUI(Paths[3].getWayPoints(), MyOdometry.getPosition(), Paths[3].getTolerance(), Paths[3].getKc(), Paths[3].getMaxVelocity(), Paths[3].getTurnSpeed(), Paths[3].isFront());
+        MyPurePursuitGUI = new PurePursuitGUI(Paths[4].getWayPoints(), MyOdometry.getPosition(), Paths[4].getTolerance(), Paths[4].getKc(), Paths[4].getMaxVelocity(), Paths[4].getTurnSpeed(), Paths[4].isFront());
         while (opModeIsActive() && (isRun)) {
             isRun = purePesuitRun();
             if (MyPurePursuitGUI.findClosetPointIndex() >= 15) {
@@ -170,7 +169,7 @@ public class Autonom_Red_3Cubes extends basicAutoCustumade {
 
         isRun = true;
         boolean isCubeIn = false;
-        MyPurePursuitGUI = new PurePursuitGUI(Paths[4].getWayPoints(), MyOdometry.getPosition(), Paths[4].getTolerance(), Paths[4].getKc(), Paths[4].getMaxVelocity(), Paths[4].getTurnSpeed(), Paths[4].isFront());
+        MyPurePursuitGUI = new PurePursuitGUI(Paths[5].getWayPoints(), MyOdometry.getPosition(), Paths[5].getTolerance(), Paths[5].getKc(), Paths[5].getMaxVelocity(), Paths[5].getTurnSpeed(), Paths[5].isFront());
         while (opModeIsActive() && isRun && !isCubeIn) {
             isRun = purePesuitRun();
             if (MyPurePursuitGUI.findClosetPointIndex() <= 7) {
@@ -189,12 +188,12 @@ public class Autonom_Red_3Cubes extends basicAutoCustumade {
         }
 
 
-        Paths[5].getWayPoints()[0] = MyOdometry.getPosition();
+        Paths[5].getWayPoints()[0] = new OurPoint(MyOdometry.getPosition());
         Paths[5].getWayPoints()[0].setDegAngle(140);
 
 /*
         isRun = true;
-        MyPurePursuitGUI = new PurePursuitGUI(Paths[5].getWayPoints(), MyOdometry.getPosition(), Paths[5].getTolerance(), Paths[5].getKc(), Paths[5].getMaxVelocity(), Paths[5].getTurnSpeed(), Paths[5].isFront());
+        MyPurePursuitGUI = new PurePursuitGUI(Paths[6].getWayPoints(), MyOdometry.getPosition(), Paths[6].getTolerance(), Paths[6].getKc(), Paths[6].getMaxVelocity(), Paths[6].getTurnSpeed(), Paths[6].isFront());
         while (opModeIsActive() && isRun) {
             isRun = purePesuitRun();
             if (MyPurePursuitGUI.findClosetPointIndex() <= 3) {
@@ -235,7 +234,7 @@ public class Autonom_Red_3Cubes extends basicAutoCustumade {
 
     private void LocalUpdateGraphic() {
         packet.put("IMU angle", MyDriveTrain.getAngle());
-        packet.put("Delta", Delta);
+        packet.put("deltaFromFlatAngle", Math.toDegrees(deltaFromFlatAngle));
     }
 
     public boolean purePesuitRun() {

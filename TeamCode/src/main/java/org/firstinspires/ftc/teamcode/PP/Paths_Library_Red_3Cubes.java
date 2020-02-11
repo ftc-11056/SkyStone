@@ -17,35 +17,43 @@ public class Paths_Library_Red_3Cubes {
 
     private static OurPoint[] LeftFoundationPoints = {
             new OurPoint(0.55, -1.6, 143),
-            new OurPoint(0.92, -1.3, 187),
-            new OurPoint(0.89, 0.8, 270),
-            new OurPoint(0.62, 1.25, 270)};
+            new OurPoint(0.92, -1.3, 183),
+            new OurPoint(0.92, 0.8, 180),
+            new OurPoint(0.62, 1.25, 180)};
     private static double toleranceLeftFoundation = 120 ;
     private static double KcLeftFoundation = 1.5;
     private static double MaxVelocityLeftFoundation = 1.5;
-    private static double turnSpeedLeftFoundation = 1;
+    private static double turnSpeedLeftFoundation = 0.7;
     private static boolean frontLeftFoundation = false;
     private static Path LeftFoundation = new Path(LeftFoundationPoints, toleranceLeftFoundation, KcLeftFoundation, MaxVelocityLeftFoundation, turnSpeedLeftFoundation, frontLeftFoundation);
 
-    private static OurPoint[] Left2Points = {
+    private static OurPoint[] FoundationBackPoints = {
             new OurPoint(0.62, 1.25, 270),
-            new OurPoint(1.3, 1.25, 185),
-            new OurPoint(0.85, 0.8, 185),
-            new OurPoint(0.92, -0.6, 150),
-            new OurPoint(0.77, -0.85, 143),
-            new OurPoint(0.45, -1.25, 143)};
+            new OurPoint(1.2, 1.25, 270)};
+    private static double toleranceFoundationBack = 120;
+    private static double KcFoundationBack = 10;
+    private static double MaxVelocityFoundationBack = 1;
+    private static double turnSpeedFoundationBack = 0.3;
+    private static boolean frontFoundationBack = true;
+    private static Path FoundationBack = new Path(FoundationBackPoints, toleranceFoundationBack, KcFoundationBack, MaxVelocityFoundationBack, turnSpeedFoundationBack, frontFoundationBack);
+
+    private static OurPoint[] Left2Points = {
+            new OurPoint(1.2, 1.25, 180),
+            new OurPoint(0.87, 0.6, 180),
+            new OurPoint(0.87, -0.65, 150),
+            new OurPoint(0.67, -0.85, 143),
+            new OurPoint(0.35, -1.25, 143)};
     private static double toleranceLeft2 = 120;
-    private static double KcLeft2 = 3;
+    private static double KcLeft2 = 10;
     private static double MaxVelocityLeft2 = 1;
-    private static double turnSpeedLeft2 = 2;
+    private static double turnSpeedLeft2 = 1;
     private static boolean frontLeft2 = true;
     private static Path Left2 = new Path(Left2Points, toleranceLeft2, KcLeft2, MaxVelocityLeft2, turnSpeedLeft2, frontLeft2);
 
     private static OurPoint[] LeftFoundation2Points = {
-            new OurPoint(0.45, -1.2, 143),
-            new OurPoint(0.88, -0.7, 180),
-            new OurPoint(0.88, 0.3, 180),
-            new OurPoint(1, 1, 180)};
+            new OurPoint(0.45, -1.25, 143),
+            new OurPoint(0.88, -0.7, 187),
+            new OurPoint(0.88, 1, 187)};
     private static double toleranceLeftFoundation2 = 85;
     private static double KcLeftFoundation2 = 2.5;
     private static double MaxVelocityLeftFoundation2 = 1.5;
@@ -54,7 +62,7 @@ public class Paths_Library_Red_3Cubes {
     private static Path LeftFoundation2 = new Path(LeftFoundation2Points, toleranceLeftFoundation2, KcLeftFoundation2, MaxVelocityLeftFoundation2, turnSpeedLeftFoundation2, frontLeftFoundation2);
 
     private static OurPoint[] Left3Points = {
-            new OurPoint(1.15, 1.05, 180),
+            new OurPoint(0.88, 1, 180),
             new OurPoint(0.95, 0.3, 180),
             new OurPoint(0.95, -0.1, 140),
             new OurPoint(0.87, -0.35, 140),
@@ -191,7 +199,7 @@ public class Paths_Library_Red_3Cubes {
     private static boolean frontParking = true;
     private static Path Parking = new Path(ParkingPoints, toleranceParking, KcParking, MaxVelocityParking, turnSpeedParking, frontParking);
 
-    public static Path[] LeftPaths = {Left1, LeftFoundation, Left2, LeftFoundation2, Left3, LeftFoundation3, Parking};
+    public static Path[] LeftPaths = {Left1, LeftFoundation, FoundationBack, Left2, LeftFoundation2, Left3, LeftFoundation3, Parking};
     public static Path[] CenterPaths = {Center1, CenterFoundation, Center2, CenterFoundation2, Parking};
     public static Path[] RightPaths = {Right1, RightFoundation, Right2, RightFoundation2, Parking};
 

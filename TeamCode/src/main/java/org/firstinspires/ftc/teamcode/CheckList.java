@@ -40,6 +40,15 @@ public class CheckList extends basicAutoCustumade {
         waitForStart();
         runtime.reset();
 
+/*
+        while (){
+            MyElevator.ElevateWithEncoder(210,0.5,1);
+        }
+        while (){
+            MyElevator.ElevateWithEncoder(0,0.3,1);
+        }
+  */
+/*
         MyElevator.ElevateWithEncoder(-500, 0.3, 0.5);
 
         sleep(1000);
@@ -98,7 +107,7 @@ public class CheckList extends basicAutoCustumade {
         telemetry.addData("right touch", RightTouch.getState());
         telemetry.update();
         sleep(2000);
-
+*/
 
 //        TODO Telemetry
         while (!isStopRequested()) {
