@@ -22,6 +22,7 @@ public class PowerMode extends RobotCustomade {
         RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        Output.setPosition(OutputClose);
 
         leftLinearMotor.setDirection(DcMotor.Direction.REVERSE);
         waitForStart();
@@ -32,11 +33,11 @@ public class PowerMode extends RobotCustomade {
             else if (gamepad2.y) leftLinearMotor.setPower(0.5);
             else if (gamepad2.a) leftLinearMotor.setPower(-0.5);
             else*/ if (gamepad2.dpad_up) {
-                leftLinearMotor.setPower(1);
-                rightLinearMotor.setPower(1);
+                leftLinearMotor.setPower(0.5);
+                rightLinearMotor.setPower(0.5);
             } else if (gamepad2.dpad_down) {
-                leftLinearMotor.setPower(-1);
-                rightLinearMotor.setPower(-1);
+                leftLinearMotor.setPower(-0.5);
+                rightLinearMotor.setPower(-0.5);
             } else {
                 leftLinearMotor.setPower(0);
                 rightLinearMotor.setPower(0);
@@ -45,8 +46,8 @@ public class PowerMode extends RobotCustomade {
             if (gamepad2.y) Output.setPosition(OutputOpen);
             else if (gamepad2.a) Output.setPosition(OutputClose);
 
-            if (gamepad2.right_bumper) rightLinearMotor.setPower(0.3);
-            else if (gamepad2.left_bumper) leftLinearMotor.setPower(0.3);
+           /* if (gamepad2.right_bumper) rightLinearMotor.setPower(0.3);
+            else if (gamepad2.left_bumper) leftLinearMotor.setPower(0.3);*/
 
             if (gamepad1.x) LB.setPower(0.5);
             else if (gamepad1.y) LF.setPower(0.5);

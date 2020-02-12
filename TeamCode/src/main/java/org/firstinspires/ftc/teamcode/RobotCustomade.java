@@ -80,7 +80,7 @@ public class RobotCustomade extends LinearOpMode {
     protected int fixedPosition = 0;
 
     public double OutputClose = 0.75;
-    public double OutputOpen = 0.53 ;
+    public double OutputOpen = 0.6 ;
 
     public double CapstoneUp = 0.44;
     public double CapstoneDown = 0.9;
