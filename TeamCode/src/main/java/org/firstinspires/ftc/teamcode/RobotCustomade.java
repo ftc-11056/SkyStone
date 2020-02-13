@@ -80,7 +80,7 @@ public class RobotCustomade extends LinearOpMode {
     protected int fixedPosition = 0;
 
     public double OutputClose = 0.75;
-    public double OutputOpen = 0.6 ;
+    public double OutputOpen = 0.53 ;
 
     public double CapstoneUp = 0.44;
     public double CapstoneDown = 0.9;
@@ -155,6 +155,7 @@ public class RobotCustomade extends LinearOpMode {
         IntakeL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         IntakeR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        IntakeL.setDirection(DcMotor.Direction.REVERSE);
 //        leftLinearMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 //        rightLinearMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -162,6 +163,8 @@ public class RobotCustomade extends LinearOpMode {
         RB.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         LF.setDirection(DcMotor.Direction.FORWARD);
         LB.setDirection(DcMotor.Direction.FORWARD);
+
+
 
         leftLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -262,42 +265,16 @@ public class RobotCustomade extends LinearOpMode {
         }
     }
 
-    public void PlacingStoneWhitPoints(int currentPointIndex, TelemetryPacket packet) {
-        int delta = currentPointIndex - PointIndexStartElavator;
-        packet.put("delte", delta);
-        if (delta >= 0 && delta <= 4) {
-            MyElevator.ElevateWithEncoder(-350, 0.4, 0.3);
-        }
-        if (delta >= 5 && delta <= 12) {
-            Arm.setPosition(ArmOpen);
-        }
-        if (delta >= 13 && delta <= 18) {
-            MyElevator.ElevateWithEncoder(0, 0.7, 0.0035);
-        }
-        if (delta >= 19 && delta <= 23) {
-            Output.setPosition(OutputOpen);
-        }
-        if (delta >= 24 && delta <= 32) {
-            MyElevator.ElevateWithEncoder(-350, 0.4, 0.3);
-        }
-        if (delta >= 33 && delta <= 38) {
-            Arm.setPosition(ArmClose);
-        }
-        if (delta >= 39 && delta <= 42) {
-            MyElevator.ElevateWithEncoder(0, 0.7, 0.0035);
-        }
-    }
-
     public boolean PlacingStoneWhitTime() {
         boolean ElvateBusy = true;
         Delta = runtime.seconds() - PlacingStoneTime;
-        if (Delta >= 0 && Delta <= 0.7) {
+        if (Delta >= 0 && Delta <= 0.5) {
             Arm.setPosition(ArmOpen);
         }
-        if (Delta > 0.7 && Delta <= 1.6) {
+        if (Delta > 0.5 && Delta <= 1.2) {
             Output.setPosition(OutputOpen);
         }
-        if (Delta > 1.6 && Delta <= 2.5) {
+        if (Delta > 1.3 && Delta <= 2) {
             Arm.setPosition(ArmClose);
             ElvateBusy = false;
         }

@@ -39,7 +39,7 @@ public class CheckList extends basicAutoCustumade {
         }
         waitForStart();
         runtime.reset();
-
+        MyDriveTrain.RotateP(90,0.5,10,0.05);
 /*
         while (){
             MyElevator.ElevateWithEncoder(210,0.5,1);

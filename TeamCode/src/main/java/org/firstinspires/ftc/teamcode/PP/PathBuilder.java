@@ -17,14 +17,11 @@ public class PathBuilder {
 
     public static void main(String[] args){
         OurPoint[] Path4 = {
-                new OurPoint(0.62, 1.25, 270),
-                new OurPoint(1.3, 1.25, 185),
-                new OurPoint(0.85, 0.8, 187),
-                new OurPoint(0.9, 0, 187),
-                new OurPoint(0.95, -0.65, 150),
-                new OurPoint(0.77, -0.85, 143),
-                new OurPoint(0.45, -1.25, 143)};
-        PathBuilder bf = new PathBuilder(Path4,1.5, 1.2, 5, 120);
+                new OurPoint(0.35, -1.25, 143),
+                new OurPoint(0.92, -0.7, 180),
+                new OurPoint(0.95, 0.5, 173),
+                new OurPoint(1.15, 1, 173)};
+        PathBuilder bf = new PathBuilder(Path4,1.5, 1.2, 5, 85);
     }
 
 

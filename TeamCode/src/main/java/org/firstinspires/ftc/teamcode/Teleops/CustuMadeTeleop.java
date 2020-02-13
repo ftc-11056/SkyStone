@@ -80,15 +80,16 @@ public class CustuMadeTeleop extends RobotCustomade {
         }
         waitForStart();
         while (opModeIsActive()) {
-            /*if (runtime.seconds() < 2){
+            if (runtime.seconds() < 2){
                 stayingPosition = -50;
                 power = 0.1;
                 stayPN = 0.06;
+                telemetry.addLine("Elevator isnt work");
             }else if (resetStart){
                 resetStart = false;
                 leftLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 stayingPosition = 0;
-            }*/
+            }
             //TODO[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[GAMEPAD 11111111111]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
 
 //            TODO: Drive
@@ -171,15 +172,12 @@ public class CustuMadeTeleop extends RobotCustomade {
                sleep(150);
            }
 
-
-
          /*   if (gamepad2.left_stick_y > 0.7 && gamepad2.left_stick_button){
                 Capstone.setPosition(CapstoneUp);
             }else if (gamepad2.left_stick_y < -0.7 && gamepad2.right_stick_button){
                 Capstone.setPosition(CapstoneDown);
             }
 */
-
 //            TODO: Intake System
             if (gamepad2.right_trigger > 0) {
                 MyIntake.maxIntake();
@@ -222,7 +220,9 @@ public class CustuMadeTeleop extends RobotCustomade {
                 else if (counter == 9 && leftLinearMotor.getCurrentPosition() > -20)
                     blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.STROBE_RED);
             }
-            pos = -counter * Level;
+            if (counter == 1) pos = -90 -counter * Level;
+            else if (counter == 2) pos = -30 -counter * Level;
+            else pos = -counter * Level;
 
 //            TODO: Auto Y
             if (gamepad2.y) {
@@ -245,17 +245,17 @@ public class CustuMadeTeleop extends RobotCustomade {
 //            TODO: Auto left trriger
             if (gamepad1.left_trigger > 0){
                 autoYDownEle = true;
-                stayingPosition = pos + 200;
-                power = 0.3;
+                stayingPosition = pos + 100;
+                power = 0;
                 stayPN = 0.003;
                 time = runtime.seconds();
-            }if (autoYDownEle == true && (runtime.seconds() - time > 0.2)){
+            }if (autoYDownEle == true && (runtime.seconds() - time > 1)){
                 Output.setPosition(OutputOpen);
                 time = runtime.seconds();
                 autoYDownEle = false;
                 autoAUpEle = true;
             }if (autoAUpEle && (runtime.seconds() - time > 0.4)) {
-                stayingPosition = pos + 100;
+                stayingPosition = pos;
                 power = 0.9;
                 stayPN = 0.01;
                 time = runtime.seconds();
@@ -270,21 +270,12 @@ public class CustuMadeTeleop extends RobotCustomade {
             }if (autoA == true && (runtime.seconds() - time > 0.5)){
                 Output.setPosition(OutputOpen);
                 stayingPosition = 0;
-                power = 0.1;
+                power = 0;
                 stayPN = 0.02;
                 telemetry.addLine("2");
                 counter += 1;
                 autoA = false;
-            }/*if (autoA == true && leftLinearMotor.getCurrentPosition() > -20){
-                Output.setPosition(OutputOpen);
-            }*/
-            /*if (gamepad2.a){
-                Arm.setPosition(ArmClose);
-                Output.setPosition(OutputOpen);
-                stayingPosition = 0;
-                power = 0.3;
-                stayPN = 0.004;
-            }*/
+            }
 
 //            TODO: autoA
             if (gamepad2.a) {
@@ -300,7 +291,7 @@ public class CustuMadeTeleop extends RobotCustomade {
             }if (autoAB == true && (runtime.seconds() - time > 1)){
                 Output.setPosition(OutputOpen);
                 stayingPosition = 0;
-                power = 0.3;
+                power = 0;
                 stayPN = 0.005;
                 telemetry.addLine("2");
                 counter += 1;
@@ -388,58 +379,6 @@ public class CustuMadeTeleop extends RobotCustomade {
             }
 
 //            TODO: the only move command
-            /*if ((leftLinearMotor.getCurrentPosition() > -1750 && leftLinearMotor.getCurrentPosition() <= 0
-                    && downMagnetElevator.getState() == true
-                    || (gamepad2.right_bumper && leftLinearMotor.getCurrentPosition() > -1750)
-                    || (autoY == true && leftLinearMotor.getCurrentPosition() > -1750)
-                    || (gamepad2.left_stick_y > 0.7 && gamepad2.left_stick_button && leftLinearMotor.getCurrentPosition() > -1750)))
-            {
-                stayErrors = leftLinearMotor.getCurrentPosition() - stayingPosition;
-                stayPower = power * stayErrors * stayPN;
-                leftLinearMotor.setTargetPosition(encodersStay);
-                leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                leftLinearMotor.setPower(stayPower);
-                rightLinearMotor.setPower(stayPower);
-                if (leftLinearMotor.getCurrentPosition() == pos) stayPN = 0.001;
-            } else if (downMagnetElevator.getState() == false) {
-                leftLinearMotor.setPower(0);
-                rightLinearMotor.setPower(0);
-                leftLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            } else {
-                leftLinearMotor.setPower(0);
-                rightLinearMotor.setPower(0);
-            }*/
-
-            /*if (downMagnetElevator.getState() == true
-                    || (gamepad2.right_bumper)
-                    || (autoY == true)
-                    || (gamepad2.left_stick_y > 0.7 && gamepad2.left_stick_button))
-            {
-                stayErrors = leftLinearMotor.getCurrentPosition() - stayingPosition;
-                stayPower = power * stayErrors * stayPN;
-                leftLinearMotor.setTargetPosition(encodersStay);
-                leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                leftLinearMotor.setPower(stayPower);
-                rightLinearMotor.setPower(stayPower);
-                if (leftLinearMotor.getCurrentPosition() == pos) stayPN = 0.001;
-            } else if (downMagnetElevator.getState() == false) {
-                leftLinearMotor.setPower(0);
-                rightLinearMotor.setPower(0);
-                leftLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            } else {
-                leftLinearMotor.setPower(0);
-                rightLinearMotor.setPower(0);
-            }
-
-            if (leftLinearMotor.getCurrentPosition() < -1750 || stayingPosition < -1750){
-                stayingPosition = -1749;
-            }if (leftLinearMotor.getCurrentPosition() <= 0 || stayingPosition > 0){
-                stayingPosition = 0;
-                power = 0;
-            }
-
-            encodersStay = stayingPosition;
-*/
 //            Magnet defence
             if (downMagnetElevator.getState() == true || (downMagnetElevator.getState() == false && encodersStay <= 0)) magnet = true;
             else magnet = false;
@@ -449,7 +388,7 @@ public class CustuMadeTeleop extends RobotCustomade {
             else lowerLimit = false;
 
 //            Upper limit defence
-            if (encodersStay >= -1750) upperLimit = true;
+            if (encodersStay >= -1440) upperLimit = true;
             else upperLimit = false;
 
 //            The range of the staying position
@@ -463,11 +402,11 @@ public class CustuMadeTeleop extends RobotCustomade {
                 leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 leftLinearMotor.setPower(stayPower);
                 rightLinearMotor.setPower(stayPower);
-                if (stayingPosition <= -1750) encodersStay = -1750;
+                if (stayingPosition <= -1440) encodersStay = -1440;
                 else if (stayingPosition >= 0) encodersStay = 0;
                 else encodersStay = stayingPosition;
 
-                if (leftLinearMotor.getCurrentPosition() == pos) stayPN = 0.001;
+                if (leftLinearMotor.getCurrentPosition() == encodersStay){ stayPN = 0.001;}
 
             }else {
                 leftLinearMotor.setPower(0);
@@ -479,9 +418,7 @@ public class CustuMadeTeleop extends RobotCustomade {
             telemetry.addData("rightPower:", rightLinearMotor.getPower());
             telemetry.addData("encodersStay:", encodersStay);
             telemetry.addData("stayingPosition", stayingPosition);
-            telemetry.addData("lowerLimit", lowerLimit);
-            telemetry.addData("upperLimit", upperLimit);
-            telemetry.addData("magnet", magnet);
+            telemetry.addData("counter", counter);
             telemetry.addData("leftElevator:", leftLinearMotor.getCurrentPosition());
             telemetry.addData("downMagnet", downMagnetElevator.getState());
             telemetry.update();
