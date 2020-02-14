@@ -25,6 +25,7 @@ public class PowerMode extends RobotCustomade {
         Output.setPosition(OutputClose);
 
         leftLinearMotor.setDirection(DcMotor.Direction.REVERSE);
+        leftLinearMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         waitForStart();
         while (opModeIsActive()) {
 

@@ -38,7 +38,7 @@ public class CustuMadeTeleop extends RobotCustomade {
     private boolean low = false;
 
     private int Level = 220;
-    private int counter = 2;
+    private int counter = 1;
     private int pos = 0;
 
     private boolean Capass = false;
@@ -50,6 +50,7 @@ public class CustuMadeTeleop extends RobotCustomade {
     private double rightStickX = 0;
     private int foundation= 0;
     private int katze= 0;
+    private double Armpos=0.3;
     private boolean moveOff = false;
 
 //    new elevator move
@@ -80,9 +81,9 @@ public class CustuMadeTeleop extends RobotCustomade {
         }
         waitForStart();
         while (opModeIsActive()) {
-            if (runtime.seconds() < 2){
+            if (runtime.seconds() < 1){
                 stayingPosition = -50;
-                power = 0.1;
+                power = 0.05;
                 stayPN = 0.06;
                 telemetry.addLine("Elevator isnt work");
             }else if (resetStart){
@@ -139,11 +140,20 @@ public class CustuMadeTeleop extends RobotCustomade {
                 LeftServo.setPosition(LeftServoDown);
                 RightServo.setPosition(RightServoDown);
             }
-
+/*
             if (gamepad1.left_bumper) {
                 ParkingMot.setPosition(ParkingMotIn);
             } else if (gamepad1.right_bumper) {
                 ParkingMot.setPosition(ParkingMotOut);
+            }*/
+
+            if (gamepad1.left_bumper){
+                Arm.setPosition(Armpos);
+                Armpos+=0.01;
+            }
+            else if (gamepad1.right_bumper){
+                Arm.setPosition(Armpos);
+                Armpos-=0.03;
             }
 
 //TODO[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[GAMEPAD 222222222222222]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
@@ -232,9 +242,12 @@ public class CustuMadeTeleop extends RobotCustomade {
                 telemetry.addLine("1");
                 if (counter == 0) stayingPosition = 0;
                 else stayingPosition = pos;
-                power = 0.2;
+                power = 1;
                 stayPN = 0.015;
                 telemetry.addLine("2");
+
+
+
             }
             if ((autoY == true && leftLinearMotor.getCurrentPosition() <= stayingPosition  && stayingPosition == pos && counter !=0)
                     || (autoY == true && stayingPosition == pos && counter == 0)){
@@ -245,7 +258,7 @@ public class CustuMadeTeleop extends RobotCustomade {
 //            TODO: Auto left trriger
             if (gamepad1.left_trigger > 0){
                 autoYDownEle = true;
-                stayingPosition = pos + 100;
+                stayingPosition = pos + 200;
                 power = 0;
                 stayPN = 0.003;
                 time = runtime.seconds();

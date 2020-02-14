@@ -4,7 +4,7 @@ public class OdometryCustomMade {
 
     //fields:
 
-    private OurPoint Position;
+    public OurPoint Position;
     private double lastEncoderRight;
     private double lastEncoderLeft;
     private double lastEncoderSide;

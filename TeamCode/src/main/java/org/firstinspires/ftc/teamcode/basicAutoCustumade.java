@@ -26,7 +26,7 @@ public class basicAutoCustumade extends RobotCustomade {
         super.runOpMode();
 
 //        TODO: Webcam
-/*
+
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
 
@@ -36,7 +36,7 @@ public class basicAutoCustumade extends RobotCustomade {
         webcam.setPipeline(skystoneDetector);
 
         webcam.startStreaming(320, 240, OpenCvCameraRotation.SIDEWAYS_RIGHT);
-*/
+
 //      TODO: Anothers
 
         Arm.setPosition(ArmClose);
