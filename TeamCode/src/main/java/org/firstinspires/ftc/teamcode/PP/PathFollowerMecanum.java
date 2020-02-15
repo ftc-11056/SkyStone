@@ -283,4 +283,7 @@ public class PathFollowerMecanum {
     public void setTurnSpeed(double turnSpeed){
         this.turnSpeed = turnSpeed;
     }
+    public int getPathLength(){
+        return wayPoint.length;
+    }
 }

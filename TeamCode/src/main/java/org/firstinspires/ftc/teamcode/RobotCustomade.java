@@ -82,8 +82,8 @@ public class RobotCustomade extends LinearOpMode {
     public double OutputClose = 0.75;
     public double OutputOpen = 0.53 ;
 
-    public double CapstoneUp = 0.44;
-    public double CapstoneDown = 0.9;
+    public double CapstoneUp = 0.25;
+    public double CapstoneDown = 0.8;
 
     public double ParkingMotOut = 1;
     public double ParkingMotIn = 0.33;
@@ -224,6 +224,7 @@ public class RobotCustomade extends LinearOpMode {
         RightServo.setPosition(RightServoUp);
         Output.setPosition(OutputOpen);
         Arm.setPosition(ArmClose);
+        Capstone.setPosition((CapstoneUp));
 
 
         //Define Mechanisms:
@@ -271,10 +272,10 @@ public class RobotCustomade extends LinearOpMode {
         if (Delta >= 0 && Delta <= 0.5) {
             Arm.setPosition(ArmOpen);
         }
-        if (Delta > 0.5 && Delta <= 1.2) {
+        if (Delta > 0.5 && Delta <= 1) {
             Output.setPosition(OutputOpen);
         }
-        if (Delta > 1.3 && Delta <= 2) {
+        if (Delta > 1 && Delta <= 1.5) {
             Arm.setPosition(ArmClose);
             ElvateBusy = false;
         }

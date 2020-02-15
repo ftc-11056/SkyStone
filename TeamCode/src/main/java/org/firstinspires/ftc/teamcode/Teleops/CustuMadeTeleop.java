@@ -50,7 +50,11 @@ public class CustuMadeTeleop extends RobotCustomade {
     private double rightStickX = 0;
     private int foundation= 0;
     private int katze= 0;
-    private double Armpos=0.3;
+    private double Armposin=0;
+    private double Armposout=0;
+    private double Armpos=0;
+
+
     private boolean moveOff = false;
 
 //    new elevator move
@@ -81,7 +85,7 @@ public class CustuMadeTeleop extends RobotCustomade {
         }
         waitForStart();
         while (opModeIsActive()) {
-            if (runtime.seconds() < 1){
+            if (runtime.seconds() < 0.5){
                 stayingPosition = -50;
                 power = 0.05;
                 stayPN = 0.06;
@@ -147,20 +151,21 @@ public class CustuMadeTeleop extends RobotCustomade {
                 ParkingMot.setPosition(ParkingMotOut);
             }*/
 
-            if (gamepad1.left_bumper){
-                Arm.setPosition(Armpos);
-                Armpos+=0.01;
+
+            /*if (gamepad1.right_bumper){
+                Arm.setPosition(ArmClose-Armposin);
+                Armposin+=0.00001;
             }
-            else if (gamepad1.right_bumper){
-                Arm.setPosition(Armpos);
-                Armpos-=0.03;
-            }
+            else if (gamepad1.left_bumper){
+                Arm.setPosition(ArmOpen+Armposout);
+                Armposout+=0.00003;
+            }*/
 
 //TODO[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[GAMEPAD 222222222222222]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
 
 //           TODO: Servos:
             if (gamepad2.dpad_up) {
-                Output.setPosition(OutputOpen);
+                Output.setPosition(0.4);
             } else if (gamepad2.dpad_down) {
                 Output.setPosition(OutputClose);
             }
@@ -171,15 +176,12 @@ public class CustuMadeTeleop extends RobotCustomade {
                 Arm.setPosition(ArmClose);
 
             }*/
-           if (gamepad2.x && katze == 0) {
+           if (gamepad2.x) {
                Arm.setPosition(ArmOpen);
-               katze = 1;
-               sleep(150);
+
            } else if
-           (gamepad2.x && katze == 1) {
+           (gamepad2.b) {
                Arm.setPosition(ArmClose);
-               katze = 0;
-               sleep(150);
            }
 
          /*   if (gamepad2.left_stick_y > 0.7 && gamepad2.left_stick_button){
@@ -232,6 +234,8 @@ public class CustuMadeTeleop extends RobotCustomade {
             }
             if (counter == 1) pos = -90 -counter * Level;
             else if (counter == 2) pos = -30 -counter * Level;
+            else if (counter == 3) pos = -15 -counter * Level;
+            else if (counter == 4) pos = -35 -counter * Level;
             else pos = -counter * Level;
 
 //            TODO: Auto Y
@@ -262,7 +266,7 @@ public class CustuMadeTeleop extends RobotCustomade {
                 power = 0;
                 stayPN = 0.003;
                 time = runtime.seconds();
-            }if (autoYDownEle == true && (runtime.seconds() - time > 1)){
+            }if (autoYDownEle == true && (runtime.seconds() - time > 0.6)){
                 Output.setPosition(OutputOpen);
                 time = runtime.seconds();
                 autoYDownEle = false;
@@ -346,20 +350,20 @@ public class CustuMadeTeleop extends RobotCustomade {
 //            TODO: Capstone Button
             if (gamepad2.right_stick_button) {
                 time = runtime.seconds();
-                Output.setPosition(0.45);
+                Output.setPosition(OutputOpen);
                 Capass = true;
             }
-            if (Capass && (-time + runtime.seconds() > 1.2)) {
-                stayingPosition = -600;
-                power = 0.5;
-                stayPN = 0.01;
+            if (Capass && (-time + runtime.seconds() > 0.5)) {
+                stayingPosition = -1000;
+                power = 1;
+                stayPN = 0.015;
             }
             if (Capass && leftLinearMotor.getCurrentPosition() <= -280) {
                 Capstone.setPosition(CapstoneDown);
             }
             if (Capass && (-time + runtime.seconds() > 2.4)) {
                 stayingPosition = 0;
-                power = 0.3;
+                power = 0;
                 stayPN = 0.005;
             }
             if (Capass && (-time + runtime.seconds() > 3.6) && stayingPosition >= -10) {
@@ -367,9 +371,11 @@ public class CustuMadeTeleop extends RobotCustomade {
             }
             if (Capass && (-time + runtime.seconds() > 4.8) && stayingPosition >= -10) {
                 Arm.setPosition(ArmOpen);
+            }
+            if (Capass && (-time + runtime.seconds() > 6) && stayingPosition >= -10) {
+                Capstone.setPosition(CapstoneUp);
                 Capass = false;
             }
-
 //            TODO: normal moving
             if (gamepad2.left_bumper) {
                 stayingPosition = -10;
