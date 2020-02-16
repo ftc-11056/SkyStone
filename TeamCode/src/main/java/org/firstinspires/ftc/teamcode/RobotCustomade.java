@@ -80,21 +80,22 @@ public class RobotCustomade extends LinearOpMode {
     protected int fixedPosition = 0;
 
     public double OutputClose = 0.75;
-    public double OutputOpen = 0.53 ;
+    public double OutputOpen = 0.51 ;
 
     public double CapstoneUp = 0.25;
-    public double CapstoneDown = 0.8;
+    public double CapstoneDown = 0.75;
 
     public double ParkingMotOut = 1;
     public double ParkingMotIn = 0.33;
 
-    public double LeftServoDown = 0.79;
-    public double RightServoDown = 0.23;
-    public double LeftServoUp = 0.24;
+    public double LeftServoDown = 0.78;
+    public double RightServoDown = 0.24;
+    public double LeftServoUp = 0.3;
     public double RightServoUp = 0.73;
-    public double LeftServoMiddle = 0.515;
-    public double RightServoMiddle = 0.487;
+    public double LeftServoMiddle = 0.65;
+    public double RightServoMiddle = 0.4;
 
+    public double IntakeFixingTime = 0;
     public double ArmClose = 0.79;
     public double ArmOpen = 0.3;
     public boolean IntakeStop = true;
@@ -326,6 +327,21 @@ public class RobotCustomade extends LinearOpMode {
         MyDriveTrain.RightFront.setPower(0);
         MyDriveTrain.RightBack.setPower(0);
 
+    }
+
+    public boolean IntakeFixing(){
+        double Delta = runtime.seconds() - IntakeFixingTime;
+        if(Delta > 0 && Delta <= 0.1){
+            MyIntake.maxOuttake();
+        }
+        else if(Delta <= 1){
+            MyIntake.maxIntake();
+        }
+        else{
+            MyIntake.ShutDown();
+            return true;
+        }
+        return false;
     }
 
 }

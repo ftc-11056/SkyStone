@@ -40,5 +40,10 @@ public class CustomadeIntake extends Robot {
 
     }
 
+    public void LowOuttake(){
+        IntakeL.setPower(0.5);
+        IntakeR.setPower(0.5);
+    }
+
 
 }

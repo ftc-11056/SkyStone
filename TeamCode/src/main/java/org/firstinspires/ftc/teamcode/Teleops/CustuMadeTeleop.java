@@ -54,6 +54,7 @@ public class CustuMadeTeleop extends RobotCustomade {
     private double Armposout=0;
     private double Armpos=0;
 
+    private boolean CapstoneElevator = false;
 
     private boolean moveOff = false;
 
@@ -144,12 +145,12 @@ public class CustuMadeTeleop extends RobotCustomade {
                 LeftServo.setPosition(LeftServoDown);
                 RightServo.setPosition(RightServoDown);
             }
-/*
+
             if (gamepad1.left_bumper) {
                 ParkingMot.setPosition(ParkingMotIn);
             } else if (gamepad1.right_bumper) {
                 ParkingMot.setPosition(ParkingMotOut);
-            }*/
+            }
 
 
             /*if (gamepad1.right_bumper){
@@ -273,8 +274,8 @@ public class CustuMadeTeleop extends RobotCustomade {
                 autoAUpEle = true;
             }if (autoAUpEle && (runtime.seconds() - time > 0.4)) {
                 stayingPosition = pos;
-                power = 0.9;
-                stayPN = 0.01;
+                power = 1;
+                stayPN = 0.05;
                 time = runtime.seconds();
                 autoAUpEle = false;
                 autoAArm = true;
@@ -360,11 +361,13 @@ public class CustuMadeTeleop extends RobotCustomade {
             }
             if (Capass && leftLinearMotor.getCurrentPosition() <= -280) {
                 Capstone.setPosition(CapstoneDown);
+                CapstoneElevator = true;
             }
-            if (Capass && (-time + runtime.seconds() > 2.4)) {
+            if (CapstoneElevator && Capass && (-time + runtime.seconds() > 2.4)) {
                 stayingPosition = 0;
                 power = 0;
                 stayPN = 0.005;
+                CapstoneElevator = false;
             }
             if (Capass && (-time + runtime.seconds() > 3.6) && stayingPosition >= -10) {
                 Output.setPosition(OutputClose);
@@ -379,7 +382,7 @@ public class CustuMadeTeleop extends RobotCustomade {
 //            TODO: normal moving
             if (gamepad2.left_bumper) {
                 stayingPosition = -10;
-                power = 0.3;
+                power = 0;
                 stayPN = 0.006;
                 slowDown = true;
             } else if (slowDown) {
@@ -388,8 +391,8 @@ public class CustuMadeTeleop extends RobotCustomade {
             }
 
             if (gamepad2.right_bumper) {
-                stayingPosition = -1440;
-                power = 0.4;
+                stayingPosition = -1500;
+                power = 0.2;
                 stayPN = 0.005;
                 normalUp = true;
             } else if (normalUp) {
@@ -407,7 +410,7 @@ public class CustuMadeTeleop extends RobotCustomade {
             else lowerLimit = false;
 
 //            Upper limit defence
-            if (encodersStay >= -1440) upperLimit = true;
+            if (encodersStay >= -1500) upperLimit = true;
             else upperLimit = false;
 
 //            The range of the staying position
@@ -421,7 +424,7 @@ public class CustuMadeTeleop extends RobotCustomade {
                 leftLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 leftLinearMotor.setPower(stayPower);
                 rightLinearMotor.setPower(stayPower);
-                if (stayingPosition <= -1440) encodersStay = -1440;
+                if (stayingPosition <= -1500) encodersStay = -1500;
                 else if (stayingPosition >= 0) encodersStay = 0;
                 else encodersStay = stayingPosition;
 
