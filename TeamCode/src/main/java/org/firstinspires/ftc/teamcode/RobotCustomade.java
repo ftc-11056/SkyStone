@@ -80,7 +80,7 @@ public class RobotCustomade extends LinearOpMode {
     protected int fixedPosition = 0;
 
     public double OutputClose = 0.75;
-    public double OutputOpen = 0.51 ;
+    public double OutputOpen = 0.56 ;
 
     public double CapstoneUp = 0.25;
     public double CapstoneDown = 0.75;
@@ -165,7 +165,8 @@ public class RobotCustomade extends LinearOpMode {
         LF.setDirection(DcMotor.Direction.FORWARD);
         LB.setDirection(DcMotor.Direction.FORWARD);
 
-
+        leftLinearMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightLinearMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightLinearMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -176,8 +177,6 @@ public class RobotCustomade extends LinearOpMode {
 
         IntakeR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         IntakeL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightLinearMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
 
         // Set all motors to zero power
         LF.setPower(0);
@@ -242,7 +241,7 @@ public class RobotCustomade extends LinearOpMode {
         double currentTime = runtime.seconds();
         double odometryRight = IntakeR.getCurrentPosition();
         double odometryLeft = (IntakeL.getCurrentPosition());
-        double odometryHorizental = -(rightLinearMotor.getCurrentPosition());
+        double odometryHorizental = -(LF.getCurrentPosition());
         MyOdometry.setAll(odometryRight, odometryLeft, odometryHorizental, currentTime);
     }
 
@@ -283,12 +282,12 @@ public class RobotCustomade extends LinearOpMode {
         return ElvateBusy;
     }
 
-    public void TouchFoundation (DigitalChannel left, DigitalChannel right){
+    public void TouchFoundation (DigitalChannel left, DigitalChannel right, double angle){
         double Ftime = runtime.seconds();
         while (opModeIsActive() && left.getState() && right.getState() && (runtime.seconds() -Ftime  <= 0.5)){
             updateOdometry();
             double power = -0.3;
-            double cPower = IMUError(180, 1);
+            double cPower = IMUError(angle, 1);
             MyDriveTrain.arcade(power,0,cPower);
         }
         MyDriveTrain.SetPower(0,0,0,0);
@@ -331,7 +330,7 @@ public class RobotCustomade extends LinearOpMode {
 
     public boolean IntakeFixing(){
         double Delta = runtime.seconds() - IntakeFixingTime;
-        if(Delta > 0 && Delta <= 0.1){
+        if(Delta > 0 && Delta <= 0.05){
             MyIntake.maxOuttake();
         }
         else if(Delta <= 1){
