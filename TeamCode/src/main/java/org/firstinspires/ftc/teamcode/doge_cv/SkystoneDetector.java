@@ -28,7 +28,7 @@ public class SkystoneDetector extends DogeCVDetector {
 
     //TODO: change filters
     //Create the default filters and scorers
-    public DogeCVColorFilter blackFilter = new GrayscaleFilter(5, 30);
+    public DogeCVColorFilter blackFilter = new GrayscaleFilter(5, 55);
     public DogeCVColorFilter yellowFilter = new LeviColorFilter(LeviColorFilter.ColorPreset.YELLOW, 15); //was 70Default Yellow blackFilter
 
     // Results of the detector

@@ -79,8 +79,8 @@ public class RobotCustomade extends LinearOpMode {
     public double servoPosition = 0.005;
     protected int fixedPosition = 0;
 
-    public double OutputClose = 0.75;
-    public double OutputOpen = 0.56 ;
+    public double OutputClose = 0.77;
+    public double OutputOpen = 0.57 ;
 
     public double CapstoneUp = 0.25;
     public double CapstoneDown = 0.75;
@@ -96,7 +96,7 @@ public class RobotCustomade extends LinearOpMode {
     public double RightServoMiddle = 0.4;
 
     public double IntakeFixingTime = 0;
-    public double ArmClose = 0.79;
+    public double ArmClose = 0.8;
     public double ArmOpen = 0.3;
     public boolean IntakeStop = true;
     public int PointIndexStartElavator = 0;
@@ -224,7 +224,7 @@ public class RobotCustomade extends LinearOpMode {
         RightServo.setPosition(RightServoUp);
         Output.setPosition(OutputOpen);
         Arm.setPosition(ArmClose);
-        Capstone.setPosition((CapstoneUp));
+        Capstone.setPosition(CapstoneUp);
 
 
         //Define Mechanisms:

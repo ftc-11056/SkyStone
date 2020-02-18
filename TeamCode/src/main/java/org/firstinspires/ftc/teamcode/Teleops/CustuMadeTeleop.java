@@ -167,7 +167,7 @@ public class CustuMadeTeleop extends RobotCustomade {
 
 //           TODO: Servos:
             if (gamepad2.dpad_up) {
-                Output.setPosition(0.4);
+                Output.setPosition(OutputOpen);
             } else if (gamepad2.dpad_down) {
                 Output.setPosition(OutputClose);
             }
@@ -352,7 +352,7 @@ public class CustuMadeTeleop extends RobotCustomade {
                 Capass = true;
             }
             if (Capass && (-time + runtime.seconds() > 0.5) && (-time + runtime.seconds() < 1)) {
-                stayingPosition = -1000;
+                stayingPosition = -600;
                 power = 1;
                 stayPN = 0.015;
             }
@@ -360,20 +360,23 @@ public class CustuMadeTeleop extends RobotCustomade {
                 Capstone.setPosition(CapstoneDown);
                 CapstoneElevator = true;
             }
-            if (CapstoneElevator && Capass && (-time + runtime.seconds() > 2.4)) {
+            if (CapstoneElevator && Capass && (-time + runtime.seconds() > 2)) {
                 stayingPosition = 0;
                 power = 0;
                 stayPN = 0.005;
                 CapstoneElevator = false;
             }
-            if (Capass && (-time + runtime.seconds() > 3.6) && stayingPosition >= -10) {
+            if (Capass && (-time + runtime.seconds() > 3.2) && stayingPosition >= -10) {
                 Output.setPosition(OutputClose);
+                CapstoneElevator = false;
             }
-            if (Capass && (-time + runtime.seconds() > 4.8) && stayingPosition >= -10) {
+            if (Capass && (-time + runtime.seconds() > 3.9) && stayingPosition >= -10) {
                 Arm.setPosition(ArmOpen);
+                CapstoneElevator = false;
             }
-            if (Capass && (-time + runtime.seconds() > 6) && stayingPosition >= -10) {
+            if (Capass && (-time + runtime.seconds() > 5) && stayingPosition >= -10) {
                 Capstone.setPosition(CapstoneUp);
+                CapstoneElevator = false;
                 Capass = false;
             }
 //            TODO: normal moving
@@ -407,7 +410,7 @@ public class CustuMadeTeleop extends RobotCustomade {
             else lowerLimit = false;
 
 //            Upper limit defence
-            if (encodersStay >= -1500) upperLimit = true;
+            if (encodersStay >= -1600) upperLimit = true;
             else upperLimit = false;
 
 //            The range of the staying position

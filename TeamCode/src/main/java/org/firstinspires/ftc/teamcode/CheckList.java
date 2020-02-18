@@ -25,6 +25,8 @@ public class CheckList extends basicAutoCustumade {
     private static double turnSpeedTest = 0.7;
     private static boolean frontTest = true;
 
+    private double time = 0;
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -39,24 +41,29 @@ public class CheckList extends basicAutoCustumade {
         }
         waitForStart();
         runtime.reset();
+
         MyDriveTrain.RotateP(90,0.5,10,0.05);
-/*
-        while (){
-            MyElevator.ElevateWithEncoder(210,0.5,1);
-        }
-        while (){
-            MyElevator.ElevateWithEncoder(0,0.3,1);
-        }
-  */
-/*
-        MyElevator.ElevateWithEncoder(-500, 0.3, 0.5);
+
+        LB.setPower(1);
+        sleep(500);
+
+        LF.setPower(1);
+        sleep(500);
+
+        RB.setPower(1);
+        sleep(500);
+
+        RF.setPower(1);
+        sleep(500);
+
+        time = runtime.seconds();
+        while (runtime.seconds() - time < 0.7) MyElevator.ElevateWithEncoder(-500, 0.3, 0.5);
+        MyElevator.ElevateWithEncoder(0, 0, 0.003);
 
         sleep(1000);
         Capstone.setPosition(CapstoneDown);
         Capstone.setPosition(CapstoneUp);
         sleep(1000);
-
-        MyElevator.ElevateWithEncoder(0, 0.1, 0.003);
 
         MyIntake.maxIntake();
         sleep(1000);
@@ -107,7 +114,8 @@ public class CheckList extends basicAutoCustumade {
         telemetry.addData("right touch", RightTouch.getState());
         telemetry.update();
         sleep(2000);
-*/
+
+
 
 //        TODO Telemetry
         while (!isStopRequested()) {
@@ -116,6 +124,8 @@ public class CheckList extends basicAutoCustumade {
             packet.put("isRun", isRun.toString());
         }
 
+        telemetry.addLine("CheckList Done");
+        telemetry.update();
     }
 
     private void LocalUpdateGraphic() {

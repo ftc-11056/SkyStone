@@ -11,11 +11,11 @@ import org.firstinspires.ftc.teamcode.RobotCustomade;
 import org.firstinspires.ftc.teamcode.basicAutoCustumade;
 
 
-@Autonomous(name = "Autonom_Blue_3Cubes", group = "teamcode")
-public class Autonom_Blue_3Cubes extends basicAutoCustumade {
+@Autonomous(name = "Autonom_Red_3Cubes_Backup", group = "teamcode")
+public class Autonom_Red_3Cubes_Backup extends basicAutoCustumade {
 
     public PurePursuitGUI MyPurePursuitGUI;
-    private OurPoint StartPosition = new OurPoint(-1.566, -0.8325, 270);
+    private OurPoint StartPosition = new OurPoint(1.566, -0.8325, 90);
     private Boolean isRun = true;
     public double deltaFromFlatAngle = 0;
     private boolean ElevateorBusy = true;
@@ -25,12 +25,10 @@ public class Autonom_Blue_3Cubes extends basicAutoCustumade {
     private double factor = 1;
     private double Cpower = 1;
     private boolean IMUTurn = false;
-    Path[] Paths = Paths_Library_Blue_3Cubes.CenterPaths;
+    Path[] Paths = Paths_Library_Red_3Cubes_Backup.RightPaths;
     private boolean isCubeIn = false;
     private int PointFromEnd = 0;
     private double changeX = 0;
-    private String mikum = "";
-
     @Override
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
@@ -40,29 +38,26 @@ public class Autonom_Blue_3Cubes extends basicAutoCustumade {
         blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
         Mikum = skystoneDetector.getScreenPosition().y;
 
-        int numOfCheck = 3;
+        int numOfCheck = 0;
         MyPurePursuitGUI = new PurePursuitGUI(Paths[numOfCheck].getWayPoints(), MyOdometry.getPosition(), Paths[numOfCheck].getTolerance(), Paths[numOfCheck].getKc(), Paths[numOfCheck].getMaxVelocity(), Paths[numOfCheck].getTurnSpeed(), Paths[numOfCheck].isFront());
         while (!isStarted()) {
+            packet = new TelemetryPacket();
+            MyPurePursuitGUI.updateGraghic(packet);
+            dashboard.sendTelemetryPacket(packet);
             Mikum = skystoneDetector.getScreenPosition().y;
             telemetry.addData("skystone", Mikum);
             telemetry.update();
-            packet = new TelemetryPacket();
-            packet.put("skyStone", Mikum);
-            MyPurePursuitGUI.updateGraghic(packet);
-            dashboard.sendTelemetryPacket(packet);
         }
 
-        if(Mikum <= 170){
-            Paths = Paths_Library_Blue_3Cubes.RightPaths;
-            mikum = "Right";
+
+        if(Mikum <= 140){
+            Paths = Paths_Library_Red_3Cubes_Backup.LeftPaths;
         }
-        else if (Mikum >= 240){
-            Paths = Paths_Library_Blue_3Cubes.LeftPaths;
-            mikum = "Left";
+        else if (Mikum >= 270){
+            Paths = Paths_Library_Red_3Cubes_Backup.RightPaths;
         }
         else {
-            Paths = Paths_Library_Blue_3Cubes.CenterPaths;
-            mikum = "Center";
+            Paths = Paths_Library_Red_3Cubes_Backup.CenterPaths;
         }
 
         runtime.reset();
@@ -89,7 +84,7 @@ public class Autonom_Blue_3Cubes extends basicAutoCustumade {
                 isCubeIn = true;
             }
         }
-        RotateP1(-70,0.8,10,0.05);
+        RotateP1(70,0.8,10,0.05);
 
         factor = 1;
         isRun = true;
@@ -112,9 +107,9 @@ public class Autonom_Blue_3Cubes extends basicAutoCustumade {
                 }
             }
         }
-        MyOdometry.getPosition().setDegAngle(MyDriveTrain.getAngle());
+        MyOdometry.getPosition().setDegAngle(180 + MyDriveTrain.getAngle());
         Arm.setPosition(ArmOpen);
-        TouchFoundation(LeftTouch,RightTouch,-180);
+        TouchFoundation(LeftTouch,RightTouch,180);
         LeftServo.setPosition(LeftServoDown);
         RightServo.setPosition(RightServoDown);
         sleep(400);
@@ -135,22 +130,22 @@ public class Autonom_Blue_3Cubes extends basicAutoCustumade {
 
         factor = 1;
         Arm.setPosition(ArmClose);
-        RotateP1(-90,0.8,10,0.05);
+        RotateP1(90,0.8,10,0.05);
         LeftServo.setPosition(LeftServoUp);
         RightServo.setPosition(RightServoUp);
         sleep(400);
 
-        RotateP1(-90,0.7,10,0.1);
-        MyOdometry.getPosition().setDegAngle(MyDriveTrain.getAngle() + 360);
+        RotateP1(90,0.8,10,0.1);
+        MyOdometry.getPosition().setDegAngle(180 + MyDriveTrain.getAngle());
 
         double strafeTime = runtime.seconds();
         while(runtime.seconds() - strafeTime < 0.6){
-            MyDriveTrain.arcade(0,1,0);
+            MyDriveTrain.arcade(0,-1,0);
             updateOdometry();
         }
 
 
-        MyOdometry.getPosition().setX(-1.56666);
+        MyOdometry.getPosition().setX(1.56666);
         Paths[3].getWayPoints()[0] = new OurPoint(MyOdometry.getPosition());
         Paths[3].getWayPoints()[0].setDegAngle(180);
 
@@ -226,7 +221,7 @@ public class Autonom_Blue_3Cubes extends basicAutoCustumade {
 
 
         Paths[6].getWayPoints()[0] = new OurPoint(MyOdometry.getPosition());
-        Paths[6].getWayPoints()[0].setDegAngle(205);
+        Paths[6].getWayPoints()[0].setDegAngle(140);
 
         isTouch = false;
         isRun = true;
@@ -253,14 +248,13 @@ public class Autonom_Blue_3Cubes extends basicAutoCustumade {
             }
             if(PointFromEnd <= 8 && runtime.seconds() > 28){
                 Output.setPosition(OutputOpen);
-                isRun = false;
+                break;
             }
         }
 
 
         Paths[7].getWayPoints()[0] = new OurPoint(MyOdometry.getPosition());
         Paths[7].getWayPoints()[0].setDegAngle(180);
-        Paths[7].getWayPoints()[1].setX(Paths[7].getWayPoints()[0].getX());
 
         Output.setPosition(OutputOpen);
         ParkingMot.setPosition(ParkingMotOut);
@@ -298,7 +292,6 @@ public class Autonom_Blue_3Cubes extends basicAutoCustumade {
         packet.put("PointFromEnd", PointFromEnd);
         packet.put("changeX", changeX);
         packet.put("run time", runtime.seconds());
-        packet.put("Mikum", mikum);
     }
 
     public boolean purePesuitRun() {

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.PP;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.PP.PurePursuitGUI;
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.teamcode.RobotCustomade;
 import org.firstinspires.ftc.teamcode.basicAutoCustumade;
 
 @Autonomous(name = "ParkingFataRed", group = "teamcode")
+@Disabled
 public class ParkingFataRed extends RobotCustomade {
 
     public PurePursuitGUI MyPurePursuitGUI;

@@ -19,7 +19,7 @@ public class Paths_Library_Red_3Cubes {
             new OurPoint(0.53, -1.61, 180),
             new OurPoint(0.92, -1.3, 180),
             new OurPoint(1, 0.8, 270),
-            new OurPoint(1.35, 1.25, 270),
+            new OurPoint(1.25, 1.25, 270),
             new OurPoint(0.8, 1.25, 270)};
     private static double toleranceLeftFoundation = 85;
     private static double KcLeftFoundation = 1.5;
@@ -30,7 +30,7 @@ public class Paths_Library_Red_3Cubes {
 
     private static OurPoint[] FoundationBackPoints = {
             new OurPoint(0.75, 1.25, 270),
-            new OurPoint(1.25, 1.25, 270)};
+            new OurPoint(1.15, 1.25, 270)};
     private static double toleranceFoundationBack = 120;
     private static double KcFoundationBack = 10;
     private static double MaxVelocityFoundationBack = 1;
@@ -40,12 +40,11 @@ public class Paths_Library_Red_3Cubes {
 
     private static OurPoint[] Left2Points = {
             new OurPoint(1.5666, 1.25, 185),
-            new OurPoint(1.05, 0.6, 185),
-            new OurPoint(1, 0, 185),
-            new OurPoint(1.1, -0.3, 150),
-            new OurPoint(1.1, -0.75, 150),
-            new OurPoint(0.9, -0.8, 150),
-            new OurPoint(0.6, -1.25, 150)};
+            new OurPoint(1.1, 0.6, 185),
+            new OurPoint(1.1, 0, 185),
+            new OurPoint(1.1 ,-0.75 , 155),
+            new OurPoint(0.9, -0.8, 155),
+            new OurPoint(0.7, -1.25, 155)};
     private static double toleranceLeft2 = 120;
     private static double KcLeft2 = 10;
     private static double MaxVelocityLeft2 = 1;
@@ -54,11 +53,10 @@ public class Paths_Library_Red_3Cubes {
     private static Path Left2 = new Path(Left2Points, toleranceLeft2, KcLeft2, MaxVelocityLeft2, turnSpeedLeft2, frontLeft2);
 
     private static OurPoint[] LeftFoundation2Points = {
-            new OurPoint(0.51, -1.15, 150),
-            new OurPoint(1, -0.7, 180),
-            new OurPoint(1.05, 0.5, 180),
-            new OurPoint(1.35, 0.8, 180),
-            new OurPoint(1.4, 1.13, 180)};
+            new OurPoint(0.51, -1.15, 155),
+            new OurPoint(1, -0.7, 185),
+            new OurPoint(1, 0.5, 185),
+            new OurPoint(1, 1.13, 185)};
     private static double toleranceLeftFoundation2 = 85;
     private static double KcLeftFoundation2 = 2.5;
     private static double MaxVelocityLeftFoundation2 = 1.5;
@@ -67,8 +65,8 @@ public class Paths_Library_Red_3Cubes {
     private static Path LeftFoundation2 = new Path(LeftFoundation2Points, toleranceLeftFoundation2, KcLeftFoundation2, MaxVelocityLeftFoundation2, turnSpeedLeftFoundation2, frontLeftFoundation2);
 
     private static OurPoint[] Left3Points = {
-            new OurPoint(1.3, 1.05, 173),
-            new OurPoint(1.1, 0.6, 173),
+            new OurPoint(1, 1.13, 180),
+            new OurPoint(1, 0.8, 180),
             new OurPoint(1, -0.2, 110),
             new OurPoint(0.87, -0.55, 110),
             new OurPoint(0.35, -0.7, 110)};
@@ -108,8 +106,8 @@ public class Paths_Library_Red_3Cubes {
             new OurPoint(0.53, -1.41, 180),
             new OurPoint(0.92, -1.1, 180),
             new OurPoint(1, 0.8, 270),
-            new OurPoint(1.35, 1.25, 270),
-            new OurPoint(0.8, 1.25, 270)};
+            new OurPoint(1.25, 1.25, 270),
+            new OurPoint(0.75, 1.25, 270)};
     private static double toleranceCenterFoundation = 85;
     private static double KcCenterFoundation = 1.5;
     private static double MaxVelocityCenterFoundation = 1.5;
@@ -162,7 +160,7 @@ public class Paths_Library_Red_3Cubes {
             new OurPoint(0.35, -0.9, 140),
             new OurPoint(1, -0.75, 180),
             new OurPoint(1, 0.3, 180),
-            new OurPoint(1.2, 1.05, 180)};
+            new OurPoint(1, 1.05, 180)};
     private static double toleranceCenterFoundation3 = 100;
     private static double KcCenterFoundation3 = 2.5;
     private static double MaxVelocityCenterFoundation3 = 1.5;
@@ -173,9 +171,9 @@ public class Paths_Library_Red_3Cubes {
 
     //    TODO Right Points
     private static OurPoint[] Right1Points = {
-            new OurPoint(1.566, -0.8325, 140),
-            new OurPoint(0.76, -0.97, 140),
-            new OurPoint(0.53, -1.21, 180)};
+            new OurPoint(1.566, -0.8325, 150),
+            new OurPoint(0.76, -0.97, 150),
+            new OurPoint(0.53, -1.3, 180)};
     private static double toleranceRight1 = 75;
     private static double KcRight1 = 1.5;
     private static double MaxVelocityRight1 = 0.6;
@@ -184,11 +182,11 @@ public class Paths_Library_Red_3Cubes {
     private static Path Right1 = new Path(Right1Points, toleranceRight1, KcRight1, MaxVelocityRight1, turnSpeedRight1, frontRight1);
 
     private static OurPoint[] RightFoundationPoints = {
-            new OurPoint(0.53, -1.21, 180),
+            new OurPoint(0.53, -1.3, 180),
             new OurPoint(0.92, -0.9, 180),
             new OurPoint(1, 0.8, 270),
-            new OurPoint(1.35, 1.25, 270),
-            new OurPoint(0.8, 1.25, 270)};
+            new OurPoint(1.15, 1.25, 270),
+            new OurPoint(0.65, 1.25, 270)};
     private static double toleranceRightFoundation = 85;
     private static double KcRightFoundation = 1.5;
     private static double MaxVelocityRightFoundation = 1.5;
@@ -199,19 +197,19 @@ public class Paths_Library_Red_3Cubes {
     private static OurPoint[] Right2Points = {
             new OurPoint(1.5666, 1.25, 185),
             new OurPoint(1.05, 0.6, 185),
-            new OurPoint(1, 0, 150),
-            new OurPoint(0.9, -0.55 ,150),
-            new OurPoint(0.45, -0.75, 150)};
+            new OurPoint(1, -0.26, 150),
+            new OurPoint(1, -0.55 ,150),
+            new OurPoint(0.55, -1.1, 150)};
     private static double toleranceRight2 = 120;
     private static double KcRight2 = 10;
     private static double MaxVelocityRight2 = 1;
-    private static double turnSpeedRight2 = 1;
+    private static double turnSpeedRight2 = 0.8;
     private static boolean frontRight2 = true;
     private static Path Right2 = new Path(Right2Points, toleranceRight2, KcRight2, MaxVelocityRight2, turnSpeedRight2, frontRight2);
 
     private static OurPoint[] RightFoundation2Points = {
-            new OurPoint(0.45, -0.7, 180),
-            new OurPoint(1, -0.6, 180),
+            new OurPoint(0.55, -1.1, 180),
+            new OurPoint(1.05, -0.85, 180),
             new OurPoint(1.05, 0.5, 180),
             new OurPoint(1.05, 1.07, 180)};
     private static double toleranceRightFoundation2 = 85;
@@ -224,10 +222,10 @@ public class Paths_Library_Red_3Cubes {
 
     private static OurPoint[] Right3Points = {
             new OurPoint(1.05, 1.07, 180),
-            new OurPoint(1, 0.6, 180),
-            new OurPoint(1, -0.2, 155),
+            new OurPoint(1.05, 0.6, 180),
+            new OurPoint(1.05, -0.2, 155),
             new OurPoint(0.92, -0.6, 155),
-            new OurPoint(0.45, -1, 155)};
+            new OurPoint(0.5, -1, 155)};
     private static double toleranceRight3 = 95;
     private static double KcRight3 = 2.5;
     private static double MaxVelocityRight3 = 1.5;
@@ -236,10 +234,10 @@ public class Paths_Library_Red_3Cubes {
     private static Path Right3 = new Path(Right3Points, toleranceRight3, KcRight3, MaxVelocityRight3, turnSpeedRight3, frontRight3);
 
     private static OurPoint[] RightFoundation3Points = {
-            new OurPoint(0.45, -1, 155),
-            new OurPoint(1, -0.75, 180),
-            new OurPoint(1, 0.3, 180),
-            new OurPoint(1.2, 1.05, 180)};
+            new OurPoint(0.5, -1, 155),
+            new OurPoint(1.05, -0.85, 180),
+            new OurPoint(1.05, 0.3, 180),
+            new OurPoint(1.05, 1.05, 180)};
     private static double toleranceRightFoundation3 = 100;
     private static double KcRightFoundation3 = 2.5;
     private static double MaxVelocityRightFoundation3 = 1.5;
@@ -250,8 +248,8 @@ public class Paths_Library_Red_3Cubes {
     //    TODO Parking Points
     private static OurPoint[] ParkingPoints = {
             new OurPoint(1, 1, 180),
-            new OurPoint(0.9, 0.5, 150),
-            new OurPoint(0.8, 0, 150)};
+            new OurPoint(0.9, 0.5, 180),
+            new OurPoint(0.9, 0, 180)};
     private static double toleranceParking = 50;
     private static double KcParking = 4.5;
     private static double MaxVelocityParking = 1.5;

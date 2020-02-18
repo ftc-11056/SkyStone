@@ -11,8 +11,8 @@ import org.firstinspires.ftc.teamcode.RobotCustomade;
 import org.firstinspires.ftc.teamcode.basicAutoCustumade;
 
 
-@Autonomous(name = "Autonom_Blue_3Cubes", group = "teamcode")
-public class Autonom_Blue_3Cubes extends basicAutoCustumade {
+@Autonomous(name = "Autonom_Blue_3Cubes_Backup", group = "teamcode")
+public class Autonom_Blue_3Cubes_Backup extends basicAutoCustumade {
 
     public PurePursuitGUI MyPurePursuitGUI;
     private OurPoint StartPosition = new OurPoint(-1.566, -0.8325, 270);
@@ -25,7 +25,7 @@ public class Autonom_Blue_3Cubes extends basicAutoCustumade {
     private double factor = 1;
     private double Cpower = 1;
     private boolean IMUTurn = false;
-    Path[] Paths = Paths_Library_Blue_3Cubes.CenterPaths;
+    Path[] Paths = Paths_Library_Blue_3Cubes_Backup.RightPaths;
     private boolean isCubeIn = false;
     private int PointFromEnd = 0;
     private double changeX = 0;
@@ -52,16 +52,16 @@ public class Autonom_Blue_3Cubes extends basicAutoCustumade {
             dashboard.sendTelemetryPacket(packet);
         }
 
-        if(Mikum <= 170){
-            Paths = Paths_Library_Blue_3Cubes.RightPaths;
+        if(Mikum <= 165){
+            Paths = Paths_Library_Blue_3Cubes_Backup.RightPaths;
             mikum = "Right";
         }
-        else if (Mikum >= 240){
-            Paths = Paths_Library_Blue_3Cubes.LeftPaths;
+        else if (Mikum >= 250){
+            Paths = Paths_Library_Blue_3Cubes_Backup.LeftPaths;
             mikum = "Left";
         }
         else {
-            Paths = Paths_Library_Blue_3Cubes.CenterPaths;
+            Paths = Paths_Library_Blue_3Cubes_Backup.CenterPaths;
             mikum = "Center";
         }
 
@@ -140,7 +140,7 @@ public class Autonom_Blue_3Cubes extends basicAutoCustumade {
         RightServo.setPosition(RightServoUp);
         sleep(400);
 
-        RotateP1(-90,0.7,10,0.1);
+        RotateP1(-90,0.8,10,0.1);
         MyOdometry.getPosition().setDegAngle(MyDriveTrain.getAngle() + 360);
 
         double strafeTime = runtime.seconds();

@@ -38,7 +38,7 @@ public class Autonom_Red_3Cubes extends basicAutoCustumade {
         blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
         Mikum = skystoneDetector.getScreenPosition().y;
 
-        int numOfCheck = 0;
+        int numOfCheck = 3;
         MyPurePursuitGUI = new PurePursuitGUI(Paths[numOfCheck].getWayPoints(), MyOdometry.getPosition(), Paths[numOfCheck].getTolerance(), Paths[numOfCheck].getKc(), Paths[numOfCheck].getMaxVelocity(), Paths[numOfCheck].getTurnSpeed(), Paths[numOfCheck].isFront());
         while (!isStarted()) {
             packet = new TelemetryPacket();
@@ -50,10 +50,10 @@ public class Autonom_Red_3Cubes extends basicAutoCustumade {
         }
 
 
-        if(Mikum <= 140){
+        if(Mikum <= 60){
             Paths = Paths_Library_Red_3Cubes.LeftPaths;
         }
-        else if (Mikum >= 270){
+        else if (Mikum >= 145){
             Paths = Paths_Library_Red_3Cubes.RightPaths;
         }
         else {
@@ -248,13 +248,15 @@ public class Autonom_Red_3Cubes extends basicAutoCustumade {
             }
             if(PointFromEnd <= 8 && runtime.seconds() > 28){
                 Output.setPosition(OutputOpen);
-                break;
+                isRun = false;
             }
         }
 
 
         Paths[7].getWayPoints()[0] = new OurPoint(MyOdometry.getPosition());
         Paths[7].getWayPoints()[0].setDegAngle(180);
+        Paths[7].getWayPoints()[1].setX(Paths[7].getWayPoints()[0].getX());
+
 
         Output.setPosition(OutputOpen);
         ParkingMot.setPosition(ParkingMotOut);
