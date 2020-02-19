@@ -374,10 +374,15 @@ public class CustuMadeTeleop extends RobotCustomade {
                 Arm.setPosition(ArmOpen);
                 CapstoneElevator = false;
             }
-            if (Capass && (-time + runtime.seconds() > 5) && stayingPosition >= -10) {
+            if (Capass && (-time + runtime.seconds() > 4.5) && stayingPosition >= -10) {
                 Capstone.setPosition(CapstoneUp);
                 CapstoneElevator = false;
                 Capass = false;
+            }
+
+            if (gamepad2.y || gamepad2.right_stick_y < -0.5 && gamepad2.left_stick_button){
+                Capass = false;
+                Capstone.setPosition(CapstoneUp);
             }
 //            TODO: normal moving
             if (gamepad2.left_bumper) {
@@ -428,7 +433,7 @@ public class CustuMadeTeleop extends RobotCustomade {
                 rightLinearMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 leftLinearMotor.setPower(stayPower);
                 rightLinearMotor.setPower(stayPower);
-                if (stayingPosition <= -1500) encodersStay = -1500;
+                if (stayingPosition <= -1550) encodersStay = -1550;
                 else if (stayingPosition >= 0) encodersStay = 0;
                 else encodersStay = stayingPosition;
 

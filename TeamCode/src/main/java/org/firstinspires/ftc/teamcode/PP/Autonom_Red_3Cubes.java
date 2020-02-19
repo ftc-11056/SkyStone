@@ -53,7 +53,7 @@ public class Autonom_Red_3Cubes extends basicAutoCustumade {
         if(Mikum <= 60){
             Paths = Paths_Library_Red_3Cubes.LeftPaths;
         }
-        else if (Mikum >= 145){
+        else if (Mikum >= 180){
             Paths = Paths_Library_Red_3Cubes.RightPaths;
         }
         else {
@@ -259,7 +259,7 @@ public class Autonom_Red_3Cubes extends basicAutoCustumade {
 
 
         Output.setPosition(OutputOpen);
-        ParkingMot.setPosition(ParkingMotOut);
+
         isRun = true;
         MyPurePursuitGUI = new PurePursuitGUI(Paths[7].getWayPoints(), MyOdometry.getPosition(), Paths[7].getTolerance(), Paths[7].getKc(), Paths[7].getMaxVelocity(), Paths[7].getTurnSpeed(), Paths[7].isFront());
         while (opModeIsActive() && isRun) {
