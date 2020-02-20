@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.PP;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
@@ -15,6 +16,7 @@ import org.firstinspires.ftc.teamcode.RobotCustomade;
 
 import java.util.ArrayList;
 
+@Disabled
 @TeleOp(name = "TeleOpTest", group = "teamcode")
 public class TeleOpTest extends RobotCustomade {
 

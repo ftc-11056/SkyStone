@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.doge_cv;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -16,6 +17,7 @@ import java.util.Locale;
  * Original Work Copright(c) 2019 OpenFTC Team
  * Derived Work Copyright(c) 2019 DogeDevs
  */
+@Disabled
 @TeleOp(name = "SkystoneDetectorExample", group = "dogecv")
 public class SkystoneDetectorExample extends LinearOpMode {
     private OpenCvCamera phoneCam;

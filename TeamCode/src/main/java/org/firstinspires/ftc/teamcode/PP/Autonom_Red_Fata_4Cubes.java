@@ -4,13 +4,14 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.RobotCustomade;
 import org.firstinspires.ftc.teamcode.basicAutoCustumade;
 
-
+@Disabled
 @Autonomous(name = "Autonom_Red_Fata_4Cubes", group = "teamcode")
 public class Autonom_Red_Fata_4Cubes extends basicAutoCustumade {
 
@@ -29,10 +30,12 @@ public class Autonom_Red_Fata_4Cubes extends basicAutoCustumade {
     private boolean isCubeIn = false;
     private int PointFromEnd = 0;
     private double changeX = 0;
+
+
     @Override
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
-        dashboard = FtcDashboard.getInstance();
+//        dashboard = FtcDashboard.getInstance();
         packet = new TelemetryPacket();
         BuildOdometry(StartPosition);
         blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
@@ -43,7 +46,7 @@ public class Autonom_Red_Fata_4Cubes extends basicAutoCustumade {
         while (!isStarted()) {
             packet = new TelemetryPacket();
             MyPurePursuitGUI.updateGraghic(packet);
-            dashboard.sendTelemetryPacket(packet);
+//            dashboard.sendTelemetryPacket(packet);
             Mikum = skystoneDetector.getScreenPosition().y;
             telemetry.addData("skystone", Mikum);
             telemetry.update();
@@ -241,7 +244,7 @@ public class Autonom_Red_Fata_4Cubes extends basicAutoCustumade {
             packet = new TelemetryPacket();
             MyPurePursuitGUI.updateGraghic(packet);
             packet.put("isRun", isRun.toString());
-            dashboard.sendTelemetryPacket(packet);
+//            dashboard.sendTelemetryPacket(packet);
         }
 
     }
@@ -273,7 +276,7 @@ public class Autonom_Red_Fata_4Cubes extends basicAutoCustumade {
         if (MyPurePursuitGUI.stop) {
             MyDriveTrain.stop();
             packet.addLine("the end");
-            dashboard.sendTelemetryPacket(packet);
+//            dashboard.sendTelemetryPacket(packet);
             return false;
         }
         else {
@@ -281,7 +284,7 @@ public class Autonom_Red_Fata_4Cubes extends basicAutoCustumade {
         }
         MyPurePursuitGUI.updateGraghic(packet);
         LocalUpdateGraphic();
-        dashboard.sendTelemetryPacket(packet);
+//        dashboard.sendTelemetryPacket(packet);
         return true;
     }
 

@@ -32,7 +32,7 @@ public class Autonom_Red_3Cubes_Backup extends basicAutoCustumade {
     @Override
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
-        dashboard = FtcDashboard.getInstance();
+//        dashboard = FtcDashboard.getInstance();
         packet = new TelemetryPacket();
         BuildOdometry(StartPosition);
         blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
@@ -43,7 +43,7 @@ public class Autonom_Red_3Cubes_Backup extends basicAutoCustumade {
         while (!isStarted()) {
             packet = new TelemetryPacket();
             MyPurePursuitGUI.updateGraghic(packet);
-            dashboard.sendTelemetryPacket(packet);
+//            dashboard.sendTelemetryPacket(packet);
             Mikum = skystoneDetector.getScreenPosition().y;
             telemetry.addData("skystone", Mikum);
             telemetry.update();
@@ -273,7 +273,7 @@ public class Autonom_Red_3Cubes_Backup extends basicAutoCustumade {
             packet = new TelemetryPacket();
             MyPurePursuitGUI.updateGraghic(packet);
             packet.put("isRun", isRun.toString());
-            dashboard.sendTelemetryPacket(packet);
+//            dashboard.sendTelemetryPacket(packet);
         }
 
     }
@@ -305,7 +305,7 @@ public class Autonom_Red_3Cubes_Backup extends basicAutoCustumade {
         if (MyPurePursuitGUI.stop) {
             MyDriveTrain.stop();
             packet.addLine("the end");
-            dashboard.sendTelemetryPacket(packet);
+//            dashboard.sendTelemetryPacket(packet);
             return false;
         }
         else {
@@ -313,7 +313,7 @@ public class Autonom_Red_3Cubes_Backup extends basicAutoCustumade {
         }
         MyPurePursuitGUI.updateGraghic(packet);
         LocalUpdateGraphic();
-        dashboard.sendTelemetryPacket(packet);
+//        dashboard.sendTelemetryPacket(packet);
         return true;
     }
 

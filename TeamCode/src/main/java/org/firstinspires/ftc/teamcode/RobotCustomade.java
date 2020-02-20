@@ -32,7 +32,7 @@ public class RobotCustomade extends LinearOpMode {
 
     protected ElapsedTime runtime = new ElapsedTime();
 
-    public FtcDashboard dashboard;
+//    public FtcDashboard dashboard;
     public TelemetryPacket packet = null;
 
     //Drive Train Motor

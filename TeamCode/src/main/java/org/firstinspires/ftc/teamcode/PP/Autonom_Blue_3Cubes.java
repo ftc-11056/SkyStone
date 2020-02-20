@@ -34,7 +34,7 @@ public class Autonom_Blue_3Cubes extends basicAutoCustumade {
     @Override
     public void runOpMode() throws InterruptedException {
         super.runOpMode();
-        dashboard = FtcDashboard.getInstance();
+//        dashboard = FtcDashboard.getInstance();
         packet = new TelemetryPacket();
         BuildOdometry(StartPosition);
         blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
@@ -49,14 +49,14 @@ public class Autonom_Blue_3Cubes extends basicAutoCustumade {
             packet = new TelemetryPacket();
             packet.put("skyStone", Mikum);
             MyPurePursuitGUI.updateGraghic(packet);
-            dashboard.sendTelemetryPacket(packet);
+//            dashboard.sendTelemetryPacket(packet);
         }
 
-        if(Mikum <= 170){
+        if(Mikum <= 140){
             Paths = Paths_Library_Blue_3Cubes.RightPaths;
             mikum = "Right";
         }
-        else if (Mikum >= 240){
+        else if (Mikum >= 225){
             Paths = Paths_Library_Blue_3Cubes.LeftPaths;
             mikum = "Left";
         }
@@ -279,7 +279,7 @@ public class Autonom_Blue_3Cubes extends basicAutoCustumade {
             packet = new TelemetryPacket();
             MyPurePursuitGUI.updateGraghic(packet);
             packet.put("isRun", isRun.toString());
-            dashboard.sendTelemetryPacket(packet);
+//            dashboard.sendTelemetryPacket(packet);
         }
 
     }
@@ -312,7 +312,7 @@ public class Autonom_Blue_3Cubes extends basicAutoCustumade {
         if (MyPurePursuitGUI.stop) {
             MyDriveTrain.stop();
             packet.addLine("the end");
-            dashboard.sendTelemetryPacket(packet);
+//            dashboard.sendTelemetryPacket(packet);
             return false;
         }
         else {
@@ -320,7 +320,7 @@ public class Autonom_Blue_3Cubes extends basicAutoCustumade {
         }
         MyPurePursuitGUI.updateGraghic(packet);
         LocalUpdateGraphic();
-        dashboard.sendTelemetryPacket(packet);
+//        dashboard.sendTelemetryPacket(packet);
         return true;
     }
 

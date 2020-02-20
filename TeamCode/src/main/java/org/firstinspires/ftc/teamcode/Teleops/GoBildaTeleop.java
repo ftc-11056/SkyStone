@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Teleops;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -22,7 +23,7 @@ import org.firstinspires.ftc.teamcode.Systems.CustomadeIntake;
 import org.firstinspires.ftc.teamcode.Systems.DriveTrain;
 import org.firstinspires.ftc.teamcode.Systems.IntakeTrain;
 import org.firstinspires.ftc.teamcode.Systems.elevator;
-
+@Disabled
 @TeleOp(name = "GoBildaTeleop", group = "teleops")
 public class GoBildaTeleop extends LinearOpMode {
 
