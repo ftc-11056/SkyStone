@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.RobotCustomade;
 
 import java.util.ArrayList;
 
-@Disabled
+
 @TeleOp(name = "TeleOpTest", group = "teamcode")
 public class TeleOpTest extends RobotCustomade {
 
