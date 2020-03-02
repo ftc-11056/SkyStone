@@ -27,7 +27,7 @@ public class TeleOpTest extends RobotCustomade {
         double odometryRight = 0;
         double odometryLeft = 0;
         double odometryHorizental = 0;
-        BuildOdometry(new OurPoint(1.566, -0.875, 90));
+        BuildOdometry(new OurPoint(1.566, -0.875, 180));
         FtcDashboard dashboard = FtcDashboard.getInstance();
         TelemetryPacket packet = new TelemetryPacket();
         waitForStart();
